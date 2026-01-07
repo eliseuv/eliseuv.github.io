@@ -1,0 +1,17 @@
+# Direnv
+.envrc
+.direnv/
+
+# Nix
+result
+result-*
+
+# Zola
+public/
+
+# Rust & WebAssembly
+**/target/
+**/*.rs.bk
+
+# Ignore the compiled WASM/JS glue code 
+static/wasm/

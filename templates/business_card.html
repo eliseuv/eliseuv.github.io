@@ -1,0 +1,57 @@
+<header class="resume-container">
+
+
+    <h1>{{ resume.personal.name }}</h1>
+
+    <h3 class="subtitle">
+        {{ resume.personal.subtitle | join(sep=" | ") }}
+    </h3>
+
+    <div class="contact-info">
+        <span>
+            <a href="mailto:{{ resume.personal.email }}">
+                <span class="icon-link" style="margin-right: 0.3rem;">{% include "icons/mail.html" %}</span>
+                {{ resume.personal.email }}
+            </a>
+        </span>
+        {% if resume.personal.github %}
+        <span>
+            <a href="https://github.com/{{ resume.personal.github }}">
+                <span class="icon-link" style="margin-right: 0.3rem;">{% include "icons/github.html" %}</span>
+                GitHub
+            </a>
+        </span>
+        {% endif %}
+        {% if resume.personal.linkedin %}
+        <span>
+            <a href="https://linkedin.com/in/{{ resume.personal.linkedin }}">
+                <span class="icon-link" style="margin-right: 0.3rem;">{% include "icons/linkedin.html" %}</span>
+                LinkedIn
+            </a>
+        </span>
+        {% endif %}
+        {% if resume.personal.orcid %}
+        <span>
+            <a href="https://orcid.org/{{ resume.personal.orcid }}">
+                <span class="icon-link" style="margin-right: 0.3rem;">{% include "icons/orcid.html" %}</span>
+                ORCID
+            </a>
+        </span>
+        {% endif %}
+        {% if resume.personal.researchgate %}
+        <span>
+            <a href="https://www.researchgate.net/profile/{{ resume.personal.researchgate }}">
+                <span class="icon-link" style="margin-right: 0.3rem;">{% include "icons/researchgate.html" %}</span>
+                ResearchGate
+            </a>
+        </span>
+        {% endif %}
+    </div>
+
+    <div class="resume-actions">
+        <a href="/resume/resume.pdf" target="_blank" class="btn-download">
+            <span class="icon-link" style="margin-right: 0.5rem;">{% include "icons/download.html" %}</span>
+            resume.pdf
+        </a>
+    </div>
+</header>

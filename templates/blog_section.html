@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header class="terminal-header">
+    <h1>
+        < \dev\random</h1>
+            <p class="blinking-cursor">_System logs and technical notes</p>
+</header>
+
+<div class="blog-list">
+    <div class="status-bar">
+        <span>SORT: DESC</span>
+        <span>TOTAL: {{ section.pages | length }} FILES</span>
+    </div>
+
+    {% for page in section.pages %}
+    <article class="log-entry">
+        <div class="log-meta">
+            <span class="log-date">[{{ page.date | date(format="%Y-%m-%d") }}]</span>
+            <span class="log-id">ID: {{ page.slug | truncate(length=8, end="") | upper }}</span>
+        </div>
+
+        <a href="{{ page.permalink }}" class="log-title">
+            {{ page.title }}
+        </a>
+
+        <div class="log-tags">
+            {% if page.taxonomies.tags %}
+            {% for tag in page.taxonomies.tags %}
+            <span class="tag">#{{ tag }}</span>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </article>
+    {% endfor %}
+</div>
+{% endblock content %}
