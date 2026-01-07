@@ -1,0 +1,171 @@
+personal:
+
+  name: Eliseu Venites Filho
+  email: eliseuv@pm.me
+  linkedin: eliseuv
+  github: eliseuv
+  orcid: 0000-0003-1886-9081
+  researchgate: Eliseu-Venites-Filho-3
+
+education:
+
+  - name: Universidade Federal do Rio Grande do Sul
+    degree: Ph.D. in Phyisics (Computational Statistical Physics)
+    location: Porto Alegre - Brazil
+    date: Jul. 2021 - Present
+    points:
+      - Analysis of the ensemble correlations of observables of complex systems in order to predict their critical behavior
+      - Systems from different Universality Classes considered
+      - Both systems with and without a defined Hamiltonian considered
+      - The simulations were implemented in Rust while the data analysis was done in the Julia ecosystem
+
+  - name: Universidade Federal do Rio Grande do Sul
+    degree: M.Sc. in Physics (Computational Statistical Physics)
+    location: Porto Alegre - Brazil
+    date: Mar. 2019 - May 2021
+    points:
+      - Scored higher than 99.42% of candidates on the EUF 2-2018 (National graduate programs entrance exam)
+      - Performance evaluation of the Simulated Annealing applied to different configurations of the Traveling Salesman Problem
+      - Analysis of the stochastic optimization algorithm applied to problems at the boundary between P and NP complexity classes
+      - The optimization algorithm was implemented in C++ while the data analysis was done in the Python ecosystem
+
+  - name: Institut d'Optique Graduate School
+    degree: M.Sc. in Optical Engineering
+    location: Palaiseau - France
+    date: Sep. 2015 - Sep. 2017
+    points:
+      - Double degree in the context of BRAFITEC program
+      - "Courses included: Optical Instrumentation, Automation, Lasers and Quantum Optics"
+
+  - name: Université ParisSud
+    degree: L3 and M1 in Fundamental Physics
+    location: Orsay - France
+    date: Sep. 2015 - Sep. 2017
+    points:
+      - Double degree magistère offered to engineering students
+      - "Courses included: Analyitical Mechanics, Statistical Physics, Plasma Physics and Atomic and Molecular Physics"
+
+  - name: Universidade Federal do Rio Grande do Sul
+    degree: B.Sc. in Engineering Physics
+    location: Porto Alegre - Brazil
+    date: Mar. 2013 - Dec. 2018
+    points:
+      - Scientific Initiation (CAPES) on Quantum Information in 2013 and 2014
+      - "Presentation at the UFRGS XXVI Scientific Initiation Meeting (2014): Shor's Algorithm for Integer Factorization"
+      - Summa Cum Laude with final grade 9.54/10.0
+
+experience:
+
+  - role: Optical Engineering Internship
+    name: Télécom ParisTech
+    location: Paris, France
+    date: Jun. 2017 - Sep. 2017
+    points:
+      - As part of the "Information Quantique et Applications" research group
+      - Worked with polarization-entangled photon pairs source
+      - Stabilization and count optimization of the entangled photon pair source to be used in experiments testing Quantum Key Distribution protocols
+
+publications:
+
+  - doi: 10.3390/sym17050774
+    year: 2025
+    title: "Revisiting the Contact Model with Diffusion Beyond the Conventional Methods"
+    journal: Symmetry
+    authors: R. da Silva, E. Venites Filho, H, A. Fernandes, P. F. Gomes
+
+  - doi: 10.1142/s0129183124501638
+    year: 2025
+    title: "Efficient computational method using random matrices describing critical thermodynamics"
+    journal: International Journal of Modern Physics C
+    authors: R. da Silva, E. Venites Filho, S. D. Prado, J. R. D. de Felício
+
+  - doi: 10.3390/e26050395
+    year: 2024
+    title: "A Spectral Investigation of Criticality and Crossover Effects in Two and Three Dimensions: Short Timescales with Small Systems in Minute Random Matrices"
+    journal: Entropy
+    authors: E. Venites Filho, R. da Silva, J. R. Drugowich de Felício
+
+  - doi: 10.1007/s13538-023-01295-9
+    year: 2023
+    title: Mean-Field Criticality Explained by Random Matrices Theory
+    journal: Brazilian Journal of Physics
+    authors: R. da Silva, H. C. M. Fernandes, E. Venites Filho, S. D. Prado, J. R. Drugowich de Felicio
+
+  - doi: 10.1016/j.physa.2021.126067
+    year: 2021
+    title: A Thorough Study of the Performance of Simulated Annealing in the Traveling Salesman Problem under Correlated and Long Tailed Spatial Scenarios
+    journal: "Physica A: Statistical Mechanics and its Applications"
+    authors: R. da Silva, E. Venites Filho, A. Alves
+
+projects:
+
+  - name: tsp-sa
+    repo: eliseuv/tsp-sa
+    skills: C++, Python
+    points:
+      - Developed in the context of the M.Sc. research
+      - Modular C++ library to perform optimization through Simulated Annealing
+      - Supports Generalized Simulated Annealing and Tsallis Entropy statistics
+      - Optimization logic works for arbitrary Markov chains, completely decoupled from the TSP implementation
+      - Data analysis and plotting done in Python
+
+  - name: artificial-systems
+    repo: eliseuv/artificial-systems
+    skills: Rust (ndarray, serde)
+    points:
+      - Developed in the context of the Ph.D. research
+      - Computational models of artificial systems implemented in Rust
+      - Simulation of Spin Systems (Ising and Blume-Capel models)
+      - Investigation of the Contact Process with diffusion
+
+  - name: ts-cov-matrix
+    repo: eliseuv/ts-cov-matrix
+    skills: Julia (DataFrames.jl, Makie.jl)
+    points:
+      - Developed in the context of the Ph.D. research
+      - Analysis of time series covariance matrices using Random Matrix Theory
+      - Study of spectral properties and comparison with Marchenko-Pastur distribution
+      - Analyzed data from NOAA temperature records, Spin Systems, and Contact Processes
+      - Full data analysis pipeline implemented in the Julia ecosystem
+
+  - name: json-parser
+    repo: eliseuv/json-parser
+    skills: Haskell
+    points:
+      - Strict JSON parser implemented in Haskell using Megaparsec
+      - Adheres closely to JSON standards
+      - Can be used as a library or a standalone command-line tool
+
+  - name: sternhalma-server
+    repo: eliseuv/sternhalma-server
+    skills: Rust (tokio)
+    points:
+      - Asynchronous game server for Sternhalma (Chinese Checkers) built with Rust and Tokio
+      - Actor-like architecture with decoupled game logic and connection handling
+      - Client-agnostic design supporting CLI, GUI, and AI agents
+      - Supports both Raw TCP and WebSocket connections using a CBOR-based protocol
+
+  - name: sternhalma-agent (WIP)
+    repo: eliseuv/sternhalma-agent
+    skills: Python (PyTorch)
+    points:
+      - Reinforcement learning agent implementing AlphaZero from scratch
+      - Uses Monte Carlo Tree Search (MCTS) for planning and Deep Neural Networks (ResNet) for evaluation
+      - Designed to master Sternhalma through self-play without human knowledge
+
+skills:
+
+  - category: Languages
+    skills: Portuguese (native), English (fluent), French (advanced)
+
+  - category: Programming
+    skills: C, C++, Rust, Python, Julia, Haskell
+
+  - category: Libraries
+    skills: tokio, ndarray, serde, faer-rs, Pandas, NumPy, SciPy, scikit-learn, matplotlib, PyTorch, TensorFlow, DataFrames.jl, Plots.jl, Makie.jl
+
+  - category: Tools
+    skills: Linux, Git, Docker, SQL
+
+  - category: Typesetting
+    skills: LaTeX, Typst

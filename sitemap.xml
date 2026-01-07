@@ -4,10 +4,16 @@
         <loc>https://eliseuv.github.io/</loc>
     </url>
     <url>
+        <loc>https://eliseuv.github.io/blog/</loc>
+    </url>
+    <url>
         <loc>https://eliseuv.github.io/projects/</loc>
     </url>
     <url>
         <loc>https://eliseuv.github.io/projects/simulation/</loc>
         <lastmod>2026-01-06</lastmod>
+    </url>
+    <url>
+        <loc>https://eliseuv.github.io/resume/</loc>
     </url>
 </urlset>
