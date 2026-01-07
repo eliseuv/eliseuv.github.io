@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{{ config.title }}{% endblock title %}</title>
+
+    <link rel="stylesheet" href="{{ get_url(path='style.css') }}">
+
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <a href="/">[Home]</a>
+
+            <a href="/simulations">[Simulations]</a>
+            <a href="/blog">[Blog]</a>
+        </nav>
+        <hr style="border-color: #333;">
+    </header>
+
+    <main>
+
+        {% block content %}{% endblock content %}
+
+    </main>
+
+</body>
+
+</html>

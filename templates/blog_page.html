@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<article class="post-container">
+    <header class="post-header">
+        <div class="breadcrumbs">
+            <a href="/blog">../</a>
+            <span>{{ page.slug }}</span>
+        </div>
+
+        <h1 class="glitch-text">{{ page.title }}</h1>
+
+        <div class="post-meta">
+            <span>// AUTHOR: {{ config.extra.author | default(value="SYSADMIN") }}</span>
+            <span>// READ_TIME: {{ page.reading_time }} MIN</span>
+            <span>// DATE: {{ page.date | date(format="%Y-%m-%d") }}</span>
+        </div>
+    </header>
+
+    <hr class="neon-divider">
+
+    <div class="post-content">
+        {{ page.content | safe }}
+    </div>
+
+    <footer class="post-footer">
+        <p>END_OF_FILE</p>
+
+        <nav class="post-nav">
+            {% if page.lower %}
+            <a href="{{ page.lower.permalink }}">
+                << PREV_LOG</a>
+                    {% else %}
+                    <span></span>
+                    {% endif %}
+
+                    {% if page.higher %}
+                    <a href="{{ page.higher.permalink }}">NEXT_LOG >></a>
+                    {% endif %}
+        </nav>
+    </footer>
+</article>
+{% endblock content %}

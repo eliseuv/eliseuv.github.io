@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% set resume = load_data(path="content/resume/content.yml") %}
+{% include "business_card.html" %}
+
+
+
+<div class="resume-container">
+
+    <section>
+        <h2>:: SKILLS</h2>
+        <div class="skills-section">
+            {% for category in resume.skills %}
+            <div class="skill-row">
+                <span class="skill-category">{{
+                    category.category }}:</span>
+                <span class="skill-list">{{ category.skills }}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section>
+        <h2>:: PROJECTS</h2>
+
+        {% for proj in resume.projects %}
+        <details class="entry">
+            <summary>
+                <div class="entry-header">
+                    <h3>
+                        <a href="https://github.com/{{ proj.repo }}" target="_blank" class="no-underline">
+                            <span class="icon-link" style="margin-right: 0.5rem;">
+                                {% include "icons/github.html" %}
+                            </span>
+                        </a>
+                        {{ proj.name }}
+                        <span class="project-stack">
+                            {{ proj.skills }}
+                        </span>
+                    </h3>
+                </div>
+            </summary>
+
+            <ul>
+                {% for item in proj.points %}
+                <li>{{ item }}</li>
+                {% endfor %}
+            </ul>
+        </details>
+        {% endfor %}
+    </section>
+
+    <section>
+        <h2>:: EDUCATION</h2>
+
+        {% for edu in resume.education %}
+        <details class="entry">
+            <summary>
+                <div class="entry-header">
+                    <h3>{{ edu.degree }}</h3>
+                    <span class="entry-date">[{{ edu.date }}]</span>
+                </div>
+                <div class="entry-subheader">@ {{ edu.name }} ({{ edu.location }})</div>
+            </summary>
+
+            <ul>
+                {% for item in edu.points %}
+                <li>{{ item }}</li>
+                {% endfor %}
+            </ul>
+        </details>
+        {% endfor %}
+    </section>
+
+    <section>
+        <h2>:: EXPERIENCE</h2>
+
+        {% for exp in resume.experience %}
+        <details class="entry">
+            <summary>
+                <div class="entry-header">
+                    <h3>{{ exp.role }}</h3>
+                    <span class="entry-date">[{{ exp.date }}]</span>
+                </div>
+                <div class="entry-subheader">@ {{ exp.name }} ({{ exp.location }})</div>
+            </summary>
+
+            <ul>
+                {% for item in exp.points %}
+                <li>{{ item }}</li>
+                {% endfor %}
+            </ul>
+        </details>
+        {% endfor %}
+    </section>
+
+    <section>
+        <h2>:: PUBLICATIONS</h2>
+
+        {% for pub in resume.publications %}
+        <div class="publication">
+            <div class="entry-header">
+                <h3>
+                    <a href="https://doi.org/{{ pub.doi }}" target="_blank">
+                        <span class="icon-link" style="margin-right: 0.5rem;">
+                            {% include "icons/book.html" %}
+                        </span>
+                        {{ pub.title }}
+                    </a>
+                </h3>
+                <span class="entry-date">[{{ pub.year }}]</span>
+            </div>
+            <div class="authors">{{ pub.authors }}</div>
+            <div class="journal">
+                {{ pub.journal }}
+            </div>
+        </div>
+        {% endfor %}
+    </section>
+</div>
+{% endblock content %}

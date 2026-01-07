@@ -1,0 +1,23 @@
+[package]
+name = "spinning_cube"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+bevy = { version = "0.17", default-features = false, features = [
+    "bevy_asset",
+    "bevy_winit",  # Needed for window creation
+    "bevy_core_pipeline",
+    "bevy_sprite", # 2D rendering
+    "bevy_gizmos", # Wireframe lines
+    "bevy_render",
+    "x11",         # For native Linux dev
+    "webgl2",      # Fallback for older browsers
+    "webgpu",      # Modern standard
+] }
+console_error_panic_hook = "0.1.7"
+rand = "0.9.2"
+wasm-bindgen = "0.2"

@@ -1,0 +1,11 @@
+base_url = "https://eliseuv.github.io/"
+compile_sass = true
+build_search_index = true
+
+[markdown]
+highlight_code = true
+extra_syntaxes_and_themes = ["highlight_themes"]
+highlight_theme = "kronuz"
+
+[extra]
+# Put all your custom variables here

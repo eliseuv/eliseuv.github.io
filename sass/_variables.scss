@@ -1,0 +1,26 @@
+// --- The Original Tech Noir Palette ---
+$bg-color: #000000; // Pure black
+$bg-code: #111; // Slightly lighter for code blocks
+$text-main: #aaaaaa; // Off-white
+$text-dim: #888; // Dimmed text for dates/metadata
+$accent: #ff0055; // The Neon Red/Pink
+$border: #333; // Subtle borders
+
+// --- Typography ---
+// Replace with your preferred fonts
+$font-mono: "Fira Code", "Courier New", monospace;
+$font-body: monospace; // Keeps that raw terminal feel you had originally
+
+// --- Accents ---
+$tokyo-cyan: #7dcfff; // Cyan (Functions/Links)
+$tokyo-blue: #7aa2f7; // Blue (Variables)
+$tokyo-purple: #bb9af7; // Purple (Keywords)
+$tokyo-pink: #f7768e; // Pink/Red (Errors/Deletions)
+$tokyo-green: #9ece6a; // Green (Strings)
+$tokyo-yellow: #e0af68; // Yellow (Warnings)
+
+// --- Cyberpunk Tweaks ---
+$neon-glow: 0 0 10px rgba($tokyo-cyan, 0.5), 0 0 20px rgba($tokyo-cyan, 0.3);
+$pink-glow: 0 0 10px rgba($tokyo-pink, 0.5), 0 0 20px rgba($tokyo-pink, 0.3);
+$font-mono: "JetBrains Mono", "Fira Code", monospace;
+$font-ui: "Inter", sans-serif;

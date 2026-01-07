@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header style="margin-bottom: 2rem;">
+    <h1>{{ section.title }}</h1>
+    <div>{{ section.content | safe }}</div>
+</header>
+
+<section>
+    <ul style="list-style: none; padding: 0;">
+        {% for page in section.pages %}
+        <li style="margin-bottom: 1.5rem; border-left: 2px solid #333; padding-left: 1rem;">
+            <div style="font-size: 0.85rem; color: #888; margin-bottom: 0.2rem;">
+                {{ page.date | date(format="%Y-%m-%d") }}
+            </div>
+            <a href="{{ page.permalink }}" style="font-size: 1.2rem; font-weight: bold; display: block;">
+                {{ page.title }}
+            </a>
+            <p style="margin-top: 0.5rem; color: #ccc;">
+                {% if page.summary %}
+                {{ page.summary | safe }}
+                {% else %}
+                {{ page.content | striptags | truncate(length=200) }}
+                {% endif %}
+            </p>
+            <a href="{{ page.permalink }}" style="font-size: 0.9rem;">[Read Protocol]</a>
+        </li>
+        {% endfor %}
+    </ul>
+</section>
+{% endblock content %}

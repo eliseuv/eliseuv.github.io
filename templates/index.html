@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% set resume = load_data(path="content/resume/content.yml") %}
+{% include "business_card.html" %}
+
+<div class="content">
+
+    {{ section.content }}
+
+    <h2>Latest Projects</h2>
+    <p>Coming soon...</p>
+
+</div>
+
+{% endblock content %}
