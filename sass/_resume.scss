@@ -49,11 +49,10 @@ header.resume-container,
 }
 
 .resume-container {
-
     section {
         h2 {
-            color: #fff;
-            background: #222;
+            color: $text-white;
+            background: $bg-header;
             padding: 0.5rem;
         }
 
@@ -70,7 +69,6 @@ header.resume-container,
                     display: none;
                 }
             }
-
 
             .entry-header {
                 display: flex;
@@ -97,7 +95,8 @@ header.resume-container,
 
                 .entry-date {
                     font-family: monospace;
-                    color: #888;
+                    color: $text-dim;
+                    font-size: 0.9rem; // Fix for mobile sizing
                 }
             }
 
@@ -125,7 +124,7 @@ header.resume-container,
             ul {
                 list-style: square;
                 margin-left: 1.5rem;
-                color: #ccc;
+                color: $text-light;
             }
         }
 
@@ -146,7 +145,8 @@ header.resume-container,
 
                 .entry-date {
                     font-family: monospace;
-                    color: #888;
+                    color: $text-dim;
+                    font-size: 0.9rem;
                 }
             }
 
@@ -164,9 +164,7 @@ header.resume-container,
             }
         }
 
-        // Project specific tweaks if needed, but .entry covers most. 
-        // Just need .project-stack
-        // Just need .project-stack
+        // Project specific tweaks
         .project-stack {
             font-style: italic;
             color: $text-dim;
@@ -194,7 +192,7 @@ header.resume-container,
             }
 
             .skill-list {
-                color: #ccc;
+                color: $text-light;
             }
         }
     }
