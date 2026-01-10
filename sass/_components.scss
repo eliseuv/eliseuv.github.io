@@ -1,0 +1,81 @@
+// --- Mixins ---
+@mixin button-base {
+    background: transparent;
+    color: $accent;
+    border: 1px solid $accent;
+    font-family: $font-mono;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+
+    &:hover {
+        background: $accent;
+        color: #000;
+        box-shadow: 0 0 10px $accent;
+    }
+}
+
+// --- Links ---
+a {
+    color: $accent;
+    text-decoration: none;
+    transition: all 0.2s;
+
+    &:hover {
+        text-decoration: underline;
+        text-shadow: 0 0 2px $accent;
+
+        .icon-link {
+            transform: scale(1.1);
+            text-decoration: none;
+
+            .icon-github,
+            .icon-book,
+            .icon-mail,
+            .icon-linkedin,
+            .icon-orcid,
+            .icon-researchgate,
+            .icon-download {
+                filter: drop-shadow(0 0 4px $accent);
+            }
+        }
+    }
+}
+
+// Utility to remove underline
+a.no-underline {
+    text-decoration: none !important;
+
+    &:hover {
+        text-decoration: none !important;
+    }
+}
+
+// --- Buttons ---
+.btn-print {
+    @include button-base;
+}
+
+.btn-download {
+    @include button-base;
+}
+
+// --- Icons ---
+.icon-link {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 0;
+    transition: transform 0.2s; // Ensure smooth transition
+
+    .icon-github,
+    .icon-book,
+    .icon-mail,
+    .icon-linkedin,
+    .icon-orcid,
+    .icon-researchgate,
+    .icon-download {
+        display: block;
+        transition: all 0.2s;
+    }
+}
