@@ -1,0 +1,74 @@
+// --- Global Reset ---
+body {
+    background: $bg-color;
+    color: $text-main;
+    font-family: $font-body;
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    line-height: 1.5;
+}
+
+// --- Navigation ---
+header {
+    margin-bottom: 2rem;
+
+    nav {
+        a {
+            margin-right: 1rem;
+            font-weight: bold;
+            // Add brackets visually via CSS if you want, 
+            // or keep them in the HTML like your original: [Home]
+        }
+    }
+
+    hr {
+        border: 0;
+        border-bottom: 1px solid $border;
+        margin-top: 1rem;
+    }
+}
+
+// --- Typography ---
+h1,
+h2,
+h3 {
+    margin-top: 2rem;
+    color: $text-white; // Pure white headers
+}
+
+// --- Code Blocks ---
+pre {
+    background: $bg-code;
+    padding: 1rem;
+    border: 1px solid $border;
+    overflow-x: auto;
+
+    // This ensures your syntax theme background doesn't override your design
+    // if you are using a theme with a different background color.
+    background-color: $bg-code !important;
+}
+
+// --- List Items (Projects/Blog Index) ---
+ul {
+    list-style: none;
+    padding: 0;
+
+    li {
+        margin-bottom: 1rem;
+
+        span {
+            color: $text-dim;
+            margin-left: 0.5rem;
+        }
+    }
+}
+
+// --- Blockquotes ---
+blockquote {
+    border-left: 3px solid $accent;
+    margin-left: 0;
+    padding-left: 1rem;
+    color: $text-dim;
+    font-style: italic;
+}
