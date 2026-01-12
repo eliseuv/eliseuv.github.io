@@ -31,6 +31,10 @@
 
 <body>
 
+
+    <div id="transition-overlay" class="active">
+    </div>
+
     <header>
         <nav>
             <a href="/">[Resume]</a>
@@ -46,20 +50,19 @@
 <article class="post-container">
     <header class="post-header">
         <div class="breadcrumbs">
-            <a href="/blog">../</a>
-            <span>test-math</span>
+            <a href="/blog">..</a>/test-math
         </div>
 
         <h1 class="glitch-text">Math Test</h1>
 
         <div class="post-meta">
             <span>// AUTHOR: SYSADMIN</span>
-            <span>// READ_TIME: 1 MIN</span>
+            <span>// READING_TIME: 1 MIN</span>
             <span>// DATE: 2026-01-12</span>
         </div>
     </header>
 
-    <hr class="neon-divider">
+    <hr>
 
     <div class="post-content">
         <p>This is an inline equation: $\alpha = \beta$.</p>
@@ -71,7 +74,7 @@ $$</p>
     </div>
 
     <footer class="post-footer">
-        <p>END_OF_FILE</p>
+        <p>EOF</p>
 
         <nav class="post-nav">
             
@@ -86,6 +89,48 @@ $$</p>
 
     </main>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const overlay = document.getElementById('transition-overlay');
+
+            // Reveal page on load
+            setTimeout(() => {
+                overlay.classList.remove('active');
+                overlay.classList.add('hidden');
+                document.querySelector('main').classList.add('content-enter');
+            }, 50); // Start fade out almost immediately
+
+            // Handle internal links
+            document.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    const href = link.getAttribute('href');
+
+                    // Filter out external links, anchors, or new tabs
+                    if (!href || href.startsWith('#') || link.target === '_blank' || href.startsWith('http') && !href.includes(window.location.hostname)) {
+                        return;
+                    }
+
+                    e.preventDefault();
+                    overlay.classList.remove('hidden');
+                    overlay.classList.add('active');
+
+                    // Navigate immediately
+                    setTimeout(() => {
+                        window.location.href = href;
+                    }, 0);
+                });
+            });
+        });
+
+        // Ensure overlay is hidden when navigating back
+        window.addEventListener('pageshow', (event) => {
+            if (event.persisted) {
+                const overlay = document.getElementById('transition-overlay');
+                overlay.classList.remove('active');
+                overlay.classList.add('hidden');
+            }
+        });
+    </script>
 </body>
 
 </html>

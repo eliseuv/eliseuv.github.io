@@ -12,6 +12,10 @@
 
 <body>
 
+
+    <div id="transition-overlay" class="active">
+    </div>
+
     <header>
         <nav>
             <a href="/">[Resume]</a>
@@ -29,7 +33,7 @@
 
 <header class="resume-container">
 
-    <h1>Eliseu Venites Filho</h1>
+    <h1 class="glitch-text">Eliseu Venites Filho</h1>
 
     <h3 class="subtitle">
         Computational Statistical Physics | Data Science | Machine Learning | Systems Engineering
@@ -611,6 +615,48 @@
 
     </main>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const overlay = document.getElementById('transition-overlay');
+
+            // Reveal page on load
+            setTimeout(() => {
+                overlay.classList.remove('active');
+                overlay.classList.add('hidden');
+                document.querySelector('main').classList.add('content-enter');
+            }, 50); // Start fade out almost immediately
+
+            // Handle internal links
+            document.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    const href = link.getAttribute('href');
+
+                    // Filter out external links, anchors, or new tabs
+                    if (!href || href.startsWith('#') || link.target === '_blank' || href.startsWith('http') && !href.includes(window.location.hostname)) {
+                        return;
+                    }
+
+                    e.preventDefault();
+                    overlay.classList.remove('hidden');
+                    overlay.classList.add('active');
+
+                    // Navigate immediately
+                    setTimeout(() => {
+                        window.location.href = href;
+                    }, 0);
+                });
+            });
+        });
+
+        // Ensure overlay is hidden when navigating back
+        window.addEventListener('pageshow', (event) => {
+            if (event.persisted) {
+                const overlay = document.getElementById('transition-overlay');
+                overlay.classList.remove('active');
+                overlay.classList.add('hidden');
+            }
+        });
+    </script>
 </body>
 
 </html>
