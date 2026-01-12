@@ -6,9 +6,6 @@
 
 header.resume-container,
 .resume-container header {
-    border-bottom: 2px solid $accent;
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
 
     h1 {
         margin: 0;
@@ -79,7 +76,23 @@ header.resume-container,
                     margin: 0;
                     color: $accent;
 
-                    // Indicator icon
+                    // Ensure the title and icon sit nicely together
+                    display: inline-flex;
+                    align-items: center;
+                    /* 
+                       Note: inline-flex here might change layout slightly if h3 wasn't flex before.
+                       The previous h3 had text nodes and <a> and <span>.
+                       Let's stick to simple inline flow if possible, or verify.
+                       
+                       Actually, if I just remove ::before from here, h3 is just a block container (flex item of entry-header).
+                       Inside h3: <a>...</a> <span class.entry-title>...</span>.
+                       They are inline.
+                    */
+                }
+
+                .entry-title {
+
+                    // Indicator icon moved here
                     &::before {
                         content: "›";
                         display: inline-block;
@@ -101,18 +114,24 @@ header.resume-container,
             }
 
             // Hover effect
-            &:hover summary .entry-header h3::before {
-                text-shadow: 0 0 8px $accent, 0 0 15px $accent;
-                transform: scale(1.3);
+            &:hover summary .entry-header h3 {
+                .entry-title::before {
+                    text-shadow: 0 0 8px $accent, 0 0 15px $accent;
+                    transform: scale(1.3);
+                }
+
+                .entry-title {
+                    text-shadow: 0 0 8px $accent, 0 0 15px $accent;
+                }
             }
 
             // Rotate indicator when open
-            &[open] summary .entry-header h3::before {
+            &[open] summary .entry-header h3 .entry-title::before {
                 transform: rotate(90deg);
             }
 
             // Rotate and scale when open and hovered
-            &[open]:hover summary .entry-header h3::before {
+            &[open]:hover summary .entry-header h3 .entry-title::before {
                 transform: rotate(90deg) scale(1.3);
             }
 
