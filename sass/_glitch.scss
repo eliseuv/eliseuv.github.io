@@ -6,12 +6,12 @@
     display: inline-block; // Needed for transform
 
     // Automatic glitch effect
-    animation: glitch-anim 10s infinite;
+    animation: glitch-anim 5s infinite;
 
     &:hover {
         // Intensify on hover
-        text-shadow: 2px 0 $accent, -2px 0 blue;
-        animation-duration: 0.2s; // Speed up formatting
+        text-shadow: 2px 0 red, -2px 0 cyan;
+        animation-duration: 0.05s; // Speed up formatting
     }
 }
 
