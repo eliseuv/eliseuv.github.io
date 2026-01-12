@@ -1,10 +1,10 @@
 +++
-title = "Bevy Integration Test"
+title = "WebAssembly + WebGPU Integration Test"
 date = 2026-01-06
-template = "page.html"
+description = "Example WebAssembly + WebGPU simulation."
 +++
 
-Placeholder WebAssembly + WebGPU simulation.
+Example WebAssembly + WebGPU simulation.
 
 <div style="width: 100%; height: 400px; border: 1px solid #333; background: #000;">
     <canvas id="bevy-canvas" oncontextmenu="return false;"></canvas>
