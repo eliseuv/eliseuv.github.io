@@ -1,5 +1,9 @@
 +++
-title = "Projects"
+title = "Simulations"
 sort_by = "date"
-template = "section.html"
+template = "section_list.html"
+[extra]
+action_label = "[Run Simulation]"
 +++
+
+This section is dedicated to showcasing some simulations and experiments I've worked on.

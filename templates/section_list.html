@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header>
+    <h1>{{ section.title }}</h1>
+    <div>{{ section.content | safe }}</div>
+</header>
+
+<section>
+    <ul class="section-list">
+        {% for page in section.pages %}
+        <li class="section-item">
+            <div class="section-date">
+                {{ page.date | date(format="%Y-%m-%d") }}
+            </div>
+
+            <a href="{{ page.permalink }}" class="section-title">
+                {{ page.title }}
+            </a>
+
+            {% if page.taxonomies.tags %}
+            <div class="section-tags">
+                {% for tag in page.taxonomies.tags %}
+                <span class="tag">{{ tag }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <p class="section-summary">
+                {% if page.extra.summary %}
+                {{ page.extra.summary | safe }}
+                {% elif page.summary %}
+                {{ page.summary | safe }}
+                {% elif page.description %}
+                {{ page.description | safe }}
+                {% else %}
+                {{ page.content | striptags | truncate(length=200) }}
+                {% endif %}
+            </p>
+
+            <a href="{{ page.permalink }}" class="section-link">
+                {% if page.extra.action_label %}
+                {{ page.extra.action_label }}
+                {% else %}
+                [Read More]
+                {% endif %}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</section>
+{% endblock content %}
