@@ -17,31 +17,7 @@
 }
 
 // --- Links ---
-a {
-    color: $accent;
-    text-decoration: none;
-    transition: all 0.2s;
-
-    &:hover {
-        text-decoration: underline;
-        text-shadow: 0 0 2px $accent;
-
-        .icon-link {
-            transform: scale(1.1);
-            text-decoration: none;
-
-            .icon-github,
-            .icon-book,
-            .icon-mail,
-            .icon-linkedin,
-            .icon-orcid,
-            .icon-researchgate,
-            .icon-download {
-                filter: drop-shadow(0 0 4px $accent);
-            }
-        }
-    }
-}
+// Global link styles are in _base.scss
 
 // Utility to remove underline
 a.no-underline {
@@ -77,5 +53,21 @@ a.no-underline {
     .icon-download {
         display: block;
         transition: all 0.2s;
+    }
+}
+
+// Handle hover on the link wrapping the icon
+a:hover .icon-link {
+    transform: scale(1.1);
+    text-decoration: none;
+
+    .icon-github,
+    .icon-book,
+    .icon-mail,
+    .icon-linkedin,
+    .icon-orcid,
+    .icon-researchgate,
+    .icon-download {
+        filter: drop-shadow(0 0 4px $accent);
     }
 }
