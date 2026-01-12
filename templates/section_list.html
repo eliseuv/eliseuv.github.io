@@ -41,6 +41,8 @@
             <a href="{{ page.permalink }}" class="section-link">
                 {% if page.extra.action_label %}
                 {{ page.extra.action_label }}
+                {% elif section.extra.action_label %}
+                {{ section.extra.action_label }}
                 {% else %}
                 [Read More]
                 {% endif %}
