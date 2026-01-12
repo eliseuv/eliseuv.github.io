@@ -1,0 +1,60 @@
+/* Page Transition Overlay */
+#transition-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    pointer-events: none;
+    /* Let clicks pass through when hidden/transparent */
+    display: flex;
+    flex-direction: column;
+
+    /* Initial state: visible (acting as container) */
+    &.active {
+        pointer-events: all;
+    }
+
+    /* When removing the overlay (page load complete) */
+    &.hidden {
+        pointer-events: none;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.content-enter {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Glitch/Scanline effect on the overlay */
+#transition-overlay::after {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.5) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.2), rgba(0, 255, 0, 0.1), rgba(0, 0, 255, 0.2));
+    z-index: 2;
+    background-size: 100% 2px, 3px 100%;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 1.0s ease-out;
+}
+
+#transition-overlay.active::after {
+    opacity: 1;
+}
