@@ -79,15 +79,6 @@ header.resume-container,
                     // Ensure the title and icon sit nicely together
                     display: inline-flex;
                     align-items: center;
-                    /* 
-                       Note: inline-flex here might change layout slightly if h3 wasn't flex before.
-                       The previous h3 had text nodes and <a> and <span>.
-                       Let's stick to simple inline flow if possible, or verify.
-                       
-                       Actually, if I just remove ::before from here, h3 is just a block container (flex item of entry-header).
-                       Inside h3: <a>...</a> <span class.entry-title>...</span>.
-                       They are inline.
-                    */
                 }
 
                 .entry-title {
