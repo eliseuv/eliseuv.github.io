@@ -25,27 +25,26 @@
 <article class="post-container">
     <header class="post-header">
         <div class="breadcrumbs">
-            <a href="/blog">../</a>
-            <span>{{ page.slug }}</span>
+            <a href="/blog">..</a>/{{ page.slug }}
         </div>
 
         <h1 class="glitch-text">{{ page.title }}</h1>
 
         <div class="post-meta">
-            <span>// AUTHOR: {{ config.extra.author | default(value="SYSADMIN") }}</span>
-            <span>// READ_TIME: {{ page.reading_time }} MIN</span>
+            <span>// AUTHOR: {{ page.author | default(value="SYSADMIN") }}</span>
+            <span>// READING_TIME: {{ page.reading_time }} MIN</span>
             <span>// DATE: {{ page.date | date(format="%Y-%m-%d") }}</span>
         </div>
     </header>
 
-    <hr class="neon-divider">
+    <hr>
 
     <div class="post-content">
         {{ page.content | safe }}
     </div>
 
     <footer class="post-footer">
-        <p>END_OF_FILE</p>
+        <p>EOF</p>
 
         <nav class="post-nav">
             {% if page.lower %}

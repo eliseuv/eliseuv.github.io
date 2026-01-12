@@ -2,15 +2,29 @@
 
 {% block content %}
 
-<article>
+<article class="post-container">
 
-    <h1>{{ page.title }}</h1>
+    <header class="post-header">
+        <div class="breadcrumbs">
+            <a href="/simulations">..</a>/{{ page.slug }}
+        </div>
 
-    <p><em>{{ page.date }}</em></p>
+        <h1 class="glitch-text">{{ page.title }}</h1>
+
+        <div class="post-meta">
+            <span>// DATE: {{ page.date | date(format="%Y-%m-%d") }}</span>
+        </div>
+    </header>
 
     <hr>
 
-    {{ page.content | safe }}
+    <div class="post-content">
+        {{ page.content | safe }}
+    </div>
+
+    <footer class="post-footer">
+        <p>EOF</p>
+    </footer>
 
 </article>
 

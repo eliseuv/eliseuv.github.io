@@ -1,0 +1,145 @@
+.post-container {
+    max-width: 100%;
+    margin: 0 auto;
+    animation: fadeIn 0.5s ease-in-out;
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}
+
+.post-header {
+    margin-bottom: 2rem;
+
+    .breadcrumbs {
+        font-family: $font-mono;
+        font-size: 0.85rem;
+        color: $text-dim;
+        margin-bottom: 1rem;
+
+        a {
+            color: $text-dim;
+
+            &:hover {
+                color: $accent;
+            }
+        }
+    }
+
+    h1 {
+        // font-family: $font-heading; // Removing potentially undefined variable
+        font-size: 2.5rem;
+        margin: 0 0 0.5rem 0;
+        line-height: 1.2;
+        color: $text-white;
+    }
+
+    .post-meta {
+        font-family: $font-mono;
+        font-size: 0.8rem;
+        color: $text-dim;
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+        margin-top: 1rem;
+        border-left: 2px solid $accent;
+        padding-left: 0.8rem;
+
+        span {
+            display: block;
+        }
+    }
+}
+
+.post-content {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: $text-main;
+
+    p {
+        margin-bottom: 1.5rem;
+    }
+
+    a {
+        text-decoration: underline;
+        text-decoration-color: $accent;
+        text-underline-offset: 3px;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+        margin-top: 2.5rem;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid $border;
+    }
+
+    h3 {
+        font-size: 1.4rem;
+        margin-top: 2rem;
+        margin-bottom: 0.8rem;
+    }
+
+    ul,
+    ol {
+        margin-bottom: 1.5rem;
+        padding-left: 2rem;
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+    }
+}
+
+.post-footer {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid $border;
+    font-family: $font-mono;
+    color: $text-dim;
+
+    p {
+        margin-bottom: 1.5rem;
+        text-align: center;
+        opacity: 0.5;
+    }
+
+    .post-nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+
+        a {
+            color: $accent;
+            font-weight: bold;
+            font-size: 0.9rem;
+            display: inline-block;
+            transition: transform 0.2s ease;
+
+            &:hover {
+                text-decoration: none;
+            }
+
+            // Specific hover effects for direction
+            &[href*="PREV"] :hover,
+            // Just a guess, but cleaner to use nth-child or class if possible
+            &:first-child:hover {
+                transform: translateX(-5px);
+            }
+
+            &:last-child:hover {
+                transform: translateX(5px);
+            }
+        }
+    }
+}
