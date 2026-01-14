@@ -12,11 +12,13 @@
     <section>
         <h2>:: SKILLS</h2>
         <div class="skills-section">
-            {% for category in resume.skills %}
+            {% for group in resume.skills %}
+            {% for category, items in group %}
             <div class="skill-row">
-                <span class="skill-category">{{category.category }}:</span>
-                <span class="skill-list">{{ category.skills }}</span>
+                <span class="skill-category">{{ category }}:</span>
+                <span class="skill-list">{{ items | join(sep=", ") }}</span>
             </div>
+            {% endfor %}
             {% endfor %}
         </div>
     </section>
@@ -36,7 +38,7 @@
                         </a>
                         <span class="entry-title">{{ proj.name }}</span>
                         <span class="project-stack">
-                            {{ proj.skills }}
+                            {{ proj.skills | join(sep=" | ") }}
                         </span>
                     </h3>
                 </div>
@@ -111,7 +113,7 @@
                 </h3>
                 <span class="entry-date">[{{ pub.year }}]</span>
             </div>
-            <div class="authors">{{ pub.authors }}</div>
+            <div class="authors">{{ pub.authors | join(sep=", ") }}</div>
             <div class="journal">
                 {{ pub.journal }}
             </div>
