@@ -1,7 +1,7 @@
 +++
 title = "Simulations"
 sort_by = "date"
-template = "section_list.html"
+template = "under_construction.html"
 page_template = "simulation_page.html"
 +++
 

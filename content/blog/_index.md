@@ -1,7 +1,7 @@
 +++
 title = "Notes"
 sort_by = "date"
-template = "section_list.html"
+template = "under_construction.html"
 page_template = "blog_page.html"
 +++
 
