@@ -13,17 +13,10 @@ body {
 a {
     color: $accent;
     text-decoration: none;
-    transition: text-shadow 0.2s, color 0.2s;
+    transition: all 0.3s ease;
 
-    &:hover {
-        // CRT Pixel Grid Effect
-        background-color: rgba($accent, 0.25);
-        background-image: linear-gradient(0deg, transparent 2px, #000 2px),
-            linear-gradient(90deg, transparent 2px, #000 2px);
-        background-size: 4px 4px; // Creates a 4px pixel grid
-        text-shadow: 0 0 8px $accent; // Phosphor glow
-        color: lighten($accent, 15%);
-    }
+    @include tech-link-hover;
+
 }
 
 // --- Navigation ---

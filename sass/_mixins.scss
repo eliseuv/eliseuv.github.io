@@ -1,0 +1,20 @@
+@import "variables";
+
+@mixin tech-link-hover {
+    &:hover {
+        color: $tokyo-cyan;
+        text-shadow: 0 0 5px rgba($tokyo-cyan, 0.8);
+        text-decoration: none;
+        outline: none; // Ensure no default outlining
+    }
+}
+
+@mixin tech-btn-hover {
+    &:hover {
+        background: rgba($tokyo-cyan, 0.1);
+        color: $tokyo-cyan;
+        border-color: $tokyo-cyan;
+        box-shadow: $neon-glow;
+        text-decoration: none;
+    }
+}
