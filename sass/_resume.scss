@@ -161,12 +161,13 @@ header.resume-container,
             }
 
             .authors {
+                font-style: italic;
                 color: $text-dim;
                 margin-bottom: 0.2rem;
             }
 
             .journal {
-                font-style: italic;
+                font-weight: bold;
 
                 a {
                     font-size: 0.9rem;
