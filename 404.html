@@ -1,3 +1,86 @@
-<!doctype html>
-<title>404 Not Found</title>
-<h1>404 Not Found</h1>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="https://eliseuv.github.io/style.css">
+
+    
+
+</head>
+
+<body>
+
+
+    <div id="transition-overlay" class="active">
+    </div>
+
+    <header>
+        <nav>
+            <a href="/">[Resume]</a>
+            <a href="/simulations">[Simulations]</a>
+            <a href="/blog">[Notes]</a>
+        </nav>
+        <hr>
+    </header>
+
+    <main>
+
+        
+<section class="error-page">
+    <div class="glitch-wrapper">
+        <h1 class="glitch-text intense" data-text="404">404</h1>
+    </div>
+    <p class="error-message">Page not found</p>
+    <a href="/" class="home-link">[Return to Home]</a>
+</section>
+
+
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const overlay = document.getElementById('transition-overlay');
+
+            // Reveal page on load
+            setTimeout(() => {
+                overlay.classList.remove('active');
+                overlay.classList.add('hidden');
+                document.querySelector('main').classList.add('content-enter');
+            }, 50); // Start fade out almost immediately
+
+            // Handle internal links
+            document.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    const href = link.getAttribute('href');
+
+                    // Filter out external links, anchors, or new tabs
+                    if (!href || href.startsWith('#') || link.target === '_blank' || href.startsWith('http') && !href.includes(window.location.hostname)) {
+                        return;
+                    }
+
+                    e.preventDefault();
+                    overlay.classList.remove('hidden');
+                    overlay.classList.add('active');
+
+                    // Navigate immediately
+                    setTimeout(() => {
+                        window.location.href = href;
+                    }, 0);
+                });
+            });
+        });
+
+        // Ensure overlay is hidden when navigating back
+        window.addEventListener('pageshow', (event) => {
+            if (event.persisted) {
+                const overlay = document.getElementById('transition-overlay');
+                overlay.classList.remove('active');
+                overlay.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+
+</html>
