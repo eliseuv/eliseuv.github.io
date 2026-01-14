@@ -1,0 +1,74 @@
+@import "variables";
+
+.error-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 70vh;
+    text-align: center;
+    font-family: $font-mono;
+
+    .glitch-wrapper {
+        position: relative;
+        margin-bottom: 1rem;
+    }
+
+    h1 {
+        font-size: 10rem;
+        font-weight: bold;
+        color: $accent;
+        margin: 0;
+        line-height: 1;
+        letter-spacing: -10px;
+
+        // Intense glitch override
+        &.intense {
+            animation: glitch-intense 0.2s infinite alternate-reverse;
+        }
+    }
+
+    .error-message {
+        font-size: 1.5rem;
+        color: $text-main;
+        margin-bottom: 3rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+
+    .home-link {
+        @include tech-button;
+    }
+}
+
+@keyframes glitch-intense {
+    0% {
+        text-shadow: 4px 0 $tokyo-cyan;
+        transform: translate(-2px, 2px);
+    }
+
+    20% {
+        text-shadow: -4px 0 $tokyo-pink;
+        transform: translate(2px, -2px);
+    }
+
+    40% {
+        text-shadow: 2px 0 $tokyo-green;
+        transform: translate(-2px, -2px);
+    }
+
+    60% {
+        text-shadow: -2px 0 $tokyo-yellow;
+        transform: translate(2px, 2px);
+    }
+
+    80% {
+        text-shadow: 3px 0 $accent;
+        transform: translate(-1px, 1px);
+    }
+
+    100% {
+        text-shadow: -3px 0 $tokyo-blue;
+        transform: translate(1px, -1px);
+    }
+}
