@@ -1,4 +1,9 @@
 // --- Global Reset ---
+html {
+    background-color: $bg-color;
+    min-height: 100%;
+}
+
 body {
     background: $bg-color;
     color: $text-main;
