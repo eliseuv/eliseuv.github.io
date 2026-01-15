@@ -3,7 +3,9 @@
     <h1 class="glitch-text">{{ resume.personal.name }}</h1>
 
     <h3 class="subtitle">
-        {{ resume.personal.subtitle | join(sep=" | ") }}
+        {% for item in resume.personal.subtitle %}
+        <span>{{ item }}</span>
+        {% endfor %}
     </h3>
 
     <div class="contact-info">
