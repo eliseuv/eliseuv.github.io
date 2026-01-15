@@ -1,0 +1,116 @@
+@import "variables";
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes glitch-anim {
+    0% {
+        transform: translate(0);
+        text-shadow: none;
+    }
+
+    1% {
+        transform: translate(-2px, 1px);
+        text-shadow: 2px 0 red, -2px 0 cyan;
+    }
+
+    2% {
+        transform: translate(-1px, -1px);
+        text-shadow: -2px 0 red, 2px 0 cyan;
+    }
+
+    3% {
+        transform: translate(2px, 0);
+        text-shadow: 2px 0 red, -2px 0 cyan;
+    }
+
+    4% {
+        transform: translate(1px, 2px);
+        text-shadow: -2px 0 red, 2px 0 cyan;
+    }
+
+    5% {
+        transform: translate(0);
+        text-shadow: none;
+    }
+
+    100% {
+        transform: translate(0);
+        text-shadow: none;
+    }
+}
+
+@keyframes glitch-intense {
+    0% {
+        text-shadow: 4px 0 $tokyo-cyan;
+        transform: translate(-2px, 2px);
+    }
+
+    20% {
+        text-shadow: -4px 0 $tokyo-pink;
+        transform: translate(2px, -2px);
+    }
+
+    40% {
+        text-shadow: 2px 0 $tokyo-green;
+        transform: translate(-2px, -2px);
+    }
+
+    60% {
+        text-shadow: -2px 0 $tokyo-yellow;
+        transform: translate(2px, 2px);
+    }
+
+    80% {
+        text-shadow: 3px 0 $accent;
+        transform: translate(-1px, 1px);
+    }
+
+    100% {
+        text-shadow: -3px 0 $tokyo-blue;
+        transform: translate(1px, -1px);
+    }
+}
+
+@keyframes text-pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+@keyframes progress-fill {
+    0% {
+        width: 0%;
+        opacity: 1;
+    }
+
+    50% {
+        width: 100%;
+        opacity: 1;
+    }
+
+    90% {
+        width: 100%;
+        opacity: 0;
+    }
+
+    100% {
+        width: 0%;
+        opacity: 0;
+    }
+}

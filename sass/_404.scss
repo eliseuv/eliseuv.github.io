@@ -1,13 +1,7 @@
 @import "variables";
 
 .error-page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 70vh;
-    text-align: center;
-    font-family: $font-mono;
+    @include centered-page-layout;
 
     .glitch-wrapper {
         position: relative;
@@ -38,37 +32,5 @@
 
     .home-link {
         @include tech-button;
-    }
-}
-
-@keyframes glitch-intense {
-    0% {
-        text-shadow: 4px 0 $tokyo-cyan;
-        transform: translate(-2px, 2px);
-    }
-
-    20% {
-        text-shadow: -4px 0 $tokyo-pink;
-        transform: translate(2px, -2px);
-    }
-
-    40% {
-        text-shadow: 2px 0 $tokyo-green;
-        transform: translate(-2px, -2px);
-    }
-
-    60% {
-        text-shadow: -2px 0 $tokyo-yellow;
-        transform: translate(2px, 2px);
-    }
-
-    80% {
-        text-shadow: 3px 0 $accent;
-        transform: translate(-1px, 1px);
-    }
-
-    100% {
-        text-shadow: -3px 0 $tokyo-blue;
-        transform: translate(1px, -1px);
     }
 }
