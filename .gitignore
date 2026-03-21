@@ -9,6 +9,9 @@ result-*
 # Zola
 public/
 
+# PDF
+*.pdf
+
 # Rust & WebAssembly
 **/target/
 **/*.rs.bk
