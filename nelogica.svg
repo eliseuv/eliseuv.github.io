@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generator: Adobe Illustrator 22.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+
+<svg:svg
+   version="1.1"
+   id="Camada_1"
+   x="0px"
+   y="0px"
+   viewBox="0 0 500 500"
+   xml:space="preserve"
+   sodipodi:docname="nelogica.svg"
+   width="500"
+   height="500"
+   inkscape:version="1.4.3 (0d15f75042, 2025-12-25)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"><span
+     id="uas-port" /><svg:metadata
+     id="metadata51"><rdf:RDF><cc:Work
+         rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" /></cc:Work></rdf:RDF></svg:metadata><svg:defs
+     id="defs49"><svg:linearGradient
+       id="SVGID_2_"
+       gradientUnits="userSpaceOnUse"
+       x1="1377.6904"
+       y1="374.2392"
+       x2="1660.3003"
+       y2="374.2392"
+       gradientTransform="translate(-1326.4648,-190.77921)"><svg:stop
+         offset="0"
+         style="stop-color:#179016"
+         id="stop37" /><svg:stop
+         offset="1"
+         style="stop-color:#8AE12B"
+         id="stop39" /></svg:linearGradient></svg:defs><sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1272"
+     inkscape:window-height="1034"
+     id="namedview47"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="1.3686747"
+     inkscape:cx="196.17518"
+     inkscape:cy="237.8213"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="Camada_1"
+     inkscape:showpageshadow="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050" /><svg:style
+     type="text/css"
+     id="style2">
+	.st0{fill:#1DAAFB;}
+	.st1{fill:#8AE12B;}
+	.st2{fill:url(#SVGID_1_);}
+	.st3{fill:url(#SVGID_2_);}
+	.st4{fill:url(#SVGID_3_);}
+	.st5{fill:#211915;}
+	.st6{fill:#212119;}
+	.st7{fill:url(#SVGID_4_);}
+	.st8{fill:url(#SVGID_5_);}
+	.st9{fill:#FFFFFF;}
+	.st10{fill:url(#SVGID_6_);}
+</svg:style><svg:g
+     id="g1"
+     transform="matrix(1.1153719,0,0,1.1153719,-54.368494,-7.1721857)"><svg:g
+       id="g11"
+       transform="translate(-1326.4648,-190.77921)"><svg:linearGradient
+         id="SVGID_1_"
+         gradientUnits="userSpaceOnUse"
+         x1="1538.3901"
+         y1="468.4425"
+         x2="1821"
+         y2="468.4425"><svg:stop
+           offset="0"
+           style="stop-color:#1DAAFB"
+           id="stop4" /><svg:stop
+           offset="1"
+           style="stop-color:#106CC9"
+           id="stop6" /></svg:linearGradient><svg:path
+         class="st2"
+         d="m 1821,349.3 h -83.1 l -144.1,124.3 v -80.3 l -55.4,47.8 v 141.8 c 0,4 4.7,6.2 7.8,3.6 z"
+         id="path9"
+         style="fill:url(#SVGID_1_)"
+         inkscape:connector-curvature="0" /></svg:g><svg:path
+       class="st3"
+       d="m 51.235213,302.62079 h 83.099997 l 144.1,-124.3 v 80.3 l 55.4,-47.8 V 69.020795 c 0,-4 -4.7,-6.2 -7.8,-3.6 z"
+       id="path42"
+       style="fill:url(#SVGID_2_)"
+       inkscape:connector-curvature="0" /></svg:g></svg:svg>
