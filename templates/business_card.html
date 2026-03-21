@@ -1,6 +1,8 @@
 <header class="resume-container">
 
-    <h1 class="glitch-text">{{ resume.personal.name }}</h1>
+    {% set resume_name = resume.personal | get(key="name", default="") %}
+    {% set name = get_env(name="RESUME_NAME", default=resume_name) %}
+    <h1 class="glitch-text">{{ name }}</h1>
 
     <h3 class="subtitle">
         {% for item in resume.personal.subtitle %}
@@ -9,12 +11,16 @@
     </h3>
 
     <div class="contact-info">
+        {% set resume_email = resume.personal | get(key="email", default="") %}
+        {% set email = get_env(name="RESUME_EMAIL", default=resume_email) %}
+        {% if email %}
         <span>
-            <a href="mailto:{{ resume.personal.email }}">
+            <a href="mailto:{{ email }}">
                 <span class="icon-link" style="margin-right: 0.3rem;">{% include "icons/mail.html" %}</span>
-                {{ resume.personal.email }}
+                {{ email }}
             </a>
         </span>
+        {% endif %}
         {% if resume.personal.github %}
         <span>
             <a href="https://github.com/{{ resume.personal.github }}">

@@ -131,6 +131,10 @@ header.resume-container,
                 .entry-title {
                     text-shadow: 0 0 8px $accent, 0 0 15px $accent;
                 }
+
+                .icon-link img {
+                    filter: drop-shadow(0 0 8px $accent) drop-shadow(0 0 15px $accent);
+                }
             }
 
             // Rotate indicator when open

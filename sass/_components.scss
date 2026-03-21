@@ -65,7 +65,8 @@ a.no-underline {
     .icon-linkedin,
     .icon-orcid,
     .icon-researchgate,
-    .icon-download {
+    .icon-download,
+    img {
         display: block;
         transition: all 0.2s;
     }
@@ -83,7 +84,8 @@ a:hover .icon-link {
     .icon-linkedin,
     .icon-orcid,
     .icon-researchgate,
-    .icon-download {
+    .icon-download,
+    img {
         filter: drop-shadow(0 0 4px $accent);
     }
 }

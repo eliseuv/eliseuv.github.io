@@ -21,6 +21,10 @@ jobs:
 
       - name: Build Site
         run: nix run
+        env:
+          RESUME_NAME: ${{ secrets.RESUME_NAME }}
+          RESUME_EMAIL: ${{ secrets.RESUME_EMAIL }}
+          RESUME_PHONE: ${{ secrets.RESUME_PHONE }}
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
