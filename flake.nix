@@ -57,6 +57,13 @@
             echo "No 'simulations' folder found, skipping WASM build."
           fi
 
+          echo ">> Building Resume..."
+          TYPST_FONT_PATHS="${pkgs.font-awesome}/share/fonts" ${pkgs.typst}/bin/typst compile \
+            --input RESUME_NAME="''${RESUME_NAME:-}" \
+            --input RESUME_EMAIL="''${RESUME_EMAIL:-}" \
+            --input RESUME_PHONE="''${RESUME_PHONE:-}" \
+            resume/resume.typ static/resume.pdf
+
           echo ">> Building Zola Site..."
           ${pkgs.zola}/bin/zola build
         '';
@@ -67,7 +74,16 @@
         # Run `nix develop` to get access to zola, cargo, and wasm-pack
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
+
+            # Website
             zola
+
+            # Resume
+            typst
+            tinymist
+            typstyle
+
+            # Rust
             rustToolchain
             wasm-pack
             wasm-bindgen-cli
@@ -96,10 +112,12 @@
             ]
           );
 
+          TYPST_FONT_PATHS = "${pkgs.font-awesome}/share/fonts";
+
           shellHook = ''
-            echo "------------------------------------------------"
-            echo "Tools loaded: Zola, Rust (w/ WASM), wasm-pack"
-            echo "------------------------------------------------"
+            echo "----------------------------------------------------"
+            echo "Tools loaded: Zola, Rust (w/ WASM), wasm-pack, Typst"
+            echo "----------------------------------------------------"
           '';
         };
 
