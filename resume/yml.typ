@@ -38,6 +38,8 @@
       name: exp.name,
       location: exp.location,
       date: exp.date,
+      logo: exp.at("logo", default: none),
+      url: exp.at("link", default: none),
       ..exp.points.map(s => eval(s, mode: "markup")),
     )
   }
@@ -82,9 +84,9 @@
 #let yml_resume(data) = {
   show: resume
   yml_personal(data.personal)
-  yml_education(data.education)
-  yml_experience(data.experience)
-  yml_publications(data.publications)
-  yml_projects(data.projects)
   yml_skills(data.skills)
+  yml_experience(data.experience)
+  yml_education(data.education)
+  yml_projects(data.projects)
+  yml_publications(data.publications)
 }

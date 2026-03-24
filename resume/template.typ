@@ -92,6 +92,8 @@
   role: "Worker",
   date: "June 1837 - May 1845",
   location: "Foo, BA",
+  logo: none,
+  url: none,
   ..points,
 ) = {
   set block(above: 0.7em, below: 1em)
@@ -99,18 +101,32 @@
     left: 1em,
     right: 0.5em,
     box[
-      #grid(
-        columns: (3fr, 2fr),
-        align(left)[
-          *#role* \
-          _#name _
-        ],
-        align(right)[
-          #location \
-          _#date _
-        ],
-      )
-      #list(..points)
+      #let body = [
+        #grid(
+          columns: (3fr, 2fr),
+          align(left)[
+            *#role* \
+            _#name _
+          ],
+          align(right)[
+            #location \
+            _#date _
+          ],
+        )
+        #list(..points)
+      ]
+      #if logo != none {
+        let logo_img = image("../static" + logo, width: 2.8em)
+        let logo_node = if url != none { link(url)[#logo_img] } else { logo_img }
+        grid(
+          columns: (auto, 1fr),
+          gutter: 0.6em,
+          align(top, logo_node),
+          body
+        )
+      } else {
+        body
+      }
     ],
   )
 }
