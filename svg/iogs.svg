@@ -6,11 +6,11 @@
    id="Layer_1"
    x="0px"
    y="0px"
-   viewBox="0 0 300.00001 259.99998"
+   viewBox="0 0 100.00001 99.999997"
    xml:space="preserve"
    sodipodi:docname="iogs.svg"
-   width="300"
-   height="260"
+   width="100"
+   height="100"
    inkscape:version="1.4.3 (0d15f75042, 2025-12-25)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -97,9 +97,9 @@
    inkscape:pageopacity="0"
    inkscape:pagecheckerboard="0"
    inkscape:deskcolor="#505050"
-   inkscape:zoom="1.3288625"
-   inkscape:cx="-86.163922"
-   inkscape:cy="181.73438"
+   inkscape:zoom="2"
+   inkscape:cx="101"
+   inkscape:cy="-11.25"
    inkscape:window-width="1920"
    inkscape:window-height="1042"
    inkscape:window-x="0"
@@ -117,24 +117,28 @@
 	.st4{fill:#F5832B;}
 	.st5{fill:#939598;}
 </svg:style>
-<svg:g
-   id="g1"
-   transform="matrix(2.4131969,0,0,2.4131969,-422.46914,3.9428086)"><svg:path
+<svg:polygon
+   class="st0"
+   points="-0.03,-0.2 -0.03,119.8 341.97,119.8 341.97,-0.2 "
+   id="polygon1"
+   transform="matrix(0.29239766,0,0,0.83333333,0.00877207,0.16666687)" /><svg:g
+   id="g73"
+   transform="matrix(1.3056385,0,0,1.3056385,-130.99525,8.5654843)"><svg:path
      class="st3"
-     d="m 176.22614,45.344327 c 0,0 68.81169,16.426019 113.38392,-43.1071989 l 1.48722,2.9966385 c 0,0 -31.83096,61.0426354 -113.45052,43.4401594 z"
+     d="m 104.62055,27.892757 c 0,0 38.36115,9.157178 63.20927,-24.0314029 l 0.8291,1.6705662 c 0,0 -17.74513,34.0300507 -63.2464,24.2170217 z"
      id="path21"
-     style="stroke-width:2.21973" /><svg:polygon
+     style="stroke-width:1.23746" /><svg:polygon
      class="st3"
      points="148.77,67.57 93.94,67.57 93.94,64.7 148.77,64.7 "
      id="polygon21"
-     transform="matrix(2.2197322,0,0,2.2197322,-32.006942,-47.751241)" /><svg:polygon
+     transform="matrix(1.2374564,0,0,1.2374564,-11.465234,-24.006164)" /><svg:polygon
      class="st3"
      points="148.77,60.31 93.94,60.31 93.94,57.44 148.77,57.44 "
      id="polygon22"
-     transform="matrix(2.2197322,0,0,2.2197322,-32.006942,-47.751241)" /><svg:path
+     transform="matrix(1.2374564,0,0,1.2374564,-11.465234,-24.006164)" /><svg:path
      class="st3"
-     d="M 208.34566,64.212051 H 176.5147 v 6.370632 h 31.80876 c 0,0 27.72446,-0.199776 33.71774,-0.199776 5.99327,0 46.43679,-2.619284 55.80406,-7.103143 l 0.37736,-5.615923 c 0,0 -10.87669,6.54821 -89.87696,6.54821"
+     d="m 122.52654,38.411137 h -17.74512 v 3.5515 h 17.73275 c 0,0 15.45583,-0.111371 18.79696,-0.111371 3.34114,0 25.88759,-1.460199 31.10966,-3.959861 l 0.21036,-3.130765 c 0,0 -6.06353,3.650497 -50.10461,3.650497"
      id="path22"
-     style="stroke-width:2.21973" /></svg:g>
+     style="stroke-width:1.23746" /></svg:g>
 
 </svg:svg>
