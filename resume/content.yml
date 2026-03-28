@@ -79,9 +79,9 @@ education:
       - Double degree in the context of BRAFITEC program
       - "Courses included: Optical Instrumentation, Automation, Lasers and Quantum Optics"
 
-  - name: Université ParisSud
+  - name: Université Paris-Saclay
     degree: L3 and M1 in Fundamental Physics
-    logo: /svg/upsud.svg
+    logo: /svg/ups.svg
     link: https://www.magisterepfo.universite-paris-saclay.fr/
     degree_logo: /svg/atom.svg
     location: Orsay, France
