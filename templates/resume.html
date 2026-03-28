@@ -52,7 +52,8 @@
                             <span class="entry-date">[{{ exp.date }}]</span>
                         </div>
                         <div class="entry-subheader">
-                            {{ exp.name }} ({{ exp.location }})
+                            <span>{{ exp.name }}</span>
+                            <span class="entry-location">{{ exp.location }}</span>
                         </div>
                     </div>
                 </div>
@@ -81,8 +82,7 @@
                                 style="height: 2.8em; width: auto; border-radius: 2px; vertical-align: middle;">
                         </span>
                         <span class="icon-link">
-                            <img src="{{ edu.degree_logo }}" alt="{{ edu.degree }} logo"
-                                style="height: 2.8em; width: auto; border-radius: 2px; vertical-align: middle;">
+                            <div class="degree-logo" style="-webkit-mask-image: url('{{ edu.degree_logo }}'); mask-image: url('{{ edu.degree_logo }}');" alt="{{ edu.degree }} logo"></div>
                         </span>
                     </div>
                     {% endif %}
@@ -91,7 +91,10 @@
                             <h3><span class="entry-title">{{ edu.degree }}</span></h3>
                             <span class="entry-date">[{{ edu.date }}]</span>
                         </div>
-                        <div class="entry-subheader">{{ edu.name }} ({{ edu.location }})</div>
+                        <div class="entry-subheader">
+                            <span>{{ edu.name }}</span>
+                            <span class="entry-location">{{ edu.location }}</span>
+                        </div>
                     </div>
                 </div>
             </summary>

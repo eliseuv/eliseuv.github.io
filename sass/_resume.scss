@@ -151,6 +151,13 @@ header.resume-container,
                 font-weight: bold;
                 font-size: 0.9rem;
                 margin-bottom: 0.5rem;
+                display: flex;
+                justify-content: space-between;
+
+                .entry-location {
+                    color: $text-dim;
+                    font-weight: normal;
+                }
             }
 
             ul {
@@ -229,6 +236,21 @@ header.resume-container,
             .skill-list {
                 color: $text-light;
             }
+        }
+        
+        .degree-logo {
+            display: inline-block;
+            height: 2.8em;
+            aspect-ratio: 1;
+            background-color: $accent;
+            mask-repeat: no-repeat;
+            mask-position: center;
+            mask-size: contain;
+            -webkit-mask-repeat: no-repeat;
+            -webkit-mask-position: center;
+            -webkit-mask-size: contain;
+            vertical-align: middle;
+            border-radius: 2px;
         }
     }
 }
