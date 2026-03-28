@@ -29,26 +29,30 @@
         {% for exp in resume.experience %}
         <details class="entry">
             <summary>
-                <div class="entry-header">
-                    <h3>
-                        <span class="entry-title">{{ exp.role }}</span>
-                    </h3>
-                    <span class="entry-date">[{{ exp.date }}]</span>
-                </div>
-                <div class="entry-subheader">
+                <div style="display: flex; gap: 0.8rem; align-items: flex-start;">
                     {% if exp.logo %}
-                    {% if exp.link %}
-                    <a href="{{ exp.link }}" target="_blank" class="no-underline">
-                        {% endif %}
-                        <span class="icon-link" style="margin-right: 0.2rem;">
-                            <img src="{{ exp.logo }}" alt="{{ exp.name }} logo"
-                                style="height: 1.5em; width: auto; vertical-align: text-bottom; border-radius: 2px;">
-                        </span>
+                    <div class="entry-logo" style="flex-shrink: 0; padding-top: 0.2rem;">
                         {% if exp.link %}
-                    </a>
+                        <a href="{{ exp.link }}" target="_blank" class="no-underline" style="display: inline-block;">
+                        {% endif %}
+                            <img src="{{ exp.logo }}" alt="{{ exp.name }} logo"
+                                style="height: 2.8em; width: auto; border-radius: 2px; vertical-align: middle;">
+                        {% if exp.link %}
+                        </a>
+                        {% endif %}
+                    </div>
                     {% endif %}
-                    {% endif %}
-                    {{ exp.name }} ({{ exp.location }})
+                    <div style="flex: 1; min-width: 0;">
+                        <div class="entry-header">
+                            <h3>
+                                <span class="entry-title">{{ exp.role }}</span>
+                            </h3>
+                            <span class="entry-date">[{{ exp.date }}]</span>
+                        </div>
+                        <div class="entry-subheader">
+                            {{ exp.name }} ({{ exp.location }})
+                        </div>
+                    </div>
                 </div>
             </summary>
 
