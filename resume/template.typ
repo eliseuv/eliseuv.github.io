@@ -89,16 +89,16 @@
         #list(..points)
       ]
       #if logo != none and degree_logo != none {
-        let logo_img = image("../static" + logo, width: 2.8em)
+        let logo_img = image("../static" + logo, height: 2.8em)
         let logo_node = if url != none { link(url)[#logo_img] } else { logo_img }
         grid(
           columns: (auto, 1fr),
           gutter: 0.6em,
           align(top, grid(
-            columns: 2,
+            columns: (4em, 3em),
             gutter: 0.4em,
-            logo_node,
-            image("../static" + degree_logo, width: 2.8em)
+            align(center + horizon, logo_node),
+            align(center + horizon, image("../static" + degree_logo, height: 2.8em))
           )),
           body
         )
