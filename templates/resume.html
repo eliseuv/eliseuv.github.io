@@ -80,19 +80,27 @@
                         <div style="width: 4em; display: flex; justify-content: center; align-items: center;">
                             {% if edu.link %}
                             <a href="{{ edu.link }}" target="_blank" class="no-underline" style="display: flex;">
-                            {% endif %}
+                                {% endif %}
                                 <span class="icon-link" style="display: flex;">
                                     <img src="{{ edu.logo }}" alt="{{ edu.name }} logo"
                                         style="max-height: 2.8em; max-width: 100%; border-radius: 2px; object-fit: contain;">
                                 </span>
-                            {% if edu.link %}
+                                {% if edu.link %}
                             </a>
                             {% endif %}
                         </div>
                         <div style="width: 3em; display: flex; justify-content: center; align-items: center;">
-                            <span class="icon-link" style="display: flex;">
-                                <div class="degree-logo" style="-webkit-mask-image: url('{{ edu.degree_logo }}'); mask-image: url('{{ edu.degree_logo }}');" alt="{{ edu.degree }} logo"></div>
-                            </span>
+                            {% if edu.degree_link %}
+                            <a href="{{ edu.degree_link }}" target="_blank" class="no-underline" style="display: flex;">
+                            {% endif %}
+                                <span class="icon-link" style="display: flex;">
+                                    <div class="degree-logo"
+                                        style="-webkit-mask-image: url('{{ edu.degree_logo }}'); mask-image: url('{{ edu.degree_logo }}');"
+                                        alt="{{ edu.degree }} logo"></div>
+                                </span>
+                            {% if edu.degree_link %}
+                            </a>
+                            {% endif %}
                         </div>
                     </div>
                     {% endif %}

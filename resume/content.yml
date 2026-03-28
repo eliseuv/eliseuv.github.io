@@ -18,8 +18,8 @@ experience:
 
   - role: Software Engineer
     name: Nelogica
-    link: https://www.nelogica.com.br/
     logo: /svg/nelogica.svg
+    link: https://www.nelogica.com.br/
     location: Porto Alegre, Brazil
     date: Feb. 2026 - Present
     points:
@@ -30,8 +30,8 @@ experience:
 
   - role: Optical Engineering Internship
     name: Télécom ParisTech
-    link: https://www.telecom-paris.fr/
     logo: /svg/telecom.svg
+    link: https://www.telecom-paris.fr/
     location: Paris, France
     date: Jun. 2017 - Sep. 2017
     points:
@@ -44,8 +44,8 @@ education:
   - name: Universidade Federal do Rio Grande do Sul
     degree: Ph.D. in Phyisics (Computational Statistical Physics)
     logo: /svg/ufrgs.svg
-    degree_logo: /svg/statistics.svg
     link: https://www.ufrgs.br/
+    degree_logo: /svg/statistics.svg
     location: Porto Alegre, Brazil
     date: Jul. 2021 - Feb. 2026
     points:
@@ -57,8 +57,9 @@ education:
   - name: Universidade Federal do Rio Grande do Sul
     degree: M.Sc. in Physics (Computational Statistical Physics)
     logo: /svg/ufrgs.svg
-    degree_logo: /svg/graph.svg
     link: https://www.ufrgs.br/
+    degree_logo: /svg/graph.svg
+    degree_link: http://hdl.handle.net/10183/225179
     location: Porto Alegre, Brazil
     date: Mar. 2019 - May 2021
     points:
@@ -70,8 +71,8 @@ education:
   - name: Institut d'Optique Graduate School
     degree: M.Sc. in Optical Engineering
     logo: /svg/iogs.svg
-    degree_logo: /svg/aperture.svg
     link: https://www.institutoptique.fr/
+    degree_logo: /svg/aperture.svg
     location: Palaiseau, France
     date: Sep. 2015 - Sep. 2017
     points:
@@ -81,8 +82,8 @@ education:
   - name: Université ParisSud
     degree: L3 and M1 in Fundamental Physics
     logo: /svg/upsud.svg
-    degree_logo: /svg/atom.svg
     link: https://www.universite-paris-saclay.fr/
+    degree_logo: /svg/atom.svg
     location: Orsay, France
     date: Sep. 2015 - Sep. 2017
     points:
@@ -92,8 +93,8 @@ education:
   - name: Universidade Federal do Rio Grande do Sul
     degree: B.Sc. in Engineering Physics
     logo: /svg/ufrgs.svg
-    degree_logo: /svg/circuit.svg
     link: https://www.ufrgs.br/
+    degree_logo: /svg/circuit.svg
     location: Porto Alegre, Brazil
     date: Mar. 2013 - Dec. 2018
     points:
