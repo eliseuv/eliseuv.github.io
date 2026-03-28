@@ -9,6 +9,9 @@ result-*
 # Zola
 public/
 
+# Sass
+.sass-cache
+
 # PDF
 *.pdf
 
