@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg:svg
+   width="170"
+   height="300"
+   viewBox="0 0 399.39759 717.3913"
+   enable-background="new 0 0 390 220"
+   version="1.1"
+   id="svg15"
+   sodipodi:docname="upsud.svg"
+   inkscape:version="1.4.3 (0d15f75042, 2025-12-25)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <svg:defs
+     id="defs15" />
+  <sodipodi:namedview
+     id="namedview15"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:zoom="1.8934275"
+     inkscape:cx="71.0352"
+     inkscape:cy="121.7369"
+     inkscape:window-width="1920"
+     inkscape:window-height="1042"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg15" />
+  <span
+     id="uas-port" />
+  <svg:g
+     id="g15"
+     transform="matrix(3.5895097,0,0,3.5895097,-7.3659168,-41.455712)">
+    <svg:path
+       fill="#65ca45"
+       d="M 110.029,12.959 H 63.438 c -26.92,0 -46.121,9.13 -44.1,32.554 3.615,41.878 78.688,30.757 91.302,83.704 C 119.879,82.577 75.211,78.366 53.653,61.794 45.21,55.307 43.561,37.039 60.882,37.039 h 36.39 z"
+       id="path1" />
+    <svg:path
+       fill="#00486f"
+       d="m 3.491,45.598 c 0,46.224 36.696,55.868 58.506,68.793 9.152,5.431 10.08,24.756 -7.252,24.756 H 3.961 v 70.85 L 29.244,199.121 V 163.228 H 52.2 c 26.932,0 44.1,-9.048 44.1,-32.562 C 96.301,82.154 13.867,94.334 3.491,45.598 Z"
+       id="path2" />
+  </svg:g>
+</svg:svg>
