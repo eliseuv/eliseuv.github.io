@@ -27,6 +27,7 @@
       date: edu.date,
       logo: edu.at("logo", default: none),
       degree_logo: edu.at("degree_logo", default: none),
+      url: edu.at("link", default: none),
       ..edu.points.map(s => eval(s, mode: "markup")),
     )
   }

@@ -66,6 +66,7 @@
   date: "Aug. 1600 - May 1750",
   logo: none,
   degree_logo: none,
+  url: none,
   ..points,
 ) = {
   set block(above: 0.7em, below: 1em)
@@ -88,13 +89,15 @@
         #list(..points)
       ]
       #if logo != none and degree_logo != none {
+        let logo_img = image("../static" + logo, width: 2.8em)
+        let logo_node = if url != none { link(url)[#logo_img] } else { logo_img }
         grid(
           columns: (auto, 1fr),
           gutter: 0.6em,
           align(top, grid(
             columns: 2,
             gutter: 0.4em,
-            image("../static" + logo, width: 2.8em),
+            logo_node,
             image("../static" + degree_logo, width: 2.8em)
           )),
           body
