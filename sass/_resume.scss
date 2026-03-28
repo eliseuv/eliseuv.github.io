@@ -147,6 +147,24 @@ header.resume-container,
                 transform: rotate(90deg) scale(1.3);
             }
 
+            .entry-logo {
+                .icon-link img,
+                .icon-link .degree-logo {
+                    transition: all 0.2s ease;
+                }
+                
+                a:hover .icon-link img,
+                a:focus .icon-link img {
+                    filter: drop-shadow(0 0 8px $tokyo-blue) drop-shadow(0 0 15px $tokyo-blue);
+                }
+
+                a:hover .icon-link .degree-logo,
+                a:focus .icon-link .degree-logo {
+                    background-color: $tokyo-blue;
+                    filter: drop-shadow(0 0 8px $tokyo-blue) drop-shadow(0 0 15px $tokyo-blue);
+                }
+            }
+
             .entry-subheader {
                 font-weight: bold;
                 font-size: 0.9rem;
