@@ -69,7 +69,7 @@ education:
       - The optimization algorithm was implemented in C++ while the data analysis was done in the Python ecosystem
 
   - name: Institut d'Optique Graduate School
-    degree: M.Sc. in Optical Engineering
+    degree: Diplôme d'Ingénieur
     logo: /svg/iogs.svg
     link: https://www.institutoptique.fr/
     degree_logo: /svg/aperture.svg
@@ -77,18 +77,18 @@ education:
     date: Sep. 2015 - Sep. 2017
     points:
       - Double degree in the context of BRAFITEC program
-      - "Courses included: Optical Instrumentation, Automation, Lasers and Quantum Optics"
+      - "Optical Instrumentation, Automation, Lasers and Quantum Optics"
 
   - name: Université Paris-Saclay
-    degree: L3 and M1 in Fundamental Physics
+    degree: L3 et M1 en Physique Fondamentale
     logo: /svg/ups.svg
     link: https://www.magisterepfo.universite-paris-saclay.fr/
     degree_logo: /svg/atom.svg
     location: Orsay, France
     date: Sep. 2015 - Sep. 2017
     points:
-      - Double degree magistère offered to engineering students
-      - "Courses included: Analyitical Mechanics, Statistical Physics, Plasma Physics and Atomic and Molecular Physics"
+      - Double degree in Theoretical Physics offered to engineering students
+      - "Analyitical Mechanics, Statistical Physics, Plasma Physics and Atomic and Molecular Physics"
 
   - name: Universidade Federal do Rio Grande do Sul
     degree: B.Sc. in Engineering Physics
