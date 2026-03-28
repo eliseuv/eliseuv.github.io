@@ -43,6 +43,8 @@ education:
 
   - name: Universidade Federal do Rio Grande do Sul
     degree: Ph.D. in Phyisics (Computational Statistical Physics)
+    logo: /placeholder.svg
+    degree_logo: /placeholder.svg
     location: Porto Alegre, Brazil
     date: Jul. 2021 - Feb. 2026
     points:
@@ -53,6 +55,8 @@ education:
 
   - name: Universidade Federal do Rio Grande do Sul
     degree: M.Sc. in Physics (Computational Statistical Physics)
+    logo: /placeholder.svg
+    degree_logo: /placeholder.svg
     location: Porto Alegre, Brazil
     date: Mar. 2019 - May 2021
     points:
@@ -63,6 +67,8 @@ education:
 
   - name: Institut d'Optique Graduate School
     degree: M.Sc. in Optical Engineering
+    logo: /placeholder.svg
+    degree_logo: /placeholder.svg
     location: Palaiseau, France
     date: Sep. 2015 - Sep. 2017
     points:
@@ -71,6 +77,8 @@ education:
 
   - name: Université ParisSud
     degree: L3 and M1 in Fundamental Physics
+    logo: /placeholder.svg
+    degree_logo: /placeholder.svg
     location: Orsay, France
     date: Sep. 2015 - Sep. 2017
     points:
@@ -79,6 +87,8 @@ education:
 
   - name: Universidade Federal do Rio Grande do Sul
     degree: B.Sc. in Engineering Physics
+    logo: /placeholder.svg
+    degree_logo: /placeholder.svg
     location: Porto Alegre, Brazil
     date: Mar. 2013 - Dec. 2018
     points:

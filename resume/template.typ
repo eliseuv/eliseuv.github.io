@@ -64,6 +64,8 @@
   degree: "B.S in Foobar",
   location: "Foo, BA",
   date: "Aug. 1600 - May 1750",
+  logo: none,
+  degree_logo: none,
   ..points,
 ) = {
   set block(above: 0.7em, below: 1em)
@@ -71,18 +73,35 @@
     left: 1em,
     right: 0.5em,
     box[
-      #grid(
-        columns: (3fr, 2fr),
-        align(left)[
-          *#name* \
-          _#degree _
-        ],
-        align(right)[
-          #location \
-          _#date _
-        ],
-      )
-      #list(..points)
+      #let body = [
+        #grid(
+          columns: (3fr, 2fr),
+          align(left)[
+            *#name* \
+            _#degree _
+          ],
+          align(right)[
+            #location \
+            _#date _
+          ],
+        )
+        #list(..points)
+      ]
+      #if logo != none and degree_logo != none {
+        grid(
+          columns: (auto, 1fr),
+          gutter: 0.6em,
+          align(top, grid(
+            columns: 2,
+            gutter: 0.4em,
+            image("../static" + logo, width: 2.8em),
+            image("../static" + degree_logo, width: 2.8em)
+          )),
+          body
+        )
+      } else {
+        body
+      }
     ],
   )
 }
