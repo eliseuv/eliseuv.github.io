@@ -42,7 +42,7 @@ experience:
 education:
 
   - name: Universidade Federal do Rio Grande do Sul
-    degree: Ph.D. in Phyisics (Computational Statistical Physics)
+    degree: Ph.D. in Computational Statistical Physics
     logo: /svg/ufrgs.svg
     link: https://if.ufrgs.br/ppgfis/
     degree_logo: /svg/statistics.svg
@@ -55,7 +55,7 @@ education:
       - The simulations were implemented in Rust while the data analysis was done in the Julia ecosystem
 
   - name: Universidade Federal do Rio Grande do Sul
-    degree: M.Sc. in Physics (Computational Statistical Physics)
+    degree: M.Sc. in Computational Statistical Physics
     logo: /svg/ufrgs.svg
     link: https://if.ufrgs.br/ppgfis/
     degree_logo: /svg/graph.svg
