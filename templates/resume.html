@@ -34,10 +34,12 @@
                     <div class="entry-logo" style="flex-shrink: 0; padding-top: 0.2rem;">
                         {% if exp.link %}
                         <a href="{{ exp.link }}" target="_blank" class="no-underline" style="display: inline-block;">
-                        {% endif %}
-                            <img src="{{ exp.logo }}" alt="{{ exp.name }} logo"
-                                style="height: 2.8em; width: auto; border-radius: 2px; vertical-align: middle;">
-                        {% if exp.link %}
+                            {% endif %}
+                            <span class="icon-link">
+                                <img src="{{ exp.logo }}" alt="{{ exp.name }} logo"
+                                    style="height: 3.3em; width: auto; border-radius: 2px; vertical-align: middle;">
+                            </span>
+                            {% if exp.link %}
                         </a>
                         {% endif %}
                     </div>
