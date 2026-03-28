@@ -44,7 +44,7 @@ education:
   - name: Universidade Federal do Rio Grande do Sul
     degree: Ph.D. in Phyisics (Computational Statistical Physics)
     logo: /svg/ufrgs.svg
-    link: https://www.ufrgs.br/
+    link: https://if.ufrgs.br/ppgfis/
     degree_logo: /svg/statistics.svg
     location: Porto Alegre, Brazil
     date: Jul. 2021 - Feb. 2026
@@ -57,7 +57,7 @@ education:
   - name: Universidade Federal do Rio Grande do Sul
     degree: M.Sc. in Physics (Computational Statistical Physics)
     logo: /svg/ufrgs.svg
-    link: https://www.ufrgs.br/
+    link: https://if.ufrgs.br/ppgfis/
     degree_logo: /svg/graph.svg
     degree_link: http://hdl.handle.net/10183/225179
     location: Porto Alegre, Brazil
@@ -82,7 +82,7 @@ education:
   - name: Université ParisSud
     degree: L3 and M1 in Fundamental Physics
     logo: /svg/upsud.svg
-    link: https://www.universite-paris-saclay.fr/
+    link: https://www.magisterepfo.universite-paris-saclay.fr/
     degree_logo: /svg/atom.svg
     location: Orsay, France
     date: Sep. 2015 - Sep. 2017
@@ -93,7 +93,7 @@ education:
   - name: Universidade Federal do Rio Grande do Sul
     degree: B.Sc. in Engineering Physics
     logo: /svg/ufrgs.svg
-    link: https://www.ufrgs.br/
+    link: https://www.if.ufrgs.br/if/engenharia-fisica-comgrad/
     degree_logo: /svg/circuit.svg
     location: Porto Alegre, Brazil
     date: Mar. 2013 - Dec. 2018
