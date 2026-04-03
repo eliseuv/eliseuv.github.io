@@ -32,8 +32,8 @@
           targets = [ "wasm32-unknown-unknown" ];
         };
 
-        # Build script
-        buildScript = pkgs.writeShellScriptBin "build-site" ''
+        # Build WASM Simulations
+        buildSimulations = pkgs.writeShellScriptBin "build-simulations" ''
           echo ">> Building Rust Simulations..."
           if [ -d "simulations" ]; then
             cd simulations
@@ -52,16 +52,29 @@
           else 
             echo "No 'simulations' folder found, skipping WASM build."
           fi
+        '';
 
+        # Build Resume
+        buildResume = pkgs.writeShellScriptBin "build-resume" ''
           echo ">> Building Resume..."
           TYPST_FONT_PATHS="${pkgs.font-awesome}/share/fonts" ${pkgs.typst}/bin/typst compile --root . \
             --input RESUME_NAME="''${RESUME_NAME:-}" \
             --input RESUME_EMAIL="''${RESUME_EMAIL:-}" \
             --input RESUME_PHONE="''${RESUME_PHONE:-}" \
             resume/resume.typ static/resume.pdf
+        '';
 
+        # Build Zola Site
+        buildZola = pkgs.writeShellScriptBin "build-zola" ''
           echo ">> Building Zola Site..."
           ${pkgs.zola}/bin/zola build
+        '';
+
+        # Default build script (runs all)
+        buildSite = pkgs.writeShellScriptBin "build-site" ''
+          ${buildSimulations}/bin/build-simulations
+          ${buildResume}/bin/build-resume
+          ${buildZola}/bin/build-zola
         '';
 
       in
@@ -116,8 +129,19 @@
           '';
         };
 
-        apps.default = flake-utils.lib.mkApp {
-          drv = buildScript;
+        apps = {
+          simulations = flake-utils.lib.mkApp {
+            drv = buildSimulations;
+          };
+          resume = flake-utils.lib.mkApp {
+            drv = buildResume;
+          };
+          zola = flake-utils.lib.mkApp {
+            drv = buildZola;
+          };
+          default = flake-utils.lib.mkApp {
+            drv = buildSite;
+          };
         };
       }
     );
