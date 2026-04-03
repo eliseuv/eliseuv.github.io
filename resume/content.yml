@@ -94,8 +94,9 @@ education:
   - name: Universidade Federal do Rio Grande do Sul
     degree: B.Sc. in Engineering Physics
     logo: /svg/ufrgs.svg
-    link: https://www.if.ufrgs.br/if/engenharia-fisica-comgrad/
+    link: https://www.ufrgs.br/
     degree_logo: /svg/circuit.svg
+    degree_link: https://www.if.ufrgs.br/if/engenharia-fisica-comgrad/
     location: Porto Alegre, Brazil
     date: Mar. 2013 - Dec. 2018
     points:
