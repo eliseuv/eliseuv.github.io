@@ -1,12 +1,15 @@
 base_url = "https://eliseuv.github.io/"
+
 compile_sass = true
 build_search_index = true
 
 [markdown]
-highlight_code = true
-extra_syntaxes_and_themes = ["highlight_themes"]
-highlight_theme = "kronuz"
-render_math = true
+render_emoji = true
+smart_punctuation = true
+
+[markdown.highlighting]
+error_on_missing_language = true
+theme = "synthwave-84"
 
 [extra]
 # Put all your custom variables here
