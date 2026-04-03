@@ -82,8 +82,9 @@ education:
   - name: Université Paris-Saclay
     degree: L3 et M1 en Physique Fondamentale
     logo: /svg/ups.svg
-    link: https://www.magisterepfo.universite-paris-saclay.fr/
+    link: https://www.universite-paris-saclay.fr/
     degree_logo: /svg/atom.svg
+    degree_link: https://www.magisterepfo.universite-paris-saclay.fr/
     location: Orsay, France
     date: Sep. 2015 - Sep. 2017
     points:
