@@ -1,5 +1,7 @@
 #import "@preview/fontawesome:0.6.0": fa-icon
 
+#let static_dir = "../static"
+
 #let resume(body) = {
   set list(indent: 1em)
   show list: set text(size: 0.92em)
@@ -89,18 +91,17 @@
         #list(..points)
       ]
       #if logo != none and degree_logo != none {
-        let logo_img = image("../static" + logo, height: 2.8em)
+        let logo_img = image(static_dir + logo, height: 2em)
         let logo_node = if url != none { link(url)[#logo_img] } else { logo_img }
         grid(
           columns: (auto, 1fr),
           gutter: 0.6em,
           align(top, grid(
-            columns: (4em, 3em),
+            columns: (4em, 2em),
             gutter: 0.4em,
-            align(center + horizon, logo_node),
-            align(center + horizon, image("../static" + degree_logo, height: 2.8em))
+            align(center + horizon, logo_node), align(center + horizon, image(static_dir + degree_logo, height: 2em)),
           )),
-          body
+          body,
         )
       } else {
         body
@@ -138,13 +139,12 @@
         #list(..points)
       ]
       #if logo != none {
-        let logo_img = image("../static" + logo, width: 2.8em)
+        let logo_img = image(static_dir + logo, width: 2.8em)
         let logo_node = if url != none { link(url)[#logo_img] } else { logo_img }
         grid(
           columns: (auto, 1fr),
           gutter: 0.6em,
-          align(top, logo_node),
-          body
+          align(top, logo_node), body,
         )
       } else {
         body
