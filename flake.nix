@@ -88,10 +88,10 @@
             alsa-lib
             udev
             vulkan-loader
-            xorg.libX11
-            xorg.libXcursor
-            xorg.libXi
-            xorg.libXrandr
+            libx11
+            libxcursor
+            libxi
+            libxrandr
           ];
 
           LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath (
@@ -100,10 +100,10 @@
               alsa-lib
               udev
               vulkan-loader
-              xorg.libX11
-              xorg.libXcursor
-              xorg.libXi
-              xorg.libXrandr
+              libx11
+              libxcursor
+              libxi
+              libxrandr
             ]
           );
 
