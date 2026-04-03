@@ -1,5 +1,5 @@
 {
-  description = "Tech-Noir Personal Website: Zola + Rust WASM";
+  description = "Personal Website + Resume PDF Development Environment and Automation";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -26,26 +26,22 @@
           inherit system overlays;
         };
 
-        # 1. Define the specific Rust toolchain we need
+        # Rust toolchain
         rustToolchain = pkgs.rust-bin.stable.latest.default.override {
           extensions = [ "rust-src" ];
           targets = [ "wasm32-unknown-unknown" ];
         };
 
-        # 2. Build script wrapper to simplify the process
-        # This allows you to run `nix run` to build everything locally
+        # Build script
         buildScript = pkgs.writeShellScriptBin "build-site" ''
           echo ">> Building Rust Simulations..."
-          # Assumes your crate is in a folder named 'simulations'
-          # Adjust this path if your crate is elsewhere
           if [ -d "simulations" ]; then
             cd simulations
 
-            # 1. Compile Rust to WASM
+            # Compile Rust to WASM
             cargo build --release --target wasm32-unknown-unknown
 
-            # 2. Bindgen: Generate the JS glue code
-            # We output directly to Zola's static folder
+            # Bindgen: Generate the JS glue code
             ${pkgs.wasm-bindgen-cli}/bin/wasm-bindgen \
               --out-dir ../static/wasm \
               --target web \
@@ -70,8 +66,7 @@
 
       in
       {
-        # Development Shell
-        # Run `nix develop` to get access to zola, cargo, and wasm-pack
+        # Development shell
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
 
@@ -121,7 +116,6 @@
           '';
         };
 
-        # Run `nix run` to execute the build script defined above
         apps.default = flake-utils.lib.mkApp {
           drv = buildScript;
         };
