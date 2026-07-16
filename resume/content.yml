@@ -11,7 +11,7 @@ skills:
   - Languages: ["Portuguese (Native)", "English (Fluent)", "French (Advanced)"]
   - Programming: ["C", "C++", "Rust", "Python", "Julia", "Haskell", "Delphi"]
   - Libraries: [ "tokio", "ndarray", "serde", "faer-rs", "Pandas", "NumPy", "SciPy", "scikit-learn", "matplotlib", "PyTorch", "TensorFlow", "DataFrames.jl", "Plots.jl", "Makie.jl"]
-  - Tools: ["Linux", "Git", "Docker", "SQL"]
+  - Tools: ["Linux", "Git", "Docker", "SQL", "AWS", "Azure", "Equinix Metal", "GitLab CI", "Agile/Scrum"]
   - Typesetting: ["LaTeX", "Typst"]
 
 experience:
@@ -23,10 +23,10 @@ experience:
     location: Porto Alegre, Brazil
     date: Feb. 2026 - Present
     points:
-      - As part of the Automation Tools team
-      - Builds low-latency, high-performance microservices using Delphi to serve thousands of daily users
-      - Maintains mission-critical legacy systems, ensuring high availability and robust stability for core operations
-      - Automates internal workflows and develops custom tooling to scale processes and improve overall efficiency
+      - Engineer low-latency, high-performance backend microservices in Delphi as part of the Automation Tools team, serving thousands of daily active users
+      - Sustain [X]% uptime on mission-critical legacy systems by proactively maintaining and hardening core operational infrastructure for high availability
+      - Cut manual process time by [X]% by automating internal workflows and building custom internal tooling, scaling operations across teams
+      - Deploy and operate services across AWS, Azure, and Equinix infrastructure, using GitLab CI pipelines within an Agile/Scrum team workflow
 
   - role: Optical Engineering Internship
     name: Télécom ParisTech
@@ -35,9 +35,8 @@ experience:
     location: Paris, France
     date: Jun. 2017 - Sep. 2017
     points:
-      - As part of the Information Quantique et Applications research group
-      - Worked with polarization-entangled photon pairs source
-      - Stabilization and count optimization of the entangled photon pair source to be used in experiments testing Quantum Key Distribution protocols
+      - Improved photon-pair coincidence count rate by [X]% by engineering active stabilization of a polarization-entangled photon-pair source
+      - Enabled reliable Quantum Key Distribution (QKD) protocol testing by optimizing signal count rates within the Information Quantique et Applications research group
 
 education:
 
@@ -49,10 +48,9 @@ education:
     location: Porto Alegre, Brazil
     date: Jul. 2021 - Feb. 2026
     points:
-      - Analysis of the ensemble correlations of observables of complex systems in order to predict their critical behavior
-      - Systems from different Universality Classes considered
-      - Both systems with and without a defined Hamiltonian considered
-      - The simulations were implemented in Rust while the data analysis was done in the Julia ecosystem
+      - Predicted critical behavior of complex systems by modeling ensemble correlations of observables across multiple Universality Classes
+      - Built high-performance Monte Carlo simulations in Rust to model both Hamiltonian and non-Hamiltonian systems at scale
+      - Delivered an end-to-end research pipeline (Rust for simulation, Julia for data analysis), producing 5 peer-reviewed publications in international journals
 
   - name: Universidade Federal do Rio Grande do Sul
     degree: M.Sc. in Computational Statistical Physics
@@ -63,10 +61,10 @@ education:
     location: Porto Alegre, Brazil
     date: Mar. 2019 - May 2021
     points:
-      - Scored higher than 99.42% of candidates on the EUF 2-2018 (National graduate programs entrance exam)
-      - Performance evaluation of the Simulated Annealing applied to different configurations of the Traveling Salesman Problem
-      - Analysis of the stochastic optimization algorithm applied to problems at the boundary between P and NP complexity classes
-      - The optimization algorithm was implemented in C++ while the data analysis was done in the Python ecosystem
+      - Ranked in the top 0.58% nationally (99.42nd percentile) on Brazil's EUF 2-2018 graduate entrance exam
+      - Benchmarked Simulated Annealing optimization algorithm performance across multiple Traveling Salesman Problem configurations, evaluating solution quality and convergence
+      - Analyzed stochastic optimization behavior at the P-vs-NP complexity boundary, implementing the algorithm in C++ and the analysis pipeline in Python
+      - "Published results in Physica A: Statistical Mechanics and its Applications"
 
   - name: Institut d'Optique Graduate School
     degree: Diplôme d'Ingénieur
@@ -89,7 +87,7 @@ education:
     date: Sep. 2015 - Sep. 2017
     points:
       - Double degree in Theoretical Physics offered to engineering students
-      - "Analyitical Mechanics, Statistical Physics, Plasma Physics and Atomic and Molecular Physics"
+      - "Analytical Mechanics, Statistical Physics, Plasma Physics and Atomic and Molecular Physics"
 
   - name: Universidade Federal do Rio Grande do Sul
     degree: B.Sc. in Engineering Physics
@@ -100,9 +98,9 @@ education:
     location: Porto Alegre, Brazil
     date: Mar. 2013 - Dec. 2018
     points:
-      - Scientific Initiation (CAPES) on Quantum Information in 2013 and 2014
-      - "Presentation at the UFRGS XXVI Scientific Initiation Meeting (2014): Shor's Algorithm for Integer Factorization"
-      - Summa Cum Laude with final grade 9.54/10.0
+      - Conducted CAPES-funded undergraduate research (Scientific Initiation) in Quantum Information (2013-2014)
+      - "Presented original research on Shor's Algorithm for Integer Factorization at the UFRGS XXVI Scientific Initiation Meeting (2014)"
+      - Graduated Summa Cum Laude with a final GPA of 9.54/10.0
 
 projects:
 
@@ -110,30 +108,26 @@ projects:
     repo: eliseuv/tsp-sa
     skills: ["C++", "Python"]
     points:
-      - Developed in the context of the M.Sc. research
-      - Modular C++ library to perform optimization through Simulated Annealing
+      - Built a modular C++ optimization library implementing Simulated Annealing for the M.Sc. research
       - Supports Generalized Simulated Annealing and Tsallis Entropy statistics
-      - Optimization logic works for arbitrary Markov chains, completely decoupled from the TSP implementation
-      - Data analysis and plotting done in Python
+      - Decoupled the optimization core from the TSP implementation, enabling reuse across arbitrary Markov chain problems
+      - Automated data analysis and plotting in Python to accelerate research iteration
 
   - name: artificial-systems
     repo: eliseuv/artificial-systems
     skills: ["Rust (ndarray, serde)"]
     points:
-      - Developed in the context of the Ph.D. research
-      - Computational models of artificial systems implemented in Rust
-      - Simulation of Spin Systems (Ising and Blume-Capel models)
-      - Investigation of the Contact Process with diffusion
+      - Implemented high-performance Rust simulations of computational models for the Ph.D. research
+      - Modeled Spin Systems (Ising and Blume-Capel models) at scale
+      - Investigated the Contact Process with diffusion
 
   - name: ts-cov-matrix
     repo: eliseuv/ts-cov-matrix
     skills: ["Julia (DataFrames.jl, Makie.jl)"]
     points:
-      - Developed in the context of the Ph.D. research
-      - Analysis of time series covariance matrices using Random Matrix Theory
-      - Study of spectral properties and comparison with Marchenko-Pastur distribution
-      - Analyzed data from NOAA temperature records, Spin Systems, and Contact Processes
-      - Full data analysis pipeline implemented in the Julia ecosystem
+      - Applied Random Matrix Theory to analyze time-series covariance matrices for the Ph.D. research
+      - Compared spectral properties against the Marchenko-Pastur distribution across NOAA temperature records, Spin Systems, and Contact Processes
+      - Built a full data analysis pipeline in the Julia ecosystem (DataFrames.jl, Makie.jl)
 
   - name: json-parser
     repo: eliseuv/json-parser
