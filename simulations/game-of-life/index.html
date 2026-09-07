@@ -156,23 +156,55 @@
                 drawCells();
             });
 
-            canvas.addEventListener("click", (event) => {
+            const cellFromEvent = (event) => {
                 const rect = canvas.getBoundingClientRect();
                 const scaleX = canvas.width / rect.width;
                 const scaleY = canvas.height / rect.height;
                 const canvasLeft = (event.clientX - rect.left) * scaleX;
                 const canvasTop = (event.clientY - rect.top) * scaleY;
-                const row = Math.min(Math.floor(canvasTop / (CELL_SIZE + 1)), nrows - 1);
-                const col = Math.min(Math.floor(canvasLeft / (CELL_SIZE + 1)), ncols - 1);
+                const row = Math.min(Math.max(Math.floor(canvasTop / (CELL_SIZE + 1)), 0), nrows - 1);
+                const col = Math.min(Math.max(Math.floor(canvasLeft / (CELL_SIZE + 1)), 0), ncols - 1);
+                return { row, col };
+            };
+
+            // Dragging paints (toggles) each newly-entered cell once, rather
+            // than re-toggling on every mousemove within the same cell.
+            let isDragging = false;
+            let lastDragCell = null;
+
+            canvas.addEventListener("mousedown", (event) => {
+                const { row, col } = cellFromEvent(event);
 
                 if (event.ctrlKey) {
                     universe.add_pattern(Pattern.Glider, row, col);
-                } else if (event.shiftKey) {
-                    universe.add_pattern(Pattern.Pulsar, row, col);
-                } else {
-                    universe.toggle_cell(row, col);
+                    drawCells();
+                    return;
                 }
+                if (event.shiftKey) {
+                    universe.add_pattern(Pattern.Pulsar, row, col);
+                    drawCells();
+                    return;
+                }
+
+                universe.toggle_cell(row, col);
                 drawCells();
+                isDragging = true;
+                lastDragCell = { row, col };
+                event.preventDefault();
+            });
+
+            document.addEventListener("mousemove", (event) => {
+                if (!isDragging) return;
+                const { row, col } = cellFromEvent(event);
+                if (lastDragCell && lastDragCell.row === row && lastDragCell.col === col) return;
+                universe.toggle_cell(row, col);
+                lastDragCell = { row, col };
+                drawCells();
+            });
+
+            document.addEventListener("mouseup", () => {
+                isDragging = false;
+                lastDragCell = null;
             });
 
             const clearState = () => { universe.clear(); drawCells(); };
