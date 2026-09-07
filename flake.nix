@@ -34,6 +34,13 @@
 
         # Build WASM Simulations
         buildSimulations = pkgs.writeShellScriptBin "build-simulations" ''
+          set -euo pipefail
+          # Outside a `nix develop` shell (e.g. plain `nix run` in CI) nothing
+          # puts the pinned toolchain on PATH, so a bare `cargo` falls back to
+          # whatever the runner happens to have, which lacks the
+          # wasm32-unknown-unknown std. cargo also shells out to `rustc` by
+          # bare name internally, so it must be on PATH too, not just cargo.
+          export PATH="${rustToolchain}/bin:$PATH"
           echo ">> Building Rust Simulations..."
           if [ -d "simulations" ]; then
             cd simulations
@@ -62,6 +69,7 @@
 
         # Build Resume
         buildResume = pkgs.writeShellScriptBin "build-resume" ''
+          set -euo pipefail
           echo ">> Building Resume..."
           TYPST_FONT_PATHS="${pkgs.font-awesome}/share/fonts" ${pkgs.typst}/bin/typst compile --root . \
             --input RESUME_NAME="''${RESUME_NAME:-}" \
@@ -72,12 +80,14 @@
 
         # Build Zola Site
         buildZola = pkgs.writeShellScriptBin "build-zola" ''
+          set -euo pipefail
           echo ">> Building Zola Site..."
           ${pkgs.zola}/bin/zola build
         '';
 
         # Default build script (runs all)
         buildSite = pkgs.writeShellScriptBin "build-site" ''
+          set -euo pipefail
           ${buildSimulations}/bin/build-simulations
           ${buildResume}/bin/build-resume
           ${buildZola}/bin/build-zola
