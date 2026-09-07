@@ -38,18 +38,24 @@
           if [ -d "simulations" ]; then
             cd simulations
 
-            # Compile Rust to WASM
+            # Compile every workspace member (spinning_cube, game_of_life) in one pass.
             cargo build --release --target wasm32-unknown-unknown
 
-            # Bindgen: Generate the JS glue code
+            # Bindgen: Generate the JS glue code for each simulation.
             ${pkgs.wasm-bindgen-cli}/bin/wasm-bindgen \
               --out-dir ../static/wasm \
               --target web \
               --no-typescript \
               target/wasm32-unknown-unknown/release/spinning_cube.wasm
 
+            ${pkgs.wasm-bindgen-cli}/bin/wasm-bindgen \
+              --out-dir ../static/wasm \
+              --target web \
+              --no-typescript \
+              target/wasm32-unknown-unknown/release/game_of_life.wasm
+
               cd ..
-          else 
+          else
             echo "No 'simulations' folder found, skipping WASM build."
           fi
         '';
