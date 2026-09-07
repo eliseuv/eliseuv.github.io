@@ -20,4 +20,19 @@ bevy = { version = "0.18", default-features = false, features = [
 ] }
 console_error_panic_hook = "0.1.7"
 rand = "0.10"
-wasm-bindgen = "0.2"
+# Pinned exactly: must match the wasm-bindgen-cli version nix provides, or
+# `wasm-bindgen` refuses to run against the compiled output.
+wasm-bindgen = "=0.2.114"
+
+# Pinned to the versions released alongside wasm-bindgen 0.2.114 above (these
+# crates ship in lockstep, each exact-pinning the next). Without forcing this
+# whole chain here, bevy's own semver-flexible ranges resolve to the latest
+# release train instead, which won't match the pinned CLI.
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+js-sys = "=0.3.91"
+web-sys = "=0.3.91"
+wasm-bindgen-futures = "=0.4.64"
+# getrandom 0.4+ requires opting into a backend explicitly for wasm32; bevy
+# pulls it in transitively via rand, so it's pinned here even though nothing
+# in this crate calls it directly.
+getrandom = { version = "0.4", features = ["wasm_js"] }
