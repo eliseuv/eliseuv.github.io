@@ -30,7 +30,35 @@
         <details class="entry">
             <summary>
                 <div style="display: flex; gap: 0.8rem; align-items: flex-start;">
-                    {% if exp.logo %}
+                    {% if exp.logo and exp.degree_logo %}
+                    <div class="entry-logo" style="flex-shrink: 0; padding-top: 0.2rem; display: flex; gap: 0.4rem;">
+                        <div style="width: 4em; display: flex; justify-content: center; align-items: center;">
+                            {% if exp.link %}
+                            <a href="{{ exp.link }}" target="_blank" class="no-underline" style="display: flex;">
+                                {% endif %}
+                                <span class="icon-link" style="display: flex;">
+                                    <img src="{{ exp.logo }}" alt="{{ exp.name }} logo"
+                                        style="max-height: 2.8em; max-width: 100%; border-radius: 2px; object-fit: contain;">
+                                </span>
+                                {% if exp.link %}
+                            </a>
+                            {% endif %}
+                        </div>
+                        <div style="width: 3em; display: flex; justify-content: center; align-items: center;">
+                            {% if exp.degree_link %}
+                            <a href="{{ exp.degree_link }}" target="_blank" class="no-underline" style="display: flex;">
+                            {% endif %}
+                                <span class="icon-link" style="display: flex;">
+                                    <div class="degree-logo"
+                                        style="-webkit-mask-image: url('{{ exp.degree_logo }}'); mask-image: url('{{ exp.degree_logo }}');"
+                                        alt="{{ exp.role }} logo"></div>
+                                </span>
+                            {% if exp.degree_link %}
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% elif exp.logo %}
                     <div class="entry-logo" style="flex-shrink: 0; padding-top: 0.2rem;">
                         {% if exp.link %}
                         <a href="{{ exp.link }}" target="_blank" class="no-underline" style="display: inline-block;">

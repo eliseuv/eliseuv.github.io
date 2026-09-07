@@ -139,7 +139,9 @@
   date: "June 1837 - May 1845",
   location: "Foo, BA",
   logo: none,
+  degree_logo: none,
   url: none,
+  degree_url: none,
   ..points,
 ) = {
   set block(above: 0.7em, below: 1em)
@@ -161,18 +163,40 @@
         )
         #list(..points)
       ]
-      #if logo != none {
-        let logo_img = image(static_dir + logo, width: 2.8em)
-        let logo_node = if url != none {
-          link(url)[#box[
-            #logo_img
-            #place(top + right, dx: 0.3em, dy: -0.3em, text(fill: rgb("#000099"), size: 0.6em)[#sym.arrow.tr])
-          ]]
-        } else { logo_img }
+      #if logo != none or degree_logo != none {
+        let logo_node = if logo != none {
+          let logo_img = image(static_dir + logo, width: 2.8em)
+          let linked = if url != none {
+            link(url)[#box[
+              #logo_img
+              #place(top + right, dx: 0.3em, dy: -0.3em, text(fill: rgb("#000099"), size: 0.6em)[#sym.arrow.tr])
+            ]]
+          } else { logo_img }
+          (align(center + horizon, linked),)
+        } else { () }
+        let degree_node = if degree_logo != none {
+          let degree_img = image(static_dir + degree_logo, height: 2em)
+          let linked = if degree_url != none {
+            link(degree_url)[#box[
+              #degree_img
+              #place(top + right, dx: 0.3em, dy: -0.3em, text(fill: rgb("#000099"), size: 0.6em)[#sym.arrow.tr])
+            ]]
+          } else { degree_img }
+          (align(center + horizon, linked),)
+        } else { () }
+
+        let logo_col = if logo != none { (2.8em,) } else { () }
+        let degree_col = if degree_logo != none { (2em,) } else { () }
+
         grid(
           columns: (auto, 1fr),
           gutter: 0.6em,
-          align(top, logo_node), body,
+          align(top, grid(
+            columns: logo_col + degree_col,
+            gutter: 0.2em,
+            ..(logo_node + degree_node),
+          )),
+          body,
         )
       } else {
         body
