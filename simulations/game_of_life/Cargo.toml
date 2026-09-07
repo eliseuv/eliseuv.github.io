@@ -1,0 +1,13 @@
+[package]
+name = "game_of_life"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+ndarray = "0.15"
+wasm-bindgen = "0.2"
+console_error_panic_hook = "0.1.7"
+js-sys = "0.3"
