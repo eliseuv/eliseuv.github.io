@@ -14,45 +14,50 @@
         {% set resume_email = resume.personal | get(key="email", default="") %}
         {% set email = get_env(name="RESUME_EMAIL", default=resume_email) %}
         {% if email %}
-        <span>
+        <div class="contact-email">
             <a href="mailto:{{ email }}">
                 <span class="icon-link" style="margin-right: 0.3rem;">{% include "icons/mail.html" %}</span>
                 {{ email }}
             </a>
-        </span>
+        </div>
         {% endif %}
-        {% if resume.personal.github %}
-        <span>
-            <a href="https://github.com/{{ resume.personal.github }}">
-                <span class="icon-link" style="margin-right: 0.3rem;">{% include "icons/github.html" %}</span>
-                GitHub
-            </a>
-        </span>
-        {% endif %}
-        {% if resume.personal.linkedin %}
-        <span>
-            <a href="https://linkedin.com/in/{{ resume.personal.linkedin }}">
-                <span class="icon-link" style="margin-right: 0.3rem;">{% include "icons/linkedin.html" %}</span>
-                LinkedIn
-            </a>
-        </span>
-        {% endif %}
-        {% if resume.personal.orcid %}
-        <span>
-            <a href="https://orcid.org/{{ resume.personal.orcid }}">
-                <span class="icon-link" style="margin-right: 0.3rem;">{% include "icons/orcid.html" %}</span>
-                ORCID
-            </a>
-        </span>
-        {% endif %}
-        {% if resume.personal.researchgate %}
-        <span>
-            <a href="https://www.researchgate.net/profile/{{ resume.personal.researchgate }}">
-                <span class="icon-link" style="margin-right: 0.3rem;">{% include "icons/researchgate.html" %}</span>
-                ResearchGate
-            </a>
-        </span>
-        {% endif %}
+        <div class="contact-links">
+            {% if resume.personal.github %}
+            <span>
+                <a href="https://github.com/{{ resume.personal.github }}" title="GitHub" aria-label="GitHub">
+                    <span class="icon-link">{% include "icons/github.html" %}</span>
+                </a>
+            </span>
+            {% endif %}
+            {% if resume.personal.linkedin %}
+            <span>
+                <a href="https://linkedin.com/in/{{ resume.personal.linkedin }}" title="LinkedIn" aria-label="LinkedIn">
+                    <span class="icon-link">{% include "icons/linkedin.html" %}</span>
+                </a>
+            </span>
+            {% endif %}
+            {% if resume.personal.orcid %}
+            <span>
+                <a href="https://orcid.org/{{ resume.personal.orcid }}" title="ORCID" aria-label="ORCID">
+                    <span class="icon-link">{% include "icons/orcid.html" %}</span>
+                </a>
+            </span>
+            {% endif %}
+            {% if resume.personal.researchgate %}
+            <span>
+                <a href="https://www.researchgate.net/profile/{{ resume.personal.researchgate }}" title="ResearchGate" aria-label="ResearchGate">
+                    <span class="icon-link">{% include "icons/researchgate.html" %}</span>
+                </a>
+            </span>
+            {% endif %}
+            {% if resume.personal.lattes %}
+            <span>
+                <a href="http://lattes.cnpq.br/{{ resume.personal.lattes }}" title="Lattes" aria-label="Lattes">
+                    <span class="icon-link">{% include "icons/lattes.html" %}</span>
+                </a>
+            </span>
+            {% endif %}
+        </div>
     </div>
 
     <div class="resume-actions">
