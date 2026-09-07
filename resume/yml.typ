@@ -43,7 +43,9 @@
       location: exp.location,
       date: exp.date,
       logo: exp.at("logo", default: none),
+      degree_logo: exp.at("degree_logo", default: none),
       url: exp.at("link", default: none),
+      degree_url: exp.at("degree_link", default: none),
       ..exp.points.map(s => eval(s, mode: "markup")),
     )
   }

@@ -28,6 +28,35 @@ experience:
       - Maintains mission-critical legacy systems, ensuring high availability and robust stability for core operations
       - Automates internal workflows and develops custom tooling to scale processes and improve overall efficiency
 
+  - role: Ph.D. Researcher in Computational Statistical Physics
+    name: Universidade Federal do Rio Grande do Sul
+    logo: /svg/ufrgs.svg
+    link: https://if.ufrgs.br/ppgfis/
+    degree_logo: /svg/statistics.svg
+    location: Porto Alegre, Brazil
+    date: Jul. 2021 - Feb. 2026
+    points:
+      - Doctoral research funded by a CNPq (Conselho Nacional de Desenvolvimento Científico e Tecnológico) scholarship
+      - Analysis of the ensemble correlations of observables of complex systems in order to predict their critical behavior
+      - Systems from different Universality Classes considered
+      - Both systems with and without a defined Hamiltonian considered
+      - The simulations were implemented in Rust while the data analysis was done in the Julia ecosystem
+
+  - role: M.Sc. Researcher in Computational Statistical Physics
+    name: Universidade Federal do Rio Grande do Sul
+    logo: /svg/ufrgs.svg
+    link: https://if.ufrgs.br/ppgfis/
+    degree_logo: /svg/graph.svg
+    degree_link: http://hdl.handle.net/10183/225179
+    location: Porto Alegre, Brazil
+    date: Mar. 2019 - May 2021
+    points:
+      - Master's research funded by a CNPq (Conselho Nacional de Desenvolvimento Científico e Tecnológico) scholarship
+      - Scored higher than 99.42% of candidates on the EUF 2-2018 (National graduate programs entrance exam)
+      - Performance evaluation of the Simulated Annealing applied to different configurations of the Traveling Salesman Problem
+      - Analysis of the stochastic optimization algorithm applied to problems at the boundary between P and NP complexity classes
+      - The optimization algorithm was implemented in C++ while the data analysis was done in the Python ecosystem
+
   - role: Optical Engineering Internship
     name: Télécom ParisTech
     logo: /svg/telecom.svg
@@ -40,33 +69,6 @@ experience:
       - Stabilization and count optimization of the entangled photon pair source to be used in experiments testing Quantum Key Distribution protocols
 
 education:
-
-  - name: Universidade Federal do Rio Grande do Sul
-    degree: Ph.D. in Computational Statistical Physics
-    logo: /svg/ufrgs.svg
-    link: https://if.ufrgs.br/ppgfis/
-    degree_logo: /svg/statistics.svg
-    location: Porto Alegre, Brazil
-    date: Jul. 2021 - Feb. 2026
-    points:
-      - Analysis of the ensemble correlations of observables of complex systems in order to predict their critical behavior
-      - Systems from different Universality Classes considered
-      - Both systems with and without a defined Hamiltonian considered
-      - The simulations were implemented in Rust while the data analysis was done in the Julia ecosystem
-
-  - name: Universidade Federal do Rio Grande do Sul
-    degree: M.Sc. in Computational Statistical Physics
-    logo: /svg/ufrgs.svg
-    link: https://if.ufrgs.br/ppgfis/
-    degree_logo: /svg/graph.svg
-    degree_link: http://hdl.handle.net/10183/225179
-    location: Porto Alegre, Brazil
-    date: Mar. 2019 - May 2021
-    points:
-      - Scored higher than 99.42% of candidates on the EUF 2-2018 (National graduate programs entrance exam)
-      - Performance evaluation of the Simulated Annealing applied to different configurations of the Traveling Salesman Problem
-      - Analysis of the stochastic optimization algorithm applied to problems at the boundary between P and NP complexity classes
-      - The optimization algorithm was implemented in C++ while the data analysis was done in the Python ecosystem
 
   - name: Institut d'Optique Graduate School
     degree: Diplôme d'Ingénieur
