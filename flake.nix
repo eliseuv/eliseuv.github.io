@@ -83,6 +83,9 @@
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
 
+            # Task runner
+            just
+
             # Website
             zola
 
