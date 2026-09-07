@@ -1,23 +1,6 @@
-[package]
-name = "spinning_cube"
-version = "0.1.0"
-edition = "2021"
+[workspace]
+resolver = "2"
+members = ["spinning_cube", "game_of_life"]
 
-[lib]
-crate-type = ["cdylib"]
-
-[dependencies]
-bevy = { version = "0.18", default-features = false, features = [
-    "bevy_asset",
-    "bevy_winit",         # Needed for window creation
-    "bevy_core_pipeline",
-    "bevy_sprite",        # 2D rendering
-    "bevy_gizmos",        # Wireframe lines
-    "bevy_render",
-    "x11",                # For native Linux dev
-    "webgl2",             # Fallback for older browsers
-    "webgpu",             # Modern standard
-] }
-console_error_panic_hook = "0.1.7"
-rand = "0.10"
-wasm-bindgen = "0.2"
+[profile.release.package.game_of_life]
+opt-level = "s"
