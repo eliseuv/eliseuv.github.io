@@ -29,6 +29,13 @@
                 </a>
             </span>
             {% endif %}
+            {% if resume.personal.gitlab %}
+            <span>
+                <a href="https://gitlab.com/{{ resume.personal.gitlab }}" title="GitLab" aria-label="GitLab">
+                    <span class="icon-link">{% include "icons/gitlab.html" %}</span>
+                </a>
+            </span>
+            {% endif %}
             {% if resume.personal.linkedin %}
             <span>
                 <a href="https://linkedin.com/in/{{ resume.personal.linkedin }}" title="LinkedIn" aria-label="LinkedIn">
