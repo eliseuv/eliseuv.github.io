@@ -16,8 +16,9 @@ personal:
 
 skills:
   - Languages: ["Portuguese (Native)", "English (Fluent)", "French (Advanced)"]
-  - Programming: ["C", "C++", "Rust", "Python", "Julia", "Haskell", "Delphi"]
-  - Libraries:
+  - Programming:
+      - C: []
+      - C++: []
       - Rust: ["tokio", "ndarray", "serde", "faer-rs"]
       - Python:
           [
@@ -30,6 +31,8 @@ skills:
             "TensorFlow",
           ]
       - Julia: ["DataFrames.jl", "Plots.jl", "Makie.jl"]
+      - Haskell: []
+      - Delphi: []
   - Tools: ["Linux", "Git", "Docker", "SQL"]
   - Typesetting: ["LaTeX", "Typst"]
 
