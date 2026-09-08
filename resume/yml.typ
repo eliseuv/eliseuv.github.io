@@ -87,6 +87,11 @@
         .map(lang_group => lang_group.pairs().first())
         .map(p => if p.at(1).len() == 0 { [#p.at(0)] } else { [#p.at(0): #p.at(1).join(", ")] })
         .join([; ])
+    } else if category == "Languages" {
+      value
+        .map(lang => lang.pairs().first())
+        .map(p => if p.at(1).len() == 0 { [#p.at(0)] } else { [#p.at(0) (#p.at(1).join(", "))] })
+        .join(", ")
     } else {
       value.join(", ")
     }

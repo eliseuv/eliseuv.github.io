@@ -268,35 +268,37 @@ header.resume-container,
                 color: $text-light;
             }
 
-            // Plain skill lists (Languages, Tools, Typesetting): items are
-            // set apart by generous gap alone, no separator punctuation.
+            // Plain skill lists (Tools, Typesetting): items are set apart by
+            // generous gap alone, no separator punctuation.
             .skill-items {
                 display: inline-flex;
                 flex-wrap: wrap;
                 gap: 0.3rem 1.1em;
             }
 
-            .library-groups {
+            .skill-chips {
                 display: inline-flex;
                 flex-wrap: wrap;
                 gap: 0.3rem 1.1em;
             }
 
-            // A language chip: plain text if it has no libraries, a soft
-            // tinted pill (visually "grouping" its libraries, no outline) if
-            // it does. The library list itself is an absolutely-positioned
-            // popover so revealing it on hover never reflows surrounding text.
-            .library-group {
+            // A skill chip pairs a label (language) with optional detail
+            // (its libraries, or its fluency): plain text with no detail, a
+            // soft tinted pill (visually "grouping" the detail, no outline)
+            // when there is one. The detail itself is an absolutely-
+            // positioned popover so revealing it on hover never reflows
+            // surrounding text. Shared by the Programming and Languages rows.
+            .skill-chip {
                 position: relative;
                 display: inline-block;
 
-                .library-lang {
+                .chip-label {
                     color: $accent;
                     font-weight: 600;
                     transition: text-shadow 0.2s ease;
                 }
 
-                &.has-libs {
+                &.has-detail {
                     padding: 0.1em 0.55em;
                     border-radius: 999px;
                     background: rgba($accent, 0.06);
@@ -306,11 +308,11 @@ header.resume-container,
                         background-color: rgba($accent, 0.12);
                         box-shadow: 0 0 8px rgba($accent, 0.25);
 
-                        .library-lang {
+                        .chip-label {
                             text-shadow: 0 0 8px $accent;
                         }
 
-                        .library-items {
+                        .chip-detail {
                             opacity: 1;
                             pointer-events: auto;
                             transform: translate(-50%, 0);
@@ -318,7 +320,7 @@ header.resume-container,
                     }
                 }
 
-                .library-items {
+                .chip-detail {
                     position: absolute;
                     top: 100%;
                     left: 50%;
