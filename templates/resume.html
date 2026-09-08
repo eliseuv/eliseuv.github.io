@@ -17,16 +17,16 @@
             <div class="skill-row">
                 <span class="skill-category">{{ category }}:</span>
                 <span class="skill-list">
-                    {% if category == "Programming" %}
-                    <span class="library-groups">
-                        {% for lang_group in items %}
-                        {% for language, libs in lang_group %}
-                        <span class="library-group{% if libs | length > 0 %} has-libs{% endif %}">
-                            <span class="library-lang">{{ language }}</span>
-                            {% if libs | length > 0 %}
-                            <span class="library-items">
-                                {% for lib in libs %}
-                                <span class="library-item">{{ lib }}</span>
+                    {% if category == "Programming" or category == "Languages" %}
+                    <span class="skill-chips">
+                        {% for entry in items %}
+                        {% for label, detail in entry %}
+                        <span class="skill-chip{% if detail | length > 0 %} has-detail{% endif %}">
+                            <span class="chip-label">{{ label }}</span>
+                            {% if detail | length > 0 %}
+                            <span class="chip-detail">
+                                {% for d in detail %}
+                                <span class="chip-detail-item">{{ d }}</span>
                                 {% endfor %}
                             </span>
                             {% endif %}

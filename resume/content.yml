@@ -15,7 +15,10 @@ personal:
     ]
 
 skills:
-  - Languages: ["Portuguese (Native)", "English (Fluent)", "French (Advanced)"]
+  - Languages:
+      - Portuguese: ["Native"]
+      - English: ["Fluent"]
+      - French: ["Advanced"]
   - Programming:
       - C: []
       - C++: []
