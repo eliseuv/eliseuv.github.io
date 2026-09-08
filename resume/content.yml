@@ -21,8 +21,8 @@ skills:
       - French: ["Advanced"]
   - Programming:
       - C: []
-      - C++: []
-      - Rust: ["tokio", "ndarray", "serde", "faer-rs"]
+      - C++: ["boost"]
+      - Rust: ["tokio"]
       - Python:
           [
             "Pandas",
@@ -34,11 +34,11 @@ skills:
             "TensorFlow",
           ]
       - Julia: ["DataFrames.jl", "Plots.jl", "Makie.jl"]
-      - Haskell: []
+      - Haskell: ["megaparsec"]
       - Delphi: []
+  - OS: ["NixOS"]
   - Technologies:
-      - Linux: []
-      - Database: ["PostgreSQL", "MS SQL", "SQLite"]
+      - Database: ["PostgreSQL", "SQLite", "DuckDB"]
       - DevOps: ["Docker"]
 
 experience:
