@@ -26,8 +26,6 @@
       location: edu.location,
       date: edu.date,
       logo: edu.at("logo", default: none),
-      url: edu.at("link", default: none),
-      degree_url: edu.at("degree_link", default: none),
       ..edu.points.map(s => eval(s, mode: "markup")),
     )
   }
@@ -42,8 +40,6 @@
       location: exp.location,
       date: exp.date,
       logo: exp.at("logo", default: none),
-      url: exp.at("link", default: none),
-      degree_url: exp.at("degree_link", default: none),
       ..exp.points.map(s => eval(s, mode: "markup")),
     )
   }
