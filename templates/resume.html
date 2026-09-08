@@ -22,7 +22,7 @@
                         {% for lang_group in items %}
                         {% set is_last_lang = loop.last %}
                         {% for language, libs in lang_group %}
-                        <span class="library-group">
+                        <span class="library-group{% if libs | length > 0 %} has-libs{% endif %}">
                             <span class="library-lang">{{ language }}</span>
                             {% if libs | length > 0 %}
                             <span class="library-items">{{ libs | join(sep=", ") }}</span>
