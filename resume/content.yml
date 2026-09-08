@@ -51,7 +51,7 @@ experience:
       - Maintains mission-critical legacy systems, ensuring high availability and robust stability for core operations
       - Automates internal workflows and develops custom tooling to scale processes and improve overall efficiency
 
-  - role: Ph.D. Researcher in Computational Statistical Physics
+  - role: Ph.D. in Computational Statistical Physics
     name: Universidade Federal do Rio Grande do Sul
     logo: /svg/ufrgs.svg
     link: https://if.ufrgs.br/ppgfis/
@@ -65,7 +65,7 @@ experience:
       - Both systems with and without a defined Hamiltonian considered
       - The simulations were implemented in Rust while the data analysis was done in the Julia ecosystem
 
-  - role: M.Sc. Researcher in Computational Statistical Physics
+  - role: M.Sc. in Computational Statistical Physics
     name: Universidade Federal do Rio Grande do Sul
     logo: /svg/ufrgs.svg
     link: https://if.ufrgs.br/ppgfis/
