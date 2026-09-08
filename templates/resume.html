@@ -20,19 +20,26 @@
                     {% if category == "Programming" %}
                     <span class="library-groups">
                         {% for lang_group in items %}
-                        {% set is_last_lang = loop.last %}
                         {% for language, libs in lang_group %}
                         <span class="library-group{% if libs | length > 0 %} has-libs{% endif %}">
                             <span class="library-lang">{{ language }}</span>
                             {% if libs | length > 0 %}
-                            <span class="library-items">{{ libs | join(sep=", ") }}</span>
+                            <span class="library-items">
+                                {% for lib in libs %}
+                                <span class="library-item">{{ lib }}</span>
+                                {% endfor %}
+                            </span>
                             {% endif %}
                         </span>
-                        {% endfor %}{% if not is_last_lang %}, {% endif %}
+                        {% endfor %}
                         {% endfor %}
                     </span>
                     {% else %}
-                    {{ items | join(sep=", ") }}
+                    <span class="skill-items">
+                        {% for item in items %}
+                        <span class="skill-item">{{ item }}</span>
+                        {% endfor %}
+                    </span>
                     {% endif %}
                 </span>
             </div>
