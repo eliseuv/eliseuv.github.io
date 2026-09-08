@@ -18,22 +18,18 @@ skills:
   - Languages: ["Portuguese (Native)", "English (Fluent)", "French (Advanced)"]
   - Programming: ["C", "C++", "Rust", "Python", "Julia", "Haskell", "Delphi"]
   - Libraries:
-      [
-        "tokio",
-        "ndarray",
-        "serde",
-        "faer-rs",
-        "Pandas",
-        "NumPy",
-        "SciPy",
-        "scikit-learn",
-        "matplotlib",
-        "PyTorch",
-        "TensorFlow",
-        "DataFrames.jl",
-        "Plots.jl",
-        "Makie.jl",
-      ]
+      - Rust: ["tokio", "ndarray", "serde", "faer-rs"]
+      - Python:
+          [
+            "Pandas",
+            "NumPy",
+            "SciPy",
+            "scikit-learn",
+            "matplotlib",
+            "PyTorch",
+            "TensorFlow",
+          ]
+      - Julia: ["DataFrames.jl", "Plots.jl", "Makie.jl"]
   - Tools: ["Linux", "Git", "Docker", "SQL"]
   - Typesetting: ["LaTeX", "Typst"]
 
