@@ -272,10 +272,13 @@ header.resume-container,
                 display: inline;
             }
 
+            // A language chip: plain text if it has no libraries, a bordered
+            // pill (visually "grouping" its libraries) if it does. The
+            // library list itself is an absolutely-positioned popover so
+            // revealing it on hover never reflows the surrounding text.
             .library-group {
-                display: inline-flex;
-                align-items: baseline;
-                vertical-align: top;
+                position: relative;
+                display: inline-block;
 
                 .library-lang {
                     color: $accent;
@@ -283,28 +286,51 @@ header.resume-container,
                     transition: text-shadow 0.2s ease;
                 }
 
-                .library-items {
-                    display: inline-block;
-                    overflow: hidden;
-                    max-width: 0;
-                    white-space: nowrap;
-                    opacity: 0;
-                    padding-left: 0;
-                    color: $text-light;
-                    transition: max-width 0.35s ease, opacity 0.25s ease, padding-left 0.35s ease;
+                &.has-libs {
+                    padding: 0.1em 0.55em;
+                    border: 1px solid rgba($accent, 0.35);
+                    border-radius: 999px;
+                    background: rgba($accent, 0.06);
+                    transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+
+                    &:hover {
+                        border-color: $accent;
+                        background-color: rgba($accent, 0.12);
+                        box-shadow: 0 0 8px rgba($accent, 0.25);
+
+                        .library-lang {
+                            text-shadow: 0 0 8px $accent;
+                        }
+
+                        .library-items {
+                            opacity: 1;
+                            pointer-events: auto;
+                            transform: translate(-50%, 0);
+                        }
+                    }
                 }
 
-                &:hover {
-                    .library-lang {
-                        text-shadow: 0 0 8px $accent;
-                    }
-
-                    .library-items {
-                        max-width: 20rem;
-                        white-space: normal;
-                        opacity: 1;
-                        padding-left: 0.5em;
-                    }
+                .library-items {
+                    position: absolute;
+                    top: 100%;
+                    left: 50%;
+                    z-index: 5;
+                    margin-top: 0.5em;
+                    padding: 0.4em 0.7em;
+                    width: max-content;
+                    max-width: 18rem;
+                    white-space: normal;
+                    text-align: left;
+                    font-weight: normal;
+                    font-size: 0.85em;
+                    color: $text-light;
+                    background: $bg-code;
+                    border: 1px solid rgba($accent, 0.4);
+                    border-radius: 6px;
+                    opacity: 0;
+                    pointer-events: none;
+                    transform: translate(-50%, -4px);
+                    transition: opacity 0.25s ease, transform 0.25s ease;
                 }
             }
         }
