@@ -50,7 +50,7 @@
                             {% endif %}
                                 <span class="icon-link" style="display: flex;">
                                     <div class="degree-logo"
-                                        style="-webkit-mask-image: url('{{ exp.degree_logo }}'); mask-image: url('{{ exp.degree_logo }}');"
+                                        style="-webkit-mask-image: url('{% if exp.role == "Optical Engineering Internship" %}/svg/ket-psi.svg{% else %}{{ exp.degree_logo }}{% endif %}'); mask-image: url('{% if exp.role == "Optical Engineering Internship" %}/svg/ket-psi.svg{% else %}{{ exp.degree_logo }}{% endif %}');"
                                         alt="{{ exp.role }} logo"></div>
                                 </span>
                             {% if exp.degree_link %}
@@ -123,7 +123,7 @@
                             {% endif %}
                                 <span class="icon-link" style="display: flex;">
                                     <div class="degree-logo"
-                                        style="-webkit-mask-image: url('{{ edu.degree_logo }}'); mask-image: url('{{ edu.degree_logo }}');"
+                                        style="-webkit-mask-image: url('{% if edu.degree == "Diplôme d\'Ingénieur" %}/svg/laser.svg{% else %}{{ edu.degree_logo }}{% endif %}'); mask-image: url('{% if edu.degree == "Diplôme d\'Ingénieur" %}/svg/laser.svg{% else %}{{ edu.degree_logo }}{% endif %}');"
                                         alt="{{ edu.degree }} logo"></div>
                                 </span>
                             {% if edu.degree_link %}
