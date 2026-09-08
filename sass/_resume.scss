@@ -273,11 +273,9 @@ header.resume-container,
             }
 
             .library-group {
-                display: inline-grid;
-                grid-template-columns: auto 0fr;
+                display: inline-flex;
                 align-items: baseline;
-
-                transition: grid-template-columns 0.35s ease;
+                vertical-align: top;
 
                 .library-lang {
                     color: $accent;
@@ -286,23 +284,22 @@ header.resume-container,
                 }
 
                 .library-items {
+                    display: inline-block;
                     overflow: hidden;
-                    min-width: 0;
-                    white-space: nowrap;
+                    max-width: 0;
                     opacity: 0;
                     padding-left: 0;
                     color: $text-light;
-                    transition: opacity 0.2s ease, padding-left 0.35s ease;
+                    transition: max-width 0.35s ease, opacity 0.25s ease, padding-left 0.35s ease;
                 }
 
                 &:hover {
-                    grid-template-columns: auto 1fr;
-
                     .library-lang {
                         text-shadow: 0 0 8px $accent;
                     }
 
                     .library-items {
+                        max-width: 20rem;
                         opacity: 1;
                         padding-left: 0.5em;
                     }
