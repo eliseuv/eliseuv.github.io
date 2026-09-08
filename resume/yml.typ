@@ -80,9 +80,19 @@
   resume_heading[Skills]
   for skill in d {
     let pairs = skill.pairs().first()
+    let category = pairs.at(0)
+    let value = pairs.at(1)
+    let skills = if category == "Libraries" {
+      value
+        .map(lang_group => lang_group.pairs().first())
+        .map(p => [#p.at(0): #p.at(1).join(", ")])
+        .join([; ])
+    } else {
+      value.join(", ")
+    }
     skill_item(
-      category: pairs.at(0),
-      skills: pairs.at(1).join(", "),
+      category: category,
+      skills: skills,
     )
   }
 }
