@@ -268,14 +268,24 @@ header.resume-container,
                 color: $text-light;
             }
 
-            .library-groups {
-                display: inline;
+            // Plain skill lists (Languages, Tools, Typesetting): items are
+            // set apart by generous gap alone, no separator punctuation.
+            .skill-items {
+                display: inline-flex;
+                flex-wrap: wrap;
+                gap: 0.3rem 1.1em;
             }
 
-            // A language chip: plain text if it has no libraries, a bordered
-            // pill (visually "grouping" its libraries) if it does. The
-            // library list itself is an absolutely-positioned popover so
-            // revealing it on hover never reflows the surrounding text.
+            .library-groups {
+                display: inline-flex;
+                flex-wrap: wrap;
+                gap: 0.3rem 1.1em;
+            }
+
+            // A language chip: plain text if it has no libraries, a soft
+            // tinted pill (visually "grouping" its libraries, no outline) if
+            // it does. The library list itself is an absolutely-positioned
+            // popover so revealing it on hover never reflows surrounding text.
             .library-group {
                 position: relative;
                 display: inline-block;
@@ -288,13 +298,11 @@ header.resume-container,
 
                 &.has-libs {
                     padding: 0.1em 0.55em;
-                    border: 1px solid rgba($accent, 0.35);
                     border-radius: 999px;
                     background: rgba($accent, 0.06);
-                    transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+                    transition: background-color 0.2s ease, box-shadow 0.2s ease;
 
                     &:hover {
-                        border-color: $accent;
                         background-color: rgba($accent, 0.12);
                         box-shadow: 0 0 8px rgba($accent, 0.25);
 
@@ -315,11 +323,13 @@ header.resume-container,
                     top: 100%;
                     left: 50%;
                     z-index: 5;
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 0.3em 0.8em;
                     margin-top: 0.5em;
                     padding: 0.4em 0.7em;
                     width: max-content;
                     max-width: 18rem;
-                    white-space: normal;
                     text-align: left;
                     font-weight: normal;
                     font-size: 0.85em;
