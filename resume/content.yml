@@ -37,7 +37,6 @@ skills:
       - Haskell: []
       - Delphi: []
   - Tools: ["Linux", "Git", "Docker", "SQL"]
-  - Typesetting: ["LaTeX", "Typst"]
 
 experience:
   - role: Software Engineer
