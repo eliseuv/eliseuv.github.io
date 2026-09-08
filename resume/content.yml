@@ -6,18 +6,38 @@ personal:
   researchgate: Eliseu-Venites-Filho-3
   lattes: "8864397229519243"
   website: eliseuv.github.io
-  subtitle: ["Computational Statistical Physics", "Data Science", "Machine Learning", "Systems Engineering"]
+  subtitle:
+    [
+      "Computational Statistical Physics",
+      "Data Science",
+      "Machine Learning",
+      "Systems Engineering",
+    ]
 
 skills:
-
   - Languages: ["Portuguese (Native)", "English (Fluent)", "French (Advanced)"]
   - Programming: ["C", "C++", "Rust", "Python", "Julia", "Haskell", "Delphi"]
-  - Libraries: [ "tokio", "ndarray", "serde", "faer-rs", "Pandas", "NumPy", "SciPy", "scikit-learn", "matplotlib", "PyTorch", "TensorFlow", "DataFrames.jl", "Plots.jl", "Makie.jl"]
+  - Libraries:
+      [
+        "tokio",
+        "ndarray",
+        "serde",
+        "faer-rs",
+        "Pandas",
+        "NumPy",
+        "SciPy",
+        "scikit-learn",
+        "matplotlib",
+        "PyTorch",
+        "TensorFlow",
+        "DataFrames.jl",
+        "Plots.jl",
+        "Makie.jl",
+      ]
   - Tools: ["Linux", "Git", "Docker", "SQL"]
   - Typesetting: ["LaTeX", "Typst"]
 
 experience:
-
   - role: Software Engineer
     name: Nelogica
     logo: /svg/nelogica.svg
@@ -71,12 +91,12 @@ experience:
       - Stabilization and count optimization of the entangled photon pair source to be used in experiments testing Quantum Key Distribution protocols
 
 education:
-
   - name: Institut d'Optique Graduate School
     degree: Diplôme d'Ingénieur
     logo: /svg/iogs.svg
     link: https://www.institutoptique.fr/
     degree_logo: /svg/aperture.svg
+    degree_link: https://www.institutoptique.fr/formations/cycle-ingenieur
     location: Palaiseau, France
     date: Sep. 2015 - Sep. 2017
     points:
@@ -109,7 +129,6 @@ education:
       - Summa Cum Laude with final grade 9.54/10.0
 
 projects:
-
   - name: tsp-sa
     repo: eliseuv/tsp-sa
     skills: ["C++", "Python"]
@@ -165,18 +184,19 @@ projects:
       - Designed to master Sternhalma through self-play without human knowledge
 
 publications:
-
   - doi: 10.3390/sym17050774
     year: 2025
     title: "Revisiting the Contact Model with Diffusion Beyond the Conventional Methods"
     journal: Symmetry
-    authors: ["R. da Silva", "E. Venites Filho", "H, A. Fernandes", "P. F. Gomes"]
+    authors:
+      ["R. da Silva", "E. Venites Filho", "H, A. Fernandes", "P. F. Gomes"]
 
   - doi: 10.1142/s0129183124501638
     year: 2025
     title: "Efficient computational method using random matrices describing critical thermodynamics"
     journal: International Journal of Modern Physics C
-    authors: ["R. da Silva", "E. Venites Filho", "S. D. Prado", "J. R. D. de Felício"]
+    authors:
+      ["R. da Silva", "E. Venites Filho", "S. D. Prado", "J. R. D. de Felício"]
 
   - doi: 10.3390/e26050395
     year: 2024
@@ -188,7 +208,14 @@ publications:
     year: 2023
     title: Mean-Field Criticality Explained by Random Matrices Theory
     journal: Brazilian Journal of Physics
-    authors: ["R. da Silva", "H. C. M. Fernandes", "E. Venites Filho", "S. D. Prado", "J. R. Drugowich de Felicio"]
+    authors:
+      [
+        "R. da Silva",
+        "H. C. M. Fernandes",
+        "E. Venites Filho",
+        "S. D. Prado",
+        "J. R. Drugowich de Felicio",
+      ]
 
   - doi: 10.1016/j.physa.2021.126067
     year: 2021
