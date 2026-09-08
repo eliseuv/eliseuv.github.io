@@ -287,6 +287,7 @@ header.resume-container,
                     display: inline-block;
                     overflow: hidden;
                     max-width: 0;
+                    white-space: nowrap;
                     opacity: 0;
                     padding-left: 0;
                     color: $text-light;
@@ -300,6 +301,7 @@ header.resume-container,
 
                     .library-items {
                         max-width: 20rem;
+                        white-space: normal;
                         opacity: 1;
                         padding-left: 0.5em;
                     }
