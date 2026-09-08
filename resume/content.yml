@@ -36,9 +36,8 @@ skills:
       - Julia: ["DataFrames.jl", "Plots.jl", "Makie.jl"]
       - Haskell: ["megaparsec"]
       - Delphi: []
-  - OS: ["NixOS"]
-  - Technologies:
-      - Database: ["PostgreSQL", "SQLite", "DuckDB"]
+  - Tools:
+      - Databases: ["PostgreSQL", "SQLite", "DuckDB"]
       - DevOps: ["Docker"]
 
 experience:
