@@ -10,7 +10,7 @@
 <div class="resume-container">
 
     <section>
-        <h2>:: SKILLS</h2>
+        <h2>Skills</h2>
         <div class="skills-section">
             {% for group in resume.skills %}
             {% for category, items in group %}
@@ -24,7 +24,7 @@
     </section>
 
     <section>
-        <h2>:: EXPERIENCE</h2>
+        <h2>Experience</h2>
 
         {% for exp in resume.experience %}
         <details class="entry">
@@ -97,7 +97,7 @@
     </section>
 
     <section>
-        <h2>:: EDUCATION</h2>
+        <h2>Education</h2>
 
         {% for edu in resume.education %}
         <details class="entry">
@@ -155,7 +155,7 @@
     </section>
 
     <section>
-        <h2>:: PROJECTS</h2>
+        <h2>Projects</h2>
 
         {% for proj in resume.projects %}
         <details class="entry">
@@ -185,7 +185,7 @@
     </section>
 
     <section>
-        <h2>:: PUBLICATIONS</h2>
+        <h2>Publications</h2>
 
         {% for pub in resume.publications %}
         <div class="publication">
