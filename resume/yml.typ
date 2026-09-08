@@ -82,10 +82,10 @@
     let pairs = skill.pairs().first()
     let category = pairs.at(0)
     let value = pairs.at(1)
-    let skills = if category == "Libraries" {
+    let skills = if category == "Programming" {
       value
         .map(lang_group => lang_group.pairs().first())
-        .map(p => [#p.at(0): #p.at(1).join(", ")])
+        .map(p => if p.at(1).len() == 0 { [#p.at(0)] } else { [#p.at(0): #p.at(1).join(", ")] })
         .join([; ])
     } else {
       value.join(", ")
