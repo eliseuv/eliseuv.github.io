@@ -42,6 +42,7 @@ experience:
     name: Nelogica
     logo: /svg/nelogica.svg
     link: https://www.nelogica.com.br/
+    degree_logo: /svg/candlestick.svg
     location: Porto Alegre, Brazil
     date: Feb. 2026 - Present
     points:
@@ -83,6 +84,7 @@ experience:
     name: Télécom ParisTech
     logo: /svg/telecom.svg
     link: https://www.telecom-paris.fr/
+    degree_logo: /svg/laser.svg
     location: Paris, France
     date: Jun. 2017 - Sep. 2017
     points:
