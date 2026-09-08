@@ -16,7 +16,22 @@
             {% for category, items in group %}
             <div class="skill-row">
                 <span class="skill-category">{{ category }}:</span>
-                <span class="skill-list">{{ items | join(sep=", ") }}</span>
+                <span class="skill-list">
+                    {% if category == "Libraries" %}
+                    <span class="library-groups">
+                        {% for lang_group in items %}
+                        {% for language, libs in lang_group %}
+                        <span class="library-group">
+                            <span class="library-lang">{{ language }}</span>
+                            <span class="library-items">{{ libs | join(sep=", ") }}</span>
+                        </span>
+                        {% endfor %}
+                        {% endfor %}
+                    </span>
+                    {% else %}
+                    {{ items | join(sep=", ") }}
+                    {% endif %}
+                </span>
             </div>
             {% endfor %}
             {% endfor %}
