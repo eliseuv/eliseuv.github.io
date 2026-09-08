@@ -36,7 +36,10 @@ skills:
       - Julia: ["DataFrames.jl", "Plots.jl", "Makie.jl"]
       - Haskell: []
       - Delphi: []
-  - Tools: ["Linux", "Git", "Docker", "SQL"]
+  - Technologies:
+      - Linux: []
+      - Database: ["PostgreSQL", "MS SQL", "SQLite"]
+      - DevOps: ["Docker"]
 
 experience:
   - role: Software Engineer
