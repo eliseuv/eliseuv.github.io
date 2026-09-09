@@ -11,7 +11,7 @@
     &:hover {
         background: $accent;
         color: #000;
-        box-shadow: 0 0 10px $accent;
+        box-shadow: 0 0 6px rgba($accent, 0.6);
     }
 }
 
@@ -88,6 +88,6 @@ a:hover .icon-link {
     .icon-lattes,
     .icon-download,
     img {
-        filter: drop-shadow(0 0 4px $accent);
+        filter: drop-shadow(0 0 3px rgba($accent, 0.6));
     }
 }
