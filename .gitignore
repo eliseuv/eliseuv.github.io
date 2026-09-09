@@ -21,3 +21,6 @@ public/
 
 # Ignore the compiled WASM/JS glue code 
 static/wasm/
+
+# Local
+/todo.md
