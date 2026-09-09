@@ -201,7 +201,12 @@ publications:
     title: "Efficient computational method using random matrices describing critical thermodynamics"
     journal: International Journal of Modern Physics C
     authors:
-      ["R. da Silva", "E. Venites Filho", "S. D. Prado", "J. R. D. de Felício"]
+      [
+        "R. da Silva",
+        "E. Venites Filho",
+        "S. D. Prado",
+        "J. R. Drugowich de Felício",
+      ]
 
   - doi: 10.3390/e26050395
     year: 2024
