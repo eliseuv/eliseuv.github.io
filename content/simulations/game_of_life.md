@@ -8,10 +8,74 @@ Conway's Game of Life is a zero-player cellular automaton: a grid of cells, each
 
 At each step, every cell looks at its 8 neighbors (Moore neighborhood) and updates by four rules:
 
-- **Underpopulation**: a live cell with fewer than 2 live neighbors dies.
-- **Survival**: a live cell with 2 or 3 live neighbors stays alive.
-- **Overpopulation**: a live cell with more than 3 live neighbors dies.
-- **Birth**: a dead cell with exactly 3 live neighbors becomes alive.
+<div class="gol-rules" style="display:flex; flex-wrap:wrap; gap:1.5rem; margin:1.5rem 0; font-family:'JetBrains Mono','Fira Code',monospace;">
+    <div style="width:150px;">
+        <svg width="60" height="60" viewBox="0 0 60 60">
+            <rect x="0" y="0" width="18" height="18" fill="#000" stroke="#333"/>
+            <rect x="21" y="0" width="18" height="18" fill="#aaaaaa" stroke="#333"/>
+            <rect x="42" y="0" width="18" height="18" fill="#000" stroke="#333"/>
+            <rect x="0" y="21" width="18" height="18" fill="#000" stroke="#333"/>
+            <rect x="21" y="21" width="18" height="18" fill="#aaaaaa" stroke="#333"/>
+            <rect x="42" y="21" width="18" height="18" fill="#000" stroke="#333"/>
+            <rect x="0" y="42" width="18" height="18" fill="#000" stroke="#333"/>
+            <rect x="21" y="42" width="18" height="18" fill="#000" stroke="#333"/>
+            <rect x="42" y="42" width="18" height="18" fill="#000" stroke="#333"/>
+            <rect x="21" y="21" width="18" height="18" fill="none" stroke="#f7768e" stroke-width="3"/>
+        </svg>
+        <p style="margin:0.6rem 0 0; font-size:0.95rem; color:#aaaaaa;"><strong>Underpopulation</strong></p>
+        <p style="margin:0.2rem 0 0; font-size:0.85rem; color:#888;">&lt;2 live neighbors &mdash; dies</p>
+    </div>
+    <div style="width:150px;">
+        <svg width="60" height="60" viewBox="0 0 60 60">
+            <rect x="0" y="0" width="18" height="18" fill="#000" stroke="#333"/>
+            <rect x="21" y="0" width="18" height="18" fill="#aaaaaa" stroke="#333"/>
+            <rect x="42" y="0" width="18" height="18" fill="#000" stroke="#333"/>
+            <rect x="0" y="21" width="18" height="18" fill="#aaaaaa" stroke="#333"/>
+            <rect x="21" y="21" width="18" height="18" fill="#aaaaaa" stroke="#333"/>
+            <rect x="42" y="21" width="18" height="18" fill="#000" stroke="#333"/>
+            <rect x="0" y="42" width="18" height="18" fill="#000" stroke="#333"/>
+            <rect x="21" y="42" width="18" height="18" fill="#000" stroke="#333"/>
+            <rect x="42" y="42" width="18" height="18" fill="#000" stroke="#333"/>
+            <rect x="21" y="21" width="18" height="18" fill="none" stroke="#9ece6a" stroke-width="3"/>
+        </svg>
+        <p style="margin:0.6rem 0 0; font-size:0.95rem; color:#aaaaaa;"><strong>Survival</strong></p>
+        <p style="margin:0.2rem 0 0; font-size:0.85rem; color:#888;">2&ndash;3 live neighbors &mdash; stays alive</p>
+    </div>
+    <div style="width:150px;">
+        <svg width="60" height="60" viewBox="0 0 60 60">
+            <rect x="0" y="0" width="18" height="18" fill="#aaaaaa" stroke="#333"/>
+            <rect x="21" y="0" width="18" height="18" fill="#aaaaaa" stroke="#333"/>
+            <rect x="42" y="0" width="18" height="18" fill="#aaaaaa" stroke="#333"/>
+            <rect x="0" y="21" width="18" height="18" fill="#aaaaaa" stroke="#333"/>
+            <rect x="21" y="21" width="18" height="18" fill="#aaaaaa" stroke="#333"/>
+            <rect x="42" y="21" width="18" height="18" fill="#000" stroke="#333"/>
+            <rect x="0" y="42" width="18" height="18" fill="#000" stroke="#333"/>
+            <rect x="21" y="42" width="18" height="18" fill="#000" stroke="#333"/>
+            <rect x="42" y="42" width="18" height="18" fill="#000" stroke="#333"/>
+            <rect x="21" y="21" width="18" height="18" fill="none" stroke="#f7768e" stroke-width="3"/>
+        </svg>
+        <p style="margin:0.6rem 0 0; font-size:0.95rem; color:#aaaaaa;"><strong>Overpopulation</strong></p>
+        <p style="margin:0.2rem 0 0; font-size:0.85rem; color:#888;">&gt;3 live neighbors &mdash; dies</p>
+    </div>
+    <div style="width:150px;">
+        <svg width="60" height="60" viewBox="0 0 60 60">
+            <rect x="0" y="0" width="18" height="18" fill="#aaaaaa" stroke="#333"/>
+            <rect x="21" y="0" width="18" height="18" fill="#aaaaaa" stroke="#333"/>
+            <rect x="42" y="0" width="18" height="18" fill="#000" stroke="#333"/>
+            <rect x="0" y="21" width="18" height="18" fill="#aaaaaa" stroke="#333"/>
+            <rect x="21" y="21" width="18" height="18" fill="#000" stroke="#333"/>
+            <rect x="42" y="21" width="18" height="18" fill="#000" stroke="#333"/>
+            <rect x="0" y="42" width="18" height="18" fill="#000" stroke="#333"/>
+            <rect x="21" y="42" width="18" height="18" fill="#000" stroke="#333"/>
+            <rect x="42" y="42" width="18" height="18" fill="#000" stroke="#333"/>
+            <rect x="21" y="21" width="18" height="18" fill="none" stroke="#9ece6a" stroke-width="3"/>
+        </svg>
+        <p style="margin:0.6rem 0 0; font-size:0.95rem; color:#aaaaaa;"><strong>Birth</strong></p>
+        <p style="margin:0.2rem 0 0; font-size:0.85rem; color:#888;">exactly 3 live neighbors &mdash; becomes alive</p>
+    </div>
+</div>
+
+<p style="font-size:0.85rem; color:#888;">Gray cells are alive, black cells are dead; the highlighted cell is the one being updated, ringed <span style="color:#9ece6a;">green</span> if it is alive after the step or <span style="color:#f7768e;">pink</span> if it is dead.</p>
 
 This simulation runs on a 128x128 **toroidal** lattice &mdash; the edges wrap around, so a glider leaving the right side reappears on the left.
 
@@ -21,11 +85,11 @@ This simulation runs on a 128x128 **toroidal** lattice &mdash; the edges wrap ar
     </div>
     <div class="gol-controls" style="min-width:220px;">
         <button id="gol-play-pause" style="background:#111; color:#aaaaaa; border:1px solid #333; padding:0.5rem 1rem; font-family:inherit; font-size:1.2rem; cursor:pointer;">&#9654;</button>
-        <p>Fill probability: p = <output id="gol-p-value">0.37</output></p>
+        <p>Fill probability: <output id="gol-p-value">0.37</output></p>
         <input type="range" id="gol-p-slider" min="0" max="1" step="0.01" value="0.37" style="width:100%;">
         <p>
-            <button id="gol-clear" style="background:#111; color:#aaaaaa; border:1px solid #333; padding:0.3rem 0.8rem; font-family:inherit; cursor:pointer;">Clear</button>
             <button id="gol-randomize" style="background:#111; color:#aaaaaa; border:1px solid #333; padding:0.3rem 0.8rem; font-family:inherit; cursor:pointer;">Randomize</button>
+            <button id="gol-clear" style="background:#111; color:#aaaaaa; border:1px solid #333; padding:0.3rem 0.8rem; font-family:inherit; cursor:pointer;">Clear</button>
         </p>
         <ul style="color:#888; font-size:0.9rem; padding-left:1.2rem;">
             <li>P &mdash; start/stop dynamics</li>
