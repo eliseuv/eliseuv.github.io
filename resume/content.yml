@@ -38,7 +38,7 @@ skills:
       - Delphi: []
   - Tools:
       - Databases: ["PostgreSQL", "SQLite", "DuckDB"]
-      - DevOps: ["Docker"]
+      - Docker: []
 
 experience:
   - role: Software Engineer
