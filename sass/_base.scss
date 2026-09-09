@@ -12,6 +12,12 @@ body {
     margin: 2rem auto;
     padding: 0 1rem;
     line-height: 1.5;
+
+    // Simulation widgets pair a canvas with a controls panel side by side,
+    // which needs more room than the 800px reading width.
+    &.simulation-page {
+        max-width: 1000px;
+    }
 }
 
 // --- Global Links ---

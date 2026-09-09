@@ -4,9 +4,12 @@ date = 2026-09-07
 description = "Cellular automaton simulation compiled to WebAssembly, rendered on canvas."
 +++
 
-Conway's Game of Life, running as a Rust/WebAssembly cellular automaton on a 128x128 toroidal grid.
+Conway's Game of Life on a 128x128 toroidal lattice.
 
 <div class="gol-wrap" style="display:flex; flex-wrap:wrap; gap:1.5rem; align-items:flex-start; font-family:'JetBrains Mono','Fira Code',monospace; color:#aaaaaa;">
+    <div style="border:1px solid #333; background:#000; overflow:auto;">
+        <canvas id="game-of-life-canvas" oncontextmenu="return false;"></canvas>
+    </div>
     <div class="gol-controls" style="min-width:220px;">
         <button id="gol-play-pause" style="background:#111; color:#aaaaaa; border:1px solid #333; padding:0.5rem 1rem; font-family:inherit; font-size:1.2rem; cursor:pointer;">&#9654;</button>
         <p>Fill probability: p = <output id="gol-p-value">0.33</output></p>
@@ -16,16 +19,13 @@ Conway's Game of Life, running as a Rust/WebAssembly cellular automaton on a 128
             <button id="gol-randomize" style="background:#111; color:#aaaaaa; border:1px solid #333; padding:0.3rem 0.8rem; font-family:inherit; cursor:pointer;">Randomize</button>
         </p>
         <ul style="color:#888; font-size:0.9rem; padding-left:1.2rem;">
-            <li>P &mdash; play / pause</li>
-            <li>C &mdash; clear</li>
+            <li>P &mdash; start/stop dynamics</li>
+            <li>C &mdash; clear lattice</li>
             <li>R &mdash; randomize</li>
             <li>Click &mdash; toggle cell</li>
-            <li>Ctrl+click &mdash; stamp glider</li>
-            <li>Shift+click &mdash; stamp pulsar</li>
+            <li>Ctrl+Click &mdash; stamp glider</li>
+            <li>Shift+Click &mdash;  pulsar</li>
         </ul>
-    </div>
-    <div style="border:1px solid #333; background:#000; overflow:auto;">
-        <canvas id="game-of-life-canvas" oncontextmenu="return false;"></canvas>
     </div>
 </div>
 
