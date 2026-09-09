@@ -4,12 +4,12 @@ date = 2026-09-07
 description = "Cellular automaton simulation compiled to WebAssembly, rendered on canvas."
 +++
 
-Conway's Game of Life is a zero-player cellular automaton: a grid of cells, each either **alive** or **dead**, that evolves in discrete steps according to a fixed rule applied to every cell in parallel. There is no player input during a run &mdash; the initial configuration alone determines everything that follows.
+Conway's Game of Life is a zero-player cellular automaton: a grid of cells, each either **alive** or **dead**, that evolves in discrete steps according to a fixed rule applied to every cell in parallel. There is no player input during a run: the initial configuration alone determines everything that follows.
 
-At each step, every cell looks at its 8 neighbors (Moore neighborhood) and updates by four rules:
+At each step, every cell looks at its $8$ neighbors (Moore neighborhood) and, writing $n$ for the number of live neighbors, updates according to four rules:
 
-<div class="gol-rules" style="display:flex; flex-wrap:wrap; gap:1.5rem; margin:1.5rem 0; font-family:'JetBrains Mono','Fira Code',monospace;">
-    <div style="width:150px;">
+<div class="gol-rules" style="display:flex; flex-wrap:wrap; justify-content:center; gap:1.5rem; margin:1.5rem 0; font-family:'JetBrains Mono','Fira Code',monospace;">
+    <div style="width:150px; text-align:center;">
         <svg width="60" height="60" viewBox="0 0 60 60">
             <rect x="0" y="0" width="18" height="18" fill="#000" stroke="#333"/>
             <rect x="21" y="0" width="18" height="18" fill="#aaaaaa" stroke="#333"/>
@@ -23,9 +23,9 @@ At each step, every cell looks at its 8 neighbors (Moore neighborhood) and updat
             <rect x="21" y="21" width="18" height="18" fill="none" stroke="#ff0055" stroke-width="3"/>
         </svg>
         <p style="margin:0.6rem 0 0; font-size:0.95rem; color:#aaaaaa;"><strong>Underpopulation</strong></p>
-        <p style="margin:0.2rem 0 0; font-size:0.85rem; color:#888;">&lt;2 live neighbors &mdash; dies</p>
+        <p style="margin:0.2rem 0 0; font-size:0.85rem; color:#888;">$n \lt 2$ &rarr; dies</p>
     </div>
-    <div style="width:150px;">
+    <div style="width:150px; text-align:center;">
         <svg width="60" height="60" viewBox="0 0 60 60">
             <rect x="0" y="0" width="18" height="18" fill="#000" stroke="#333"/>
             <rect x="21" y="0" width="18" height="18" fill="#aaaaaa" stroke="#333"/>
@@ -39,9 +39,9 @@ At each step, every cell looks at its 8 neighbors (Moore neighborhood) and updat
             <rect x="21" y="21" width="18" height="18" fill="none" stroke="#7aa2f7" stroke-width="3"/>
         </svg>
         <p style="margin:0.6rem 0 0; font-size:0.95rem; color:#aaaaaa;"><strong>Survival</strong></p>
-        <p style="margin:0.2rem 0 0; font-size:0.85rem; color:#888;">2&ndash;3 live neighbors &mdash; stays alive</p>
+        <p style="margin:0.2rem 0 0; font-size:0.85rem; color:#888;">$2 \le n \le 3$ &rarr; stays alive</p>
     </div>
-    <div style="width:150px;">
+    <div style="width:150px; text-align:center;">
         <svg width="60" height="60" viewBox="0 0 60 60">
             <rect x="0" y="0" width="18" height="18" fill="#aaaaaa" stroke="#333"/>
             <rect x="21" y="0" width="18" height="18" fill="#aaaaaa" stroke="#333"/>
@@ -55,9 +55,9 @@ At each step, every cell looks at its 8 neighbors (Moore neighborhood) and updat
             <rect x="21" y="21" width="18" height="18" fill="none" stroke="#ff0055" stroke-width="3"/>
         </svg>
         <p style="margin:0.6rem 0 0; font-size:0.95rem; color:#aaaaaa;"><strong>Overpopulation</strong></p>
-        <p style="margin:0.2rem 0 0; font-size:0.85rem; color:#888;">&gt;3 live neighbors &mdash; dies</p>
+        <p style="margin:0.2rem 0 0; font-size:0.85rem; color:#888;">$n \gt 3$ &rarr; dies</p>
     </div>
-    <div style="width:150px;">
+    <div style="width:150px; text-align:center;">
         <svg width="60" height="60" viewBox="0 0 60 60">
             <rect x="0" y="0" width="18" height="18" fill="#aaaaaa" stroke="#333"/>
             <rect x="21" y="0" width="18" height="18" fill="#aaaaaa" stroke="#333"/>
@@ -71,13 +71,13 @@ At each step, every cell looks at its 8 neighbors (Moore neighborhood) and updat
             <rect x="21" y="21" width="18" height="18" fill="none" stroke="#7aa2f7" stroke-width="3"/>
         </svg>
         <p style="margin:0.6rem 0 0; font-size:0.95rem; color:#aaaaaa;"><strong>Birth</strong></p>
-        <p style="margin:0.2rem 0 0; font-size:0.85rem; color:#888;">exactly 3 live neighbors &mdash; becomes alive</p>
+        <p style="margin:0.2rem 0 0; font-size:0.85rem; color:#888;">$n = 3$ &rarr; becomes alive</p>
     </div>
 </div>
 
 <p style="font-size:0.85rem; color:#888;">Gray cells are alive, black cells are dead; the highlighted cell is the one being updated, ringed <span style="color:#7aa2f7;">blue</span> if it is alive after the step or <span style="color:#ff0055;">magenta</span> if it is dead.</p>
 
-This simulation runs on a 128x128 **toroidal** lattice &mdash; the edges wrap around, so a glider leaving the right side reappears on the left.
+This simulation runs on a $128 \times 128$ **toroidal** lattice: the edges wrap around, so a glider leaving the right side reappears on the left.
 
 <div class="gol-wrap" style="display:flex; flex-wrap:wrap; gap:1.5rem; align-items:flex-start; font-family:'JetBrains Mono','Fira Code',monospace; color:#aaaaaa;">
     <div style="border:1px solid #333; background:#000; overflow:auto;">
@@ -92,12 +92,12 @@ This simulation runs on a 128x128 **toroidal** lattice &mdash; the edges wrap ar
             <button id="gol-clear" style="background:#111; color:#aaaaaa; border:1px solid #333; padding:0.3rem 0.8rem; font-family:inherit; cursor:pointer;">Clear</button>
         </p>
         <ul style="color:#888; font-size:0.9rem; padding-left:1.2rem;">
-            <li>P &mdash; start/stop dynamics</li>
-            <li>C &mdash; clear lattice</li>
-            <li>R &mdash; randomize</li>
-            <li>Click &mdash; toggle cell</li>
-            <li>Ctrl+Click &mdash; stamp glider</li>
-            <li>Shift+Click &mdash;  pulsar</li>
+            <li>P &rarr; start/stop dynamics</li>
+            <li>C &rarr; clear lattice</li>
+            <li>R &rarr; randomize</li>
+            <li>Click &rarr; toggle cell</li>
+            <li>Ctrl+Click &rarr; stamp glider</li>
+            <li>Shift+Click &rarr; pulsar</li>
         </ul>
     </div>
 </div>
