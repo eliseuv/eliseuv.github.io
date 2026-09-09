@@ -10,10 +10,6 @@
     <ul class="section-list">
         {% for page in section.pages %}
         <li class="section-item">
-            <div class="section-date">
-                {{ page.date | date(format="%Y-%m-%d") }}
-            </div>
-
             <a href="{{ page.permalink }}" class="section-title">
                 {{ page.title }}
             </a>
