@@ -4,7 +4,16 @@ date = 2026-09-07
 description = "Cellular automaton simulation compiled to WebAssembly, rendered on canvas."
 +++
 
-Conway's Game of Life on a 128x128 toroidal lattice.
+Conway's Game of Life is a zero-player cellular automaton: a grid of cells, each either **alive** or **dead**, that evolves in discrete steps according to a fixed rule applied to every cell in parallel. There is no player input during a run &mdash; the initial configuration alone determines everything that follows.
+
+At each step, every cell looks at its 8 neighbors (Moore neighborhood) and updates by four rules:
+
+- **Underpopulation**: a live cell with fewer than 2 live neighbors dies.
+- **Survival**: a live cell with 2 or 3 live neighbors stays alive.
+- **Overpopulation**: a live cell with more than 3 live neighbors dies.
+- **Birth**: a dead cell with exactly 3 live neighbors becomes alive.
+
+This simulation runs on a 128x128 **toroidal** lattice &mdash; the edges wrap around, so a glider leaving the right side reappears on the left.
 
 <div class="gol-wrap" style="display:flex; flex-wrap:wrap; gap:1.5rem; align-items:flex-start; font-family:'JetBrains Mono','Fira Code',monospace; color:#aaaaaa;">
     <div style="border:1px solid #333; background:#000; overflow:auto;">
