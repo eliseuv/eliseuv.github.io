@@ -134,16 +134,16 @@ header.resume-container,
             // Hover effect
             &:hover:not(:has(.entry-logo:hover)) summary .entry-header h3 {
                 .entry-title::before {
-                    text-shadow: 0 0 8px $accent, 0 0 15px $accent;
+                    text-shadow: 0 0 5px rgba($accent, 0.6);
                     transform: scale(1.3);
                 }
 
                 .entry-title {
-                    text-shadow: 0 0 8px $accent, 0 0 15px $accent;
+                    text-shadow: 0 0 5px rgba($accent, 0.6);
                 }
 
                 .icon-link img {
-                    filter: drop-shadow(0 0 8px $accent) drop-shadow(0 0 15px $accent);
+                    filter: drop-shadow(0 0 5px rgba($accent, 0.5));
                 }
             }
 
@@ -306,10 +306,10 @@ header.resume-container,
 
                     &:hover {
                         background-color: rgba($accent, 0.12);
-                        box-shadow: 0 0 8px rgba($accent, 0.25);
+                        box-shadow: 0 0 5px rgba($accent, 0.15);
 
                         .chip-label {
-                            text-shadow: 0 0 8px $accent;
+                            text-shadow: 0 0 5px rgba($accent, 0.6);
                         }
 
                         .chip-detail {
