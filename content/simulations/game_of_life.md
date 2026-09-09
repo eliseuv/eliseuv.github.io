@@ -20,7 +20,7 @@ At each step, every cell looks at its 8 neighbors (Moore neighborhood) and updat
             <rect x="0" y="42" width="18" height="18" fill="#000" stroke="#333"/>
             <rect x="21" y="42" width="18" height="18" fill="#000" stroke="#333"/>
             <rect x="42" y="42" width="18" height="18" fill="#000" stroke="#333"/>
-            <rect x="21" y="21" width="18" height="18" fill="none" stroke="#f7768e" stroke-width="3"/>
+            <rect x="21" y="21" width="18" height="18" fill="none" stroke="#ff0055" stroke-width="3"/>
         </svg>
         <p style="margin:0.6rem 0 0; font-size:0.95rem; color:#aaaaaa;"><strong>Underpopulation</strong></p>
         <p style="margin:0.2rem 0 0; font-size:0.85rem; color:#888;">&lt;2 live neighbors &mdash; dies</p>
@@ -36,7 +36,7 @@ At each step, every cell looks at its 8 neighbors (Moore neighborhood) and updat
             <rect x="0" y="42" width="18" height="18" fill="#000" stroke="#333"/>
             <rect x="21" y="42" width="18" height="18" fill="#000" stroke="#333"/>
             <rect x="42" y="42" width="18" height="18" fill="#000" stroke="#333"/>
-            <rect x="21" y="21" width="18" height="18" fill="none" stroke="#9ece6a" stroke-width="3"/>
+            <rect x="21" y="21" width="18" height="18" fill="none" stroke="#7aa2f7" stroke-width="3"/>
         </svg>
         <p style="margin:0.6rem 0 0; font-size:0.95rem; color:#aaaaaa;"><strong>Survival</strong></p>
         <p style="margin:0.2rem 0 0; font-size:0.85rem; color:#888;">2&ndash;3 live neighbors &mdash; stays alive</p>
@@ -52,7 +52,7 @@ At each step, every cell looks at its 8 neighbors (Moore neighborhood) and updat
             <rect x="0" y="42" width="18" height="18" fill="#000" stroke="#333"/>
             <rect x="21" y="42" width="18" height="18" fill="#000" stroke="#333"/>
             <rect x="42" y="42" width="18" height="18" fill="#000" stroke="#333"/>
-            <rect x="21" y="21" width="18" height="18" fill="none" stroke="#f7768e" stroke-width="3"/>
+            <rect x="21" y="21" width="18" height="18" fill="none" stroke="#ff0055" stroke-width="3"/>
         </svg>
         <p style="margin:0.6rem 0 0; font-size:0.95rem; color:#aaaaaa;"><strong>Overpopulation</strong></p>
         <p style="margin:0.2rem 0 0; font-size:0.85rem; color:#888;">&gt;3 live neighbors &mdash; dies</p>
@@ -68,14 +68,14 @@ At each step, every cell looks at its 8 neighbors (Moore neighborhood) and updat
             <rect x="0" y="42" width="18" height="18" fill="#000" stroke="#333"/>
             <rect x="21" y="42" width="18" height="18" fill="#000" stroke="#333"/>
             <rect x="42" y="42" width="18" height="18" fill="#000" stroke="#333"/>
-            <rect x="21" y="21" width="18" height="18" fill="none" stroke="#9ece6a" stroke-width="3"/>
+            <rect x="21" y="21" width="18" height="18" fill="none" stroke="#7aa2f7" stroke-width="3"/>
         </svg>
         <p style="margin:0.6rem 0 0; font-size:0.95rem; color:#aaaaaa;"><strong>Birth</strong></p>
         <p style="margin:0.2rem 0 0; font-size:0.85rem; color:#888;">exactly 3 live neighbors &mdash; becomes alive</p>
     </div>
 </div>
 
-<p style="font-size:0.85rem; color:#888;">Gray cells are alive, black cells are dead; the highlighted cell is the one being updated, ringed <span style="color:#9ece6a;">green</span> if it is alive after the step or <span style="color:#f7768e;">pink</span> if it is dead.</p>
+<p style="font-size:0.85rem; color:#888;">Gray cells are alive, black cells are dead; the highlighted cell is the one being updated, ringed <span style="color:#7aa2f7;">blue</span> if it is alive after the step or <span style="color:#ff0055;">magenta</span> if it is dead.</p>
 
 This simulation runs on a 128x128 **toroidal** lattice &mdash; the edges wrap around, so a glider leaving the right side reappears on the left.
 
