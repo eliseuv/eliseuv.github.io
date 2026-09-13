@@ -1622,6 +1622,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "contact_process"
+version = "0.1.0"
+dependencies = [
+ "artificial_systems_wasm",
+ "console_error_panic_hook",
+ "js-sys",
+ "wasm-bindgen",
+]
+
+[[package]]
 name = "convert_case"
 version = "0.10.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
