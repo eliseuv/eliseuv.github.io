@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
-members = ["spinning_cube", "game_of_life", "ising_2d", "spin_lattice"]
+members = ["spinning_cube", "game_of_life", "ising_2d", "artificial_systems_wasm"]
 
 [profile.release.package.game_of_life]
 opt-level = "s"
