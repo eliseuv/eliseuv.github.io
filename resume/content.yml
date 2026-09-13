@@ -95,6 +95,16 @@ experience:
       - Worked with polarization-entangled photon pairs source
       - Stabilization and count optimization of the entangled photon pair source to be used in experiments testing Quantum Key Distribution protocols
 
+  - role: Undergraduate Research Assistant (Scientific Initiation)
+    name: Universidade Federal do Rio Grande do Sul
+    logo: /svg/ufrgs.svg
+    link: https://www.ufrgs.br/
+    location: Porto Alegre, Brazil
+    date: Jun. 2013 - Jun. 2015
+    points:
+      - Conducted CAPES-funded undergraduate research in Quantum Information
+      - "Presented original research on Shor's Algorithm for Integer Factorization at the UFRGS XXVI Scientific Initiation Meeting (2014)"
+
 education:
   - name: Institut d'Optique Graduate School
     degree: Diplôme d'Ingénieur
@@ -129,9 +139,7 @@ education:
     location: Porto Alegre, Brazil
     date: Mar. 2013 - Dec. 2018
     points:
-      - Scientific Initiation (CAPES) on Quantum Information in 2013 and 2014
-      - "Presentation at the UFRGS XXVI Scientific Initiation Meeting (2014): Shor's Algorithm for Integer Factorization"
-      - Summa Cum Laude with final grade 9.54/10.0
+      - Graduated Summa Cum Laude with a final GPA of 9.54/10.0
 
 projects:
   - name: tsp-sa
