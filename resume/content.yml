@@ -118,7 +118,7 @@ education:
     date: Sep. 2015 - Sep. 2017
     points:
       - Double degree in Theoretical Physics offered to engineering students
-      - "Analyitical Mechanics, Statistical Physics, Plasma Physics and Atomic and Molecular Physics"
+      - "Analytical Mechanics, Statistical Physics, Plasma Physics and Atomic and Molecular Physics"
 
   - name: Universidade Federal do Rio Grande do Sul
     degree: B.Sc. in Engineering Physics
@@ -194,7 +194,7 @@ publications:
     title: "Revisiting the Contact Model with Diffusion Beyond the Conventional Methods"
     journal: Symmetry
     authors:
-      ["R. da Silva", "E. Venites Filho", "H, A. Fernandes", "P. F. Gomes"]
+      ["R. da Silva", "E. Venites Filho", "H. A. Fernandes", "P. F. Gomes"]
 
   - doi: 10.1142/s0129183124501638
     year: 2025
@@ -224,7 +224,7 @@ publications:
         "H. C. M. Fernandes",
         "E. Venites Filho",
         "S. D. Prado",
-        "J. R. Drugowich de Felicio",
+        "J. R. Drugowich de Felício",
       ]
 
   - doi: 10.1016/j.physa.2021.126067
