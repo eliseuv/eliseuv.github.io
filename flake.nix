@@ -55,6 +55,13 @@
               --no-typescript \
               target/wasm32-unknown-unknown/release/spinning_cube.wasm
 
+            # spinning_cube pulls in bevy, which puts it in a different size
+            # class (tens of MB) from the other, dependency-light
+            # simulations below — worth the extra build time to shrink.
+            ${pkgs.binaryen}/bin/wasm-opt -Oz \
+              -o ../static/wasm/spinning_cube_bg.wasm \
+              ../static/wasm/spinning_cube_bg.wasm
+
             ${pkgs.wasm-bindgen-cli}/bin/wasm-bindgen \
               --out-dir ../static/wasm \
               --target web \
