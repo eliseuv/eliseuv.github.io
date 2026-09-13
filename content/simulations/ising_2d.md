@@ -56,7 +56,7 @@ This simulation runs on a **toroidal** lattice: the edges wrap around, so intera
 
 <div style="display:flex; flex-direction:column; gap:1rem; margin-top:1.5rem; font-family:'JetBrains Mono','Fira Code',monospace;">
     <div>
-        <p style="color:#7aa2f7; font-size:0.85rem; margin:0 0 0.25rem;">Magnetization</p>
+        <p style="color:#aaaaaa; font-size:0.85rem; margin:0 0 0.25rem;">Magnetization</p>
         <div style="border:1px solid #333; background:#000;">
             <canvas id="ising-plot-mag" style="display:block; width:100%; height:160px;"></canvas>
         </div>
@@ -71,14 +71,13 @@ This simulation runs on a **toroidal** lattice: the edges wrap around, so intera
 
 <script type="module">
     import init, { IsingModel } from '/wasm/ising_2d.js';
+    import { setUpGridCanvas, resizeGrid, drawGrid, ALIVE_COLOR } from '/js/grid-canvas.js';
 
     async function run() {
         try {
             const wasm = await init(); // `--target web` resolves init() to instance.exports
 
-            const UP_COLOR = "#7aa2f7";
-            const DOWN_COLOR = "#ff0055";
-            const MAG_COLOR = "#7aa2f7";
+            const MAG_COLOR = ALIVE_COLOR;
             const ENERGY_COLOR = "#ff0055";
             // Onsager's exact critical temperature for the 2D square lattice.
             const T_CRITICAL = 2.269185314213022;
@@ -93,10 +92,7 @@ This simulation runs on a **toroidal** lattice: the edges wrap around, so intera
             const PLOT_HISTORY = 300;
 
             const canvas = document.getElementById("ising-canvas");
-            canvas.style.width = `${DISPLAY_SIZE}px`;
-            canvas.style.height = `${DISPLAY_SIZE}px`;
-            canvas.style.imageRendering = "pixelated";
-            const ctx = canvas.getContext('2d');
+            const ctx = setUpGridCanvas(canvas, DISPLAY_SIZE);
 
             const setUpPlotCanvas = (id) => {
                 const plotCanvas = document.getElementById(id);
@@ -113,8 +109,7 @@ This simulation runs on a **toroidal** lattice: the edges wrap around, so intera
 
             const buildModel = (length, temperature) => {
                 model = IsingModel.new(length, length, temperature);
-                canvas.width = length;
-                canvas.height = length;
+                resizeGrid(canvas, length, length);
             };
 
             const drawCells = () => {
@@ -125,13 +120,7 @@ This simulation runs on a **toroidal** lattice: the edges wrap around, so intera
                 // it's an own-property of the raw instance exports.
                 const spins = new Int8Array(wasm.memory.buffer, spinsPtr, nrows * ncols);
 
-                for (let row = 0; row < nrows; row++) {
-                    for (let col = 0; col < ncols; col++) {
-                        const idx = row * ncols + col;
-                        ctx.fillStyle = spins[idx] > 0 ? UP_COLOR : DOWN_COLOR;
-                        ctx.fillRect(col, row, 1, 1);
-                    }
-                }
+                drawGrid(ctx, spins, nrows, ncols, { isAlive: (v) => v > 0 });
             };
 
             const yForValue = (v, vMin, vMax) => PLOT_HEIGHT * (1 - (v - vMin) / (vMax - vMin));
