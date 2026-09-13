@@ -8,6 +8,12 @@ members = [
     "contact_process",
 ]
 
+# spinning_cube's own code is tiny; its size is almost entirely bevy's
+# dependency tree, which a per-crate override on "spinning_cube" alone
+# doesn't touch. "*" covers every dependency crate too.
+[profile.release.package."*"]
+opt-level = "s"
+
 [profile.release.package.game_of_life]
 opt-level = "s"
 
