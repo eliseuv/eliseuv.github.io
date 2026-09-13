@@ -28,7 +28,7 @@ This simulation runs on a **toroidal** lattice: the edges wrap around, so intera
     <div style="border:1px solid #333; background:#000; overflow:auto;">
         <canvas id="ising-canvas" oncontextmenu="return false;"></canvas>
     </div>
-    <div class="ising-controls" style="min-width:220px;">
+    <div class="ising-controls" style="width:220px;">
         <button id="ising-play-pause" style="background:#111; color:#aaaaaa; border:1px solid #333; padding:0.5rem 1rem; font-family:inherit; font-size:1.2rem; cursor:pointer;">&#9654;</button>
         <p>Lattice size:
             <select id="ising-l-select" style="background:#111; color:#aaaaaa; border:1px solid #333; font-family:inherit; padding:0.2rem 0.4rem;">

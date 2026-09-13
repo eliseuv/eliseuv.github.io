@@ -83,7 +83,7 @@ This simulation runs on a $128 \times 128$ **toroidal** lattice: the edges wrap 
     <div style="border:1px solid #333; background:#000; overflow:auto;">
         <canvas id="game-of-life-canvas" oncontextmenu="return false;"></canvas>
     </div>
-    <div class="gol-controls" style="min-width:220px;">
+    <div class="gol-controls" style="width:220px;">
         <button id="gol-play-pause" style="background:#111; color:#aaaaaa; border:1px solid #333; padding:0.5rem 1rem; font-family:inherit; font-size:1.2rem; cursor:pointer;">&#9654;</button>
         <p>Fill probability: <output id="gol-p-value">0.37</output></p>
         <input type="range" id="gol-p-slider" min="0" max="1" step="0.01" value="0.37" style="width:100%;">
