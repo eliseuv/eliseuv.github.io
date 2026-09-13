@@ -61,6 +61,12 @@
               --no-typescript \
               target/wasm32-unknown-unknown/release/game_of_life.wasm
 
+            ${pkgs.wasm-bindgen-cli}/bin/wasm-bindgen \
+              --out-dir ../static/wasm \
+              --target web \
+              --no-typescript \
+              target/wasm32-unknown-unknown/release/ising_2d.wasm
+
               cd ..
           else
             echo "No 'simulations' folder found, skipping WASM build."
