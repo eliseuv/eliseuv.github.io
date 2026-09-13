@@ -37,7 +37,7 @@ skills:
       - Haskell: ["megaparsec"]
       - Delphi: []
   - Tools:
-      - Databases: ["PostgreSQL", "SQLite", "DuckDB"]
+      - Databases: ["SQLite", "PostgreSQL", "DuckDB"]
       - Docker: []
 
 experience:
