@@ -2405,6 +2405,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "ising_2d"
+version = "0.1.0"
+dependencies = [
+ "console_error_panic_hook",
+ "js-sys",
+ "spin_lattice",
+ "wasm-bindgen",
+]
+
+[[package]]
 name = "itertools"
 version = "0.14.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3664,6 +3674,10 @@ checksum = "023a211cb3138dbc438680b32560ad89f699977624c9f8dbb95a47d5b4c07dd3"
 dependencies = [
  "portable-atomic",
 ]
+
+[[package]]
+name = "spin_lattice"
+version = "0.1.0"
 
 [[package]]
 name = "spinning_cube"
