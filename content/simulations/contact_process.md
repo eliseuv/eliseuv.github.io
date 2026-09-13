@@ -48,7 +48,7 @@ This simulation runs on a **toroidal** lattice: the edges wrap around, so intera
 
 <div style="display:flex; flex-direction:column; gap:1rem; margin-top:1.5rem; font-family:'JetBrains Mono','Fira Code',monospace;">
     <div>
-        <p style="color:#7aa2f7; font-size:0.85rem; margin:0 0 0.25rem;">Active fraction</p>
+        <p style="color:#ff0055; font-size:0.85rem; margin:0 0 0.25rem;">Active fraction</p>
         <div style="border:1px solid #333; background:#000;">
             <canvas id="contact-plot-active" style="display:block; width:100%; height:160px;"></canvas>
         </div>
@@ -57,13 +57,13 @@ This simulation runs on a **toroidal** lattice: the edges wrap around, so intera
 
 <script type="module">
     import init, { ContactProcessModel } from '/wasm/contact_process.js';
+    import { setUpGridCanvas, resizeGrid, drawGrid, ALIVE_COLOR } from '/js/grid-canvas.js';
 
     async function run() {
         try {
             const wasm = await init(); // `--target web` resolves init() to instance.exports
 
-            const ACTIVE_COLOR = "#7aa2f7";
-            const INACTIVE_COLOR = "#000000";
+            const ACTIVE_COLOR = ALIVE_COLOR;
             // Canvas is drawn at 1px/site, then CSS-scaled to a fixed
             // on-screen size with `image-rendering: pixelated` — so
             // switching lattice length never changes the display footprint.
@@ -75,10 +75,7 @@ This simulation runs on a **toroidal** lattice: the edges wrap around, so intera
             const PLOT_HISTORY = 300;
 
             const canvas = document.getElementById("contact-canvas");
-            canvas.style.width = `${DISPLAY_SIZE}px`;
-            canvas.style.height = `${DISPLAY_SIZE}px`;
-            canvas.style.imageRendering = "pixelated";
-            const ctx = canvas.getContext('2d');
+            const ctx = setUpGridCanvas(canvas, DISPLAY_SIZE);
 
             const plotCanvas = document.getElementById("contact-plot-active");
             plotCanvas.width = PLOT_WIDTH;
@@ -90,8 +87,7 @@ This simulation runs on a **toroidal** lattice: the edges wrap around, so intera
 
             const buildModel = (length, p) => {
                 model = ContactProcessModel.new(length, length, p);
-                canvas.width = length;
-                canvas.height = length;
+                resizeGrid(canvas, length, length);
             };
 
             const drawCells = () => {
@@ -102,13 +98,7 @@ This simulation runs on a **toroidal** lattice: the edges wrap around, so intera
                 // it's an own-property of the raw instance exports.
                 const active = new Uint8Array(wasm.memory.buffer, activePtr, nrows * ncols);
 
-                for (let row = 0; row < nrows; row++) {
-                    for (let col = 0; col < ncols; col++) {
-                        const idx = row * ncols + col;
-                        ctx.fillStyle = active[idx] > 0 ? ACTIVE_COLOR : INACTIVE_COLOR;
-                        ctx.fillRect(col, row, 1, 1);
-                    }
-                }
+                drawGrid(ctx, active, nrows, ncols);
             };
 
             const yForValue = (v) => PLOT_HEIGHT * (1 - v);

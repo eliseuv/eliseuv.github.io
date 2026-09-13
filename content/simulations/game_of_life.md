@@ -103,7 +103,8 @@ This simulation runs on a $128 \times 128$ **toroidal** lattice: the edges wrap 
 </div>
 
 <script type="module">
-    import init, { Universe, Cell, Pattern } from '/wasm/game_of_life.js';
+    import init, { Universe, Pattern } from '/wasm/game_of_life.js';
+    import { setUpGridCanvas, resizeGrid, drawGrid, cellFromEvent as gridCellFromEvent } from '/js/grid-canvas.js';
 
     async function run() {
         try {
@@ -113,31 +114,13 @@ This simulation runs on a $128 \times 128$ **toroidal** lattice: the edges wrap 
             const ncols = 128;
             const universe = Universe.new(nrows, ncols);
 
-            const CELL_SIZE = 4;
-            const GRID_COLOR = "#222222";
-            const ALIVE_COLOR = "#aaaaaa";
-            const DEAD_COLOR = "#000000";
+            // Canvas is drawn at 1px/site, then CSS-scaled to a fixed
+            // on-screen size with `image-rendering: pixelated`.
+            const DISPLAY_SIZE = 512;
 
             const canvas = document.getElementById("game-of-life-canvas");
-            canvas.height = (CELL_SIZE + 1) * nrows + 1;
-            canvas.width = (CELL_SIZE + 1) * ncols + 1;
-            const ctx = canvas.getContext('2d');
-
-            const getIndex = (row, col) => row * ncols + col;
-
-            const drawGrid = () => {
-                ctx.beginPath();
-                ctx.strokeStyle = GRID_COLOR;
-                for (let i = 0; i <= ncols; i++) {
-                    ctx.moveTo(i * (CELL_SIZE + 1) + 1, 0);
-                    ctx.lineTo(i * (CELL_SIZE + 1) + 1, (CELL_SIZE + 1) * nrows + 1);
-                }
-                for (let j = 0; j <= nrows; j++) {
-                    ctx.moveTo(0, j * (CELL_SIZE + 1) + 1);
-                    ctx.lineTo((CELL_SIZE + 1) * ncols + 1, j * (CELL_SIZE + 1) + 1);
-                }
-                ctx.stroke();
-            };
+            const ctx = setUpGridCanvas(canvas, DISPLAY_SIZE);
+            resizeGrid(canvas, nrows, ncols);
 
             const drawCells = () => {
                 const statePtr = universe.state();
@@ -145,15 +128,7 @@ This simulation runs on a $128 \times 128$ **toroidal** lattice: the edges wrap 
                 // it's an own-property of the raw instance exports.
                 const state = new Uint8Array(wasm.memory.buffer, statePtr, nrows * ncols);
 
-                ctx.beginPath();
-                for (let row = 0; row < nrows; row++) {
-                    for (let col = 0; col < ncols; col++) {
-                        const idx = getIndex(row, col);
-                        ctx.fillStyle = state[idx] === Cell.Dead ? DEAD_COLOR : ALIVE_COLOR;
-                        ctx.fillRect(col * (CELL_SIZE + 1) + 1, row * (CELL_SIZE + 1) + 1, CELL_SIZE, CELL_SIZE);
-                    }
-                }
-                ctx.stroke();
+                drawGrid(ctx, state, nrows, ncols);
             };
 
             let animationId = null;
@@ -188,16 +163,7 @@ This simulation runs on a $128 \times 128$ **toroidal** lattice: the edges wrap 
                 drawCells();
             });
 
-            const cellFromEvent = (event) => {
-                const rect = canvas.getBoundingClientRect();
-                const scaleX = canvas.width / rect.width;
-                const scaleY = canvas.height / rect.height;
-                const canvasLeft = (event.clientX - rect.left) * scaleX;
-                const canvasTop = (event.clientY - rect.top) * scaleY;
-                const row = Math.min(Math.max(Math.floor(canvasTop / (CELL_SIZE + 1)), 0), nrows - 1);
-                const col = Math.min(Math.max(Math.floor(canvasLeft / (CELL_SIZE + 1)), 0), ncols - 1);
-                return { row, col };
-            };
+            const cellFromEvent = (event) => gridCellFromEvent(event, canvas, nrows, ncols);
 
             // Dragging paints (toggles) each newly-entered cell once, rather
             // than re-toggling on every mousemove within the same cell.
@@ -253,7 +219,6 @@ This simulation runs on a $128 \times 128$ **toroidal** lattice: the edges wrap 
 
             pause();
             randomizeState();
-            drawGrid();
 
         } catch (e) {
             console.error("Failed to load Game of Life WASM simulation:", e);
