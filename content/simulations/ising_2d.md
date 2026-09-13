@@ -45,11 +45,27 @@ This simulation runs on a **toroidal** lattice: the edges wrap around, so intera
             <button id="ising-tc" style="background:#111; color:#aaaaaa; border:1px solid #333; padding:0.3rem 0.8rem; font-family:inherit; cursor:pointer;">Set T = Tc</button>
         </p>
         <p style="color:#888; font-size:0.9rem;">Magnetization: <output id="ising-m-value">0.00</output></p>
+        <p style="color:#888; font-size:0.9rem;">Energy: <output id="ising-e-value">0.00</output></p>
         <ul style="color:#888; font-size:0.9rem; padding-left:1.2rem;">
             <li>P &rarr; start/stop sampling</li>
             <li>R &rarr; randomize</li>
             <li>C &rarr; set T = T<sub>c</sub></li>
         </ul>
+    </div>
+</div>
+
+<div style="display:flex; flex-direction:column; gap:1rem; margin-top:1.5rem; font-family:'JetBrains Mono','Fira Code',monospace;">
+    <div>
+        <p style="color:#7aa2f7; font-size:0.85rem; margin:0 0 0.25rem;">Magnetization</p>
+        <div style="border:1px solid #333; background:#000;">
+            <canvas id="ising-plot-mag" style="display:block; width:100%; height:160px;"></canvas>
+        </div>
+    </div>
+    <div>
+        <p style="color:#ff0055; font-size:0.85rem; margin:0 0 0.25rem;">Energy per site</p>
+        <div style="border:1px solid #333; background:#000;">
+            <canvas id="ising-plot-energy" style="display:block; width:100%; height:160px;"></canvas>
+        </div>
     </div>
 </div>
 
@@ -62,12 +78,19 @@ This simulation runs on a **toroidal** lattice: the edges wrap around, so intera
 
             const UP_COLOR = "#7aa2f7";
             const DOWN_COLOR = "#ff0055";
+            const MAG_COLOR = "#7aa2f7";
+            const ENERGY_COLOR = "#ff0055";
             // Onsager's exact critical temperature for the 2D square lattice.
             const T_CRITICAL = 2.269185314213022;
             // Canvas is drawn at 1px/site, then CSS-scaled to a fixed
             // on-screen size with `image-rendering: pixelated` — so
             // switching lattice length never changes the display footprint.
             const DISPLAY_SIZE = 512;
+            // Each plot is drawn at a fixed, wide internal resolution and
+            // CSS-stretched horizontally to fill the available width.
+            const PLOT_WIDTH = 900;
+            const PLOT_HEIGHT = 160;
+            const PLOT_HISTORY = 300;
 
             const canvas = document.getElementById("ising-canvas");
             canvas.style.width = `${DISPLAY_SIZE}px`;
@@ -75,7 +98,18 @@ This simulation runs on a **toroidal** lattice: the edges wrap around, so intera
             canvas.style.imageRendering = "pixelated";
             const ctx = canvas.getContext('2d');
 
+            const setUpPlotCanvas = (id) => {
+                const plotCanvas = document.getElementById(id);
+                plotCanvas.width = PLOT_WIDTH;
+                plotCanvas.height = PLOT_HEIGHT;
+                return plotCanvas.getContext('2d');
+            };
+            const magCtx = setUpPlotCanvas("ising-plot-mag");
+            const energyCtx = setUpPlotCanvas("ising-plot-energy");
+
             let model;
+            let magHistory = [];
+            let energyHistory = [];
 
             const buildModel = (length, temperature) => {
                 model = IsingModel.new(length, length, temperature);
@@ -100,9 +134,60 @@ This simulation runs on a **toroidal** lattice: the edges wrap around, so intera
                 }
             };
 
+            const yForValue = (v, vMin, vMax) => PLOT_HEIGHT * (1 - (v - vMin) / (vMax - vMin));
+
+            const drawPanel = (panelCtx, history, color, vMin, vMax) => {
+                panelCtx.fillStyle = "#000";
+                panelCtx.fillRect(0, 0, PLOT_WIDTH, PLOT_HEIGHT);
+
+                panelCtx.strokeStyle = "#333";
+                panelCtx.beginPath();
+                panelCtx.moveTo(0, yForValue(0, vMin, vMax));
+                panelCtx.lineTo(PLOT_WIDTH, yForValue(0, vMin, vMax));
+                panelCtx.stroke();
+
+                if (history.length < 2) return;
+                panelCtx.strokeStyle = color;
+                panelCtx.lineWidth = 1.5;
+                panelCtx.beginPath();
+                history.forEach((v, i) => {
+                    const x = (i / (history.length - 1)) * PLOT_WIDTH;
+                    const y = yForValue(v, vMin, vMax);
+                    if (i === 0) panelCtx.moveTo(x, y);
+                    else panelCtx.lineTo(x, y);
+                });
+                panelCtx.stroke();
+            };
+
+            // Magnetization ranges over [-1, 1]. Per-site energy (J = 1) is
+            // mathematically bounded by [-2, 2], but for this ferromagnetic
+            // model equilibrium energy at any reachable temperature stays
+            // in [-2, 0] — the all-anti-aligned state that reaches positive
+            // energy is thermodynamically disfavored and never sampled.
+            const drawPlots = () => {
+                drawPanel(magCtx, magHistory, MAG_COLOR, -1, 1);
+                drawPanel(energyCtx, energyHistory, ENERGY_COLOR, -2, 0);
+            };
+
             const mValue = document.getElementById("ising-m-value");
+            const eValue = document.getElementById("ising-e-value");
             const updateReadouts = () => {
                 mValue.textContent = model.magnetization().toFixed(3);
+                eValue.textContent = model.energy().toFixed(3);
+            };
+
+            const resetHistory = () => {
+                magHistory = [];
+                energyHistory = [];
+            };
+
+            // Rolling window: drop the oldest sample once the buffer is full,
+            // so the plot scrolls with a fixed-size history.
+            const sampleHistory = () => {
+                magHistory.push(model.magnetization());
+                energyHistory.push(model.energy());
+                if (magHistory.length > PLOT_HISTORY) magHistory.shift();
+                if (energyHistory.length > PLOT_HISTORY) energyHistory.shift();
             };
 
             let animationId = null;
@@ -110,7 +195,9 @@ This simulation runs on a **toroidal** lattice: the edges wrap around, so intera
 
             const renderLoop = () => {
                 model.step();
+                sampleHistory();
                 drawCells();
+                drawPlots();
                 updateReadouts();
                 animationId = requestAnimationFrame(renderLoop);
             };
@@ -147,7 +234,10 @@ This simulation runs on a **toroidal** lattice: the edges wrap around, so intera
 
             const randomizeState = () => {
                 model.randomize();
+                resetHistory();
+                sampleHistory();
                 drawCells();
+                drawPlots();
                 updateReadouts();
             };
 
@@ -166,7 +256,10 @@ This simulation runs on a **toroidal** lattice: the edges wrap around, so intera
             lSelect.addEventListener("change", () => {
                 pause();
                 buildModel(parseInt(lSelect.value, 10), temperatureFromSlider());
+                resetHistory();
+                sampleHistory();
                 drawCells();
+                drawPlots();
                 updateReadouts();
             });
 
@@ -178,7 +271,10 @@ This simulation runs on a **toroidal** lattice: the edges wrap around, so intera
 
             buildModel(parseInt(lSelect.value, 10), temperatureFromSlider());
             pause();
+            resetHistory();
+            sampleHistory();
             drawCells();
+            drawPlots();
             updateReadouts();
 
         } catch (e) {
