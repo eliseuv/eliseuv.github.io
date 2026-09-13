@@ -1,4 +1,5 @@
-use spin_lattice::{IsingLattice, MetropolisSampler};
+use artificial_systems_wasm::ising::IsingLattice;
+use artificial_systems_wasm::mcmc::MetropolisSampler;
 use wasm_bindgen::prelude::*;
 
 fn uniform() -> f64 {
@@ -37,7 +38,8 @@ impl IsingModel {
     /// Pointer to the spin buffer in WASM linear memory, row-major, one
     /// `i8` (`+1`/`-1`) per site.
     pub fn spins(&self) -> *const i8 {
-        self.lattice.spins().as_ptr()
+        // Sound: `SpinHalf` is `#[repr(i8)]`.
+        self.lattice.spins().as_ptr() as *const i8
     }
 
     pub fn temperature(&self) -> f64 {

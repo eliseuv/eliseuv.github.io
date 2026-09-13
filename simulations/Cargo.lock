@@ -124,6 +124,10 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d3fb67a6e08acf24fdeccbac2cb6ac4305825bd1f117462e0e6f2f193345ad56"
 
 [[package]]
+name = "artificial_systems_wasm"
+version = "0.1.0"
+
+[[package]]
 name = "as-raw-xcb-connection"
 version = "1.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2408,9 +2412,9 @@ dependencies = [
 name = "ising_2d"
 version = "0.1.0"
 dependencies = [
+ "artificial_systems_wasm",
  "console_error_panic_hook",
  "js-sys",
- "spin_lattice",
  "wasm-bindgen",
 ]
 
@@ -3674,10 +3678,6 @@ checksum = "023a211cb3138dbc438680b32560ad89f699977624c9f8dbb95a47d5b4c07dd3"
 dependencies = [
  "portable-atomic",
 ]
-
-[[package]]
-name = "spin_lattice"
-version = "0.1.0"
 
 [[package]]
 name = "spinning_cube"
