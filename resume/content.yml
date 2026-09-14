@@ -7,12 +7,7 @@ personal:
   lattes: "8864397229519243"
   website: eliseuv.github.io
   keywords:
-    [
-      "Computational Statistical Physics",
-      "Data Science",
-      "Machine Learning",
-      "Systems Engineering",
-    ]
+    ["Computational Statistical Physics", "Data Science", "Systems Engineering"]
 
 skills:
   - Languages:
@@ -94,15 +89,16 @@ experience:
       - Improved photon-pair coincidence count rate by engineering active stabilization of a polarization-entangled photon-pair source
       - Enabled reliable Quantum Key Distribution (QKD) protocol testing by optimizing signal count rates within the Information Quantique et Applications research group
 
-  - role: Undergraduate Research Assistant (Scientific Initiation)
+  - role: Undergraduate Research (Scientific Initiation)
     name: Universidade Federal do Rio Grande do Sul
     logo: /svg/ufrgs.svg
     link: https://www.ufrgs.br/
+    degree_logo: /svg/ket-psi.svg
     location: Porto Alegre, Brazil
     date: Jun. 2013 - Jun. 2015
     points:
       - Conducted CAPES-funded undergraduate research in Quantum Information
-      - "Presented original research on Shor's Algorithm for Integer Factorization at the UFRGS XXVI Scientific Initiation Meeting (2014)"
+      - "Gave presentations on quantum algorithms such as Shor's and Grover's"
 
 education:
   - name: Institut d'Optique Graduate School
@@ -139,6 +135,7 @@ education:
     date: Mar. 2013 - Dec. 2018
     points:
       - Graduated Summa Cum Laude with a final GPA of 9.54/10.0
+      - "Solid State Physics, Electronics, Microprocessors, Photonics and Material Analysis"
 
 projects:
   - name: tsp-sa
