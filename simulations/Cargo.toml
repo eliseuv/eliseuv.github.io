@@ -9,6 +9,9 @@ members = [
     "chiarella",
     "tsp_annealing",
 ]
+# Git submodule consumed as a path dependency; excluded so cargo doesn't adopt
+# it as a member (which would override its own profiles and features).
+exclude = ["artificial-systems"]
 
 # spinning_cube's own code is tiny; its size is almost entirely bevy's
 # dependency tree, which a per-crate override on "spinning_cube" alone

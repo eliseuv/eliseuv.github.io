@@ -1,0 +1,3 @@
+[submodule "simulations/artificial-systems"]
+	path = simulations/artificial-systems
+	url = https://github.com/eliseuv/artificial-systems
