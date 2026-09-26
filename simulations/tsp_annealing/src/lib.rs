@@ -1,5 +1,5 @@
+use annealing::cooling::GeometricSchedule;
 use annealing::tsp::{CorrelatedBase, Domain, Move, TspAnnealer};
-use annealing::GeometricSchedule;
 use wasm_bindgen::prelude::*;
 
 fn uniform() -> f64 {
