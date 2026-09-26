@@ -3,6 +3,27 @@ title = "Simulated Annealing for the TSP"
 date = 2026-09-25
 description = "Simulated annealing with Metropolis sampling and geometric cooling applied to the traveling salesman problem on random domains, running in WebAssembly."
 
+[extra]
+references = [
+    "kirkpatrick1983",
+    "cerny1985",
+    "metropolis1953",
+    "geman1984",
+    "nourani1998",
+    "croes1958",
+    "dasilva2020",
+    "10.1016/j.physa.2021.126067",
+    "dantzig1954",
+    "lin1973",
+    "beardwood1959",
+    "kirkpatrick1984",
+    "vanlaarhoven1987",
+    "aarts1989",
+    "stanley2001",
+    "newman1999",
+    "landau2014",
+]
+
 [extra.symbols]
 'N' = 'Number of cities.'
 '\sigma' = 'A cycle: a cyclic ordering of the cities.'
@@ -45,11 +66,11 @@ $$
 C(\sigma) = \sum_{i=1}^{N} d\left(\sigma_i, \sigma_{i+1}\right), \qquad \sigma_{N+1} \equiv \sigma_1.
 $$
 
-There are $(N-1)!/2$ distinct cycles, and the problem is NP-hard: no known algorithm finds the optimum in polynomial time. **Simulated annealing** is a heuristic borrowed from statistical physics. It treats the cost as an energy $H = C$ and samples cycles from the Gibbs measure $\pi_T(\sigma) \propto e^{-C(\sigma)/T}$ at a slowly decreasing temperature $T$, the way a slowly cooled metal settles into a low-energy crystal.
+There are $(N-1)!/2$ distinct cycles, and the problem is NP-hard: no known algorithm finds the optimum in polynomial time. **Simulated annealing** is a heuristic borrowed from statistical physics {{ cite(ids=["kirkpatrick1983", "cerny1985"]) }}. It treats the cost as an energy $H = C$ and samples cycles from the Gibbs measure $\pi_T(\sigma) \propto e^{-C(\sigma)/T}$ at a slowly decreasing temperature $T$, the way a slowly cooled metal settles into a low-energy crystal.
 
 ### Metropolis sampling
 
-Sampling uses a Markov chain. At each iteration a **move** proposes a neighboring cycle $\sigma^{\prime}$, and the Metropolis prescription accepts it with probability
+Sampling uses a Markov chain. At each iteration a **move** proposes a neighboring cycle $\sigma^{\prime}$, and the Metropolis prescription {{ cite(ids=["metropolis1953"]) }} accepts it with probability
 
 $$
 A(\sigma \to \sigma^{\prime}) = \min\left(1,\\; e^{-\left(C(\sigma^{\prime}) - C(\sigma)\right)/T}\right).
@@ -65,7 +86,7 @@ $$
 T_{t+1} = \alpha\\, T_t \quad\Longrightarrow\quad T_t = \alpha^t\\, T_0, \qquad \alpha \in (0, 1),
 $$
 
-until the final temperature $T_f$ is reached after $n_{\text{steps}} = 1 + \log(T_f/T_0)/\log\alpha$ steps, for a total of $n_{\text{steps}} \times n_{\text{iter}}$ iterations. Logarithmic schedules $T_t \propto 1/\log(t+1)$ provably reach the global minimum, but only in infinite time. The geometric schedule has no such guarantee, yet in practice it gives very good cycles in reasonable time.
+until the final temperature $T_f$ is reached after $n_{\text{steps}} = 1 + \log(T_f/T_0)/\log\alpha$ steps, for a total of $n_{\text{steps}} \times n_{\text{iter}}$ iterations. Logarithmic schedules $T_t \propto 1/\log(t+1)$ provably reach the global minimum, but only in infinite time {{ cite(ids=["geman1984"]) }}. The geometric schedule has no such guarantee, yet in practice it gives very good cycles in reasonable time {{ cite(ids=["nourani1998"]) }}.
 
 ### Moves
 
@@ -76,14 +97,14 @@ $$
 $$
 
 - **Swap** exchanges two cities adjacent in the cycle ($j = i + 1$). The moves are tiny, so many of them are needed to change the cycle's shape.
-- **2-opt** reverses the whole stretch between $i$ and $j$: it cuts two edges and reconnects the two resulting paths the other way around. One move can undo a crossing of two edges of any length, which is why 2-opt reaches far cheaper cycles than swap, and the gap grows with $N$.
+- **2-opt** {{ cite(ids=["croes1958"]) }} reverses the whole stretch between $i$ and $j$: it cuts two edges and reconnects the two resulting paths the other way around. One move can undo a crossing of two edges of any length, which is why 2-opt reaches far cheaper cycles than swap, and the gap grows with $N$.
 
 ### Domains
 
 Cities are drawn at random from one of the following two-dimensional domains:
 
 - **Uniform**: uniform in the unit square $[0, 1]^2$.
-- **Correlated**: coordinates with correlation $\rho$, mixed from two independent variables $z_1, z_2$ (uniform on $[-\tfrac12, \tfrac12]$ or normal with the same variance $\tfrac{1}{12}$):
+- **Correlated**: coordinates with correlation $\rho$ {{ cite(ids=["dasilva2020", "10.1016/j.physa.2021.126067"]) }}, mixed from two independent variables $z_1, z_2$ (uniform on $[-\tfrac12, \tfrac12]$ or normal with the same variance $\tfrac{1}{12}$):
 
 $$
 x = z_1 \sin\varphi + z_2 \cos\varphi, \qquad y = z_1 \cos\varphi + z_2 \sin\varphi, \qquad \varphi = \tfrac12 \arcsin\rho.
@@ -109,7 +130,7 @@ $$
 
 <p style="font-size:0.85rem; color:#888;">For the unit square this is known in closed form, $\langle C_0\rangle = \frac{N}{15}\left(2 + \sqrt2 + 5\ln(1 + \sqrt2)\right) \approx 0.52\\,N$. The shortest cycle only grows like $\sqrt N$, so good final ratios shrink as $N$ grows.</p>
 
-This is a live version of the simulations in my M.Sc. dissertation, whose research code is at [eliseuv/tsp-sa](https://github.com/eliseuv/tsp-sa). Every control acts on the running simulation. The schedule runs on its own, but you can grab the current $T$ at any time to reheat or quench the cycle, or hold it fixed to watch the chain at equilibrium.
+This is a live version of the simulations in my M.Sc. dissertation {{ cite(ids=["10.1016/j.physa.2021.126067"]) }}, whose research code is at [eliseuv/tsp-sa](https://github.com/eliseuv/tsp-sa). Every control acts on the running simulation. The schedule runs on its own, but you can grab the current $T$ at any time to reheat or quench the cycle, or hold it fixed to watch the chain at equilibrium.
 
 <div class="tsp-wrap" style="display:flex; flex-direction:column; gap:0.8rem; font-family:'JetBrains Mono','Fira Code',monospace; color:#aaaaaa; font-size:0.9rem; line-height:1.3;">
     <div style="display:flex; flex-wrap:wrap; gap:0.5rem; align-items:center;">

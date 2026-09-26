@@ -3,6 +3,16 @@ title = "Contact Process"
 date = 2026-09-13
 description = "Directed-percolation contact process on a 2D lattice, compiled to WebAssembly."
 
+[extra]
+references = [
+    "harris1974",
+    "marro1999",
+    "hinrichsen2000",
+    "grinstein1985",
+    "tome2015",
+    "10.3390/sym17050774",
+]
+
 [extra.symbols]
 'p' = 'Healing probability: chance an Active site turns Inactive when picked.'
 'p_c' = 'Critical healing probability separating the percolating phase ($p < p_c$) from the absorbing one ($p > p_c$).'
@@ -14,7 +24,7 @@ projects = ["artificial-systems"]
 skills = ["Rust"]
 +++
 
-The contact process models activity spreading and dying out on a lattice: every site is either **Active** or **Inactive**. Unlike the Ising model, there is no Hamiltonian here — the dynamics are defined directly by per-site rates, not by an energy function.
+The contact process {{ cite(ids=["harris1974"]) }} models activity spreading and dying out on a lattice: every site is either **Active** or **Inactive**. Unlike the Ising model, there is no Hamiltonian here — the dynamics are defined directly by per-site rates, not by an energy function.
 
 Each attempt picks a random site $i$:
 

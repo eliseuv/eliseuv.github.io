@@ -3,6 +3,11 @@ title = "Conway's Game of Life"
 date = 2026-09-07
 description = "Cellular automaton simulation compiled to WebAssembly, rendered on canvas."
 
+[extra]
+references = [
+    "gardner1970",
+]
+
 [extra.symbols]
 'n' = 'Number of live neighbors of a site, out of $8$.'
 'p' = 'Fill probability: chance each site starts alive.'
@@ -13,7 +18,7 @@ projects = ["artificial-systems"]
 skills = ["Rust"]
 +++
 
-Conway's Game of Life is a zero-player cellular automaton: a lattice of sites, each either **alive** or **dead**, that evolves in discrete steps according to a fixed rule applied to every site in parallel. There is no player input during a run: the initial configuration alone determines everything that follows.
+Conway's Game of Life {{ cite(ids=["gardner1970"]) }} is a zero-player cellular automaton: a lattice of sites, each either **alive** or **dead**, that evolves in discrete steps according to a fixed rule applied to every site in parallel. There is no player input during a run: the initial configuration alone determines everything that follows.
 
 At each step, every site looks at its $8$ neighbors (Moore neighborhood) and, writing $n$ for the number of live neighbors, updates according to four rules:
 

@@ -3,6 +3,16 @@ title = "Chiarella Model"
 date = 2026-09-26
 description = "Extended Chiarella model of a market with fundamentalists, trend followers and noise traders, integrated as a stochastic differential equation in WebAssembly."
 
+[extra]
+references = [
+    "chiarella1992",
+    "majewski2020",
+    "maruyama1955",
+    "bouchaud2000",
+    "mantegna1999",
+    "stanley2000",
+]
+
 [extra.symbols]
 'p' = 'Log-price of the asset.'
 'dp' = 'Log-price increment over $dt$, i.e. a return.'
@@ -28,13 +38,13 @@ description = "Extended Chiarella model of a market with fundamentalists, trend 
 skills = ["Rust"]
 +++
 
-The Chiarella model describes the log-price $p$ of an asset traded by three kinds of agents. Working in logs makes price increments $dp$ returns, so the dynamics don't depend on the price level; the simulation starts at $p = 0$, i.e. a price normalized to $e^0 = 1$.
+The Chiarella model {{ cite(ids=["chiarella1992"]) }} describes the log-price $p$ of an asset traded by three kinds of agents. Working in logs makes price increments $dp$ returns, so the dynamics don't depend on the price level; the simulation starts at $p = 0$, i.e. a price normalized to $e^0 = 1$.
 
 - **fundamentalists** believe the asset is worth a fundamental value $V$, e.g. its discounted future cash flows. They buy when the price is below it and sell when it is above: their demand $-\kappa\delta$ corrects the mispricing $\delta = p - V$ at rate $\kappa$, closing a gap with half-life $\ln 2 / \kappa$ when acting alone.
 - **trend followers** chase a trend signal $M$, a moving average of recent price changes with memory time $1/\alpha$. Their demand $\beta \tanh(\gamma M)$ saturates, because positions can't grow without limit: the sensitivity $\gamma$ sets how strongly they react to a weak trend, and the strength $\beta$, read as their capital or market share, caps the drift they can impose at $\pm\beta$.
 - **noise traders** add random order flow of volatility $\sigma_N$, unrelated to value or trend. It is the main source of short-term return volatility, and it also seeds spurious trends in $M$.
 
-In the extended version of Majewski, Ciliberti and Bouchaud (2020), the fundamental value itself follows a random walk with drift $g$ and volatility $\sigma_V$. It is exogenous: news moves $V$, but the market price never feeds back into it. The dynamics are
+In the extended version of Majewski, Ciliberti and Bouchaud (2020) {{ cite(ids=["majewski2020"]) }}, the fundamental value itself follows a random walk with drift $g$ and volatility $\sigma_V$. It is exogenous: news moves $V$, but the market price never feeds back into it. The dynamics are
 
 $$
 \begin{aligned}
@@ -46,7 +56,7 @@ $$
 
 where $W_1$ and $W_2$ are independent Wiener processes: the news reaching fundamentals and the order flow of noise traders. The last line makes the trend signal an exponentially weighted average $M_t = \alpha \int_{-\infty}^{t} e^{-\alpha (t - s)}\\,dp_s$, a return per unit time: $M > 0$ means prices have recently been rising. Noise-driven moves count too, since trend followers can't tell a noise trade from a genuine trend. A large $\alpha$ is a short, jittery memory that chases the latest noise; a small $\alpha$ is a long, smooth one that reacts late.
 
-The system is integrated with the Euler–Maruyama scheme at time step $dt$, which is numerical rather than part of the model: smaller is more accurate but covers less simulated time per step, and tracking the continuous dynamics needs $\kappa\\,dt \ll 1$ and $\alpha\\,dt \ll 1$. Each animation frame runs a number of **steps/frame**, advancing simulated time by $\text{steps} \times dt$; every plot takes one sample per frame, so "returns" are price changes over that interval. Time units are arbitrary: if one unit is a trading day, then $\sigma_N$ is a daily volatility, $1/\alpha$ is a memory length in days, and so on.
+The system is integrated with the Euler–Maruyama scheme {{ cite(ids=["maruyama1955"]) }} at time step $dt$, which is numerical rather than part of the model: smaller is more accurate but covers less simulated time per step, and tracking the continuous dynamics needs $\kappa\\,dt \ll 1$ and $\alpha\\,dt \ll 1$. Each animation frame runs a number of **steps/frame**, advancing simulated time by $\text{steps} \times dt$; every plot takes one sample per frame, so "returns" are price changes over that interval. Time units are arbitrary: if one unit is a trading day, then $\sigma_N$ is a daily volatility, $1/\alpha$ is a memory length in days, and so on.
 
 The interesting variable is the mispricing $\delta$: $p$ and $V$ both wander without bound, but their difference does not. $\delta > 0$ means the asset is overvalued (the bubble side), $\delta < 0$ undervalued. Without noise, the state $(\delta, M) = (0, 0)$ is stable as long as
 

@@ -3,6 +3,33 @@ title = "Spectral Signatures of Criticality"
 date = 2026-09-25
 description = "Random matrix analysis of time series from many independent copies of a system: the spectrum of their correlation matrix locates the phase transitions of the Ising model and the contact process. Compiled to WebAssembly."
 
+[extra]
+references = [
+    "dasilva2023",
+    "10.1007/s13538-023-01295-9",
+    "10.3390/e26050395",
+    "10.1142/s0129183124501638",
+    "10.3390/sym17050774",
+    "wishart1928",
+    "marchenko1967",
+    "dasilva2020",
+    "wirtz2017",
+    "onsager1944",
+    "harris1974",
+    "hinrichsen2000",
+    "fiore2004",
+    "dantas2007",
+    "ross1993",
+    "wigner1955",
+    "dyson1962",
+    "mehta2004",
+    "vinayak2014",
+    "stanley2000",
+    "bouchaud2009",
+    "scheffer2009",
+    "marro1999",
+]
+
 [extra.symbols]
 'N' = 'Number of time series, i.e. of independent copies (samples) of the system. $N = 100$ here.'
 'n' = 'Time steps per series after the initial measurement, so each series has $n + 1$ values.'
@@ -34,7 +61,7 @@ skills = ["Rust"]
 
 A phase transition is a collective change: at the critical point, fluctuations are correlated over the whole system and relax slowly. This page shows a way to detect it without measuring any correlation length directly. Run $N$ independent copies of the system, record one global quantity of each over time, and ask how *similar* those $N$ time series are to each other. The answer is read from the spectrum of their correlation matrix, compared against what random matrix theory predicts for series that are not correlated at all.
 
-This is the method of my PhD thesis, *Random matrices approaches for correlated time series: statistical physics and other applications*, and the simulations run on the same code, compiled to WebAssembly.
+This is the method of my PhD thesis, *Random matrices approaches for correlated time series: statistical physics and other applications* {{ cite(ids=["dasilva2023", "10.1007/s13538-023-01295-9", "10.3390/e26050395", "10.1142/s0129183124501638", "10.3390/sym17050774"]) }}, and the simulations run on the same code, compiled to WebAssembly.
 
 ## From time series to a spectrum
 
@@ -52,7 +79,7 @@ $$
 
 so $g^\ast_{ij}$ is the Pearson correlation between samples $i$ and $j$. Its eigenvalues $\lambda$ summarize all $N(N-1)/2$ correlations at once.
 
-If the series are independent noise, the eigenvalue density does not collapse onto $\lambda = 1$ as one might expect: finite series have spurious correlations of order $1/\sqrt{n+1}$, and they spread the spectrum over the **Marchenko-Pastur** law
+If the series are independent noise, the eigenvalue density does not collapse onto $\lambda = 1$ as one might expect: finite series have spurious correlations of order $1/\sqrt{n+1}$, and they spread the spectrum over the **Marchenko-Pastur** law {{ cite(ids=["wishart1928", "marchenko1967"]) }}
 
 $$
 \sigma(\lambda) = \frac{\sqrt{(\lambda_+ - \lambda)(\lambda - \lambda_-)}}{2\pi q \lambda}, \qquad \lambda_\pm = (1 \pm \sqrt{q})^2, \qquad q = \frac{N}{n+1}.
@@ -77,16 +104,16 @@ The **largest eigenvalue** $\lambda_{\max}$ measures how much of the ensemble fo
 ## The sources
 
 - **White noise**: independent Gaussian values. The spectrum settles on the Marchenko-Pastur law.
-- **Correlated pairs**: a toy model with a knob. Samples come in pairs whose series have correlation $\rho$, built from two independent Gaussian series $\varphi_1, \varphi_2$ as $\varphi_1 \sin\theta + \varphi_2 \cos\theta$ and $\varphi_1 \cos\theta + \varphi_2 \sin\theta$ with $\sin 2\theta = \rho$. Different pairs are independent. As $\rho$ grows the spectrum splits into two bulks around $1 \pm \rho$.
-- **Ising model** on a periodic $L \times L$ lattice with $L = 32$, heat bath dynamics, series of the magnetization over $n = 300$ sweeps from random configurations. The temperature $T$ is set relative to $T_c$.
-- **Contact process** on a ring of $L = 128$ sites, series of the density of active sites $\rho_a$ over $n = 500$ steps from fully active chains, with infection rate $\alpha$ and diffusion probability $\gamma$. It has an absorbing state and no Hamiltonian, and belongs to the directed percolation universality class rather than Ising's.
+- **Correlated pairs**: a toy model with a knob {{ cite(ids=["10.1142/s0129183124501638"]) }}. Samples come in pairs whose series have correlation $\rho$, built from two independent Gaussian series $\varphi_1, \varphi_2$ as $\varphi_1 \sin\theta + \varphi_2 \cos\theta$ and $\varphi_1 \cos\theta + \varphi_2 \sin\theta$ with $\sin 2\theta = \rho$ {{ cite(ids=["dasilva2020"]) }}. Different pairs are independent. As $\rho$ grows the spectrum splits into two bulks around $1 \pm \rho$ {{ cite(ids=["wirtz2017"]) }}.
+- **Ising model** on a periodic $L \times L$ lattice with $L = 32$, heat bath dynamics, series of the magnetization over $n = 300$ sweeps from random configurations. The temperature $T$ is set relative to $T_c$ {{ cite(ids=["onsager1944"]) }}.
+- **Contact process** {{ cite(ids=["harris1974", "10.3390/sym17050774"]) }} on a ring of $L = 128$ sites, series of the density of active sites $\rho_a$ over $n = 500$ steps from fully active chains, with infection rate $\alpha$ and diffusion probability $\gamma$. It has an absorbing state and no Hamiltonian, and belongs to the directed percolation universality class rather than Ising's {{ cite(ids=["hinrichsen2000"]) }}.
 
 ## What the reference scans show
 
 In both models the ordered side has every sample following the same trajectory, so the correlations are strong, $\lambda_{\max}$ approaches $N$ and $\operatorname{var}(\lambda)$ approaches $N - 1$. For the Ising model that trajectory is ordering into one of two domains, up or down, so correlations are near $\pm 1$. For the contact process it is the common decay into the absorbing state, below $\alpha_c$. Across the transition both statistics collapse, and the critical point sits where they change fastest:
 
 - **Ising model**: $\operatorname{var}(\lambda)$ falls steepest, its inflection point, at $T = T_c$ within the $0.02\\,T_c$ spacing of the scan. $\langle \lambda_{\max} \rangle$ has its inflection just above, between $T_c$ and $1.02\\,T_c$.
-- **Contact process** without diffusion: $\langle \lambda_{\max} \rangle$ has its inflection and $\operatorname{var}(\lambda_{\max})$ its maximum at $\alpha \approx 3.15$, and $\operatorname{var}(\lambda)$ its inflection at $\alpha \approx 3.10$. That is about $5\\%$ below $\alpha_c \approx 3.298$ at these sizes. With diffusion the same features move down together, to $\alpha \approx 2.55$ for $\gamma = 0.5$ and $\alpha \approx 2.35$ for $\gamma = 1$, following the known decrease of the critical rate with diffusion. For $\gamma > 0$ the dashed critical line is the thesis' fit $\alpha_c = 2.33\\,(\gamma + 0.16)^{-0.19}$ of the spectral and power law estimates, not an independent value.
+- **Contact process** without diffusion: $\langle \lambda_{\max} \rangle$ has its inflection and $\operatorname{var}(\lambda_{\max})$ its maximum at $\alpha \approx 3.15$, and $\operatorname{var}(\lambda)$ its inflection at $\alpha \approx 3.10$. That is about $5\\%$ below $\alpha_c \approx 3.298$ at these sizes. With diffusion the same features move down together, to $\alpha \approx 2.55$ for $\gamma = 0.5$ and $\alpha \approx 2.35$ for $\gamma = 1$, following the known decrease of the critical rate with diffusion {{ cite(ids=["fiore2004", "dantas2007"]) }}. For $\gamma > 0$ the dashed critical line is the thesis' Bělehrádek fit {{ cite(ids=["ross1993", "10.3390/sym17050774"]) }} $\alpha_c = 2.33\\,(\gamma + 0.16)^{-0.19}$ of the spectral and power law estimates, not an independent value.
 
 On the other side of the transition neither model reaches the Marchenko-Pastur law: the series are short and remember their initial state, so they stay autocorrelated and $\operatorname{var}(\lambda)$ remains well above $q$.
 

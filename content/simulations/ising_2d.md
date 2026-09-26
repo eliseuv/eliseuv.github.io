@@ -3,6 +3,20 @@ title = "2D Ising Model"
 date = 2026-09-13
 description = "Ferromagnetic Ising model on a 2D lattice, sampled by Metropolis Monte Carlo, compiled to WebAssembly."
 
+[extra]
+references = [
+    "ising1925",
+    "metropolis1953",
+    "onsager1944",
+    "stanley1971",
+    "stanley1999",
+    "salinas2001",
+    "newman1999",
+    "landau2014",
+    "10.3390/e26050395",
+    "10.1007/s13538-023-01295-9",
+]
+
 [extra.symbols]
 's_i' = 'Spin at site $i$: $+1$ (up) or $-1$ (down).'
 's_j' = 'Spin at site $j$, a nearest neighbor of $i$.'
@@ -20,7 +34,7 @@ projects = ["artificial-systems"]
 skills = ["Rust"]
 +++
 
-The Ising model places a spin $s_i \in \{+1, -1\}$ on every site of a lattice. Neighboring spins interact through the Hamiltonian
+The Ising model {{ cite(ids=["ising1925"]) }} places a spin $s_i \in \{+1, -1\}$ on every site of a lattice. Neighboring spins interact through the Hamiltonian
 
 $$
 H = -J \sum_{\langle i,j \rangle} s_i s_j,
@@ -28,7 +42,7 @@ $$
 
 summed over nearest-neighbor bonds $\langle i,j \rangle$, with $J = 1$ favoring aligned neighbors (ferromagnetic coupling).
 
-The system is sampled by single-spin-flip **Metropolis** Monte Carlo. Each attempt picks a random site $i$, computes the energy change a flip would cost,
+The system is sampled by single-spin-flip **Metropolis** Monte Carlo {{ cite(ids=["metropolis1953"]) }}. Each attempt picks a random site $i$, computes the energy change a flip would cost,
 
 $$
 \Delta E = 2 s_i \sum_{j \in \text{nn}(i)} s_j,
