@@ -534,10 +534,15 @@ Each change of source or parameter starts a new ensemble. The time series matrix
                     mp.push([u, marchenko_pastur_density(nSteps, lambda) * jacobian(lambda)]);
                 }
 
+                // The reference is binned linearly: on the logarithmic axis its first bins
+                // average over decades of λ, so it is drawn only where the bins resolve it.
                 const reference = nearestReferencePoint();
+                const referenceWidth = reference
+                    ? (reference.eigenvalues.high - reference.eigenvalues.low) / reference.eigenvalues.counts.length
+                    : 0;
                 const ref = reference
                     ? histogramDensity(reference.eigenvalues)
-                        .filter(([lambda]) => !log || lambda > 0)
+                        .filter(([lambda]) => !log || lambda > 2 * referenceWidth)
                         .map(([lambda, d]) => [toU(lambda), d * jacobian(lambda)])
                     : [];
 
