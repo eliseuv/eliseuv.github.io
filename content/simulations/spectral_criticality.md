@@ -1,6 +1,6 @@
 +++
 title = "Spectral Signatures of Criticality"
-date = 2026-09-26
+date = 2026-09-25
 description = "Random matrix analysis of time series from many independent copies of a system: the spectrum of their correlation matrix locates the phase transitions of the Ising model and the contact process. Compiled to WebAssembly."
 
 [extra.symbols]
