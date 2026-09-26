@@ -4,13 +4,14 @@ date = 2026-09-07
 description = "Cellular automaton simulation compiled to WebAssembly, rendered on canvas."
 
 [extra.symbols]
-'n' = 'Number of live neighbors of a cell, out of $8$.'
-'p' = 'Fill probability: chance each cell starts alive.'
+'n' = 'Number of live neighbors of a site, out of $8$.'
+'p' = 'Fill probability: chance each site starts alive.'
+'L' = 'Side length of the $L \times L$ toroidal lattice, in sites.'
 +++
 
-Conway's Game of Life is a zero-player cellular automaton: a grid of cells, each either **alive** or **dead**, that evolves in discrete steps according to a fixed rule applied to every cell in parallel. There is no player input during a run: the initial configuration alone determines everything that follows.
+Conway's Game of Life is a zero-player cellular automaton: a lattice of sites, each either **alive** or **dead**, that evolves in discrete steps according to a fixed rule applied to every site in parallel. There is no player input during a run: the initial configuration alone determines everything that follows.
 
-At each step, every cell looks at its $8$ neighbors (Moore neighborhood) and, writing $n$ for the number of live neighbors, updates according to four rules:
+At each step, every site looks at its $8$ neighbors (Moore neighborhood) and, writing $n$ for the number of live neighbors, updates according to four rules:
 
 <div class="gol-rules" style="display:flex; flex-wrap:wrap; justify-content:center; gap:1.5rem; margin:1.5rem 0; font-family:'JetBrains Mono','Fira Code',monospace;">
     <div style="width:150px; text-align:center;">
@@ -79,9 +80,9 @@ At each step, every cell looks at its $8$ neighbors (Moore neighborhood) and, wr
     </div>
 </div>
 
-<p style="font-size:0.85rem; color:#888;">Gray cells are alive, black cells are dead; the highlighted cell is the one being updated, ringed <span style="color:#7aa2f7;">blue</span> if it is alive after the step or <span style="color:#ff0055;">magenta</span> if it is dead.</p>
+<p style="font-size:0.85rem; color:#888;">Gray sites are alive, black sites are dead; the highlighted site is the one being updated, ringed <span style="color:#7aa2f7;">blue</span> if it is alive after the step or <span style="color:#ff0055;">magenta</span> if it is dead.</p>
 
-This simulation runs on a $128 \times 128$ **toroidal** lattice: the edges wrap around, so a glider leaving the right side reappears on the left.
+This simulation runs on an $L \times L$ **toroidal** lattice with $L = 128$: the edges wrap around, so a glider leaving the right side reappears on the left.
 
 <div class="gol-wrap" style="display:flex; flex-direction:column; gap:0.8rem; font-family:'JetBrains Mono','Fira Code',monospace; color:#aaaaaa; font-size:0.9rem; line-height:1.3;">
     <div style="display:flex; flex-wrap:wrap; gap:0.5rem; align-items:center;">
@@ -96,7 +97,7 @@ This simulation runs on a $128 \times 128$ **toroidal** lattice: the edges wrap 
             <input type="range" id="gol-p-slider" min="0" max="1" step="0.01" value="0.37" style="width:100%;">
         </div>
     </div>
-    <p style="color:#666; margin:0;">Click toggle cell &middot; Ctrl+Click stamp glider &middot; Shift+Click stamp pulsar</p>
+    <p style="color:#666; margin:0;">Click toggle site &middot; Ctrl+Click stamp glider &middot; Shift+Click stamp pulsar</p>
     <div style="border:1px solid #333; background:#000; overflow:auto; max-width:100%; align-self:center;">
         <canvas id="game-of-life-canvas" oncontextmenu="return false;"></canvas>
     </div>
@@ -116,7 +117,7 @@ This simulation runs on a $128 \times 128$ **toroidal** lattice: the edges wrap 
 
             // Canvas is drawn at 1px/site, then CSS-scaled to a fixed
             // on-screen size with `image-rendering: pixelated`. 640 is an
-            // integer multiple of the grid size, so every cell is 5px wide.
+            // integer multiple of the lattice size, so every site is 5px wide.
             const DISPLAY_SIZE = 640;
 
             const canvas = document.getElementById("game-of-life-canvas");
