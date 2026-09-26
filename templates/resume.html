@@ -42,9 +42,11 @@
                             {% endif %}
                             {% if detail | length > 0 %}
                             <span class="chip-detail">
-                                {% for d in detail %}
-                                <span class="chip-detail-item">{{ d }}</span>
-                                {% endfor %}
+                                <span class="chip-detail-items">
+                                    {% for d in detail %}
+                                    <span class="chip-detail-item">{{ d }}</span>
+                                    {% endfor %}
+                                </span>
                             </span>
                             {% endif %}
                         </span>
