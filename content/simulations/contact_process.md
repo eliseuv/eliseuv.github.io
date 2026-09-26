@@ -17,40 +17,40 @@ One *sweep* (one call to `step`) makes as many such attempts as there are sites.
 
 This simulation runs on a **toroidal** lattice: the edges wrap around, so interactions cross the boundary seamlessly.
 
-<div class="contact-wrap" style="display:flex; flex-wrap:wrap; gap:1.5rem; align-items:flex-start; font-family:'JetBrains Mono','Fira Code',monospace; color:#aaaaaa;">
-    <div style="border:1px solid #333; background:#000; overflow:auto;">
-        <canvas id="contact-canvas" oncontextmenu="return false;"></canvas>
+<div class="contact-wrap" style="display:flex; flex-direction:column; gap:0.8rem; font-family:'JetBrains Mono','Fira Code',monospace; color:#aaaaaa; font-size:0.9rem; line-height:1.3;">
+    <div style="display:flex; flex-wrap:wrap; gap:0.5rem; align-items:center;">
+        <button id="contact-play-pause" style="background:#111; color:#aaaaaa; border:1px solid #333; padding:0.3rem 0.9rem; font-family:inherit; font-size:1.1rem; cursor:pointer;">&#9654;</button>
+        <button id="contact-randomize" style="background:#111; color:#aaaaaa; border:1px solid #333; padding:0.3rem 0.8rem; font-family:inherit; cursor:pointer;">Randomize</button>
+        <button id="contact-seed" style="background:#111; color:#aaaaaa; border:1px solid #333; padding:0.3rem 0.8rem; font-family:inherit; cursor:pointer;">Seed center</button>
+        <span style="color:#666; margin-left:auto;">P start/stop sampling &middot; R randomize &middot; S seed center</span>
     </div>
-    <div class="contact-controls" style="width:220px;">
-        <button id="contact-play-pause" style="background:#111; color:#aaaaaa; border:1px solid #333; padding:0.5rem 1rem; font-family:inherit; font-size:1.2rem; cursor:pointer;">&#9654;</button>
-        <p><span data-tooltip="Side length L of the L×L toroidal lattice. Changing it rebuilds the lattice and pauses." tabindex="0">Lattice size</span>:
-            <select id="contact-l-select" style="background:#111; color:#aaaaaa; border:1px solid #333; font-family:inherit; padding:0.2rem 0.4rem;">
+    <div class="contact-controls" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(170px, 1fr)); gap:0.4rem 1.2rem;">
+        <div>
+            <p style="margin:0 0 0.2rem;"><span data-tooltip="Side length L of the L×L toroidal lattice. Changing it rebuilds the lattice and pauses." tabindex="0">Lattice size</span></p>
+            <select id="contact-l-select" style="width:100%; background:#111; color:#aaaaaa; border:1px solid #333; font-family:inherit; padding:0.2rem;">
                 <option value="32">32 &times; 32</option>
                 <option value="64">64 &times; 64</option>
                 <option value="128" selected>128 &times; 128</option>
                 <option value="256">256 &times; 256</option>
             </select>
-        </p>
-        <p><span data-tooltip="Chance an active site heals when picked. High values kill activity off; low values let it spread and persist." tabindex="0">Healing probability</span>: <output id="contact-p-value">0.50</output></p>
-        <input type="range" id="contact-p-slider" min="0.01" max="1" step="0.01" value="0.5" style="width:100%;">
-        <p>
-            <button id="contact-randomize" style="background:#111; color:#aaaaaa; border:1px solid #333; padding:0.3rem 0.8rem; font-family:inherit; cursor:pointer;">Randomize</button>
-            <button id="contact-seed" style="background:#111; color:#aaaaaa; border:1px solid #333; padding:0.3rem 0.8rem; font-family:inherit; cursor:pointer;">Seed center</button>
-        </p>
-        <p style="color:#888; font-size:0.9rem;"><span data-tooltip="Fraction of sites currently active. Zero is absorbing: once activity dies out it never returns." tabindex="0">Active fraction</span>: <output id="contact-active-value">0.00</output></p>
-        <ul style="color:#888; font-size:0.9rem; padding-left:1.2rem;">
-            <li>P &rarr; start/stop sampling</li>
-            <li>R &rarr; randomize</li>
-            <li>S &rarr; seed center</li>
-        </ul>
+        </div>
+        <div>
+            <p style="margin:0 0 0.2rem;"><span data-tooltip="Chance an active site heals when picked. High values kill activity off; low values let it spread and persist." tabindex="0">p</span> = <output id="contact-p-value">0.50</output></p>
+            <input type="range" id="contact-p-slider" min="0.01" max="1" step="0.01" value="0.5" style="width:100%;">
+        </div>
     </div>
-</div>
-
-<div style="display:flex; flex-direction:column; gap:1rem; margin-top:1.5rem; font-family:'JetBrains Mono','Fira Code',monospace;">
-    <div>
-        <p style="color:#ff0055; font-size:0.85rem; margin:0 0 0.25rem;"><span data-tooltip="Active fraction per sweep, on a fixed 0 to 1 scale. It settles to a plateau when activity survives, or drops to 0 when it dies out." tabindex="0">Active fraction</span></p>
-        <div style="border:1px solid #333; background:#000;">
-            <canvas id="contact-plot-active" style="display:block; width:100%; height:160px;"></canvas>
+    <p style="color:#888; margin:0; display:flex; flex-wrap:wrap; gap:0.2rem 1.2rem;">
+        <span><span data-tooltip="Fraction of sites currently active. Zero is absorbing: once activity dies out it never returns." tabindex="0">Active fraction</span> = <output id="contact-active-value">0.00</output></span>
+    </p>
+    <div style="display:flex; flex-wrap:wrap; gap:1rem; align-items:flex-start;">
+        <div style="border:1px solid #333; background:#000; overflow:auto; max-width:100%;">
+            <canvas id="contact-canvas" oncontextmenu="return false;"></canvas>
+        </div>
+        <div style="flex:1; min-width:280px;">
+            <p style="font-size:0.85rem; margin:0 0 0.25rem;"><span data-tooltip="Active fraction per sweep, on a fixed 0 to 1 scale. It settles to a plateau when activity survives, or drops to 0 when it dies out." tabindex="0"><span style="color:#ff0055;">Active fraction</span></span></p>
+            <div style="border:1px solid #333; background:#000;">
+                <canvas id="contact-plot-active" style="display:block; width:100%; height:463px;"></canvas>
+            </div>
         </div>
     </div>
 </div>
@@ -67,11 +67,11 @@ This simulation runs on a **toroidal** lattice: the edges wrap around, so intera
             // Canvas is drawn at 1px/site, then CSS-scaled to a fixed
             // on-screen size with `image-rendering: pixelated` — so
             // switching lattice length never changes the display footprint.
-            const DISPLAY_SIZE = 512;
-            // The plot is drawn at a fixed, wide internal resolution and
-            // CSS-stretched horizontally to fill the available width.
-            const PLOT_WIDTH = 900;
-            const PLOT_HEIGHT = 160;
+            const DISPLAY_SIZE = 480;
+            // The plot is drawn at a fixed internal resolution matching the
+            // plot column, and CSS-stretched when the layout stacks.
+            const PLOT_WIDTH = 480;
+            const PLOT_HEIGHT = 463;
             const PLOT_HISTORY = 300;
 
             const canvas = document.getElementById("contact-canvas");
