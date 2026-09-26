@@ -95,3 +95,10 @@ blockquote {
     color: $text-dim;
     font-style: italic;
 }
+
+// --- Math (KaTeX) ---
+// Equations stand out in white against the gray body text. Explicit
+// `\color{}` in TeX still wins, since KaTeX applies it inline on inner spans.
+.katex {
+    color: $text-white;
+}
