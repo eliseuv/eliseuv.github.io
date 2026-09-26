@@ -2,6 +2,35 @@
 title = "Simulated Annealing for the TSP"
 date = 2026-09-25
 description = "Simulated annealing with Metropolis sampling and geometric cooling applied to the traveling salesman problem on random domains, running in WebAssembly."
+
+[extra.symbols]
+'N' = 'Number of cities.'
+'\sigma' = 'A cycle: a cyclic ordering of the cities.'
+'\sigma_i' = 'The $i$-th city visited by the cycle $\sigma$.'
+'\sigma^{\prime}' = 'Candidate cycle proposed by a move.'
+'C' = 'Cost: total length of a cycle.'
+'\Delta C' = 'Cost change of a candidate move, computed in $O(1)$ from the two replaced edges.'
+'d' = 'Euclidean distance between two cities.'
+'H' = 'Energy in the physical analogy, equal to the cost $C$.'
+'\pi_T' = 'Gibbs measure at temperature $T$: cheaper cycles are exponentially more likely.'
+'A' = 'Metropolis acceptance probability of a proposed move.'
+'T' = 'Temperature. It has units of distance, like the cost.'
+'T_t' = 'Temperature after $t$ cooling steps.'
+'T_0' = 'Initial temperature, where each anneal starts.'
+'T_f' = 'Final temperature, where cooling stops and the chain keeps sampling.'
+'t' = 'Annealing step: how many times $T$ has been cooled since the last Anneal.'
+'\alpha' = 'Cooling factor: each step multiplies $T$ by $\alpha$. Closer to $1$ cools more slowly.'
+'n_{\text{iter}}' = 'Metropolis iterations at each temperature before cooling again.'
+'n_{\text{steps}}' = 'Number of cooling steps from $T_0$ down to $T_f$.'
+'\rho' = 'Correlation between the $x$ and $y$ coordinates of the cities.'
+'\varphi' = 'Mixing angle that sets the correlation $\rho$.'
+'z_1' = 'First independent variable mixed into the city coordinates.'
+'z_2' = 'Second independent variable mixed into the city coordinates.'
+'\gamma' = 'Power-law exponent. Smaller means heavier tails; at $\gamma \leq 3$ the variance is infinite.'
+'x_0' = 'Lower cutoff of the power law.'
+'p(x)' = 'Density of each coordinate in the power-law domain.'
+'\langle C_0\rangle' = 'Expected cost of a uniformly random cycle on the same cities.'
+'C/\langle C_0\rangle' = 'Performance: cost relative to a random cycle. Lower is better.'
 +++
 
 The **traveling salesman problem** (TSP) asks for the shortest closed route visiting each of $N$ cities exactly once. A route is a Hamiltonian cycle $\sigma$, i.e. a cyclic ordering of the cities, and its cost is the total length
@@ -85,7 +114,7 @@ This is a live version of the simulations in my M.Sc. dissertation, whose resear
     </div>
     <div class="tsp-controls" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(170px, 1fr)); gap:0.4rem 1.2rem;">
         <div>
-            <p style="margin:0 0 0.2rem;"><span data-tooltip="Number of cities. Changing it draws a new instance." tabindex="0">N</span> = <output id="tsp-n-value"></output></p>
+            <p style="margin:0 0 0.2rem;"><span data-sym="N" tabindex="0">N</span> = <output id="tsp-n-value"></output></p>
             <input type="range" id="tsp-n-slider" min="3" max="11" step="0.25" value="8" style="width:100%;">
         </div>
         <div>
@@ -98,11 +127,11 @@ This is a live version of the simulations in my M.Sc. dissertation, whose resear
             </select>
         </div>
         <div id="tsp-rho-row" style="display:none;">
-            <p style="margin:0 0 0.2rem;"><span data-tooltip="Correlation between the x and y coordinates. At 1 the cities lie on a line and the problem becomes easy." tabindex="0">&rho;</span> = <output id="tsp-rho-value"></output></p>
+            <p style="margin:0 0 0.2rem;"><span data-sym="\rho" tabindex="0">&rho;</span> = <output id="tsp-rho-value"></output></p>
             <input type="range" id="tsp-rho-slider" min="0" max="1" step="0.01" value="0.9" style="width:100%;">
         </div>
         <div id="tsp-gamma-row" style="display:none;">
-            <p style="margin:0 0 0.2rem;"><span data-tooltip="Power-law exponent. Smaller means heavier tails and more far-away outliers; at 3 or below the variance is infinite." tabindex="0">&gamma;</span> = <output id="tsp-gamma-value"></output></p>
+            <p style="margin:0 0 0.2rem;"><span data-sym="\gamma" tabindex="0">&gamma;</span> = <output id="tsp-gamma-value"></output></p>
             <input type="range" id="tsp-gamma-slider" min="1.5" max="6" step="0.1" value="3.4" style="width:100%;">
         </div>
         <div>
@@ -113,19 +142,19 @@ This is a live version of the simulations in my M.Sc. dissertation, whose resear
             </select>
         </div>
         <div>
-            <p style="margin:0 0 0.2rem;"><span data-tooltip="Initial temperature, where each anneal starts. Takes effect on the next Anneal." tabindex="0">T<sub>0</sub></span> = <output id="tsp-t0-value"></output></p>
+            <p style="margin:0 0 0.2rem;"><span data-sym="T_0" tabindex="0">T<sub>0</sub></span> = <output id="tsp-t0-value"></output></p>
             <input type="range" id="tsp-t0-slider" min="-2" max="2" step="0.1" value="0" style="width:100%;">
         </div>
         <div>
-            <p style="margin:0 0 0.2rem;"><span data-tooltip="Final temperature. Cooling stops here and the chain keeps sampling at T_f." tabindex="0">T<sub>f</sub></span> = <output id="tsp-tf-value"></output></p>
+            <p style="margin:0 0 0.2rem;"><span data-sym="T_f" tabindex="0">T<sub>f</sub></span> = <output id="tsp-tf-value"></output></p>
             <input type="range" id="tsp-tf-slider" min="-8" max="-1" step="0.1" value="-4" style="width:100%;">
         </div>
         <div>
-            <p style="margin:0 0 0.2rem;"><span data-tooltip="Cooling factor: each step multiplies T by α. Closer to 1 means slower, gentler cooling." tabindex="0">&alpha;</span> = <output id="tsp-alpha-value"></output></p>
+            <p style="margin:0 0 0.2rem;"><span data-sym="\alpha" tabindex="0">&alpha;</span> = <output id="tsp-alpha-value"></output></p>
             <input type="range" id="tsp-alpha-slider" min="1" max="4" step="0.05" value="1.7" style="width:100%;">
         </div>
         <div>
-            <p style="margin:0 0 0.2rem;"><span data-tooltip="Metropolis iterations at each temperature before cooling again." tabindex="0">n<sub>iter</sub></span> = <output id="tsp-iter-value"></output></p>
+            <p style="margin:0 0 0.2rem;"><span data-sym="n_{\text{iter}}" tabindex="0">n<sub>iter</sub></span> = <output id="tsp-iter-value"></output></p>
             <input type="range" id="tsp-iter-slider" min="1" max="5" step="0.1" value="3.3" style="width:100%;">
         </div>
         <div>
@@ -134,17 +163,17 @@ This is a live version of the simulations in my M.Sc. dissertation, whose resear
         </div>
         <div>
             <p style="margin:0 0 0.2rem; display:flex; justify-content:space-between;">
-                <span><span data-tooltip="Current temperature. Follows the schedule; drag it to reheat or quench, and cooling resumes from there." tabindex="0">T</span> = <output id="tsp-t-value"></output></span>
+                <span><span data-sym="T" tabindex="0">T</span> = <output id="tsp-t-value"></output></span>
                 <label style="cursor:pointer;"><input type="checkbox" id="tsp-hold"> <span data-tooltip="Stop cooling and keep sampling at the current T." tabindex="0">Hold</span></label>
             </p>
             <input type="range" id="tsp-t-slider" min="-8" max="2" step="0.01" value="0" style="width:100%;">
         </div>
     </div>
     <p style="color:#888; margin:0; display:flex; flex-wrap:wrap; gap:0.2rem 1.2rem;">
-        <span><span data-tooltip="Annealing step: how many times T has been cooled since the last Anneal." tabindex="0">t</span> = <output id="tsp-step-value">0</output> &rarr; <output id="tsp-state-value"></output></span>
-        <span><span data-tooltip="Cost of the current cycle." tabindex="0">C</span> = <output id="tsp-cost-value"></output></span>
-        <span><span data-tooltip="Expected cost of a uniformly random cycle on these cities." tabindex="0">&lang;C<sub>0</sub>&rang;</span> = <output id="tsp-c0-value"></output></span>
-        <span><span data-tooltip="Performance: current cost relative to a random cycle. Lower is better." tabindex="0">C/&lang;C<sub>0</sub>&rang;</span> = <output id="tsp-ratio-value"></output></span>
+        <span><span data-sym="t" tabindex="0">t</span> = <output id="tsp-step-value">0</output> &rarr; <output id="tsp-state-value"></output></span>
+        <span><span data-sym="C" tabindex="0">C</span> = <output id="tsp-cost-value"></output></span>
+        <span><span data-sym="\langle C_0\rangle" tabindex="0">&lang;C<sub>0</sub>&rang;</span> = <output id="tsp-c0-value"></output></span>
+        <span><span data-sym="C/\langle C_0\rangle" tabindex="0">C/&lang;C<sub>0</sub>&rang;</span> = <output id="tsp-ratio-value"></output></span>
         <span><span data-tooltip="Lowest C/⟨C₀⟩ seen since the last Anneal." tabindex="0">best</span> = <output id="tsp-best-value"></output></span>
         <span><span data-tooltip="Fraction of proposed moves accepted during the last frame." tabindex="0">accepted</span> = <output id="tsp-acceptance-value"></output></span>
     </p>
