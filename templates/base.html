@@ -53,6 +53,12 @@
                         return;
                     }
 
+                    // Same-page anchors like "/#entry-phd" only change the hash, so the
+                    // overlay would never be hidden by a new page load
+                    if (link.hash && link.pathname === window.location.pathname) {
+                        return;
+                    }
+
                     e.preventDefault();
                     overlay.classList.remove('hidden');
                     overlay.classList.add('active');
@@ -64,6 +70,23 @@
                 });
             });
         });
+
+        // Resume entries are collapsed <details>, which :target does not open
+        function revealHashTarget() {
+            const id = decodeURIComponent(window.location.hash.slice(1));
+            const target = id && document.getElementById(id);
+            if (!target) return;
+
+            const details = target.closest('details');
+            if (details) details.open = true;
+
+            target.scrollIntoView({ block: 'start' });
+            target.classList.remove('link-target-flash');
+            void target.offsetWidth; // Restart the animation on repeated visits
+            target.classList.add('link-target-flash');
+        }
+        document.addEventListener('DOMContentLoaded', revealHashTarget);
+        window.addEventListener('hashchange', revealHashTarget);
 
         // Ensure overlay is hidden when navigating back
         window.addEventListener('pageshow', (event) => {

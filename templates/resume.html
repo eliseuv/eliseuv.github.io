@@ -52,7 +52,7 @@
         <h2>Experience</h2>
 
         {% for exp in resume.experience %}
-        <details class="entry">
+        <details class="entry" id="entry-{{ exp.id }}">
             <summary>
                 <div style="display: flex; gap: 0.8rem; align-items: flex-start;">
                     {% if exp.logo and exp.degree_logo %}
@@ -125,7 +125,7 @@
         <h2>Education</h2>
 
         {% for edu in resume.education %}
-        <details class="entry">
+        <details class="entry" id="entry-{{ edu.id }}">
             <summary>
                 <div style="display: flex; gap: 0.8rem; align-items: flex-start;">
                     {% if edu.logo and edu.degree_logo %}
@@ -183,7 +183,7 @@
         <h2>Projects</h2>
 
         {% for proj in resume.projects %}
-        <details class="entry">
+        <details class="entry" id="project-{{ proj.repo | split(pat="/") | last }}">
             <summary>
                 <div class="entry-header">
                     <h3>
@@ -213,7 +213,7 @@
         <h2>Publications</h2>
 
         {% for pub in resume.publications %}
-        <div class="publication">
+        <div class="publication" id="pub-{{ pub.doi | slugify }}">
             <div class="entry-header">
                 <h3>
                     <a href="https://doi.org/{{ pub.doi }}" target="_blank">

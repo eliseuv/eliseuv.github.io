@@ -1,0 +1,20 @@
+// Cross-links between resume entries, projects, publications, simulations and skills
+
+@keyframes link-target-flash {
+    from {
+        background-color: rgba($accent, 0.18);
+    }
+
+    to {
+        background-color: transparent;
+    }
+}
+
+// Anchor targets reached from another page or a related chip
+[id] {
+    scroll-margin-top: 1rem;
+}
+
+.link-target-flash {
+    animation: link-target-flash 1.6s ease-out;
+}
