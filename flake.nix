@@ -68,17 +68,31 @@
               --no-typescript \
               target/wasm32-unknown-unknown/release/game_of_life.wasm
 
+            # Crates backed by artificial-systems carry rand/std overhead the
+            # dependency-free ones don't; -Oz trims ~30% of it.
+            ${pkgs.binaryen}/bin/wasm-opt -Oz \
+              -o ../static/wasm/game_of_life_bg.wasm \
+              ../static/wasm/game_of_life_bg.wasm
+
             ${pkgs.wasm-bindgen-cli}/bin/wasm-bindgen \
               --out-dir ../static/wasm \
               --target web \
               --no-typescript \
               target/wasm32-unknown-unknown/release/ising_2d.wasm
 
+            ${pkgs.binaryen}/bin/wasm-opt -Oz \
+              -o ../static/wasm/ising_2d_bg.wasm \
+              ../static/wasm/ising_2d_bg.wasm
+
             ${pkgs.wasm-bindgen-cli}/bin/wasm-bindgen \
               --out-dir ../static/wasm \
               --target web \
               --no-typescript \
               target/wasm32-unknown-unknown/release/contact_process.wasm
+
+            ${pkgs.binaryen}/bin/wasm-opt -Oz \
+              -o ../static/wasm/contact_process_bg.wasm \
+              ../static/wasm/contact_process_bg.wasm
 
             ${pkgs.wasm-bindgen-cli}/bin/wasm-bindgen \
               --out-dir ../static/wasm \
