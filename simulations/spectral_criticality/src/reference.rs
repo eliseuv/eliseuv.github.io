@@ -112,10 +112,64 @@ pub struct ReferenceScan {
 }
 
 /// Decode gzipped CBOR reference scans.
+///
+/// Plain CBOR is accepted too: servers that send `.gz` files with `Content-Encoding: gzip` have
+/// the browser decompress them before the page sees the bytes.
 pub fn decode(gzipped_cbor: &[u8]) -> Result<Vec<ReferenceScan>, String> {
+    const GZIP_MAGIC: [u8; 2] = [0x1f, 0x8b];
     let mut cbor = Vec::new();
-    GzDecoder::new(gzipped_cbor)
-        .read_to_end(&mut cbor)
-        .map_err(|e| e.to_string())?;
-    ciborium::from_reader(cbor.as_slice()).map_err(|e| e.to_string())
+    let bytes = if gzipped_cbor.starts_with(&GZIP_MAGIC) {
+        GzDecoder::new(gzipped_cbor)
+            .read_to_end(&mut cbor)
+            .map_err(|e| e.to_string())?;
+        cbor.as_slice()
+    } else {
+        gzipped_cbor
+    };
+    ciborium::from_reader(bytes).map_err(|e| e.to_string())
+}
+
+#[cfg(test)]
+mod tests {
+    use std::io::Write;
+
+    use flate2::{write::GzEncoder, Compression};
+    use ndarray::array;
+
+    use super::*;
+
+    #[test]
+    fn decodes_gzipped_and_plain_cbor() {
+        let g = array![[1.0, 0.5], [0.5, 1.0]];
+        let mut accumulator = SpectrumAccumulator::default();
+        accumulator.push(g.view(), &[0.5, 1.5]);
+        let point = accumulator.summarize(1.0);
+        assert_eq!(point.max_eigenvalue_mean, 1.5);
+        approx::assert_relative_eq!(point.eigenvalue_variance, 0.25);
+        let scans = vec![ReferenceScan {
+            model: "test".into(),
+            parameter: "x".into(),
+            fixed: vec![("L".into(), 2.0)],
+            n_samples: 2,
+            n_steps: 1,
+            seed: 0,
+            points: vec![point],
+        }];
+        let mut cbor = Vec::new();
+        ciborium::into_writer(&scans, &mut cbor).unwrap();
+        let mut gzip = GzEncoder::new(Vec::new(), Compression::default());
+        gzip.write_all(&cbor).unwrap();
+        let gzipped = gzip.finish().unwrap();
+        for bytes in [gzipped.as_slice(), cbor.as_slice()] {
+            let decoded = decode(bytes).unwrap();
+            assert_eq!(
+                decoded[0].points[0]
+                    .correlations
+                    .counts()
+                    .iter()
+                    .sum::<u64>(),
+                1
+            );
+        }
+    }
 }

@@ -145,7 +145,10 @@ impl CorrelatedPairs {
     /// # Panics
     /// If `n_samples` is odd or `rho` is not in `[-1, 1]`.
     pub fn new(rho: f64, n_samples: usize, n_steps: usize, seed: u64) -> Self {
-        assert!(n_samples.is_multiple_of(2), "Samples come in correlated pairs");
+        assert!(
+            n_samples.is_multiple_of(2),
+            "Samples come in correlated pairs"
+        );
         assert!(
             (-1.0..=1.0).contains(&rho),
             "Correlation must be in [-1, 1]"
