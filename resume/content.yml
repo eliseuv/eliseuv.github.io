@@ -30,7 +30,7 @@ skills:
           ]
       - Julia: ["DataFrames.jl", "Plots.jl", "Makie.jl"]
       - Haskell: ["megaparsec"]
-      - Delphi: []
+      - Delphi: ["ICS", "Horse"]
   - Tools:
       - Databases: ["SQLite", "PostgreSQL", "DuckDB"]
       - Docker: []
