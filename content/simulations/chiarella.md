@@ -22,6 +22,31 @@ $$
 
 where $1/\alpha$ is the memory time of the trend signal. The system is integrated with the Euler–Maruyama scheme at time step $dt$.
 
+### State variables
+
+- $p$ — **log-price** of the asset. Working in logs makes price increments $dp$ returns, so the dynamics don't depend on the price level. The simulation starts at $p = 0$, i.e. a price normalized to $e^0 = 1$.
+- $V$ — **log fundamental value**: what the asset is "really worth" according to fundamentalists, e.g. discounted future cash flows. It is exogenous: news moves $V$, but the market price never feeds back into it.
+- $\delta = p - V$ — **mispricing**. $\delta > 0$ means the asset is overvalued (the bubble side), $\delta < 0$ undervalued. It is the natural variable for regime behavior, since $p$ and $V$ both wander without bound but their difference does not.
+- $M$ — **trend signal**: an exponentially weighted moving average of past price changes, $M_t = \alpha \int_{-\infty}^{t} e^{-\alpha (t - s)}\\,dp_s$. It is a return per unit time: $M > 0$ means prices have recently been rising. Noise-driven moves count too, since trend followers can't tell a noise trade from a genuine trend.
+- $W_1, W_2$ — independent Wiener processes (Brownian motions): the random news reaching fundamentals and the random order flow of noise traders.
+
+### Parameters
+
+- $\kappa$ — **fundamentalist strength**: the rate at which fundamentalists correct mispricing. Their demand is $-\kappa\delta$, so alone they close a gap with half-life $\ln 2 / \kappa$. Increasing $\kappa$ stabilizes the market.
+- $\beta$ — **trend-follower strength**: the largest drift trend followers can impose on the price, since $\beta\tanh(\gamma M) \in (-\beta, \beta)$. Read it as their capital or market share. Above the threshold, it sets how large bubbles and crashes grow.
+- $\gamma$ — **trend-follower sensitivity**: how strongly they react to a weak trend. For $|\gamma M| \ll 1$ their demand is linear, $\approx \beta\gamma M$; for strong trends it saturates at $\pm\beta$, because positions can't grow without limit. Only the product $\beta\gamma$, the gain for small trends, decides stability; $\beta$ alone caps the amplitude.
+- $\alpha$ — **inverse memory time** of the trend signal: $M$ averages over roughly the last $1/\alpha$ time units. A large $\alpha$ is a short, jittery memory that chases the latest noise; a small $\alpha$ is a long, smooth one that reacts late. A longer memory raises the threshold $1 + \kappa/\alpha$, giving fundamentalists more time to act before a trend builds.
+- $\sigma_N$ — **noise-trader volatility**: the size of random order flow unrelated to value or trend. It is the main source of short-term return volatility, and it also seeds spurious trends in $M$.
+- $\sigma_V$ — **fundamental volatility**: the size of news shocks to $V$. Fundamentalists chase every jump, and the trend followers amplify the resulting price moves.
+- $g$ — **fundamental drift**: steady growth (or decay) of the fundamental value. In a steadily growing market the trend signal settles at $M = g$, and the price settles at a constant offset $\delta^{\ast} = \left(\beta\tanh(\gamma g) - g\right)/\kappa$ from value. When trend followers are strong enough this is positive: a persistent, self-sustaining overvaluation.
+
+### Simulation controls
+
+- $dt$ — the **integration time step**. It is numerical, not part of the model: smaller is more accurate but covers less simulated time per step. Euler–Maruyama needs $\kappa\\,dt \ll 1$ and $\alpha\\,dt \ll 1$ to track the continuous dynamics.
+- **Steps/frame** — the number of integration steps per animation frame, i.e. the playback speed. Each frame advances simulated time by $\text{steps} \times dt$. Every plot takes one sample per frame, so "returns" are price changes over that interval.
+
+Time units are arbitrary: if one unit is a trading day, then $\sigma_N$ is a daily volatility, $1/\alpha$ is a memory length in days, and so on.
+
 The interesting variable is the **mispricing** $\delta = p - V$. Without noise, the state $(\delta, M) = (0, 0)$ is stable as long as
 
 $$
