@@ -1,9 +1,12 @@
 {% extends "base.html" %}
+{% import "macros/links.html" as links %}
 
 {% block content %}
 
 <!-- Business Card -->
 {% set resume = load_data(path="resume/content.yml") %}
+{% set simulations_section = get_section(path="simulations/_index.md") %}
+{% set simulations = simulations_section.pages %}
 {% include "business_card.html" %}
 
 <!-- Resume -->
@@ -117,6 +120,7 @@
                 <li>{{ item }}</li>
                 {% endfor %}
             </ul>
+            {{ links::entry_related(entry=exp, resume=resume, simulations=simulations) }}
         </details>
         {% endfor %}
     </section>
@@ -175,6 +179,7 @@
                 <li>{{ item }}</li>
                 {% endfor %}
             </ul>
+            {{ links::entry_related(entry=edu, resume=resume, simulations=simulations) }}
         </details>
         {% endfor %}
     </section>
@@ -205,6 +210,7 @@
                 <li>{{ item }}</li>
                 {% endfor %}
             </ul>
+            {{ links::project_related(project=proj, resume=resume, simulations=simulations) }}
         </details>
         {% endfor %}
     </section>
@@ -229,6 +235,7 @@
             <div class="journal">
                 {{ pub.journal }}
             </div>
+            {{ links::publication_related(publication=pub, resume=resume, simulations=simulations) }}
         </div>
         {% endfor %}
     </section>

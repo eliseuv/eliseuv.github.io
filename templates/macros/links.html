@@ -1,0 +1,121 @@
+{#
+Cross-links between resume entries (experience and education), projects,
+publications, simulations and skills. The data model is described at the top of
+resume/content.yml: each link is declared once, and pages that are the target of
+a link compute the reverse direction themselves (see resume.html and skills.html).
+
+Every chip resolves its id against resume/content.yml and throws on an unknown
+one, so a typo in a link fails the build instead of silently dropping the chip.
+
+Future work: blog posts can join by taking the same `[extra.links]` front matter,
+rendering `related` in blog_page.html, and adding
+`get_section(path="blog/_index.md").pages` next to the simulation pages wherever
+back-links are collected (resume.html, skills.html).
+#}
+
+{% macro skill_anchor(name) %}{{ name | replace(from="+", to="p") | slugify }}{% endmacro skill_anchor %}
+
+{% macro context_chip(id, resume) %}
+{% set entries = resume.experience | concat(with=resume.education) | filter(attribute="id", value=id) %}
+{% if entries | length == 0 %}{{ throw(message="Unknown resume entry id in link: " ~ id) }}{% endif %}
+{% set entry = entries | first %}
+<a class="link-chip" data-kind="cv" href="/#entry-{{ id }}">{{ entry.role | default(value=entry.degree) }}</a>
+{% endmacro context_chip %}
+
+{% macro project_chip(name, resume) %}
+{% set_global repo = "" %}
+{% for project in resume.projects %}
+{% if project.repo | split(pat="/") | last == name %}{% set_global repo = project.repo %}{% endif %}
+{% endfor %}
+{% if not repo %}{{ throw(message="Unknown project in link: " ~ name) }}{% endif %}
+<a class="link-chip" data-kind="repo" href="https://github.com/{{ repo }}" target="_blank" rel="noopener">{{ name }}</a>
+{% endmacro project_chip %}
+
+{% macro publication_chip(doi, resume) %}
+{% set publications = resume.publications | filter(attribute="doi", value=doi) %}
+{% if publications | length == 0 %}{{ throw(message="Unknown publication DOI in link: " ~ doi) }}{% endif %}
+{% set publication = publications | first %}
+<a class="link-chip" data-kind="paper" href="/#pub-{{ doi | slugify }}" title="{{ publication.title }}">{{ publication.journal | split(pat=":") | first }} {{ publication.year }}</a>
+{% endmacro publication_chip %}
+
+{% macro simulation_chip(page) %}
+<a class="link-chip" data-kind="sim" href="{{ page.path }}">{{ page.title }}</a>
+{% endmacro simulation_chip %}
+
+{# Only programming languages and tools get a skill page entry, not spoken languages #}
+{% macro skill_chip(name, resume) %}
+{% set_global found = false %}
+{% for group in resume.skills %}
+{% for category, items in group %}
+{% if category == "Programming" or category == "Tools" %}
+{% for item in items %}{% for label, libs in item %}
+{% if label == name %}{% set_global found = true %}{% endif %}
+{% endfor %}{% endfor %}
+{% endif %}
+{% endfor %}
+{% endfor %}
+{% if not found %}{{ throw(message="Unknown skill in link: " ~ name) }}{% endif %}
+<a class="link-chip" data-kind="skill" href="/skills/#{{ self::skill_anchor(name=name) }}">{{ name }}</a>
+{% endmacro skill_chip %}
+
+{# One strip of typed chips, in the same order everywhere: context, projects, publications, simulations, skills #}
+{% macro related(resume, context, projects, publications, simulations, skills) %}
+{% if context or projects or publications or simulations or skills %}
+<nav class="related" aria-label="Related">
+    {% if context %}{{ self::context_chip(id=context, resume=resume) }}{% endif %}
+    {% for name in projects %}{{ self::project_chip(name=name, resume=resume) }}{% endfor %}
+    {% for doi in publications %}{{ self::publication_chip(doi=doi, resume=resume) }}{% endfor %}
+    {% for page in simulations %}{{ self::simulation_chip(page=page) }}{% endfor %}
+    {% for name in skills %}{{ self::skill_chip(name=name, resume=resume) }}{% endfor %}
+</nav>
+{% endif %}
+{% endmacro related %}
+
+{# Back-links for a resume entry (experience or education) #}
+{% macro entry_related(entry, resume, simulations) %}
+{% set_global names = [] %}
+{% for project in resume.projects %}
+{% if project.context | default(value="") == entry.id %}{% set_global names = names | concat(with=project.repo | split(pat="/") | last) %}{% endif %}
+{% endfor %}
+{% set dois = resume.publications | filter(attribute="context", value=entry.id) | map(attribute="doi") %}
+{{ self::related(resume=resume,
+    context="",
+    projects=names,
+    publications=dois,
+    simulations=simulations | filter(attribute="extra.links.context", value=entry.id),
+    skills=entry.skills | default(value=[])) }}
+{% endmacro entry_related %}
+
+{% macro project_related(project, resume, simulations) %}
+{% set name = project.repo | split(pat="/") | last %}
+{% set_global dois = [] %}
+{% for publication in resume.publications %}
+{% set linked = publication.projects | default(value=[]) %}
+{% if name in linked %}{% set_global dois = dois | concat(with=publication.doi) %}{% endif %}
+{% endfor %}
+{% set_global pages = [] %}
+{% for page in simulations %}
+{% set linked = page.extra.links.projects | default(value=[]) %}
+{% if name in linked %}{% set_global pages = pages | concat(with=page) %}{% endif %}
+{% endfor %}
+{{ self::related(resume=resume,
+    context=project.context | default(value=""),
+    publications=dois,
+    projects=[],
+    simulations=pages,
+    skills=project.skills | map(attribute="name")) }}
+{% endmacro project_related %}
+
+{% macro publication_related(publication, resume, simulations) %}
+{% set_global pages = [] %}
+{% for page in simulations %}
+{% set linked = page.extra.links.publications | default(value=[]) %}
+{% if publication.doi in linked %}{% set_global pages = pages | concat(with=page) %}{% endif %}
+{% endfor %}
+{{ self::related(resume=resume,
+    context=publication.context | default(value=""),
+    projects=publication.projects | default(value=[]),
+    publications=[],
+    simulations=pages,
+    skills=[]) }}
+{% endmacro publication_related %}

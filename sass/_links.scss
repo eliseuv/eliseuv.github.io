@@ -18,3 +18,37 @@
 .link-target-flash {
     animation: link-target-flash 1.6s ease-out;
 }
+
+// A strip of typed chips; the kind prefix tells where a chip leads before it is clicked
+.related {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin: 0.6rem 0 0;
+}
+
+.link-chip {
+    font-family: $font-mono;
+    font-size: 0.75rem;
+    line-height: 1.4;
+    padding: 0.1rem 0.5rem;
+    border: 1px solid $border;
+    border-radius: 2px;
+    color: $text-light;
+    text-decoration: none;
+    overflow-wrap: anywhere;
+    transition: all 0.2s ease;
+
+    &::before {
+        color: $text-dim;
+        margin-right: 0.4em;
+    }
+
+    @include tech-btn-hover;
+
+    &[data-kind="cv"]::before { content: "cv"; }
+    &[data-kind="repo"]::before { content: "repo"; }
+    &[data-kind="paper"]::before { content: "paper"; }
+    &[data-kind="sim"]::before { content: "sim"; }
+    &[data-kind="skill"]::before { content: "skill"; }
+}
