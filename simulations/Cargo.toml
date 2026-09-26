@@ -15,6 +15,12 @@ members = [
 # it as a member (which would override its own profiles and features).
 exclude = ["artificial-systems"]
 
+[workspace.dependencies]
+artificial-systems = { path = "artificial-systems", default-features = false }
+# rand's OS entropy source has no default backend on wasm32-unknown-unknown;
+# this routes it to the browser's crypto.getRandomValues.
+getrandom = { version = "0.4", features = ["wasm_js"] }
+
 # spinning_cube's own code is tiny; its size is almost entirely bevy's
 # dependency tree, which a per-crate override on "spinning_cube" alone
 # doesn't touch. "*" covers every dependency crate too.
