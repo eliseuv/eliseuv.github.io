@@ -1,5 +1,5 @@
-use artificial_systems_wasm::annealing::GeometricSchedule;
-use artificial_systems_wasm::tsp::{CorrelatedBase, Domain, Move, TspAnnealer};
+use annealing::tsp::{CorrelatedBase, Domain, Move, TspAnnealer};
+use annealing::GeometricSchedule;
 use wasm_bindgen::prelude::*;
 
 fn uniform() -> f64 {
@@ -31,7 +31,7 @@ fn parse_move(kind: &str) -> Move {
     }
 }
 
-/// wasm-bindgen binding around `artificial_systems_wasm::tsp`, wiring its
+/// wasm-bindgen binding around `annealing::tsp`, wiring its
 /// RNG closure to `js_sys::Math::random`.
 #[wasm_bindgen]
 pub struct TspSimulation {

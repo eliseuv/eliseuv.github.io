@@ -1,11 +1,11 @@
-use artificial_systems_wasm::chiarella::{ChiarellaModel, ChiarellaParams};
+use quant::chiarella::{ChiarellaModel, ChiarellaParams};
 use wasm_bindgen::prelude::*;
 
 fn uniform() -> f64 {
     js_sys::Math::random()
 }
 
-/// wasm-bindgen binding around `artificial_systems_wasm::chiarella`,
+/// wasm-bindgen binding around `quant::chiarella`,
 /// wiring its RNG closure to `js_sys::Math::random`.
 #[wasm_bindgen]
 pub struct ChiarellaSimulation {

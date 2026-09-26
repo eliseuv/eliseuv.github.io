@@ -5,8 +5,8 @@
 //! replace two edges of the cycle, so the cost change of a candidate is
 //! computed in `O(1)` and the cost itself is tracked incrementally.
 
-use crate::annealing::{metropolis_accept, GeometricSchedule};
 use crate::random::standard_normal_pair;
+use crate::{metropolis_accept, GeometricSchedule};
 
 pub type Point = [f64; 2];
 

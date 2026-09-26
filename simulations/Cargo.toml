@@ -8,6 +8,8 @@ members = [
     "contact_process",
     "chiarella",
     "tsp_annealing",
+    "annealing",
+    "quant",
 ]
 # Git submodule consumed as a path dependency; excluded so cargo doesn't adopt
 # it as a member (which would override its own profiles and features).
