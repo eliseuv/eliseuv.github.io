@@ -1,4 +1,5 @@
-//! Lattice models and Markov Chain Monte Carlo sampling.
+//! Lattice models, Markov Chain Monte Carlo sampling and simulated
+//! annealing.
 //!
 //! Deliberately dependency-free (no RNG crate, no wasm-bindgen): callers
 //! supply randomness through closures, so the same core runs unchanged
@@ -7,6 +8,7 @@
 //! wasm-scoped analog of a full research spin-system library, meant to
 //! back every lattice simulation on the site.
 
+pub mod annealing;
 pub mod binary;
 pub mod chiarella;
 pub mod contact_process;
@@ -15,3 +17,4 @@ pub mod lattice;
 pub mod mcmc;
 pub mod random;
 pub mod spin;
+pub mod tsp;
