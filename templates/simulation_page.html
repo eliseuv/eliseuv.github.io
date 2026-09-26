@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% import "macros/links.html" as links %}
 
 {% block body_class %}simulation-page{% endblock body_class %}
 
@@ -16,6 +17,16 @@
         </div>
 
         <h1 class="glitch-text">{{ page.title }}</h1>
+
+        {% if page.extra.links %}
+        {% set resume = load_data(path="resume/content.yml") %}
+        {{ links::related(resume=resume,
+            context=page.extra.links.context | default(value=""),
+            projects=page.extra.links.projects | default(value=[]),
+            publications=page.extra.links.publications | default(value=[]),
+            simulations=[],
+            skills=page.extra.links.skills | default(value=[])) }}
+        {% endif %}
     </header>
 
     <hr>

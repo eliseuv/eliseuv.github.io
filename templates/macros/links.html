@@ -61,13 +61,13 @@ back-links are collected (resume.html, skills.html).
 {# One strip of typed chips, in the same order everywhere: context, projects, publications, simulations, skills #}
 {% macro related(resume, context, projects, publications, simulations, skills) %}
 {% if context or projects or publications or simulations or skills %}
-<nav class="related" aria-label="Related">
+<div class="related">
     {% if context %}{{ self::context_chip(id=context, resume=resume) }}{% endif %}
     {% for name in projects %}{{ self::project_chip(name=name, resume=resume) }}{% endfor %}
     {% for doi in publications %}{{ self::publication_chip(doi=doi, resume=resume) }}{% endfor %}
     {% for page in simulations %}{{ self::simulation_chip(page=page) }}{% endfor %}
     {% for name in skills %}{{ self::skill_chip(name=name, resume=resume) }}{% endfor %}
-</nav>
+</div>
 {% endif %}
 {% endmacro related %}
 

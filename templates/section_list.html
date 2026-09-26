@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% import "macros/links.html" as links %}
 
 {% block content %}
 <header>
@@ -7,6 +8,7 @@
 </header>
 
 <section>
+    {% set resume = load_data(path="resume/content.yml") %}
     <ul class="section-list">
         {% for page in section.pages %}
         <li class="section-item">
@@ -33,6 +35,15 @@
                 {{ page.content | striptags | truncate(length=200) }}
                 {% endif %}
             </p>
+
+            {% if page.extra.links %}
+            {{ links::related(resume=resume,
+                context=page.extra.links.context | default(value=""),
+                projects=page.extra.links.projects | default(value=[]),
+                publications=page.extra.links.publications | default(value=[]),
+                simulations=[],
+                skills=page.extra.links.skills | default(value=[])) }}
+            {% endif %}
 
         </li>
         {% endfor %}
