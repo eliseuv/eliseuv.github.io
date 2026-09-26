@@ -18,11 +18,16 @@
 <div class="resume-container">
 
     <section>
-        <h2>Skills</h2>
-        <div class="skills-section">
+        <h2 class="skills-heading">
+            Skills
+            <button type="button" class="skill-map-collapse">collapse</button>
+        </h2>
+        {# Clicking a skill chip expands its row into the skill map, which links each skill to its work #}
+        <div class="skills-section" id="skills">
             {% for group in resume.skills %}
             {% for category, items in group %}
-            <div class="skill-row">
+            {% set mapped = category == "Programming" or category == "Tools" %}
+            <div class="skill-row{% if mapped %} skill-row-compact{% endif %}">
                 <span class="skill-category">{{ category }}:</span>
                 <span class="skill-list">
                     {% if category == "Programming" or category == "Languages" or category == "Tools" %}
@@ -30,10 +35,10 @@
                         {% for entry in items %}
                         {% for label, detail in entry %}
                         <span class="skill-chip{% if detail | length > 0 %} has-detail{% endif %}">
-                            {% if category == "Languages" %}
-                            <span class="chip-label">{{ label }}</span>
+                            {% if mapped %}
+                            <a class="chip-label" href="#{{ links::skill_anchor(name=label) }}">{{ label }}</a>
                             {% else %}
-                            <a class="chip-label" href="/skills/#{{ links::skill_anchor(name=label) }}">{{ label }}</a>
+                            <span class="chip-label">{{ label }}</span>
                             {% endif %}
                             {% if detail | length > 0 %}
                             <span class="chip-detail">
@@ -55,9 +60,63 @@
                     {% endif %}
                 </span>
             </div>
+            {% if mapped %}
+            {# Back-links are collected here rather than declared on the skills, as everywhere else (see macros/links.html) #}
+            <div class="skill-map">
+                <h3 class="skill-category">{{ category }}</h3>
+
+                {% for item in items %}
+                {% for name, libs in item %}
+                <div class="skill-map-entry" id="{{ links::skill_anchor(name=name) }}">
+                    <h4>
+                        {{ name }}
+                        {% if libs %}<span class="skill-map-libs">{{ libs | join(sep=", ") }}</span>{% endif %}
+                    </h4>
+
+                    {% set_global entry_ids = [] %}
+                    {% for entry in resume.experience | concat(with=resume.education) %}
+                    {% set entry_skills = entry.skills | default(value=[]) %}
+                    {% if name in entry_skills %}{% set_global entry_ids = entry_ids | concat(with=entry.id) %}{% endif %}
+                    {% endfor %}
+
+                    {% set_global project_names = [] %}
+                    {% for project in resume.projects %}
+                    {% set project_skills = project.skills | map(attribute="name") %}
+                    {% if name in project_skills %}{% set_global project_names = project_names | concat(with=project.repo | split(pat="/") | last) %}{% endif %}
+                    {% endfor %}
+
+                    {% set_global pages = [] %}
+                    {% for page in simulations %}
+                    {% set page_skills = page.extra.links.skills | default(value=[]) %}
+                    {% if name in page_skills %}{% set_global pages = pages | concat(with=page) %}{% endif %}
+                    {% endfor %}
+
+                    {% if entry_ids or project_names or pages %}
+                    <div class="related">
+                        {% for id in entry_ids %}{{ links::context_chip(id=id, resume=resume) }}{% endfor %}
+                        {% for project_name in project_names %}{{ links::project_chip(name=project_name, resume=resume) }}{% endfor %}
+                        {% for page in pages %}{{ links::simulation_chip(page=page) }}{% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+                {% endfor %}
+            </div>
+            {% endif %}
             {% endfor %}
             {% endfor %}
         </div>
+        <script>
+            // Clearing a skill hash lets the same chip expand the map again
+            document.querySelector('.skill-map-collapse').addEventListener('click', () => {
+                const skills = document.getElementById('skills');
+                skills.classList.remove('expanded');
+                const id = decodeURIComponent(window.location.hash.slice(1));
+                if (id && skills.contains(document.getElementById(id))) {
+                    history.replaceState(null, '', window.location.pathname + window.location.search);
+                }
+            });
+        </script>
     </section>
 
     <section>

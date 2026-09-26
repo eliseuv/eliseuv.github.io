@@ -2,7 +2,7 @@
 Cross-links between resume entries (experience and education), projects,
 publications, simulations and skills. The data model is described at the top of
 resume/content.yml: each link is declared once, and pages that are the target of
-a link compute the reverse direction themselves (see resume.html and skills.html).
+a link compute the reverse direction themselves (see resume.html).
 
 Every chip resolves its id against resume/content.yml and throws on an unknown
 one, so a typo in a link fails the build instead of silently dropping the chip.
@@ -10,10 +10,10 @@ one, so a typo in a link fails the build instead of silently dropping the chip.
 Future work: blog posts can join by taking the same `[extra.links]` front matter,
 rendering `related` in blog_page.html, and adding
 `get_section(path="blog/_index.md").pages` next to the simulation pages wherever
-back-links are collected (resume.html, skills.html).
+back-links are collected (resume.html).
 #}
 
-{% macro skill_anchor(name) %}{{ name | replace(from="+", to="p") | slugify }}{% endmacro skill_anchor %}
+{% macro skill_anchor(name) %}skill-{{ name | replace(from="+", to="p") | slugify }}{% endmacro skill_anchor %}
 
 {% macro context_chip(id, resume) %}
 {% set entries = resume.experience | concat(with=resume.education) | filter(attribute="id", value=id) %}
@@ -42,7 +42,7 @@ back-links are collected (resume.html, skills.html).
 <a class="link-chip" data-kind="sim" href="{{ page.path }}">{{ page.title }}</a>
 {% endmacro simulation_chip %}
 
-{# Only programming languages and tools get a skill page entry, not spoken languages #}
+{# Only programming languages and tools get a skill map entry, not spoken languages #}
 {% macro skill_chip(name, resume) %}
 {% set_global found = false %}
 {% for group in resume.skills %}
@@ -55,7 +55,7 @@ back-links are collected (resume.html, skills.html).
 {% endfor %}
 {% endfor %}
 {% if not found %}{{ throw(message="Unknown skill in link: " ~ name) }}{% endif %}
-<a class="link-chip" data-kind="skill" href="/skills/#{{ self::skill_anchor(name=name) }}">{{ name }}</a>
+<a class="link-chip" data-kind="skill" href="/#{{ self::skill_anchor(name=name) }}">{{ name }}</a>
 {% endmacro skill_chip %}
 
 {# One strip of typed chips, in the same order everywhere: context, projects, publications, simulations, skills #}

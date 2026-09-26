@@ -247,10 +247,77 @@ header.resume-container,
         }
 
         // Skills
+        .skills-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .skill-map-collapse {
+            display: none;
+            font-family: $font-mono;
+            font-size: 0.75rem;
+            padding: 0.1rem 0.5rem;
+            background: transparent;
+            color: $text-light;
+            border: 1px solid $border;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+
+            @include tech-btn-hover;
+        }
+
+        // The heading sits outside .skills-section, so its button is revealed through :has
+        &:has(.skills-section.expanded) .skill-map-collapse {
+            display: inline-block;
+        }
+
         .skills-section {
             display: flex;
             flex-direction: column;
             gap: 0.8rem;
+
+            // Expanded, each Programming and Tools row is replaced by its skill map
+            .skill-map {
+                display: none;
+            }
+
+            &.expanded {
+                .skill-row-compact {
+                    display: none;
+                }
+
+                .skill-map {
+                    display: block;
+                }
+            }
+
+            .skill-map {
+                h3 {
+                    margin: 0 0 0.6rem;
+                    font-size: 1rem;
+                }
+
+                .skill-map-entry {
+                    margin-bottom: 1rem;
+                    padding: 0.2rem 0.5rem;
+
+                    h4 {
+                        margin: 0;
+                        color: $accent;
+                        font-size: 1rem;
+                    }
+
+                    .skill-map-libs {
+                        margin-left: 0.8rem;
+                        font-size: 0.85rem;
+                        font-weight: normal;
+                        font-style: italic;
+                        color: $text-dim;
+                    }
+                }
+            }
 
             .skill-row {
                 display: flex;
