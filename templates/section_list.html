@@ -9,8 +9,25 @@
 
 <section>
     {% set resume = load_data(path="resume/content.yml") %}
+
+    {# A section can fix its order with `extra.order`, a list of page file names #}
+    {% if section.extra.order %}
+    {% set section_dir = section.relative_path | replace(from="_index.md", to="") %}
+    {% for page in section.pages %}
+    {% set file_name = page.relative_path | split(pat="/") | last | replace(from=".md", to="") %}
+    {% if file_name not in section.extra.order %}{{ throw(message="Page missing from extra.order in " ~ section.relative_path ~ ": " ~ file_name) }}{% endif %}
+    {% endfor %}
+    {% set_global pages = [] %}
+    {% for file_name in section.extra.order %}
+    {% set listed_page = get_page(path=section_dir ~ file_name ~ ".md") %}
+    {% set_global pages = pages | concat(with=listed_page) %}
+    {% endfor %}
+    {% else %}
+    {% set_global pages = section.pages %}
+    {% endif %}
+
     <ul class="section-list">
-        {% for page in section.pages %}
+        {% for page in pages %}
         <li class="section-item">
             <a href="{{ page.permalink }}" class="section-title">
                 {{ page.title }}

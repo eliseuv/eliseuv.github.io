@@ -1,7 +1,6 @@
 +++
 title = "Simulated Annealing for the TSP"
 date = 2026-09-25
-weight = 30
 description = "Simulated annealing with Metropolis sampling and geometric cooling applied to the traveling salesman problem on random domains, running in WebAssembly."
 
 [extra]
