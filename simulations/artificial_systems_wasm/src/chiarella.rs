@@ -9,6 +9,8 @@
 //!
 //! where `M` is an exponential moving average of realized price changes.
 
+use crate::random::standard_normal_pair;
+
 /// Model parameters, all freely mutable between steps.
 #[derive(Clone, Copy, Debug)]
 pub struct ChiarellaParams {
@@ -102,12 +104,4 @@ impl ChiarellaModel {
         s.price += d_price;
         s.fundamental += d_fundamental;
     }
-}
-
-/// Box–Muller transform: two independent standard normals.
-fn standard_normal_pair(mut uniform: impl FnMut() -> f64) -> (f64, f64) {
-    // `1 − u` maps `[0, 1)` onto `(0, 1]`, keeping `ln` finite.
-    let radius = (-2.0 * (1.0 - uniform()).ln()).sqrt();
-    let angle = std::f64::consts::TAU * uniform();
-    (radius * angle.cos(), radius * angle.sin())
 }

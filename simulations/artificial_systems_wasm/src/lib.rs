@@ -13,4 +13,5 @@ pub mod contact_process;
 pub mod ising;
 pub mod lattice;
 pub mod mcmc;
+pub mod random;
 pub mod spin;
