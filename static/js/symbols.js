@@ -135,13 +135,16 @@
     // there is no room above.
     const position = (anchor) => {
         const rect = anchor.getBoundingClientRect();
-        const { width, height } = tooltip.getBoundingClientRect();
+        // Layout size: the bounding rect would include the spawn scale.
+        const { offsetWidth: width, offsetHeight: height } = tooltip;
         const left = Math.min(
             Math.max(rect.left + rect.width / 2 - width / 2, VIEWPORT_MARGIN),
             window.innerWidth - width - VIEWPORT_MARGIN,
         );
         const above = rect.top - height - ANCHOR_GAP;
-        const top = above >= VIEWPORT_MARGIN ? above : rect.bottom + ANCHOR_GAP;
+        const fitsAbove = above >= VIEWPORT_MARGIN;
+        const top = fitsAbove ? above : rect.bottom + ANCHOR_GAP;
+        tooltip.classList.toggle("below", !fitsAbove);
         tooltip.style.left = `${Math.max(left, VIEWPORT_MARGIN)}px`;
         tooltip.style.top = `${top}px`;
     };
@@ -151,8 +154,10 @@
         if (!(key in registry)) return;
         hide();
         tooltip.innerHTML = renderDescription(key);
-        tooltip.classList.add("visible");
         position(anchor);
+        // Flush the removal of `visible` so the spawn animation restarts.
+        void tooltip.offsetWidth;
+        tooltip.classList.add("visible");
         anchor.classList.add("symbol-active");
         anchor.setAttribute("aria-describedby", tooltip.id);
         activeAnchor = anchor;

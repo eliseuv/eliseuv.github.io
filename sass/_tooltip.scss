@@ -25,6 +25,12 @@
     white-space: normal;
 }
 
+// Spawn: fade in while rising toward the anchor and growing out of it.
+$tooltip-spawn-duration: 0.18s;
+$tooltip-spawn-easing: cubic-bezier(0.2, 0.8, 0.3, 1);
+$tooltip-spawn-offset: 0.3rem;
+$tooltip-spawn-scale: 0.94;
+
 [data-tooltip] {
     position: relative;
     text-decoration: underline dotted $text-dim;
@@ -40,8 +46,12 @@
         pointer-events: none;
         opacity: 0;
         visibility: hidden;
-        transform: translateY(0.2rem);
-        transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
+        transform: translateY($tooltip-spawn-offset) scale($tooltip-spawn-scale);
+        transform-origin: bottom left;
+        transition:
+            opacity $tooltip-spawn-duration ease,
+            transform $tooltip-spawn-duration $tooltip-spawn-easing,
+            visibility $tooltip-spawn-duration;
     }
 
     // `:focus` rather than `:focus-visible` so a tap on touch screens (which
@@ -91,14 +101,50 @@
     pointer-events: none;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.15s ease, visibility 0.15s;
+    transform-origin: bottom center;
+    // Hiding fades out; showing plays `symbol-tooltip-spawn`, which script
+    // restarts when moving straight between anchors so each one spawns anew.
+    transition: opacity $tooltip-spawn-duration ease, visibility $tooltip-spawn-duration;
+
+    &.below {
+        transform-origin: top center;
+    }
 
     &.visible {
         opacity: 1;
         visibility: visible;
+        animation: symbol-tooltip-spawn $tooltip-spawn-duration $tooltip-spawn-easing;
+    }
+
+    &.below.visible {
+        animation-name: symbol-tooltip-spawn-below;
     }
 
     .katex {
         font-size: 1.1em;
+    }
+}
+
+@keyframes symbol-tooltip-spawn {
+    from {
+        opacity: 0;
+        transform: translateY($tooltip-spawn-offset) scale($tooltip-spawn-scale);
+    }
+}
+
+@keyframes symbol-tooltip-spawn-below {
+    from {
+        opacity: 0;
+        transform: translateY(-$tooltip-spawn-offset) scale($tooltip-spawn-scale);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    [data-tooltip]::after {
+        transform: none;
+    }
+
+    .symbol-tooltip.visible {
+        animation: none;
     }
 }
