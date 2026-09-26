@@ -102,3 +102,13 @@ blockquote {
 .katex {
     color: $text-white;
 }
+
+// A display equation wider than the column scrolls on its own instead of
+// widening the page, which on phones zooms the whole layout out. The
+// vertical padding keeps tall limits and fractions clear of the clip that
+// `overflow-x` forces on the other axis.
+.katex-display {
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0.25em 0;
+}
