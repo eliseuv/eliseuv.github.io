@@ -1545,6 +1545,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "chiarella"
+version = "0.1.0"
+dependencies = [
+ "artificial_systems_wasm",
+ "console_error_panic_hook",
+ "js-sys",
+ "wasm-bindgen",
+]
+
+[[package]]
 name = "codespan-reporting"
 version = "0.12.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"

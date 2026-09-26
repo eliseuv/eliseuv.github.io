@@ -6,6 +6,7 @@ members = [
     "ising_2d",
     "artificial_systems_wasm",
     "contact_process",
+    "chiarella",
 ]
 
 # spinning_cube's own code is tiny; its size is almost entirely bevy's
@@ -21,4 +22,7 @@ opt-level = "s"
 opt-level = "s"
 
 [profile.release.package.contact_process]
+opt-level = "s"
+
+[profile.release.package.chiarella]
 opt-level = "s"
