@@ -194,7 +194,7 @@
                         </a>
                         <span class="entry-title">{{ proj.name }}</span>
                         <span class="project-stack">
-                            {{ proj.skills | join(sep=" | ") }}
+                            {% for skill in proj.skills %}{{ skill.name }}{% if skill.libs %} ({{ skill.libs | join(sep=", ") }}){% endif %}{% if not loop.last %} | {% endif %}{% endfor %}
                         </span>
                     </h3>
                 </div>

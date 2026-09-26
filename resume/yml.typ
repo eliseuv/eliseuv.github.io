@@ -53,7 +53,15 @@
   for proj in d {
     project_item(
       name: proj.name,
-      skills: proj.skills.join(" | "),
+      skills: proj
+        .skills
+        .map(skill => {
+          let libs = skill.at("libs", default: ())
+          if libs.len() == 0 { skill.name } else {
+            skill.name + " (" + libs.join(", ") + ")"
+          }
+        })
+        .join(" | "),
       repo: proj.at("repo", default: none),
       ..proj.points.map(s => eval(s, mode: "markup")),
     )

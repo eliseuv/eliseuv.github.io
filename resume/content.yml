@@ -141,7 +141,9 @@ education:
 projects:
   - name: tsp-sa
     repo: eliseuv/tsp-sa
-    skills: ["C++", "Python"]
+    skills:
+      - name: C++
+      - name: Python
     points:
       - Built a modular C++ optimization library implementing Simulated Annealing for the M.Sc. research
       - Supports Generalized Simulated Annealing and Tsallis Entropy statistics
@@ -150,7 +152,9 @@ projects:
 
   - name: artificial-systems
     repo: eliseuv/artificial-systems
-    skills: ["Rust (ndarray, serde)"]
+    skills:
+      - name: Rust
+        libs: ["ndarray", "serde"]
     points:
       - Implemented high-performance Rust simulations of computational models for the Ph.D. research
       - Modeled Spin Systems (Ising and Blume-Capel models) at scale
@@ -158,7 +162,9 @@ projects:
 
   - name: ts-cov-matrix
     repo: eliseuv/ts-cov-matrix
-    skills: ["Julia (DataFrames.jl, Makie.jl)"]
+    skills:
+      - name: Julia
+        libs: ["DataFrames.jl", "Makie.jl"]
     points:
       - Applied Random Matrix Theory to analyze time-series covariance matrices for the Ph.D. research
       - Compared spectral properties against the Marchenko-Pastur distribution across NOAA temperature records, Spin Systems, and Contact Processes
@@ -166,7 +172,8 @@ projects:
 
   - name: json-parser
     repo: eliseuv/json-parser
-    skills: ["Haskell"]
+    skills:
+      - name: Haskell
     points:
       - Strict JSON parser implemented in Haskell using Megaparsec
       - Adheres closely to JSON standards
@@ -174,7 +181,9 @@ projects:
 
   - name: sternhalma-server
     repo: eliseuv/sternhalma-server
-    skills: ["Rust (tokio)"]
+    skills:
+      - name: Rust
+        libs: ["tokio"]
     points:
       - Asynchronous game server for Sternhalma (Chinese Checkers) built with Rust and Tokio
       - Actor-like architecture with decoupled game logic and connection handling
@@ -183,7 +192,9 @@ projects:
 
   - name: sternhalma-agent (WIP)
     repo: eliseuv/sternhalma-agent
-    skills: ["Python (PyTorch)"]
+    skills:
+      - name: Python
+        libs: ["PyTorch"]
     points:
       - Reinforcement learning agent implementing AlphaZero from scratch
       - Uses Monte Carlo Tree Search (MCTS) for planning and Deep Neural Networks (ResNet) for evaluation
