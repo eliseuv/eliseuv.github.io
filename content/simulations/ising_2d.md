@@ -1,6 +1,7 @@
 +++
 title = "2D Ising Model"
 date = 2026-09-13
+weight = 50
 description = "Ferromagnetic Ising model on a 2D lattice, sampled by Metropolis Monte Carlo, compiled to WebAssembly."
 
 [extra]

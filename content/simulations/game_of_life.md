@@ -1,6 +1,7 @@
 +++
 title = "Conway's Game of Life"
 date = 2026-09-07
+weight = 60
 description = "Cellular automaton simulation compiled to WebAssembly, rendered on canvas."
 
 [extra]

@@ -1,6 +1,6 @@
 +++
 title = "Simulations"
-sort_by = "date"
+sort_by = "weight"
 template = "section_list.html"
 page_template = "simulation_page.html"
 

@@ -14,7 +14,8 @@
 // Rendered symbols carry an index (`data-symbol`) rather than the key,
 // because keys contain characters (`\`, `%`) unsafe in a KaTeX argument.
 //
-// Load (deferred) before KaTeX auto-render, and render with
+// Tooltips are shown by floating-tooltip.js. Load (deferred) after it and
+// before KaTeX auto-render, and render with
 // `renderMathInElement(el, PageSymbols.katexOptions(options))`.
 (() => {
     const registryElement = document.getElementById("page-symbols");
@@ -106,12 +107,6 @@
     const keyOf = (anchor) =>
         anchor.dataset.sym ?? keys[Number(anchor.dataset.symbol)];
 
-    // --- Tooltip ---
-    const tooltip = document.createElement("div");
-    tooltip.id = "symbol-tooltip";
-    tooltip.className = "symbol-tooltip";
-    tooltip.setAttribute("role", "tooltip");
-
     // Descriptions are inserted as text and only then math-rendered, so
     // front matter can't inject markup. Rendered once per key.
     const renderedDescriptions = new Map();
@@ -127,99 +122,21 @@
         return renderedDescriptions.get(key);
     };
 
-    const VIEWPORT_MARGIN = 8;
-    const ANCHOR_GAP = 6;
-    let activeAnchor = null;
-
-    // Centered above the anchor, clamped to the viewport; flips below when
-    // there is no room above.
-    const position = (anchor) => {
-        const rect = anchor.getBoundingClientRect();
-        // Layout size: the bounding rect would include the spawn scale.
-        const { offsetWidth: width, offsetHeight: height } = tooltip;
-        const left = Math.min(
-            Math.max(rect.left + rect.width / 2 - width / 2, VIEWPORT_MARGIN),
-            window.innerWidth - width - VIEWPORT_MARGIN,
-        );
-        const above = rect.top - height - ANCHOR_GAP;
-        const fitsAbove = above >= VIEWPORT_MARGIN;
-        const top = fitsAbove ? above : rect.bottom + ANCHOR_GAP;
-        tooltip.classList.toggle("below", !fitsAbove);
-        tooltip.style.left = `${Math.max(left, VIEWPORT_MARGIN)}px`;
-        tooltip.style.top = `${top}px`;
-    };
-
-    const show = (anchor) => {
-        const key = keyOf(anchor);
-        if (!(key in registry)) return;
-        hide();
-        tooltip.innerHTML = renderDescription(key);
-        position(anchor);
-        // Flush the removal of `visible` so the spawn animation restarts.
-        void tooltip.offsetWidth;
-        tooltip.classList.add("visible");
-        anchor.classList.add("symbol-active");
-        anchor.setAttribute("aria-describedby", tooltip.id);
-        activeAnchor = anchor;
-    };
-
-    const hide = () => {
-        if (!activeAnchor) return;
-        tooltip.classList.remove("visible");
-        activeAnchor.classList.remove("symbol-active");
-        activeAnchor.removeAttribute("aria-describedby");
-        activeAnchor = null;
-    };
-
-    const anchorOf = (target) =>
-        target instanceof Element ? target.closest("[data-sym], [data-symbol]") : null;
-
-    const listen = () => {
-        document.body.append(tooltip);
-
+    const warnUndescribed = () => {
         for (const anchor of document.querySelectorAll("[data-sym]")) {
             if (!(anchor.dataset.sym in registry)) {
                 console.warn(`No description for symbol "${anchor.dataset.sym}" in [extra.symbols].`);
             }
         }
-
-        // Mouse only: a tap also fires `pointerover`, and would then be
-        // toggled straight back off by the `click` handler below.
-        document.addEventListener("pointerover", (event) => {
-            const anchor = anchorOf(event.target);
-            if (event.pointerType === "mouse" && anchor && anchor !== activeAnchor) show(anchor);
-        });
-        document.addEventListener("pointerout", (event) => {
-            const anchor = anchorOf(event.target);
-            if (event.pointerType === "mouse" && anchor && !anchor.contains(event.relatedTarget)) hide();
-        });
-        // Tap toggles. Hover already covers the mouse, and a focusable label
-        // was just opened by the `focusin` of this same tap, so neither
-        // toggles closed here; tapping elsewhere closes them.
-        document.addEventListener("click", (event) => {
-            const anchor = anchorOf(event.target);
-            if (!anchor) hide();
-            else if (anchor !== activeAnchor) show(anchor);
-            else if (event.pointerType !== "mouse" && !anchor.matches(":focus")) hide();
-        });
-        document.addEventListener("focusin", (event) => {
-            const anchor = anchorOf(event.target);
-            if (anchor) show(anchor);
-        });
-        document.addEventListener("focusout", (event) => {
-            if (anchorOf(event.target) === activeAnchor) hide();
-        });
-        document.addEventListener("keydown", (event) => {
-            if (event.key === "Escape") hide();
-        });
-        // Fixed positioning would leave it behind as the page scrolls.
-        window.addEventListener("scroll", hide, { capture: true, passive: true });
-        window.addEventListener("resize", hide);
     };
 
     if (keys.length > 0) {
-        if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", listen);
-        else listen();
+        FloatingTooltip.register("[data-sym], [data-symbol]", (anchor) => {
+            const key = keyOf(anchor);
+            return key in registry ? renderDescription(key) : null;
+        }, "symbol");
+        if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", warnUndescribed);
+        else warnUndescribed();
     }
 
     window.PageSymbols = { katexOptions };

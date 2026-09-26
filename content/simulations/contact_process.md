@@ -1,6 +1,7 @@
 +++
 title = "Contact Process"
 date = 2026-09-13
+weight = 40
 description = "Directed-percolation contact process on a 2D lattice, compiled to WebAssembly."
 
 [extra]
