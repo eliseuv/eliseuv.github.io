@@ -2,6 +2,10 @@
 title = "Conway's Game of Life"
 date = 2026-09-07
 description = "Cellular automaton simulation compiled to WebAssembly, rendered on canvas."
+
+[extra.symbols]
+'n' = 'Number of live neighbors of a cell, out of $8$.'
+'p' = 'Fill probability: chance each cell starts alive.'
 +++
 
 Conway's Game of Life is a zero-player cellular automaton: a grid of cells, each either **alive** or **dead**, that evolves in discrete steps according to a fixed rule applied to every cell in parallel. There is no player input during a run: the initial configuration alone determines everything that follows.
@@ -88,7 +92,7 @@ This simulation runs on a $128 \times 128$ **toroidal** lattice: the edges wrap 
     </div>
     <div class="gol-controls" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(170px, 1fr)); gap:0.4rem 1.2rem;">
         <div>
-            <p style="margin:0 0 0.2rem;"><span data-tooltip="Chance each cell starts alive. Moving the slider re-randomizes the grid." tabindex="0">Fill p</span> = <output id="gol-p-value">0.37</output></p>
+            <p style="margin:0 0 0.2rem;">Fill <span data-sym="p" tabindex="0">p</span> = <output id="gol-p-value">0.37</output></p>
             <input type="range" id="gol-p-slider" min="0" max="1" step="0.01" value="0.37" style="width:100%;">
         </div>
     </div>
