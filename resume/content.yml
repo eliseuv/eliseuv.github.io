@@ -103,7 +103,7 @@ experience:
       - Enabled reliable Quantum Key Distribution (QKD) protocol testing by optimizing signal count rates within the Information Quantique et Applications research group
 
   - id: undergraduate-research
-    role: Undergraduate Research (Scientific Initiation)
+    role: Undergraduate Research
     name: Universidade Federal do Rio Grande do Sul
     logo: /svg/ufrgs.svg
     link: https://www.ufrgs.br/
@@ -111,7 +111,7 @@ experience:
     location: Porto Alegre, Brazil
     date: Jun. 2013 - Jun. 2015
     points:
-      - Conducted CAPES-funded undergraduate research in Quantum Information
+      - Conducted CAPES-funded scientific initiation in Quantum Information
       - "Gave presentations on quantum algorithms such as Shor's and Grover's"
 
 education:
