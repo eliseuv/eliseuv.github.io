@@ -150,6 +150,7 @@ education:
     degree_link: https://www.if.ufrgs.br/if/engenharia-fisica-comgrad/
     location: Porto Alegre, Brazil
     date: Mar. 2013 - Dec. 2018
+    skills: ["C"]
     points:
       - Graduated Summa Cum Laude with a final GPA of 9.54/10.0
       - "Solid State Physics, Electronics, Microprocessors, Photonics and Material Analysis"
