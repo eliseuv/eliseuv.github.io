@@ -4,7 +4,6 @@ members = [
     "spinning_cube",
     "game_of_life",
     "ising_2d",
-    "artificial_systems_wasm",
     "contact_process",
     "chiarella",
     "tsp_annealing",

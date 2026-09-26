@@ -152,10 +152,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "artificial_systems_wasm"
-version = "0.1.0"
-
-[[package]]
 name = "as-raw-xcb-connection"
 version = "1.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
