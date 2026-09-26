@@ -2,6 +2,10 @@
 title = "Contact Process"
 date = 2026-09-13
 description = "Directed-percolation contact process on a 2D lattice, compiled to WebAssembly."
+
+[extra.symbols]
+'p' = 'Healing probability: chance an Active site turns Inactive when picked.'
+'p_c' = 'Critical healing probability separating the percolating phase ($p < p_c$) from the absorbing one ($p > p_c$).'
 +++
 
 The contact process models activity spreading and dying out on a lattice: every site is either **Active** or **Inactive**. Unlike the Ising model, there is no Hamiltonian here — the dynamics are defined directly by per-site rates, not by an energy function.
@@ -35,7 +39,7 @@ This simulation runs on a **toroidal** lattice: the edges wrap around, so intera
             </select>
         </div>
         <div>
-            <p style="margin:0 0 0.2rem;"><span data-tooltip="Chance an active site heals when picked. High values kill activity off; low values let it spread and persist." tabindex="0">p</span> = <output id="contact-p-value">0.50</output></p>
+            <p style="margin:0 0 0.2rem;"><span data-sym="p" tabindex="0">p</span> = <output id="contact-p-value">0.50</output></p>
             <input type="range" id="contact-p-slider" min="0.01" max="1" step="0.01" value="0.5" style="width:100%;">
         </div>
     </div>
