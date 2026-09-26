@@ -1,0 +1,57 @@
+// --- Tooltip ---
+// Add `data-tooltip="..."` (and `tabindex="0"` for keyboard/tap access) to
+// any element to attach a hover/focus popover, e.g.
+//
+//     <span data-tooltip="Explanation" tabindex="0">Label</span>
+//
+// Pure CSS via `::after`, so it works in Markdown content with no script.
+// Replaced elements (<input>, <canvas>, <img>) can't render pseudo-elements;
+// put the attribute on their label instead. The popover is anchored to the
+// element's left edge, which suits labels at the start of a line.
+[data-tooltip] {
+    position: relative;
+    cursor: help;
+    text-decoration: underline dotted $text-dim;
+    text-underline-offset: 0.25em;
+
+    &::after {
+        content: attr(data-tooltip);
+        position: absolute;
+        left: 0;
+        bottom: calc(100% + 0.4rem);
+        z-index: 10;
+        width: max-content;
+        max-width: 18rem;
+        padding: 0.4rem 0.6rem;
+        background: $bg-code;
+        border: 1px solid $border;
+        border-left: 2px solid $accent;
+        color: $text-light;
+        font-family: $font-mono;
+        font-size: 0.75rem;
+        font-weight: normal;
+        font-style: normal;
+        line-height: 1.4;
+        text-align: left;
+        white-space: normal;
+        pointer-events: none;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(0.2rem);
+        transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
+    }
+
+    // `:focus` rather than `:focus-visible` so a tap on touch screens (which
+    // focuses via `tabindex`) opens it too; tapping elsewhere closes it.
+    &:hover::after,
+    &:focus::after {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    &:focus-visible {
+        outline: 1px dashed $accent;
+        outline-offset: 2px;
+    }
+}
