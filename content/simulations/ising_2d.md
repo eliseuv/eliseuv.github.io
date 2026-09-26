@@ -24,47 +24,49 @@ and accepts the flip with probability $\min(1, e^{-\beta \Delta E})$, where $\be
 
 This simulation runs on a **toroidal** lattice: the edges wrap around, so interactions cross the boundary seamlessly.
 
-<div class="ising-wrap" style="display:flex; flex-wrap:wrap; gap:1.5rem; align-items:flex-start; font-family:'JetBrains Mono','Fira Code',monospace; color:#aaaaaa;">
-    <div style="border:1px solid #333; background:#000; overflow:auto;">
-        <canvas id="ising-canvas" oncontextmenu="return false;"></canvas>
+<div class="ising-wrap" style="display:flex; flex-direction:column; gap:0.8rem; font-family:'JetBrains Mono','Fira Code',monospace; color:#aaaaaa; font-size:0.9rem; line-height:1.3;">
+    <div style="display:flex; flex-wrap:wrap; gap:0.5rem; align-items:center;">
+        <button id="ising-play-pause" style="background:#111; color:#aaaaaa; border:1px solid #333; padding:0.3rem 0.9rem; font-family:inherit; font-size:1.1rem; cursor:pointer;">&#9654;</button>
+        <button id="ising-randomize" style="background:#111; color:#aaaaaa; border:1px solid #333; padding:0.3rem 0.8rem; font-family:inherit; cursor:pointer;">Randomize</button>
+        <button id="ising-tc" style="background:#111; color:#aaaaaa; border:1px solid #333; padding:0.3rem 0.8rem; font-family:inherit; cursor:pointer;">Set T = Tc</button>
+        <span style="color:#666; margin-left:auto;">P start/stop sampling &middot; R randomize &middot; C set T = T<sub>c</sub></span>
     </div>
-    <div class="ising-controls" style="width:220px;">
-        <button id="ising-play-pause" style="background:#111; color:#aaaaaa; border:1px solid #333; padding:0.5rem 1rem; font-family:inherit; font-size:1.2rem; cursor:pointer;">&#9654;</button>
-        <p><span data-tooltip="Side length L of the L×L toroidal lattice. Changing it rebuilds the lattice and pauses." tabindex="0">Lattice size</span>:
-            <select id="ising-l-select" style="background:#111; color:#aaaaaa; border:1px solid #333; font-family:inherit; padding:0.2rem 0.4rem;">
+    <div class="ising-controls" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(170px, 1fr)); gap:0.4rem 1.2rem;">
+        <div>
+            <p style="margin:0 0 0.2rem;"><span data-tooltip="Side length L of the L×L toroidal lattice. Changing it rebuilds the lattice and pauses." tabindex="0">Lattice size</span></p>
+            <select id="ising-l-select" style="width:100%; background:#111; color:#aaaaaa; border:1px solid #333; font-family:inherit; padding:0.2rem;">
                 <option value="32">32 &times; 32</option>
                 <option value="64">64 &times; 64</option>
                 <option value="128" selected>128 &times; 128</option>
                 <option value="256">256 &times; 256</option>
             </select>
-        </p>
-        <p><span data-tooltip="Temperature in units of the critical temperature Tc. Below 1, spins order into large domains; above 1, thermal noise keeps them disordered." tabindex="0">Temperature</span>: <output id="ising-t-value">1.00</output> T<sub>c</sub> <span style="color:#666;">(T &approx; <output id="ising-t-abs">2.269</output>)</span></p>
-        <input type="range" id="ising-t-slider" min="0.1" max="3" step="0.01" value="1" style="width:100%;">
-        <p>
-            <button id="ising-randomize" style="background:#111; color:#aaaaaa; border:1px solid #333; padding:0.3rem 0.8rem; font-family:inherit; cursor:pointer;">Randomize</button>
-            <button id="ising-tc" style="background:#111; color:#aaaaaa; border:1px solid #333; padding:0.3rem 0.8rem; font-family:inherit; cursor:pointer;">Set T = Tc</button>
-        </p>
-        <p style="color:#888; font-size:0.9rem;"><span data-tooltip="Average spin, from −1 (all down) to +1 (all up). Near ±1 in the ordered phase, near 0 in the disordered one." tabindex="0">Magnetization</span>: <output id="ising-m-value">0.00</output></p>
-        <p style="color:#888; font-size:0.9rem;"><span data-tooltip="Energy per site. −2 when every neighbor pair is aligned; rises toward 0 with disorder." tabindex="0">Energy</span>: <output id="ising-e-value">0.00</output></p>
-        <ul style="color:#888; font-size:0.9rem; padding-left:1.2rem;">
-            <li>P &rarr; start/stop sampling</li>
-            <li>R &rarr; randomize</li>
-            <li>C &rarr; set T = T<sub>c</sub></li>
-        </ul>
-    </div>
-</div>
-
-<div style="display:flex; flex-direction:column; gap:1rem; margin-top:1.5rem; font-family:'JetBrains Mono','Fira Code',monospace;">
-    <div>
-        <p style="color:#aaaaaa; font-size:0.85rem; margin:0 0 0.25rem;"><span data-tooltip="Magnetization per sweep, on a fixed −1 to +1 scale. Large fluctuations near Tc signal the phase transition." tabindex="0">Magnetization</span></p>
-        <div style="border:1px solid #333; background:#000;">
-            <canvas id="ising-plot-mag" style="display:block; width:100%; height:160px;"></canvas>
+        </div>
+        <div>
+            <p style="margin:0 0 0.2rem;"><span data-tooltip="Temperature in units of the critical temperature Tc. Below 1, spins order into large domains; above 1, thermal noise keeps them disordered." tabindex="0">T</span> = <output id="ising-t-value">1.00</output> T<sub>c</sub> <span style="color:#666;">(&approx; <output id="ising-t-abs">2.269</output>)</span></p>
+            <input type="range" id="ising-t-slider" min="0.1" max="3" step="0.01" value="1" style="width:100%;">
         </div>
     </div>
-    <div>
-        <p style="color:#ff0055; font-size:0.85rem; margin:0 0 0.25rem;"><span data-tooltip="Energy per site per sweep, on a fixed −2 to 0 scale. It relaxes to its equilibrium value after a temperature change." tabindex="0">Energy per site</span></p>
-        <div style="border:1px solid #333; background:#000;">
-            <canvas id="ising-plot-energy" style="display:block; width:100%; height:160px;"></canvas>
+    <p style="color:#888; margin:0; display:flex; flex-wrap:wrap; gap:0.2rem 1.2rem;">
+        <span><span data-tooltip="Average spin, from −1 (all down) to +1 (all up). Near ±1 in the ordered phase, near 0 in the disordered one." tabindex="0">Magnetization</span> = <output id="ising-m-value">0.00</output></span>
+        <span><span data-tooltip="Energy per site. −2 when every neighbor pair is aligned; rises toward 0 with disorder." tabindex="0">Energy</span> = <output id="ising-e-value">0.00</output></span>
+    </p>
+    <div style="display:flex; flex-wrap:wrap; gap:1rem; align-items:flex-start;">
+        <div style="border:1px solid #333; background:#000; overflow:auto; max-width:100%;">
+            <canvas id="ising-canvas" oncontextmenu="return false;"></canvas>
+        </div>
+        <div style="flex:1; min-width:280px; display:flex; flex-direction:column; gap:0.5rem;">
+            <div>
+                <p style="font-size:0.85rem; margin:0 0 0.25rem;"><span data-tooltip="Magnetization per sweep, on a fixed −1 to +1 scale. Large fluctuations near Tc signal the phase transition." tabindex="0">Magnetization</span></p>
+                <div style="border:1px solid #333; background:#000;">
+                    <canvas id="ising-plot-mag" style="display:block; width:100%; height:216px;"></canvas>
+                </div>
+            </div>
+            <div>
+                <p style="color:#ff0055; font-size:0.85rem; margin:0 0 0.25rem;"><span data-tooltip="Energy per site per sweep, on a fixed −2 to 0 scale. It relaxes to its equilibrium value after a temperature change." tabindex="0">Energy per site</span></p>
+                <div style="border:1px solid #333; background:#000;">
+                    <canvas id="ising-plot-energy" style="display:block; width:100%; height:216px;"></canvas>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -84,11 +86,11 @@ This simulation runs on a **toroidal** lattice: the edges wrap around, so intera
             // Canvas is drawn at 1px/site, then CSS-scaled to a fixed
             // on-screen size with `image-rendering: pixelated` — so
             // switching lattice length never changes the display footprint.
-            const DISPLAY_SIZE = 512;
-            // Each plot is drawn at a fixed, wide internal resolution and
-            // CSS-stretched horizontally to fill the available width.
-            const PLOT_WIDTH = 900;
-            const PLOT_HEIGHT = 160;
+            const DISPLAY_SIZE = 480;
+            // Each plot is drawn at a fixed internal resolution matching the
+            // plot column, and CSS-stretched when the layout stacks.
+            const PLOT_WIDTH = 480;
+            const PLOT_HEIGHT = 216;
             const PLOT_HISTORY = 300;
 
             const canvas = document.getElementById("ising-canvas");
