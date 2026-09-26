@@ -45,23 +45,10 @@
           if [ -d "simulations" ]; then
             cd simulations
 
-            # Compile every workspace member (spinning_cube, game_of_life) in one pass.
+            # Compile every workspace member in one pass.
             cargo build --release --target wasm32-unknown-unknown
 
             # Bindgen: Generate the JS glue code for each simulation.
-            ${pkgs.wasm-bindgen-cli}/bin/wasm-bindgen \
-              --out-dir ../static/wasm \
-              --target web \
-              --no-typescript \
-              target/wasm32-unknown-unknown/release/spinning_cube.wasm
-
-            # spinning_cube pulls in bevy, which puts it in a different size
-            # class (tens of MB) from the other, dependency-light
-            # simulations below — worth the extra build time to shrink.
-            ${pkgs.binaryen}/bin/wasm-opt -Oz \
-              -o ../static/wasm/spinning_cube_bg.wasm \
-              ../static/wasm/spinning_cube_bg.wasm
-
             ${pkgs.wasm-bindgen-cli}/bin/wasm-bindgen \
               --out-dir ../static/wasm \
               --target web \
@@ -160,29 +147,7 @@
             wasm-pack
             wasm-bindgen-cli
             binaryen
-            # Bevy dependencies
-            pkg-config
-            alsa-lib
-            udev
-            vulkan-loader
-            libx11
-            libxcursor
-            libxi
-            libxrandr
           ];
-
-          LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath (
-            with pkgs;
-            [
-              alsa-lib
-              udev
-              vulkan-loader
-              libx11
-              libxcursor
-              libxi
-              libxrandr
-            ]
-          );
 
           TYPST_FONT_PATHS = "${pkgs.font-awesome}/share/fonts";
 

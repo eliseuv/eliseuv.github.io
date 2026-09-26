@@ -1,7 +1,6 @@
 [workspace]
 resolver = "2"
 members = [
-    "spinning_cube",
     "game_of_life",
     "ising_2d",
     "contact_process",
@@ -20,9 +19,8 @@ artificial-systems = { path = "artificial-systems", default-features = false }
 # this routes it to the browser's crypto.getRandomValues.
 getrandom = { version = "0.4", features = ["wasm_js"] }
 
-# spinning_cube's own code is tiny; its size is almost entirely bevy's
-# dependency tree, which a per-crate override on "spinning_cube" alone
-# doesn't touch. "*" covers every dependency crate too.
+# Per-member overrides below don't reach dependency crates
+# (artificial-systems, rand, ...); "*" covers them.
 [profile.release.package."*"]
 opt-level = "s"
 
