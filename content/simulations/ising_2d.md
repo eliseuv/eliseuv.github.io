@@ -2,6 +2,16 @@
 title = "2D Ising Model"
 date = 2026-09-13
 description = "Ferromagnetic Ising model on a 2D lattice, sampled by Metropolis Monte Carlo, compiled to WebAssembly."
+
+[extra.symbols]
+'s_i' = 'Spin at site $i$: $+1$ (up) or $-1$ (down).'
+'s_j' = 'Spin at site $j$, a nearest neighbor of $i$.'
+'H' = 'Hamiltonian: the total energy of a spin configuration.'
+'J' = 'Coupling between neighboring spins. $J > 0$ favors aligned neighbors.'
+'\Delta E' = 'Energy change a flip of $s_i$ would cause. Negative changes are always accepted.'
+'\beta' = 'Inverse temperature $1/T$.'
+'T' = 'Temperature, in units where $k_B = J = 1$. Below $T_c$ spins order into large domains; above it, thermal noise keeps them disordered.'
+'T_c' = 'Critical temperature of the phase transition, $2/\ln(1+\sqrt{2}) \approx 2.269$ on the infinite square lattice.'
 +++
 
 The Ising model places a spin $s_i \in \{+1, -1\}$ on every site of a lattice. Neighboring spins interact through the Hamiltonian
@@ -42,7 +52,7 @@ This simulation runs on a **toroidal** lattice: the edges wrap around, so intera
             </select>
         </div>
         <div>
-            <p style="margin:0 0 0.2rem;"><span data-tooltip="Temperature in units of the critical temperature Tc. Below 1, spins order into large domains; above 1, thermal noise keeps them disordered." tabindex="0">T</span> = <output id="ising-t-value">1.00</output> T<sub>c</sub> <span style="color:#666;">(&approx; <output id="ising-t-abs">2.269</output>)</span></p>
+            <p style="margin:0 0 0.2rem;"><span data-sym="T" tabindex="0">T</span> = <output id="ising-t-value">1.00</output> <span data-sym="T_c" tabindex="0">T<sub>c</sub></span> <span style="color:#666;">(&approx; <output id="ising-t-abs">2.269</output>)</span></p>
             <input type="range" id="ising-t-slider" min="0.1" max="3" step="0.01" value="1" style="width:100%;">
         </div>
     </div>
