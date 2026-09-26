@@ -78,7 +78,9 @@ ul {
     li {
         margin-bottom: 1rem;
 
-        span {
+        // KaTeX renders math as nested spans (plus auto-render's wrapper
+        // span); without the exclusion every glyph picks up this margin.
+        span:not(.katex, .katex *, :has(> .katex)) {
             color: $text-dim;
             margin-left: 0.5rem;
         }
