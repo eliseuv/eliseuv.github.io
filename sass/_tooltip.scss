@@ -1,13 +1,12 @@
-// --- Tooltip ---
+// --- Tooltips ---
 // Add `data-tooltip="..."` (and `tabindex="0"` for keyboard/tap access) to
-// any element to attach a hover/focus popover, e.g.
+// any element to attach a hover/focus tooltip, e.g.
 //
 //     <span data-tooltip="Explanation" tabindex="0">Label</span>
 //
-// Pure CSS via `::after`, so it works in Markdown content with no script.
-// Replaced elements (<input>, <canvas>, <img>) can't render pseudo-elements;
-// put the attribute on their label instead. The popover is anchored to the
-// element's left edge, which suits labels at the start of a line.
+// Shown by static/js/floating-tooltip.js, loaded with KaTeX. Replaced
+// elements (<input>, <canvas>, <img>) can't take focus the same way; put the
+// attribute on their label instead.
 @mixin tooltip-panel {
     width: max-content;
     max-width: 18rem;
@@ -32,36 +31,8 @@ $tooltip-spawn-offset: 0.3rem;
 $tooltip-spawn-scale: 0.94;
 
 [data-tooltip] {
-    position: relative;
     text-decoration: underline dotted $text-dim;
     text-underline-offset: 0.25em;
-
-    &::after {
-        content: attr(data-tooltip);
-        position: absolute;
-        left: 0;
-        bottom: calc(100% + 0.4rem);
-        z-index: 10;
-        @include tooltip-panel;
-        pointer-events: none;
-        opacity: 0;
-        visibility: hidden;
-        transform: translateY($tooltip-spawn-offset) scale($tooltip-spawn-scale);
-        transform-origin: bottom left;
-        transition:
-            opacity $tooltip-spawn-duration ease,
-            transform $tooltip-spawn-duration $tooltip-spawn-easing,
-            visibility $tooltip-spawn-duration;
-    }
-
-    // `:focus` rather than `:focus-visible` so a tap on touch screens (which
-    // focuses via `tabindex`) opens it too; tapping elsewhere closes it.
-    &:hover::after,
-    &:focus::after {
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0);
-    }
 
     &:focus-visible {
         outline: 1px dashed $accent;
@@ -70,10 +41,12 @@ $tooltip-spawn-scale: 0.94;
 }
 
 // --- Floating tooltip ---
-// Page symbols (`[extra.symbols]`, see static/js/symbols.js) and inline
-// citations (static/js/citations.js) share one tooltip positioned by script
-// (static/js/floating-tooltip.js), since their content can contain math and
-// anchors sit mid-line where a CSS popover would overflow or clip.
+// Labels (`data-tooltip`), page symbols (`[extra.symbols]`, see
+// static/js/symbols.js) and inline citations (static/js/citations.js) share
+// one tooltip positioned by script (static/js/floating-tooltip.js). A CSS
+// popover could not be clamped to the viewport, and even hidden it counted
+// towards the page width, which zoomed phones out on pages with labels near
+// the right edge.
 [data-sym] {
     text-decoration: underline dotted $text-dim;
     text-underline-offset: 0.25em;
@@ -158,10 +131,6 @@ $tooltip-spawn-scale: 0.94;
 }
 
 @media (prefers-reduced-motion: reduce) {
-    [data-tooltip]::after {
-        transform: none;
-    }
-
     .floating-tooltip.visible {
         animation: none;
     }

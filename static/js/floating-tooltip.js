@@ -9,7 +9,8 @@
 // `contentOf` returns trusted HTML, or null to show nothing. The kind lands
 // on the tooltip as `data-kind`, for per-source styling.
 //
-// Load (deferred) before the scripts that register.
+// Also serves plain-text `data-tooltip` labels itself. Load (deferred) before
+// the scripts that register.
 (() => {
     const tooltip = document.createElement("div");
     tooltip.id = "floating-tooltip";
@@ -116,4 +117,13 @@
     };
 
     window.FloatingTooltip = { register };
+
+    // Plain-text labels from `data-tooltip`, inserted as text so the
+    // attribute can't inject markup.
+    const asText = (text) => {
+        const scratch = document.createElement("div");
+        scratch.textContent = text;
+        return scratch.innerHTML;
+    };
+    register("[data-tooltip]", (anchor) => asText(anchor.dataset.tooltip), "label");
 })();
