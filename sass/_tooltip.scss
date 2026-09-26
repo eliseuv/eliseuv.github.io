@@ -70,10 +70,10 @@ $tooltip-spawn-scale: 0.94;
 }
 
 // --- Floating tooltip ---
-// Page symbols (`[extra.symbols]`, see static/js/symbols.js) share one tooltip
-// positioned by script (static/js/floating-tooltip.js), since their content
-// can contain math and anchors sit mid-line where a CSS popover would
-// overflow or clip.
+// Page symbols (`[extra.symbols]`, see static/js/symbols.js) and inline
+// citations (static/js/citations.js) share one tooltip positioned by script
+// (static/js/floating-tooltip.js), since their content can contain math and
+// anchors sit mid-line where a CSS popover would overflow or clip.
 [data-sym] {
     text-decoration: underline dotted $text-dim;
     text-underline-offset: 0.25em;
@@ -123,6 +123,23 @@ $tooltip-spawn-scale: 0.94;
 
     .katex {
         font-size: 1.1em;
+    }
+
+    // A reference is longer than a symbol description
+    &[data-kind="cite"] {
+        max-width: min(28rem, calc(100vw - 16px));
+    }
+
+    .tooltip-cite-number {
+        color: $accent;
+    }
+
+    cite {
+        font-style: italic;
+    }
+
+    strong {
+        color: $text-white;
     }
 }
 

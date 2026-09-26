@@ -6,6 +6,9 @@
 
 {% block head_extra %}
 {% include "partials/katex.html" %}
+{% if page.extra.references %}
+<script defer src="{{ get_url(path='js/citations.js') }}"></script>
+{% endif %}
 {% endblock head_extra %}
 
 {% block content %}
