@@ -6,7 +6,12 @@
 <!-- Business Card -->
 {% set resume = load_data(path="resume/content.yml") %}
 {% set simulations_section = get_section(path="simulations/_index.md") %}
-{% set simulations = simulations_section.pages %}
+{# Same order as the simulations list, which also checks that `extra.order` names every page #}
+{% set_global simulations = [] %}
+{% for file_name in simulations_section.extra.order %}
+{% set listed_page = get_page(path="simulations/" ~ file_name ~ ".md") %}
+{% set_global simulations = simulations | concat(with=listed_page) %}
+{% endfor %}
 {% include "business_card.html" %}
 
 <!-- Resume -->
