@@ -1,16 +1,28 @@
-use artificial_systems_wasm::contact_process::{ContactLattice, ContactSampler};
+use std::sync::Arc;
+
+use artificial_systems::automaton::{Asynchronous, ContactRule};
+use artificial_systems::dynamics::Dynamics;
+use artificial_systems::observable::{Density, Observable};
+use artificial_systems::rng::{entropy_seed, stream, DefaultRng};
+use artificial_systems::site::Binary;
+use artificial_systems::state::{Init, LatticeState, Position, Prepare};
+use artificial_systems::topology::Square;
 use wasm_bindgen::prelude::*;
 
-fn uniform() -> f64 {
-    js_sys::Math::random()
+/// Upstream parametrises the rule by the infection rate `α`, with healing
+/// probability `1/α`; the page exposes the healing probability directly.
+fn contact_rule(healing_probability: f64) -> ContactRule {
+    ContactRule::new(healing_probability.recip())
 }
 
-/// wasm-bindgen binding around `artificial_systems_wasm::contact_process`,
-/// wiring its RNG closures to `js_sys::Math::random`.
+/// wasm-bindgen binding around `artificial_systems`' contact process
+/// (without diffusion) on a periodic square lattice, updated random
+/// sequentially.
 #[wasm_bindgen]
 pub struct ContactProcessModel {
-    lattice: ContactLattice,
-    sampler: ContactSampler,
+    state: LatticeState<Binary, Square>,
+    dynamics: Asynchronous<ContactRule>,
+    rng: DefaultRng,
 }
 
 #[wasm_bindgen]
@@ -20,61 +32,61 @@ impl ContactProcessModel {
     pub fn new(nrows: usize, ncols: usize, p: f64) -> ContactProcessModel {
         console_error_panic_hook::set_once();
 
-        ContactProcessModel {
-            lattice: ContactLattice::new_random(nrows, ncols, uniform),
-            sampler: ContactSampler::with_healing_probability(p),
-        }
+        let topology = Arc::new(Square::periodic([nrows, ncols]));
+        let mut model = ContactProcessModel {
+            state: LatticeState::uniform(topology, Binary::Inactive),
+            dynamics: Asynchronous::new(contact_rule(p)),
+            rng: stream(entropy_seed(), &[]),
+        };
+        model.randomize();
+        model
     }
 
     pub fn nrows(&self) -> usize {
-        self.lattice.nrows()
+        self.state.topology().lengths()[0]
     }
 
     pub fn ncols(&self) -> usize {
-        self.lattice.ncols()
+        self.state.topology().lengths()[1]
     }
 
     /// Pointer to the active-site buffer in WASM linear memory, row-major,
     /// one `u8` (`1` = active, `0` = inactive) per site.
     pub fn active(&self) -> *const u8 {
         // Sound: `Binary` is `#[repr(u8)]`.
-        self.lattice.active().as_ptr() as *const u8
+        self.state.sites().as_ptr() as *const u8
     }
 
     pub fn healing_probability(&self) -> f64 {
-        self.sampler.healing_probability()
+        self.dynamics.rule.alpha().recip()
     }
 
     pub fn set_healing_probability(&mut self, p: f64) {
-        self.sampler.set_healing_probability(p);
+        self.dynamics.rule = contact_rule(p);
     }
 
     /// Reset to a random (~50/50 active/inactive) configuration.
     pub fn randomize(&mut self) {
-        self.lattice.randomize(uniform);
+        Init::IidUniform.prepare(&mut self.state, &mut self.rng);
     }
 
     /// Clear to all-inactive and activate a single site at the center.
     pub fn seed_center(&mut self) {
-        self.lattice.seed_center();
+        Init::Single {
+            background: Binary::Inactive,
+            value: Binary::Active,
+            at: Position::Center,
+        }
+        .prepare(&mut self.state, &mut self.rng);
     }
 
     /// Fraction of sites currently active, in `[0, 1]`.
     pub fn active_fraction(&self) -> f64 {
-        self.lattice.active_fraction()
+        Density(Binary::Active).measure(&self.state)
     }
 
     /// One sweep: `nrows * ncols` attempts on randomly chosen sites.
     pub fn step(&mut self) {
-        self.sampler.step(
-            &mut self.lattice,
-            |nrows, ncols| {
-                let row = (js_sys::Math::random() * nrows as f64) as usize % nrows;
-                let col = (js_sys::Math::random() * ncols as f64) as usize % ncols;
-                (row, col)
-            },
-            || (js_sys::Math::random() * 4.0) as usize % 4,
-            uniform,
-        );
+        self.dynamics.step(&mut self.state, &mut self.rng);
     }
 }
