@@ -8,6 +8,7 @@ members = [
     "tsp_annealing",
     "annealing",
     "quant",
+    "spectral_criticality",
 ]
 # Git submodule consumed as a path dependency; excluded so cargo doesn't adopt
 # it as a member (which would override its own profiles and features).
@@ -38,3 +39,17 @@ opt-level = "s"
 
 [profile.release.package.tsp_annealing]
 opt-level = "s"
+
+[profile.release.package.spectral_criticality]
+opt-level = "s"
+
+# Native runs of spectral_criticality's reference generator: the size-optimised release
+# overrides above would slow the Monte Carlo several-fold.
+[profile.generate]
+inherits = "release"
+
+[profile.generate.package."*"]
+opt-level = 3
+
+[profile.generate.package.spectral_criticality]
+opt-level = 3

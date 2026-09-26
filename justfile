@@ -36,6 +36,10 @@ build-zola:
 watch-resume:
     typst watch --root . resume/resume.typ static/resume.pdf
 
+# Regenerate the precomputed spectral reference scans (native, ~40 min on 16 threads).
+generate-spectral-reference:
+    cd simulations && cargo run --profile generate --features generate -p spectral_criticality --bin gen_reference -- ../static/data/spectral
+
 # --- Formatting & linting --------------------------------------------------
 
 # Format Rust and Typst sources.
