@@ -2,6 +2,27 @@
 title = "Chiarella Model"
 date = 2026-09-25
 description = "Extended Chiarella model of a market with fundamentalists, trend followers and noise traders, integrated as a stochastic differential equation in WebAssembly."
+
+[extra.symbols]
+'p' = 'Log-price of the asset.'
+'dp' = 'Log-price increment over $dt$, i.e. a return.'
+'V' = 'Log fundamental value: what fundamentalists think the asset is worth.'
+'\delta' = 'Mispricing $p - V$. Positive means overvalued.'
+'\delta^{\ast}' = 'Steady mispricing of a market growing at rate $g$.'
+'M' = 'Trend signal: moving average of recent price changes, per unit time.'
+'W_1' = 'Wiener process of the news reaching fundamentals.'
+'W_2' = 'Wiener process of the noise-trader order flow.'
+'\kappa' = 'Fundamentalist strength: how fast mispricing gets corrected. Alone, a gap halves every $\ln 2/\kappa$.'
+'\beta' = 'Trend-follower strength: the largest drift they can put on the price. Caps how big bubbles get.'
+'\gamma' = 'Trend-follower sensitivity: how strongly they react to weak trends.'
+'\beta\gamma' = 'Trend-follower gain for small trends. Stability depends on it alone, against the threshold $1 + \kappa/\alpha$.'
+'1 + \kappa/\alpha' = 'Stability threshold. When $\beta\gamma$ exceeds it, the market cycles between bubbles and crashes.'
+'1 + \frac{\kappa}{\alpha}' = 'Stability threshold. When $\beta\gamma$ exceeds it, the market cycles between bubbles and crashes.'
+'\alpha' = 'Inverse memory time: $M$ averages over roughly the last $1/\alpha$ time units.'
+'\sigma_N' = 'Noise-trader volatility: size of the random order flow.'
+'\sigma_V' = 'Fundamental volatility: size of the news shocks that move $V$.'
+'g' = 'Fundamental drift: steady growth (or decay) of $V$.'
+'dt' = 'Integration time step. Numerical only, not part of the model.'
 +++
 
 The Chiarella model describes the log-price $p$ of an asset traded by three kinds of agents:
@@ -24,25 +45,25 @@ where $1/\alpha$ is the memory time of the trend signal. The system is integrate
 
 ### State variables
 
-- $p$ — **log-price** of the asset. Working in logs makes price increments $dp$ returns, so the dynamics don't depend on the price level. The simulation starts at $p = 0$, i.e. a price normalized to $e^0 = 1$.
-- $V$ — **log fundamental value**: what the asset is "really worth" according to fundamentalists, e.g. discounted future cash flows. It is exogenous: news moves $V$, but the market price never feeds back into it.
-- $\delta = p - V$ — **mispricing**. $\delta > 0$ means the asset is overvalued (the bubble side), $\delta < 0$ undervalued. It is the natural variable for regime behavior, since $p$ and $V$ both wander without bound but their difference does not.
-- $M$ — **trend signal**: an exponentially weighted moving average of past price changes, $M_t = \alpha \int_{-\infty}^{t} e^{-\alpha (t - s)}\\,dp_s$. It is a return per unit time: $M > 0$ means prices have recently been rising. Noise-driven moves count too, since trend followers can't tell a noise trade from a genuine trend.
-- $W_1, W_2$ — independent Wiener processes (Brownian motions): the random news reaching fundamentals and the random order flow of noise traders.
+- $\nosym{p}$ — **log-price** of the asset. Working in logs makes price increments $dp$ returns, so the dynamics don't depend on the price level. The simulation starts at $p = 0$, i.e. a price normalized to $e^0 = 1$.
+- $\nosym{V}$ — **log fundamental value**: what the asset is "really worth" according to fundamentalists, e.g. discounted future cash flows. It is exogenous: news moves $V$, but the market price never feeds back into it.
+- $\nosym{\delta} = p - V$ — **mispricing**. $\delta > 0$ means the asset is overvalued (the bubble side), $\delta < 0$ undervalued. It is the natural variable for regime behavior, since $p$ and $V$ both wander without bound but their difference does not.
+- $\nosym{M}$ — **trend signal**: an exponentially weighted moving average of past price changes, $M_t = \alpha \int_{-\infty}^{t} e^{-\alpha (t - s)}\\,dp_s$. It is a return per unit time: $M > 0$ means prices have recently been rising. Noise-driven moves count too, since trend followers can't tell a noise trade from a genuine trend.
+- $\nosym{W_1}, \nosym{W_2}$ — independent Wiener processes (Brownian motions): the random news reaching fundamentals and the random order flow of noise traders.
 
 ### Parameters
 
-- $\kappa$ — **fundamentalist strength**: the rate at which fundamentalists correct mispricing. Their demand is $-\kappa\delta$, so alone they close a gap with half-life $\ln 2 / \kappa$. Increasing $\kappa$ stabilizes the market.
-- $\beta$ — **trend-follower strength**: the largest drift trend followers can impose on the price, since $\beta\tanh(\gamma M) \in (-\beta, \beta)$. Read it as their capital or market share. Above the threshold, it sets how large bubbles and crashes grow.
-- $\gamma$ — **trend-follower sensitivity**: how strongly they react to a weak trend. For $|\gamma M| \ll 1$ their demand is linear, $\approx \beta\gamma M$; for strong trends it saturates at $\pm\beta$, because positions can't grow without limit. Only the product $\beta\gamma$, the gain for small trends, decides stability; $\beta$ alone caps the amplitude.
-- $\alpha$ — **inverse memory time** of the trend signal: $M$ averages over roughly the last $1/\alpha$ time units. A large $\alpha$ is a short, jittery memory that chases the latest noise; a small $\alpha$ is a long, smooth one that reacts late. A longer memory raises the threshold $1 + \kappa/\alpha$, giving fundamentalists more time to act before a trend builds.
-- $\sigma_N$ — **noise-trader volatility**: the size of random order flow unrelated to value or trend. It is the main source of short-term return volatility, and it also seeds spurious trends in $M$.
-- $\sigma_V$ — **fundamental volatility**: the size of news shocks to $V$. Fundamentalists chase every jump, and the trend followers amplify the resulting price moves.
-- $g$ — **fundamental drift**: steady growth (or decay) of the fundamental value. In a steadily growing market the trend signal settles at $M = g$, and the price settles at a constant offset $\delta^{\ast} = \left(\beta\tanh(\gamma g) - g\right)/\kappa$ from value. When trend followers are strong enough this is positive: a persistent, self-sustaining overvaluation.
+- $\nosym{\kappa}$ — **fundamentalist strength**: the rate at which fundamentalists correct mispricing. Their demand is $-\kappa\delta$, so alone they close a gap with half-life $\ln 2 / \kappa$. Increasing $\kappa$ stabilizes the market.
+- $\nosym{\beta}$ — **trend-follower strength**: the largest drift trend followers can impose on the price, since $\beta\tanh(\gamma M) \in (-\beta, \beta)$. Read it as their capital or market share. Above the threshold, it sets how large bubbles and crashes grow.
+- $\nosym{\gamma}$ — **trend-follower sensitivity**: how strongly they react to a weak trend. For $|\gamma M| \ll 1$ their demand is linear, $\approx \beta\gamma M$; for strong trends it saturates at $\pm\beta$, because positions can't grow without limit. Only the product $\beta\gamma$, the gain for small trends, decides stability; $\beta$ alone caps the amplitude.
+- $\nosym{\alpha}$ — **inverse memory time** of the trend signal: $M$ averages over roughly the last $1/\alpha$ time units. A large $\alpha$ is a short, jittery memory that chases the latest noise; a small $\alpha$ is a long, smooth one that reacts late. A longer memory raises the threshold $1 + \kappa/\alpha$, giving fundamentalists more time to act before a trend builds.
+- $\nosym{\sigma_N}$ — **noise-trader volatility**: the size of random order flow unrelated to value or trend. It is the main source of short-term return volatility, and it also seeds spurious trends in $M$.
+- $\nosym{\sigma_V}$ — **fundamental volatility**: the size of news shocks to $V$. Fundamentalists chase every jump, and the trend followers amplify the resulting price moves.
+- $\nosym{g}$ — **fundamental drift**: steady growth (or decay) of the fundamental value. In a steadily growing market the trend signal settles at $M = g$, and the price settles at a constant offset $\delta^{\ast} = \left(\beta\tanh(\gamma g) - g\right)/\kappa$ from value. When trend followers are strong enough this is positive: a persistent, self-sustaining overvaluation.
 
 ### Simulation controls
 
-- $dt$ — the **integration time step**. It is numerical, not part of the model: smaller is more accurate but covers less simulated time per step. Euler–Maruyama needs $\kappa\\,dt \ll 1$ and $\alpha\\,dt \ll 1$ to track the continuous dynamics.
+- $\nosym{dt}$ — the **integration time step**. It is numerical, not part of the model: smaller is more accurate but covers less simulated time per step. Euler–Maruyama needs $\kappa\\,dt \ll 1$ and $\alpha\\,dt \ll 1$ to track the continuous dynamics.
 - **Steps/frame** — the number of integration steps per animation frame, i.e. the playback speed. Each frame advances simulated time by $\text{steps} \times dt$. Every plot takes one sample per frame, so "returns" are price changes over that interval.
 
 Time units are arbitrary: if one unit is a trading day, then $\sigma_N$ is a daily volatility, $1/\alpha$ is a memory length in days, and so on.
@@ -66,35 +87,35 @@ Every slider acts on the running simulation immediately. Push $\beta$ past the t
     </div>
     <div class="chiarella-controls" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(170px, 1fr)); gap:0.4rem 1.2rem;">
         <div>
-            <p style="margin:0 0 0.2rem;"><span data-tooltip="Fundamentalist strength: how fast mispricing gets corrected. On its own, a gap halves every ln2/κ." tabindex="0">&kappa;</span> = <output id="chiarella-kappa-value"></output></p>
+            <p style="margin:0 0 0.2rem;"><span data-sym="\kappa" tabindex="0">&kappa;</span> = <output id="chiarella-kappa-value"></output></p>
             <input type="range" id="chiarella-kappa-slider" min="0" max="0.5" step="0.005" value="0.1" style="width:100%;">
         </div>
         <div>
-            <p style="margin:0 0 0.2rem;"><span data-tooltip="Trend-follower strength: the largest drift they can put on the price. Caps how big bubbles get." tabindex="0">&beta;</span> = <output id="chiarella-beta-value"></output></p>
+            <p style="margin:0 0 0.2rem;"><span data-sym="\beta" tabindex="0">&beta;</span> = <output id="chiarella-beta-value"></output></p>
             <input type="range" id="chiarella-beta-slider" min="0" max="5" step="0.01" value="1.3" style="width:100%;">
         </div>
         <div>
-            <p style="margin:0 0 0.2rem;"><span data-tooltip="Trend-follower sensitivity: how hard they react to weak trends. Stability depends on the product βγ, not on β or γ separately." tabindex="0">&gamma;</span> = <output id="chiarella-gamma-value"></output></p>
+            <p style="margin:0 0 0.2rem;"><span data-sym="\gamma" tabindex="0">&gamma;</span> = <output id="chiarella-gamma-value"></output></p>
             <input type="range" id="chiarella-gamma-slider" min="0" max="5" step="0.01" value="1" style="width:100%;">
         </div>
         <div>
-            <p style="margin:0 0 0.2rem;"><span data-tooltip="Inverse memory of the trend signal: M averages roughly the last 1/α time units." tabindex="0">&alpha;</span> = <output id="chiarella-alpha-value"></output></p>
+            <p style="margin:0 0 0.2rem;"><span data-sym="\alpha" tabindex="0">&alpha;</span> = <output id="chiarella-alpha-value"></output></p>
             <input type="range" id="chiarella-alpha-slider" min="0.01" max="2" step="0.01" value="0.2" style="width:100%;">
         </div>
         <div>
-            <p style="margin:0 0 0.2rem;"><span data-tooltip="Noise-trader volatility: random order flow, the main source of short-term volatility." tabindex="0">&sigma;<sub>N</sub></span> = <output id="chiarella-sigma-noise-value"></output></p>
+            <p style="margin:0 0 0.2rem;"><span data-sym="\sigma_N" tabindex="0">&sigma;<sub>N</sub></span> = <output id="chiarella-sigma-noise-value"></output></p>
             <input type="range" id="chiarella-sigma-noise-slider" min="0" max="1" step="0.01" value="0.1" style="width:100%;">
         </div>
         <div>
-            <p style="margin:0 0 0.2rem;"><span data-tooltip="Fundamental volatility: size of the news shocks that move V." tabindex="0">&sigma;<sub>V</sub></span> = <output id="chiarella-sigma-fundamental-value"></output></p>
+            <p style="margin:0 0 0.2rem;"><span data-sym="\sigma_V" tabindex="0">&sigma;<sub>V</sub></span> = <output id="chiarella-sigma-fundamental-value"></output></p>
             <input type="range" id="chiarella-sigma-fundamental-slider" min="0" max="1" step="0.01" value="0.05" style="width:100%;">
         </div>
         <div>
-            <p style="margin:0 0 0.2rem;"><span data-tooltip="Fundamental drift: steady growth (or decay) of V." tabindex="0">g</span> = <output id="chiarella-drift-value"></output></p>
+            <p style="margin:0 0 0.2rem;"><span data-sym="g" tabindex="0">g</span> = <output id="chiarella-drift-value"></output></p>
             <input type="range" id="chiarella-drift-slider" min="-0.1" max="0.1" step="0.001" value="0" style="width:100%;">
         </div>
         <div>
-            <p style="margin:0 0 0.2rem;"><span data-tooltip="Integration time step. Numerical only: smaller is more accurate but advances less time per step." tabindex="0">dt</span> = <output id="chiarella-dt-value"></output></p>
+            <p style="margin:0 0 0.2rem;"><span data-sym="dt" tabindex="0">dt</span> = <output id="chiarella-dt-value"></output></p>
             <input type="range" id="chiarella-dt-slider" min="0.005" max="0.2" step="0.005" value="0.05" style="width:100%;">
         </div>
         <div>
@@ -103,11 +124,11 @@ Every slider acts on the running simulation immediately. Push $\beta$ past the t
         </div>
     </div>
     <p style="color:#888; margin:0; display:flex; flex-wrap:wrap; gap:0.2rem 1.2rem;">
-        <span><span data-tooltip="Trend-follower gain βγ against the stability threshold 1+κ/α. Above it, the market cycles between bubbles and crashes." tabindex="0">&beta;&gamma;</span> = <output id="chiarella-bg-value"></output> vs 1+&kappa;/&alpha; = <output id="chiarella-threshold-value"></output> &rarr; <output id="chiarella-regime-value"></output></span>
-        <span><span data-tooltip="Log-price of the asset." tabindex="0">p</span> = <output id="chiarella-p-value">0.000</output></span>
-        <span><span data-tooltip="Log fundamental value: what fundamentalists think the asset is worth." tabindex="0">V</span> = <output id="chiarella-v-value">0.000</output></span>
-        <span><span data-tooltip="Mispricing p − V. Positive means overvalued." tabindex="0">&delta;</span> = <output id="chiarella-delta-value">0.000</output></span>
-        <span><span data-tooltip="Trend signal: moving average of recent price changes." tabindex="0">M</span> = <output id="chiarella-m-value">0.000</output></span>
+        <span><span data-sym="\beta\gamma" tabindex="0">&beta;&gamma;</span> = <output id="chiarella-bg-value"></output> vs <span data-sym="1 + \kappa/\alpha" tabindex="0">1+&kappa;/&alpha;</span> = <output id="chiarella-threshold-value"></output> &rarr; <output id="chiarella-regime-value"></output></span>
+        <span><span data-sym="p" tabindex="0">p</span> = <output id="chiarella-p-value">0.000</output></span>
+        <span><span data-sym="V" tabindex="0">V</span> = <output id="chiarella-v-value">0.000</output></span>
+        <span><span data-sym="\delta" tabindex="0">&delta;</span> = <output id="chiarella-delta-value">0.000</output></span>
+        <span><span data-sym="M" tabindex="0">M</span> = <output id="chiarella-m-value">0.000</output></span>
     </p>
     <div style="display:flex; flex-wrap:wrap; gap:1rem; align-items:flex-start;">
         <div style="width:480px; max-width:100%;">
