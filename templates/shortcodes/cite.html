@@ -1,0 +1,16 @@
+{% import "macros/reference_parts.html" as parts -%}
+{#
+Inline citation: `{{ cite(ids=["onsager1944", "10.3390/e26050395"]) }}` renders
+[1, 2], each number linking to its entry in the page's reference list (see
+templates/macros/references.html), which also fixes the numbering. Kept on one
+line of output so it stays inline in the Markdown paragraph.
+#}
+{%- set listed = page.extra.references | default(value=[]) -%}
+<span class="cite">[
+{%- for id in ids -%}
+{%- set_global number = 0 -%}
+{%- for listed_id in listed %}{% if listed_id == id %}{% set_global number = loop.index %}{% endif %}{% endfor -%}
+{%- if number == 0 %}{{ throw(message="Cited id not in the page's [extra] references: " ~ id) }}{% endif -%}
+<a href="#{{ parts::anchor(id=id) }}">{{ number }}</a>{% if not loop.last %}, {% endif %}
+{%- endfor -%}
+]</span>

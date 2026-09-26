@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% import "macros/links.html" as links %}
+{% import "macros/references.html" as references %}
 
 {% block body_class %}simulation-page{% endblock body_class %}
 
@@ -33,6 +34,8 @@
 
     <div class="post-content">
         {{ page.content | safe }}
+
+        {{ references::list(ids=page.extra.references | default(value=[])) }}
     </div>
 
     <footer class="post-footer">

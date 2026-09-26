@@ -1,0 +1,9 @@
+{# Pieces of a reference shared by the list (references.html) and the cite shortcode #}
+
+{% macro anchor(id) %}ref-{{ id | slugify }}{% endmacro anchor %}
+
+{# Names never break across lines; mine is highlighted, and the resume spells
+it the same way in every entry #}
+{% macro authors(names) -%}
+{% for name in names %}{% set unbroken = name | replace(from=" ", to="&nbsp;") %}{% if name == "E. Venites Filho" %}<strong>{{ unbroken | safe }}</strong>{% else %}{{ unbroken | safe }}{% endif %}{% if not loop.last %}, {% endif %}{% endfor %}
+{%- endmacro authors %}

@@ -1,0 +1,45 @@
+{#
+Numbered reference lists for pages declaring `[extra] references`.
+
+Each id is either an `id` in bibliography/references.yml or, for my own work,
+the DOI of a publication in resume/content.yml, so publications stay declared
+once. The list order is the numbering: the `cite` shortcode looks ids up in
+the same list, and an id missing from either side fails the build.
+#}
+
+{% import "macros/reference_parts.html" as parts %}
+
+{% macro list(ids) %}
+{% if ids | length > 0 %}
+{% set bibliography = load_data(path="bibliography/references.yml") %}
+{% set resume = load_data(path="resume/content.yml") %}
+<section class="references" id="references">
+    <h2>References</h2>
+    <ol>
+        {% for id in ids %}
+        {% set works = bibliography.references | filter(attribute="id", value=id) %}
+        {% set publications = resume.publications | filter(attribute="doi", value=id) %}
+        {% if works | length > 0 %}
+        {% set work = works | first %}
+        <li id="{{ parts::anchor(id=id) }}">
+            {{ parts::authors(names=work.authors) }},
+            <cite>{{ work.title }}</cite>,
+            {% if work.journal %}{{ work.journal }}{% if work.volume %} <b>{{ work.volume }}</b>{% endif %}{% if work.pages %}, {{ work.pages }}{% endif %} ({{ work.year }}){% else %}({{ work.publisher }}, {{ work.year }}){% endif %}.
+            {% if work.doi %}<a class="reference-doi" href="https://doi.org/{{ work.doi }}" target="_blank" rel="noopener">doi:{{ work.doi }}</a>{% endif %}
+        </li>
+        {% elif publications | length > 0 %}
+        {% set publication = publications | first %}
+        <li id="{{ parts::anchor(id=id) }}" class="reference-own">
+            {{ parts::authors(names=publication.authors) }},
+            <cite>{{ publication.title }}</cite>,
+            {{ publication.journal }} ({{ publication.year }}).
+            <a class="reference-doi" href="https://doi.org/{{ publication.doi }}" target="_blank" rel="noopener">doi:{{ publication.doi }}</a>
+        </li>
+        {% else %}
+        {{ throw(message="Unknown reference: " ~ id) }}
+        {% endif %}
+        {% endfor %}
+    </ol>
+</section>
+{% endif %}
+{% endmacro list %}

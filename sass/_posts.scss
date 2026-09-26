@@ -133,3 +133,42 @@
         }
     }
 }
+// Inline citations and the reference list they point to (macros/references.html)
+.cite {
+    white-space: nowrap;
+    font-family: $font-mono;
+    font-size: 0.8em;
+    color: $text-dim;
+
+    a {
+        text-decoration: none;
+    }
+}
+
+.references {
+    ol {
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+    li {
+        overflow-wrap: anywhere;
+    }
+
+    cite {
+        font-style: italic;
+    }
+
+    b {
+        font-weight: bold;
+    }
+
+    strong {
+        color: $text-white;
+    }
+
+    .reference-doi {
+        font-family: $font-mono;
+        font-size: 0.85em;
+    }
+}

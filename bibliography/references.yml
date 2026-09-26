@@ -1,0 +1,404 @@
+# Works cited by the simulation pages, keyed by `id`. Pages list the ids (or
+# the DOIs of publications in resume/content.yml, for my own work) under
+# `[extra] references`, cite them inline with the `cite` shortcode, and the
+# page template renders the numbered list (see templates/macros/references.html).
+#
+# Articles take `journal`, `volume` and `pages`; books take `publisher`.
+# Every DOI was checked against Crossref (arXiv's against DataCite).
+
+references:
+  # --- Spin systems and critical phenomena ---
+  - id: ising1925
+    authors: ["E. Ising"]
+    title: "Beitrag zur Theorie des Ferromagnetismus"
+    journal: Zeitschrift für Physik
+    volume: "31"
+    pages: 253–258
+    year: 1925
+    doi: 10.1007/BF02980577
+
+  - id: onsager1944
+    authors: ["L. Onsager"]
+    title: "Crystal Statistics. I. A Two-Dimensional Model with an Order-Disorder Transition"
+    journal: Physical Review
+    volume: "65"
+    pages: 117–149
+    year: 1944
+    doi: 10.1103/PhysRev.65.117
+
+  - id: stanley1971
+    authors: ["H. E. Stanley"]
+    title: Introduction to Phase Transitions and Critical Phenomena
+    publisher: Clarendon Press
+    year: 1971
+
+  - id: stanley1999
+    authors: ["H. E. Stanley"]
+    title: "Scaling, universality, and renormalization: Three pillars of modern critical phenomena"
+    journal: Reviews of Modern Physics
+    volume: "71"
+    pages: S358–S366
+    year: 1999
+    doi: 10.1103/RevModPhys.71.S358
+
+  - id: salinas2001
+    authors: ["S. R. A. Salinas"]
+    title: Introduction to Statistical Physics
+    publisher: Springer
+    year: 2001
+    doi: 10.1007/978-1-4757-3508-6
+
+  # --- Monte Carlo methods ---
+  - id: metropolis1953
+    authors:
+      ["N. Metropolis", "A. W. Rosenbluth", "M. N. Rosenbluth", "A. H. Teller", "E. Teller"]
+    title: Equation of State Calculations by Fast Computing Machines
+    journal: The Journal of Chemical Physics
+    volume: "21"
+    pages: 1087–1092
+    year: 1953
+    doi: 10.1063/1.1699114
+
+  - id: newman1999
+    authors: ["M. E. J. Newman", "G. T. Barkema"]
+    title: Monte Carlo Methods in Statistical Physics
+    publisher: Oxford University Press
+    year: 1999
+    doi: 10.1093/oso/9780198517962.001.0001
+
+  - id: landau2014
+    authors: ["D. P. Landau", "K. Binder"]
+    title: A Guide to Monte Carlo Simulations in Statistical Physics
+    publisher: Cambridge University Press
+    year: 2014
+    doi: 10.1017/CBO9781139696463
+
+  # --- Contact process and absorbing states ---
+  - id: harris1974
+    authors: ["T. E. Harris"]
+    title: Contact Interactions on a Lattice
+    journal: The Annals of Probability
+    volume: "2"
+    pages: 969–988
+    year: 1974
+    doi: 10.1214/aop/1176996493
+
+  - id: grinstein1985
+    authors: ["G. Grinstein", "C. Jayaprakash", "Y. He"]
+    title: Statistical Mechanics of Probabilistic Cellular Automata
+    journal: Physical Review Letters
+    volume: "55"
+    pages: 2527–2530
+    year: 1985
+    doi: 10.1103/PhysRevLett.55.2527
+
+  - id: marro1999
+    authors: ["J. Marro", "R. Dickman"]
+    title: Nonequilibrium Phase Transitions in Lattice Models
+    publisher: Cambridge University Press
+    year: 1999
+    doi: 10.1017/CBO9780511524288
+
+  - id: hinrichsen2000
+    authors: ["H. Hinrichsen"]
+    title: Non-equilibrium critical phenomena and phase transitions into absorbing states
+    journal: Advances in Physics
+    volume: "49"
+    pages: 815–958
+    year: 2000
+    doi: 10.1080/00018730050198152
+
+  - id: fiore2004
+    authors: ["C. E. Fiore", "M. J. de Oliveira"]
+    title: Phase transition in conservative diffusive contact processes
+    journal: Physical Review E
+    volume: "70"
+    pages: "046131"
+    year: 2004
+    doi: 10.1103/PhysRevE.70.046131
+
+  - id: dantas2007
+    authors: ["W. G. Dantas", "M. J. de Oliveira", "J. F. Stilck"]
+    title: Revisiting the one-dimensional diffusive contact process
+    journal: "Journal of Statistical Mechanics: Theory and Experiment"
+    volume: "2007"
+    pages: P08009
+    year: 2007
+    doi: 10.1088/1742-5468/2007/08/P08009
+
+  - id: ross1993
+    authors: ["T. Ross"]
+    title: Bělehrádek-type models
+    journal: Journal of Industrial Microbiology
+    volume: "12"
+    pages: 180–189
+    year: 1993
+    doi: 10.1007/BF01584188
+
+  - id: tome2015
+    authors: ["T. Tomé", "M. J. de Oliveira"]
+    title: Stochastic Dynamics and Irreversibility
+    publisher: Springer
+    year: 2015
+    doi: 10.1007/978-3-319-11770-6
+
+  # --- Random matrices ---
+  - id: wishart1928
+    authors: ["J. Wishart"]
+    title: The Generalised Product Moment Distribution in Samples from a Normal Multivariate Population
+    journal: Biometrika
+    volume: "20A"
+    pages: 32–52
+    year: 1928
+    doi: 10.1093/biomet/20A.1-2.32
+
+  - id: wigner1955
+    authors: ["E. P. Wigner"]
+    title: Characteristic Vectors of Bordered Matrices With Infinite Dimensions
+    journal: Annals of Mathematics
+    volume: "62"
+    pages: 548–564
+    year: 1955
+    doi: 10.2307/1970079
+
+  - id: dyson1962
+    authors: ["F. J. Dyson"]
+    title: Statistical Theory of the Energy Levels of Complex Systems. I
+    journal: Journal of Mathematical Physics
+    volume: "3"
+    pages: 140–156
+    year: 1962
+    doi: 10.1063/1.1703773
+
+  - id: marchenko1967
+    authors: ["V. A. Marčenko", "L. A. Pastur"]
+    title: Distribution of Eigenvalues for Some Sets of Random Matrices
+    journal: Mathematics of the USSR-Sbornik
+    volume: "1"
+    pages: 457–483
+    year: 1967
+    doi: 10.1070/SM1967v001n04ABEH001994
+
+  - id: mehta2004
+    authors: ["M. L. Mehta"]
+    title: Random Matrices
+    publisher: Elsevier
+    year: 2004
+
+  - id: stanley2000
+    authors: ["H. E. Stanley", "P. Gopikrishnan", "V. Plerou", "L. A. N. Amaral"]
+    title: Quantifying fluctuations in economic systems by adapting methods of statistical physics
+    journal: "Physica A: Statistical Mechanics and its Applications"
+    volume: "287"
+    pages: 339–361
+    year: 2000
+    doi: 10.1016/S0378-4371(00)00473-8
+
+  - id: bouchaud2009
+    authors: ["J.-P. Bouchaud", "M. Potters"]
+    title: "Financial Applications of Random Matrix Theory: a short review"
+    journal: arXiv
+    pages: "0910.1205"
+    year: 2009
+    doi: 10.48550/arXiv.0910.1205
+
+  - id: scheffer2009
+    authors:
+      ["M. Scheffer", "J. Bascompte", "W. A. Brock", "V. Brovkin", "S. R. Carpenter", "V. Dakos", "H. Held", "E. H. van Nes", "M. Rietkerk", "G. Sugihara"]
+    title: Early-warning signals for critical transitions
+    journal: Nature
+    volume: "461"
+    pages: 53–59
+    year: 2009
+    doi: 10.1038/nature08227
+
+  - id: vinayak2014
+    authors: ["Vinayak", "T. Prosen", "B. Buča", "T. H. Seligman"]
+    title: Spectral analysis of finite-time correlation matrices near equilibrium phase transitions
+    journal: EPL (Europhysics Letters)
+    volume: "108"
+    pages: "20006"
+    year: 2014
+    doi: 10.1209/0295-5075/108/20006
+
+  - id: wirtz2017
+    authors: ["T. Wirtz", "M. Kieburg", "T. Guhr"]
+    title: Asymptotic coincidence of the statistics for degenerate and non-degenerate correlated real Wishart ensembles
+    journal: "Journal of Physics A: Mathematical and Theoretical"
+    volume: "50"
+    pages: "235203"
+    year: 2017
+    doi: 10.1088/1751-8121/aa6a6c
+
+  - id: dasilva2023
+    authors: ["R. da Silva"]
+    title: Random matrices theory elucidates the nonequilibrium critical phenomena
+    journal: International Journal of Modern Physics C
+    volume: "34"
+    pages: "2350061"
+    year: 2023
+    doi: 10.1142/S0129183123500614
+
+  # --- Traveling salesman and simulated annealing ---
+  - id: dantzig1954
+    authors: ["G. Dantzig", "R. Fulkerson", "S. Johnson"]
+    title: Solution of a Large-Scale Traveling-Salesman Problem
+    journal: Journal of the Operations Research Society of America
+    volume: "2"
+    pages: 393–410
+    year: 1954
+    doi: 10.1287/opre.2.4.393
+
+  - id: croes1958
+    authors: ["G. A. Croes"]
+    title: A Method for Solving Traveling-Salesman Problems
+    journal: Operations Research
+    volume: "6"
+    pages: 791–812
+    year: 1958
+    doi: 10.1287/opre.6.6.791
+
+  - id: beardwood1959
+    authors: ["J. Beardwood", "J. H. Halton", "J. M. Hammersley"]
+    title: The shortest path through many points
+    journal: Mathematical Proceedings of the Cambridge Philosophical Society
+    volume: "55"
+    pages: 299–327
+    year: 1959
+    doi: 10.1017/S0305004100034095
+
+  - id: lin1973
+    authors: ["S. Lin", "B. W. Kernighan"]
+    title: An Effective Heuristic Algorithm for the Traveling-Salesman Problem
+    journal: Operations Research
+    volume: "21"
+    pages: 498–516
+    year: 1973
+    doi: 10.1287/opre.21.2.498
+
+  - id: kirkpatrick1983
+    authors: ["S. Kirkpatrick", "C. D. Gelatt", "M. P. Vecchi"]
+    title: Optimization by Simulated Annealing
+    journal: Science
+    volume: "220"
+    pages: 671–680
+    year: 1983
+    doi: 10.1126/science.220.4598.671
+
+  - id: kirkpatrick1984
+    authors: ["S. Kirkpatrick"]
+    title: "Optimization by simulated annealing: Quantitative studies"
+    journal: Journal of Statistical Physics
+    volume: "34"
+    pages: 975–986
+    year: 1984
+    doi: 10.1007/BF01009452
+
+  - id: geman1984
+    authors: ["S. Geman", "D. Geman"]
+    title: Stochastic Relaxation, Gibbs Distributions, and the Bayesian Restoration of Images
+    journal: IEEE Transactions on Pattern Analysis and Machine Intelligence
+    volume: PAMI-6
+    pages: 721–741
+    year: 1984
+    doi: 10.1109/TPAMI.1984.4767596
+
+  - id: cerny1985
+    authors: ["V. Černý"]
+    title: "Thermodynamical approach to the traveling salesman problem: An efficient simulation algorithm"
+    journal: Journal of Optimization Theory and Applications
+    volume: "45"
+    pages: 41–51
+    year: 1985
+    doi: 10.1007/BF00940812
+
+  - id: vanlaarhoven1987
+    authors: ["P. J. M. van Laarhoven", "E. H. L. Aarts"]
+    title: "Simulated Annealing: Theory and Applications"
+    publisher: Springer
+    year: 1987
+    doi: 10.1007/978-94-015-7744-1
+
+  - id: aarts1989
+    authors: ["E. H. L. Aarts", "J. Korst"]
+    title: "Simulated Annealing and Boltzmann Machines: A Stochastic Approach to Combinatorial Optimization and Neural Computing"
+    publisher: Wiley
+    year: 1989
+
+  - id: nourani1998
+    authors: ["Y. Nourani", "B. Andresen"]
+    title: A comparison of simulated annealing cooling strategies
+    journal: "Journal of Physics A: Mathematical and General"
+    volume: "31"
+    pages: 8373–8385
+    year: 1998
+    doi: 10.1088/0305-4470/31/41/011
+
+  - id: stanley2001
+    authors: ["H. E. Stanley", "S. V. Buldyrev"]
+    title: The salesman and the tourist
+    journal: Nature
+    volume: "413"
+    pages: 373–374
+    year: 2001
+    doi: 10.1038/35096668
+
+  - id: dasilva2020
+    authors: ["R. da Silva", "S. D. Prado"]
+    title: "A simple study of the correlation effects in the superposition of waves of electric fields: The emergence of extreme events"
+    journal: Physics Letters A
+    volume: "384"
+    pages: "126231"
+    year: 2020
+    doi: 10.1016/j.physleta.2019.126231
+
+  # --- Market models ---
+  - id: maruyama1955
+    authors: ["G. Maruyama"]
+    title: Continuous Markov processes and stochastic equations
+    journal: Rendiconti del Circolo Matematico di Palermo
+    volume: "4"
+    pages: 48–90
+    year: 1955
+    doi: 10.1007/BF02846028
+
+  - id: chiarella1992
+    authors: ["C. Chiarella"]
+    title: The dynamics of speculative behaviour
+    journal: Annals of Operations Research
+    volume: "37"
+    pages: 101–123
+    year: 1992
+    doi: 10.1007/BF02071051
+
+  - id: mantegna1999
+    authors: ["R. N. Mantegna", "H. E. Stanley"]
+    title: "Introduction to Econophysics: Correlations and Complexity in Finance"
+    publisher: Cambridge University Press
+    year: 1999
+    doi: 10.1017/CBO9780511755767
+
+  - id: bouchaud2000
+    authors: ["J.-P. Bouchaud", "M. Potters"]
+    title: "Theory of Financial Risks: From Statistical Physics to Risk Management"
+    publisher: Cambridge University Press
+    year: 2000
+
+  - id: majewski2020
+    authors: ["A. A. Majewski", "S. Ciliberti", "J.-P. Bouchaud"]
+    title: "Co-existence of trend and value in financial markets: Estimating an extended Chiarella model"
+    journal: Journal of Economic Dynamics and Control
+    volume: "112"
+    pages: "103791"
+    year: 2020
+    doi: 10.1016/j.jedc.2019.103791
+
+  # --- Cellular automata ---
+  - id: gardner1970
+    authors: ["M. Gardner"]
+    title: "Mathematical Games: The fantastic combinations of John Conway's new solitaire game \"life\""
+    journal: Scientific American
+    volume: "223"
+    pages: 120–123
+    year: 1970
+    doi: 10.1038/scientificamerican1070-120
