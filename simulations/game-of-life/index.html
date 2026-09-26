@@ -9,6 +9,10 @@
 
     
 <!-- KaTeX -->
+
+<script type="application/json" id="page-symbols">{"L":"Side length of the $L \\times L$ toroidal lattice, in sites.","n":"Number of live neighbors of a site, out of $8$.","p":"Fill probability: chance each site starts alive."}</script>
+
+<script defer src="https://eliseuv.github.io/js/symbols.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.27/dist/katex.min.css"
     integrity="sha384-Pu5+C18nP5dwykLJOhd2U4Xen7rjScHN/qusop27hdd2drI+lL5KvX7YntvT8yew" crossorigin="anonymous">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.27/dist/katex.min.js"
@@ -16,7 +20,7 @@
     crossorigin="anonymous"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.27/dist/contrib/auto-render.min.js"
     integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous" onload="
-        renderMathInElement(document.body,
+        renderMathInElement(document.body, PageSymbols.katexOptions(
             {
                 delimiters: [
                     {left: '$$', right: '$$', display: true},
@@ -24,8 +28,9 @@
                     {left: '\\(', right: '\\)', display: false},
                     {left: '\\[', right: '\\]', display: true}
                 ]
-            });
+            }));
     "></script>
+
 
 
 </head>
@@ -62,8 +67,8 @@
     <hr>
 
     <div class="post-content">
-        <p>Conway’s Game of Life is a zero-player cellular automaton: a grid of cells, each either <strong>alive</strong> or <strong>dead</strong>, that evolves in discrete steps according to a fixed rule applied to every cell in parallel. There is no player input during a run: the initial configuration alone determines everything that follows.</p>
-<p>At each step, every cell looks at its $8$ neighbors (Moore neighborhood) and, writing $n$ for the number of live neighbors, updates according to four rules:</p>
+        <p>Conway’s Game of Life is a zero-player cellular automaton: a lattice of sites, each either <strong>alive</strong> or <strong>dead</strong>, that evolves in discrete steps according to a fixed rule applied to every site in parallel. There is no player input during a run: the initial configuration alone determines everything that follows.</p>
+<p>At each step, every site looks at its $8$ neighbors (Moore neighborhood) and, writing $n$ for the number of live neighbors, updates according to four rules:</p>
 <div class="gol-rules" style="display:flex; flex-wrap:wrap; justify-content:center; gap:1.5rem; margin:1.5rem 0; font-family:'JetBrains Mono','Fira Code',monospace;">
     <div style="width:150px; text-align:center;">
         <svg width="60" height="60" viewBox="0 0 60 60">
@@ -130,28 +135,24 @@
         <p style="margin:0.2rem 0 0; font-size:0.85rem; color:#888;">$n = 3$ &rarr; becomes alive</p>
     </div>
 </div>
-<p style="font-size:0.85rem; color:#888;">Gray cells are alive, black cells are dead; the highlighted cell is the one being updated, ringed <span style="color:#7aa2f7;">blue</span> if it is alive after the step or <span style="color:#ff0055;">magenta</span> if it is dead.</p>
-<p>This simulation runs on a $128 \times 128$ <strong>toroidal</strong> lattice: the edges wrap around, so a glider leaving the right side reappears on the left.</p>
-<div class="gol-wrap" style="display:flex; flex-wrap:wrap; gap:1.5rem; align-items:flex-start; font-family:'JetBrains Mono','Fira Code',monospace; color:#aaaaaa;">
-    <div style="border:1px solid #333; background:#000; overflow:auto;">
-        <canvas id="game-of-life-canvas" oncontextmenu="return false;"></canvas>
+<p style="font-size:0.85rem; color:#888;">Gray sites are alive, black sites are dead; the highlighted site is the one being updated, ringed <span style="color:#7aa2f7;">blue</span> if it is alive after the step or <span style="color:#ff0055;">magenta</span> if it is dead.</p>
+<p>This simulation runs on an $L \times L$ <strong>toroidal</strong> lattice with $L = 128$: the edges wrap around, so a glider leaving the right side reappears on the left.</p>
+<div class="gol-wrap" style="display:flex; flex-direction:column; gap:0.8rem; font-family:'JetBrains Mono','Fira Code',monospace; color:#aaaaaa; font-size:0.9rem; line-height:1.3;">
+    <div style="display:flex; flex-wrap:wrap; gap:0.5rem; align-items:center;">
+        <button id="gol-play-pause" style="background:#111; color:#aaaaaa; border:1px solid #333; padding:0.3rem 0.9rem; font-family:inherit; font-size:1.1rem; cursor:pointer;">&#9654;</button>
+        <button id="gol-randomize" style="background:#111; color:#aaaaaa; border:1px solid #333; padding:0.3rem 0.8rem; font-family:inherit; cursor:pointer;">Randomize</button>
+        <button id="gol-clear" style="background:#111; color:#aaaaaa; border:1px solid #333; padding:0.3rem 0.8rem; font-family:inherit; cursor:pointer;">Clear</button>
+        <span style="color:#666; margin-left:auto;">P start/stop &middot; C clear &middot; R randomize</span>
     </div>
-    <div class="gol-controls" style="width:220px;">
-        <button id="gol-play-pause" style="background:#111; color:#aaaaaa; border:1px solid #333; padding:0.5rem 1rem; font-family:inherit; font-size:1.2rem; cursor:pointer;">&#9654;</button>
-        <p>Fill probability: <output id="gol-p-value">0.37</output></p>
-        <input type="range" id="gol-p-slider" min="0" max="1" step="0.01" value="0.37" style="width:100%;">
-        <p>
-            <button id="gol-randomize" style="background:#111; color:#aaaaaa; border:1px solid #333; padding:0.3rem 0.8rem; font-family:inherit; cursor:pointer;">Randomize</button>
-            <button id="gol-clear" style="background:#111; color:#aaaaaa; border:1px solid #333; padding:0.3rem 0.8rem; font-family:inherit; cursor:pointer;">Clear</button>
-        </p>
-        <ul style="color:#888; font-size:0.9rem; padding-left:1.2rem;">
-            <li>P &rarr; start/stop dynamics</li>
-            <li>C &rarr; clear lattice</li>
-            <li>R &rarr; randomize</li>
-            <li>Click &rarr; toggle cell</li>
-            <li>Ctrl+Click &rarr; stamp glider</li>
-            <li>Shift+Click &rarr; pulsar</li>
-        </ul>
+    <div class="gol-controls" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(170px, 1fr)); gap:0.4rem 1.2rem;">
+        <div>
+            <p style="margin:0 0 0.2rem;">Fill <span data-sym="p" tabindex="0">p</span> = <output id="gol-p-value">0.37</output></p>
+            <input type="range" id="gol-p-slider" min="0" max="1" step="0.01" value="0.37" style="width:100%;">
+        </div>
+    </div>
+    <p style="color:#666; margin:0;">Click toggle site &middot; Ctrl+Click stamp glider &middot; Shift+Click stamp pulsar</p>
+    <div style="border:1px solid #333; background:#000; overflow:auto; max-width:100%; align-self:center;">
+        <canvas id="game-of-life-canvas" oncontextmenu="return false;"></canvas>
     </div>
 </div>
 <script type="module">
@@ -167,8 +168,9 @@
             const universe = Universe.new(nrows, ncols);
 
             // Canvas is drawn at 1px/site, then CSS-scaled to a fixed
-            // on-screen size with `image-rendering: pixelated`.
-            const DISPLAY_SIZE = 512;
+            // on-screen size with `image-rendering: pixelated`. 640 is an
+            // integer multiple of the lattice size, so every site is 5px wide.
+            const DISPLAY_SIZE = 640;
 
             const canvas = document.getElementById("game-of-life-canvas");
             const ctx = setUpGridCanvas(canvas, DISPLAY_SIZE);

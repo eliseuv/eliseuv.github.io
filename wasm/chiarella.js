@@ -1,105 +1,139 @@
 /**
- * wasm-bindgen binding around `artificial_systems`' ferromagnetic Ising
- * model (`J = 1`, no field) on a periodic square lattice, sampled by
- * random sequential Metropolis dynamics.
+ * wasm-bindgen binding around `quant::chiarella`,
+ * wiring its RNG closure to `js_sys::Math::random`.
  */
-export class IsingModel {
+export class ChiarellaSimulation {
     static __wrap(ptr) {
         ptr = ptr >>> 0;
-        const obj = Object.create(IsingModel.prototype);
+        const obj = Object.create(ChiarellaSimulation.prototype);
         obj.__wbg_ptr = ptr;
-        IsingModelFinalization.register(obj, obj.__wbg_ptr, obj);
+        ChiarellaSimulationFinalization.register(obj, obj.__wbg_ptr, obj);
         return obj;
     }
     __destroy_into_raw() {
         const ptr = this.__wbg_ptr;
         this.__wbg_ptr = 0;
-        IsingModelFinalization.unregister(this);
+        ChiarellaSimulationFinalization.unregister(this);
         return ptr;
     }
     free() {
         const ptr = this.__destroy_into_raw();
-        wasm.__wbg_isingmodel_free(ptr, 0);
+        wasm.__wbg_chiarellasimulation_free(ptr, 0);
     }
     /**
-     * Mean bond energy per site (`J = 1`, no external field).
+     * Run `n_steps` Euler–Maruyama steps.
+     * @param {number} n_steps
+     */
+    advance(n_steps) {
+        wasm.chiarellasimulation_advance(this.__wbg_ptr, n_steps);
+    }
+    /**
      * @returns {number}
      */
-    energy() {
-        const ret = wasm.isingmodel_energy(this.__wbg_ptr);
+    fundamental() {
+        const ret = wasm.chiarellasimulation_fundamental(this.__wbg_ptr);
         return ret;
     }
     /**
-     * Mean spin per site, in `[-1, 1]`.
+     * @returns {boolean}
+     */
+    is_oscillatory() {
+        const ret = wasm.chiarellasimulation_is_oscillatory(this.__wbg_ptr);
+        return ret !== 0;
+    }
+    /**
      * @returns {number}
      */
-    magnetization() {
-        const ret = wasm.isingmodel_magnetization(this.__wbg_ptr);
+    mispricing() {
+        const ret = wasm.chiarellasimulation_mispricing(this.__wbg_ptr);
         return ret;
     }
     /**
-     * @returns {number}
+     * New simulation at `p = V = M = 0`.
+     * @param {number} kappa
+     * @param {number} beta
+     * @param {number} gamma
+     * @param {number} alpha
+     * @param {number} sigma_noise
+     * @param {number} sigma_fundamental
+     * @param {number} drift
+     * @param {number} dt
+     * @returns {ChiarellaSimulation}
      */
-    ncols() {
-        const ret = wasm.isingmodel_ncols(this.__wbg_ptr);
-        return ret >>> 0;
-    }
-    /**
-     * New model on an `nrows` x `ncols` lattice at the given temperature,
-     * starting from a random (infinite-temperature) configuration.
-     * @param {number} nrows
-     * @param {number} ncols
-     * @param {number} temperature
-     * @returns {IsingModel}
-     */
-    static new(nrows, ncols, temperature) {
-        const ret = wasm.isingmodel_new(nrows, ncols, temperature);
-        return IsingModel.__wrap(ret);
+    static new(kappa, beta, gamma, alpha, sigma_noise, sigma_fundamental, drift, dt) {
+        const ret = wasm.chiarellasimulation_new(kappa, beta, gamma, alpha, sigma_noise, sigma_fundamental, drift, dt);
+        return ChiarellaSimulation.__wrap(ret);
     }
     /**
      * @returns {number}
      */
-    nrows() {
-        const ret = wasm.isingmodel_nrows(this.__wbg_ptr);
-        return ret >>> 0;
+    price() {
+        const ret = wasm.chiarellasimulation_price(this.__wbg_ptr);
+        return ret;
     }
     /**
-     * Reset to a random (infinite-temperature) configuration.
+     * Reset to `p = V = M = 0`, keeping parameters.
      */
-    randomize() {
-        wasm.isingmodel_randomize(this.__wbg_ptr);
+    reset() {
+        wasm.chiarellasimulation_reset(this.__wbg_ptr);
     }
     /**
-     * @param {number} temperature
+     * @param {number} alpha
      */
-    set_temperature(temperature) {
-        wasm.isingmodel_set_temperature(this.__wbg_ptr, temperature);
+    set_alpha(alpha) {
+        wasm.chiarellasimulation_set_alpha(this.__wbg_ptr, alpha);
     }
     /**
-     * Pointer to the spin buffer in WASM linear memory, row-major, one
-     * `i8` (`+1`/`-1`) per site.
+     * @param {number} beta
+     */
+    set_beta(beta) {
+        wasm.chiarellasimulation_set_beta(this.__wbg_ptr, beta);
+    }
+    /**
+     * @param {number} drift
+     */
+    set_drift(drift) {
+        wasm.chiarellasimulation_set_drift(this.__wbg_ptr, drift);
+    }
+    /**
+     * @param {number} dt
+     */
+    set_dt(dt) {
+        wasm.chiarellasimulation_set_dt(this.__wbg_ptr, dt);
+    }
+    /**
+     * @param {number} gamma
+     */
+    set_gamma(gamma) {
+        wasm.chiarellasimulation_set_gamma(this.__wbg_ptr, gamma);
+    }
+    /**
+     * @param {number} kappa
+     */
+    set_kappa(kappa) {
+        wasm.chiarellasimulation_set_kappa(this.__wbg_ptr, kappa);
+    }
+    /**
+     * @param {number} sigma_fundamental
+     */
+    set_sigma_fundamental(sigma_fundamental) {
+        wasm.chiarellasimulation_set_sigma_fundamental(this.__wbg_ptr, sigma_fundamental);
+    }
+    /**
+     * @param {number} sigma_noise
+     */
+    set_sigma_noise(sigma_noise) {
+        wasm.chiarellasimulation_set_sigma_noise(this.__wbg_ptr, sigma_noise);
+    }
+    /**
      * @returns {number}
      */
-    spins() {
-        const ret = wasm.isingmodel_spins(this.__wbg_ptr);
-        return ret >>> 0;
-    }
-    /**
-     * One Metropolis sweep: `nrows * ncols` single-spin-flip attempts on
-     * randomly chosen sites.
-     */
-    step() {
-        wasm.isingmodel_step(this.__wbg_ptr);
-    }
-    /**
-     * @returns {number}
-     */
-    temperature() {
-        const ret = wasm.isingmodel_temperature(this.__wbg_ptr);
+    trend() {
+        const ret = wasm.chiarellasimulation_trend(this.__wbg_ptr);
         return ret;
     }
 }
-if (Symbol.dispose) IsingModel.prototype[Symbol.dispose] = IsingModel.prototype.free;
+if (Symbol.dispose) ChiarellaSimulation.prototype[Symbol.dispose] = ChiarellaSimulation.prototype.free;
 
 function __wbg_get_imports() {
     const import0 = {
@@ -118,11 +152,12 @@ function __wbg_get_imports() {
                 wasm.__wbindgen_free(deferred0_0, deferred0_1, 1);
             }
         },
-        __wbg_getRandomValues_cc7f052a444bb2ce: function() { return handleError(function (arg0, arg1) {
-            globalThis.crypto.getRandomValues(getArrayU8FromWasm0(arg0, arg1));
-        }, arguments); },
         __wbg_new_227d7c05414eb861: function() {
             const ret = new Error();
+            return ret;
+        },
+        __wbg_random_5bb86cae65a45bf6: function() {
+            const ret = Math.random();
             return ret;
         },
         __wbg_stack_3b0d974bbf31e44f: function(arg0, arg1) {
@@ -144,24 +179,13 @@ function __wbg_get_imports() {
     };
     return {
         __proto__: null,
-        "./ising_2d_bg.js": import0,
+        "./chiarella_bg.js": import0,
     };
 }
 
-const IsingModelFinalization = (typeof FinalizationRegistry === 'undefined')
+const ChiarellaSimulationFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
-    : new FinalizationRegistry(ptr => wasm.__wbg_isingmodel_free(ptr >>> 0, 1));
-
-function addToExternrefTable0(obj) {
-    const idx = wasm.__externref_table_alloc();
-    wasm.__wbindgen_externrefs.set(idx, obj);
-    return idx;
-}
-
-function getArrayU8FromWasm0(ptr, len) {
-    ptr = ptr >>> 0;
-    return getUint8ArrayMemory0().subarray(ptr / 1, ptr / 1 + len);
-}
+    : new FinalizationRegistry(ptr => wasm.__wbg_chiarellasimulation_free(ptr >>> 0, 1));
 
 let cachedDataViewMemory0 = null;
 function getDataViewMemory0() {
@@ -182,15 +206,6 @@ function getUint8ArrayMemory0() {
         cachedUint8ArrayMemory0 = new Uint8Array(wasm.memory.buffer);
     }
     return cachedUint8ArrayMemory0;
-}
-
-function handleError(f, args) {
-    try {
-        return f.apply(this, args);
-    } catch (e) {
-        const idx = addToExternrefTable0(e);
-        wasm.__wbindgen_exn_store(idx);
-    }
 }
 
 function passStringToWasm0(arg, malloc, realloc) {
@@ -337,7 +352,7 @@ async function __wbg_init(module_or_path) {
     }
 
     if (module_or_path === undefined) {
-        module_or_path = new URL('ising_2d_bg.wasm', import.meta.url);
+        module_or_path = new URL('chiarella_bg.wasm', import.meta.url);
     }
     const imports = __wbg_get_imports();
 

@@ -14,6 +14,10 @@
         <loc>https://eliseuv.github.io/simulations/</loc>
     </url>
     <url>
+        <loc>https://eliseuv.github.io/simulations/chiarella/</loc>
+        <lastmod>2026-09-25</lastmod>
+    </url>
+    <url>
         <loc>https://eliseuv.github.io/simulations/contact-process/</loc>
         <lastmod>2026-09-13</lastmod>
     </url>
@@ -26,7 +30,11 @@
         <lastmod>2026-09-13</lastmod>
     </url>
     <url>
-        <loc>https://eliseuv.github.io/simulations/test-webgpu/</loc>
-        <lastmod>2026-01-06</lastmod>
+        <loc>https://eliseuv.github.io/simulations/spectral-criticality/</loc>
+        <lastmod>2026-09-26</lastmod>
+    </url>
+    <url>
+        <loc>https://eliseuv.github.io/simulations/tsp-annealing/</loc>
+        <lastmod>2026-09-25</lastmod>
     </url>
 </urlset>

@@ -1,105 +1,209 @@
 /**
- * wasm-bindgen binding around `artificial_systems`' ferromagnetic Ising
- * model (`J = 1`, no field) on a periodic square lattice, sampled by
- * random sequential Metropolis dynamics.
+ * wasm-bindgen binding around `annealing::tsp`, wiring its
+ * RNG closure to `js_sys::Math::random`.
  */
-export class IsingModel {
+export class TspSimulation {
     static __wrap(ptr) {
         ptr = ptr >>> 0;
-        const obj = Object.create(IsingModel.prototype);
+        const obj = Object.create(TspSimulation.prototype);
         obj.__wbg_ptr = ptr;
-        IsingModelFinalization.register(obj, obj.__wbg_ptr, obj);
+        TspSimulationFinalization.register(obj, obj.__wbg_ptr, obj);
         return obj;
     }
     __destroy_into_raw() {
         const ptr = this.__wbg_ptr;
         this.__wbg_ptr = 0;
-        IsingModelFinalization.unregister(this);
+        TspSimulationFinalization.unregister(this);
         return ptr;
     }
     free() {
         const ptr = this.__destroy_into_raw();
-        wasm.__wbg_isingmodel_free(ptr, 0);
+        wasm.__wbg_tspsimulation_free(ptr, 0);
     }
     /**
-     * Mean bond energy per site (`J = 1`, no external field).
-     * @returns {number}
+     * Run `n_moves` Metropolis iterations.
+     * @param {number} n_moves
      */
-    energy() {
-        const ret = wasm.isingmodel_energy(this.__wbg_ptr);
-        return ret;
+    advance(n_moves) {
+        wasm.tspsimulation_advance(this.__wbg_ptr, n_moves);
     }
     /**
-     * Mean spin per site, in `[-1, 1]`.
-     * @returns {number}
+     * Restart from a random cycle at `T₀` on the same cities.
      */
-    magnetization() {
-        const ret = wasm.isingmodel_magnetization(this.__wbg_ptr);
-        return ret;
+    anneal() {
+        wasm.tspsimulation_anneal(this.__wbg_ptr);
     }
     /**
      * @returns {number}
      */
-    ncols() {
-        const ret = wasm.isingmodel_ncols(this.__wbg_ptr);
+    annealing_step() {
+        const ret = wasm.tspsimulation_annealing_step(this.__wbg_ptr);
         return ret >>> 0;
     }
     /**
-     * New model on an `nrows` x `ncols` lattice at the given temperature,
-     * starting from a random (infinite-temperature) configuration.
-     * @param {number} nrows
-     * @param {number} ncols
+     * @returns {number}
+     */
+    best_cost() {
+        const ret = wasm.tspsimulation_best_cost(this.__wbg_ptr);
+        return ret;
+    }
+    /**
+     * @returns {number}
+     */
+    city_count() {
+        const ret = wasm.tspsimulation_city_count(this.__wbg_ptr);
+        return ret >>> 0;
+    }
+    /**
+     * @returns {number}
+     */
+    cost() {
+        const ret = wasm.tspsimulation_cost(this.__wbg_ptr);
+        return ret;
+    }
+    /**
+     * @returns {number}
+     */
+    expected_random_cost() {
+        const ret = wasm.tspsimulation_expected_random_cost(this.__wbg_ptr);
+        return ret;
+    }
+    /**
+     * @returns {boolean}
+     */
+    is_frozen() {
+        const ret = wasm.tspsimulation_is_frozen(this.__wbg_ptr);
+        return ret !== 0;
+    }
+    /**
+     * `n` cities from `domain` (see `randomize`), annealed from a random
+     * cycle at `initial_temperature`.
+     * @param {number} n
+     * @param {string} domain
+     * @param {number} rho
+     * @param {number} gamma
+     * @param {number} x0
+     * @param {string} move_kind
+     * @param {number} initial_temperature
+     * @param {number} final_temperature
+     * @param {number} alpha
+     * @param {number} iterations_per_step
+     * @returns {TspSimulation}
+     */
+    static new(n, domain, rho, gamma, x0, move_kind, initial_temperature, final_temperature, alpha, iterations_per_step) {
+        const ptr0 = passStringToWasm0(domain, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        const len0 = WASM_VECTOR_LEN;
+        const ptr1 = passStringToWasm0(move_kind, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        const len1 = WASM_VECTOR_LEN;
+        const ret = wasm.tspsimulation_new(n, ptr0, len0, rho, gamma, x0, ptr1, len1, initial_temperature, final_temperature, alpha, iterations_per_step);
+        return TspSimulation.__wrap(ret);
+    }
+    /**
+     * @returns {Float64Array}
+     */
+    points_x() {
+        const ret = wasm.tspsimulation_points_x(this.__wbg_ptr);
+        var v1 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
+        wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
+        return v1;
+    }
+    /**
+     * @returns {Float64Array}
+     */
+    points_y() {
+        const ret = wasm.tspsimulation_points_y(this.__wbg_ptr);
+        var v1 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
+        wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
+        return v1;
+    }
+    /**
+     * New cities, then `anneal`. `domain` is one of `"uniform"`,
+     * `"correlated-uniform"`, `"correlated-normal"` (using `rho`) or
+     * `"power-law"` (using `gamma` and `x0`).
+     * @param {number} n
+     * @param {string} domain
+     * @param {number} rho
+     * @param {number} gamma
+     * @param {number} x0
+     */
+    randomize(n, domain, rho, gamma, x0) {
+        const ptr0 = passStringToWasm0(domain, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        const len0 = WASM_VECTOR_LEN;
+        wasm.tspsimulation_randomize(this.__wbg_ptr, n, ptr0, len0, rho, gamma, x0);
+    }
+    /**
+     * @param {number} alpha
+     */
+    set_alpha(alpha) {
+        wasm.tspsimulation_set_alpha(this.__wbg_ptr, alpha);
+    }
+    /**
      * @param {number} temperature
-     * @returns {IsingModel}
      */
-    static new(nrows, ncols, temperature) {
-        const ret = wasm.isingmodel_new(nrows, ncols, temperature);
-        return IsingModel.__wrap(ret);
+    set_final_temperature(temperature) {
+        wasm.tspsimulation_set_final_temperature(this.__wbg_ptr, temperature);
     }
     /**
-     * @returns {number}
+     * @param {boolean} hold
      */
-    nrows() {
-        const ret = wasm.isingmodel_nrows(this.__wbg_ptr);
-        return ret >>> 0;
+    set_hold(hold) {
+        wasm.tspsimulation_set_hold(this.__wbg_ptr, hold);
     }
     /**
-     * Reset to a random (infinite-temperature) configuration.
+     * @param {number} temperature
      */
-    randomize() {
-        wasm.isingmodel_randomize(this.__wbg_ptr);
+    set_initial_temperature(temperature) {
+        wasm.tspsimulation_set_initial_temperature(this.__wbg_ptr, temperature);
     }
     /**
+     * @param {number} iterations
+     */
+    set_iterations_per_step(iterations) {
+        wasm.tspsimulation_set_iterations_per_step(this.__wbg_ptr, iterations);
+    }
+    /**
+     * `"swap"` or `"2-opt"`.
+     * @param {string} move_kind
+     */
+    set_move(move_kind) {
+        const ptr0 = passStringToWasm0(move_kind, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        const len0 = WASM_VECTOR_LEN;
+        wasm.tspsimulation_set_move(this.__wbg_ptr, ptr0, len0);
+    }
+    /**
+     * Manual override of the current temperature.
      * @param {number} temperature
      */
     set_temperature(temperature) {
-        wasm.isingmodel_set_temperature(this.__wbg_ptr, temperature);
+        wasm.tspsimulation_set_temperature(this.__wbg_ptr, temperature);
     }
     /**
-     * Pointer to the spin buffer in WASM linear memory, row-major, one
-     * `i8` (`+1`/`-1`) per site.
+     * Fraction of moves accepted since the previous call.
      * @returns {number}
      */
-    spins() {
-        const ret = wasm.isingmodel_spins(this.__wbg_ptr);
-        return ret >>> 0;
-    }
-    /**
-     * One Metropolis sweep: `nrows * ncols` single-spin-flip attempts on
-     * randomly chosen sites.
-     */
-    step() {
-        wasm.isingmodel_step(this.__wbg_ptr);
+    take_acceptance_rate() {
+        const ret = wasm.tspsimulation_take_acceptance_rate(this.__wbg_ptr);
+        return ret;
     }
     /**
      * @returns {number}
      */
     temperature() {
-        const ret = wasm.isingmodel_temperature(this.__wbg_ptr);
+        const ret = wasm.tspsimulation_temperature(this.__wbg_ptr);
         return ret;
     }
+    /**
+     * City indices in visiting order.
+     * @returns {Uint32Array}
+     */
+    tour() {
+        const ret = wasm.tspsimulation_tour(this.__wbg_ptr);
+        var v1 = getArrayU32FromWasm0(ret[0], ret[1]).slice();
+        wasm.__wbindgen_free(ret[0], ret[1] * 4, 4);
+        return v1;
+    }
 }
-if (Symbol.dispose) IsingModel.prototype[Symbol.dispose] = IsingModel.prototype.free;
+if (Symbol.dispose) TspSimulation.prototype[Symbol.dispose] = TspSimulation.prototype.free;
 
 function __wbg_get_imports() {
     const import0 = {
@@ -118,11 +222,12 @@ function __wbg_get_imports() {
                 wasm.__wbindgen_free(deferred0_0, deferred0_1, 1);
             }
         },
-        __wbg_getRandomValues_cc7f052a444bb2ce: function() { return handleError(function (arg0, arg1) {
-            globalThis.crypto.getRandomValues(getArrayU8FromWasm0(arg0, arg1));
-        }, arguments); },
         __wbg_new_227d7c05414eb861: function() {
             const ret = new Error();
+            return ret;
+        },
+        __wbg_random_5bb86cae65a45bf6: function() {
+            const ret = Math.random();
             return ret;
         },
         __wbg_stack_3b0d974bbf31e44f: function(arg0, arg1) {
@@ -144,23 +249,22 @@ function __wbg_get_imports() {
     };
     return {
         __proto__: null,
-        "./ising_2d_bg.js": import0,
+        "./tsp_annealing_bg.js": import0,
     };
 }
 
-const IsingModelFinalization = (typeof FinalizationRegistry === 'undefined')
+const TspSimulationFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
-    : new FinalizationRegistry(ptr => wasm.__wbg_isingmodel_free(ptr >>> 0, 1));
+    : new FinalizationRegistry(ptr => wasm.__wbg_tspsimulation_free(ptr >>> 0, 1));
 
-function addToExternrefTable0(obj) {
-    const idx = wasm.__externref_table_alloc();
-    wasm.__wbindgen_externrefs.set(idx, obj);
-    return idx;
+function getArrayF64FromWasm0(ptr, len) {
+    ptr = ptr >>> 0;
+    return getFloat64ArrayMemory0().subarray(ptr / 8, ptr / 8 + len);
 }
 
-function getArrayU8FromWasm0(ptr, len) {
+function getArrayU32FromWasm0(ptr, len) {
     ptr = ptr >>> 0;
-    return getUint8ArrayMemory0().subarray(ptr / 1, ptr / 1 + len);
+    return getUint32ArrayMemory0().subarray(ptr / 4, ptr / 4 + len);
 }
 
 let cachedDataViewMemory0 = null;
@@ -171,9 +275,25 @@ function getDataViewMemory0() {
     return cachedDataViewMemory0;
 }
 
+let cachedFloat64ArrayMemory0 = null;
+function getFloat64ArrayMemory0() {
+    if (cachedFloat64ArrayMemory0 === null || cachedFloat64ArrayMemory0.byteLength === 0) {
+        cachedFloat64ArrayMemory0 = new Float64Array(wasm.memory.buffer);
+    }
+    return cachedFloat64ArrayMemory0;
+}
+
 function getStringFromWasm0(ptr, len) {
     ptr = ptr >>> 0;
     return decodeText(ptr, len);
+}
+
+let cachedUint32ArrayMemory0 = null;
+function getUint32ArrayMemory0() {
+    if (cachedUint32ArrayMemory0 === null || cachedUint32ArrayMemory0.byteLength === 0) {
+        cachedUint32ArrayMemory0 = new Uint32Array(wasm.memory.buffer);
+    }
+    return cachedUint32ArrayMemory0;
 }
 
 let cachedUint8ArrayMemory0 = null;
@@ -182,15 +302,6 @@ function getUint8ArrayMemory0() {
         cachedUint8ArrayMemory0 = new Uint8Array(wasm.memory.buffer);
     }
     return cachedUint8ArrayMemory0;
-}
-
-function handleError(f, args) {
-    try {
-        return f.apply(this, args);
-    } catch (e) {
-        const idx = addToExternrefTable0(e);
-        wasm.__wbindgen_exn_store(idx);
-    }
 }
 
 function passStringToWasm0(arg, malloc, realloc) {
@@ -264,6 +375,8 @@ function __wbg_finalize_init(instance, module) {
     wasm = instance.exports;
     wasmModule = module;
     cachedDataViewMemory0 = null;
+    cachedFloat64ArrayMemory0 = null;
+    cachedUint32ArrayMemory0 = null;
     cachedUint8ArrayMemory0 = null;
     wasm.__wbindgen_start();
     return wasm;
@@ -337,7 +450,7 @@ async function __wbg_init(module_or_path) {
     }
 
     if (module_or_path === undefined) {
-        module_or_path = new URL('ising_2d_bg.wasm', import.meta.url);
+        module_or_path = new URL('tsp_annealing_bg.wasm', import.meta.url);
     }
     const imports = __wbg_get_imports();
 

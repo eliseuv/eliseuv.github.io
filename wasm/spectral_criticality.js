@@ -1,109 +1,265 @@
 /**
- * wasm-bindgen binding around `artificial_systems`' ferromagnetic Ising
- * model (`J = 1`, no field) on a periodic square lattice, sampled by
- * random sequential Metropolis dynamics.
+ * Time series matrices of one source at one parameter point, generated run after run, with
+ * the spectra of their correlation matrices accumulated.
+ *
+ * The time series matrix is the run in progress; the correlation matrix and its eigenvalues
+ * are those of the last completed run.
  */
-export class IsingModel {
+export class SpectralLab {
     static __wrap(ptr) {
         ptr = ptr >>> 0;
-        const obj = Object.create(IsingModel.prototype);
+        const obj = Object.create(SpectralLab.prototype);
         obj.__wbg_ptr = ptr;
-        IsingModelFinalization.register(obj, obj.__wbg_ptr, obj);
+        SpectralLabFinalization.register(obj, obj.__wbg_ptr, obj);
         return obj;
     }
     __destroy_into_raw() {
         const ptr = this.__wbg_ptr;
         this.__wbg_ptr = 0;
-        IsingModelFinalization.unregister(this);
+        SpectralLabFinalization.unregister(this);
         return ptr;
     }
     free() {
         const ptr = this.__destroy_into_raw();
-        wasm.__wbg_isingmodel_free(ptr, 0);
+        wasm.__wbg_spectrallab_free(ptr, 0);
     }
     /**
-     * Mean bond energy per site (`J = 1`, no external field).
+     * Eigenvalues of every completed run, pointer to `n_matrices() * n_samples()` `f64`.
      * @returns {number}
      */
-    energy() {
-        const ret = wasm.isingmodel_energy(this.__wbg_ptr);
-        return ret;
-    }
-    /**
-     * Mean spin per site, in `[-1, 1]`.
-     * @returns {number}
-     */
-    magnetization() {
-        const ret = wasm.isingmodel_magnetization(this.__wbg_ptr);
-        return ret;
-    }
-    /**
-     * @returns {number}
-     */
-    ncols() {
-        const ret = wasm.isingmodel_ncols(this.__wbg_ptr);
+    accumulated_eigenvalues() {
+        const ret = wasm.spectrallab_accumulated_eigenvalues(this.__wbg_ptr);
         return ret >>> 0;
     }
     /**
-     * New model on an `nrows` x `ncols` lattice at the given temperature,
-     * starting from a random (infinite-temperature) configuration.
-     * @param {number} nrows
-     * @param {number} ncols
-     * @param {number} temperature
-     * @returns {IsingModel}
-     */
-    static new(nrows, ncols, temperature) {
-        const ret = wasm.isingmodel_new(nrows, ncols, temperature);
-        return IsingModel.__wrap(ret);
-    }
-    /**
+     * Advance by `steps` time steps, completing and analysing runs (and starting new ones) as
+     * needed. Returns the number of runs completed.
+     * @param {number} steps
      * @returns {number}
      */
-    nrows() {
-        const ret = wasm.isingmodel_nrows(this.__wbg_ptr);
+    advance(steps) {
+        const ret = wasm.spectrallab_advance(this.__wbg_ptr, steps);
         return ret >>> 0;
     }
     /**
-     * Reset to a random (infinite-temperature) configuration.
+     * Density series of the one-dimensional contact process with infection rate `alpha` and
+     * diffusion probability `gamma`, from fully active chains.
+     * @param {number} alpha
+     * @param {number} gamma
+     * @returns {SpectralLab}
      */
-    randomize() {
-        wasm.isingmodel_randomize(this.__wbg_ptr);
+    static contact_process(alpha, gamma) {
+        const ret = wasm.spectrallab_contact_process(alpha, gamma);
+        return SpectralLab.__wrap(ret);
     }
     /**
-     * @param {number} temperature
+     * Gaussian series whose consecutive pairs have correlation `rho`.
+     * @param {number} rho
+     * @returns {SpectralLab}
      */
-    set_temperature(temperature) {
-        wasm.isingmodel_set_temperature(this.__wbg_ptr, temperature);
+    static correlated_pairs(rho) {
+        const ret = wasm.spectrallab_correlated_pairs(rho);
+        return SpectralLab.__wrap(ret);
     }
     /**
-     * Pointer to the spin buffer in WASM linear memory, row-major, one
-     * `i8` (`+1`/`-1`) per site.
+     * Counts of the off-diagonal correlations of every completed run over
+     * [`reference::N_BINS`] equal bins of `[-1, 1]`.
+     * @returns {Float64Array}
+     */
+    correlation_counts() {
+        const ret = wasm.spectrallab_correlation_counts(this.__wbg_ptr);
+        var v1 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
+        wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
+        return v1;
+    }
+    /**
+     * Correlation matrix of the last completed run, `n_samples × n_samples` row-major `f64`.
      * @returns {number}
      */
-    spins() {
-        const ret = wasm.isingmodel_spins(this.__wbg_ptr);
+    correlations() {
+        const ret = wasm.spectrallab_correlations(this.__wbg_ptr);
         return ret >>> 0;
     }
     /**
-     * One Metropolis sweep: `nrows * ncols` single-spin-flip attempts on
-     * randomly chosen sites.
-     */
-    step() {
-        wasm.isingmodel_step(this.__wbg_ptr);
-    }
-    /**
      * @returns {number}
      */
-    temperature() {
-        const ret = wasm.isingmodel_temperature(this.__wbg_ptr);
+    eigenvalue_variance() {
+        const ret = wasm.spectrallab_eigenvalue_variance(this.__wbg_ptr);
         return ret;
+    }
+    /**
+     * Eigenvalues (ascending) of the last completed run; empty before the first one.
+     * @returns {Float64Array}
+     */
+    eigenvalues() {
+        const ret = wasm.spectrallab_eigenvalues(this.__wbg_ptr);
+        var v1 = getArrayF64FromWasm0(ret[0], ret[1]).slice();
+        wasm.__wbindgen_free(ret[0], ret[1] * 8, 8);
+        return v1;
+    }
+    /**
+     * Magnetization series of the square lattice Ising model at `t_over_tc` times the Onsager
+     * temperature, from random configurations.
+     * @param {number} t_over_tc
+     * @returns {SpectralLab}
+     */
+    static ising(t_over_tc) {
+        const ret = wasm.spectrallab_ising(t_over_tc);
+        return SpectralLab.__wrap(ret);
+    }
+    /**
+     * Lattice columns (`0` for sources without a lattice).
+     * @returns {number}
+     */
+    lattice_cols() {
+        const ret = wasm.spectrallab_lattice_cols(this.__wbg_ptr);
+        return ret >>> 0;
+    }
+    /**
+     * Lattice rows (`0` for sources without a lattice).
+     * @returns {number}
+     */
+    lattice_rows() {
+        const ret = wasm.spectrallab_lattice_rows(this.__wbg_ptr);
+        return ret >>> 0;
+    }
+    /**
+     * @returns {number}
+     */
+    max_eigenvalue_mean() {
+        const ret = wasm.spectrallab_max_eigenvalue_mean(this.__wbg_ptr);
+        return ret;
+    }
+    /**
+     * @returns {number}
+     */
+    max_eigenvalue_variance() {
+        const ret = wasm.spectrallab_max_eigenvalue_variance(this.__wbg_ptr);
+        return ret;
+    }
+    /**
+     * Completed runs, i.e. correlation matrices accumulated.
+     * @returns {bigint}
+     */
+    n_matrices() {
+        const ret = wasm.spectrallab_n_matrices(this.__wbg_ptr);
+        return BigInt.asUintN(64, ret);
+    }
+    /**
+     * @returns {number}
+     */
+    n_samples() {
+        const ret = wasm.spectrallab_n_samples(this.__wbg_ptr);
+        return ret >>> 0;
+    }
+    /**
+     * Measurements per series after the initial one.
+     * @returns {number}
+     */
+    n_steps() {
+        const ret = wasm.spectrallab_n_steps(this.__wbg_ptr);
+        return ret >>> 0;
+    }
+    /**
+     * Time series matrix of the run in progress, `n_samples × (n_steps + 1)` row-major `f64`;
+     * columns after `t` are zero.
+     * @returns {number}
+     */
+    series() {
+        const ret = wasm.spectrallab_series(this.__wbg_ptr);
+        return ret >>> 0;
+    }
+    /**
+     * Sites of sample `sample` (one byte each: `i8` spins, `u8` activity), or null for
+     * sources without a lattice.
+     * @param {number} sample
+     * @returns {number}
+     */
+    sites(sample) {
+        const ret = wasm.spectrallab_sites(this.__wbg_ptr, sample);
+        return ret >>> 0;
+    }
+    /**
+     * Last filled time step of the run in progress.
+     * @returns {number}
+     */
+    t() {
+        const ret = wasm.spectrallab_t(this.__wbg_ptr);
+        return ret >>> 0;
+    }
+    /**
+     * Uncorrelated Gaussian series: the Marchenko-Pastur baseline.
+     * @returns {SpectralLab}
+     */
+    static white_noise() {
+        const ret = wasm.spectrallab_white_noise();
+        return SpectralLab.__wrap(ret);
     }
 }
-if (Symbol.dispose) IsingModel.prototype[Symbol.dispose] = IsingModel.prototype.free;
+if (Symbol.dispose) SpectralLab.prototype[Symbol.dispose] = SpectralLab.prototype.free;
+
+/**
+ * Best estimate of the critical infection rate of the one-dimensional contact process.
+ * @returns {number}
+ */
+export function contact_process_alpha_critical() {
+    const ret = wasm.contact_process_alpha_critical();
+    return ret;
+}
+
+/**
+ * Decode gzipped CBOR reference scans into JSON.
+ * @param {Uint8Array} gzipped_cbor
+ * @returns {string}
+ */
+export function decode_reference(gzipped_cbor) {
+    let deferred3_0;
+    let deferred3_1;
+    try {
+        const ptr0 = passArray8ToWasm0(gzipped_cbor, wasm.__wbindgen_malloc);
+        const len0 = WASM_VECTOR_LEN;
+        const ret = wasm.decode_reference(ptr0, len0);
+        var ptr2 = ret[0];
+        var len2 = ret[1];
+        if (ret[3]) {
+            ptr2 = 0; len2 = 0;
+            throw takeFromExternrefTable0(ret[2]);
+        }
+        deferred3_0 = ptr2;
+        deferred3_1 = len2;
+        return getStringFromWasm0(ptr2, len2);
+    } finally {
+        wasm.__wbindgen_free(deferred3_0, deferred3_1, 1);
+    }
+}
+
+/**
+ * Critical temperature of the infinite square lattice Ising model (Onsager).
+ * @returns {number}
+ */
+export function ising_t_critical() {
+    const ret = wasm.ising_t_critical();
+    return ret;
+}
+
+/**
+ * Marchenko-Pastur density of `n_samples` uncorrelated series of `n_steps + 1` values.
+ * @param {number} n_steps
+ * @param {number} lambda
+ * @returns {number}
+ */
+export function marchenko_pastur_density(n_steps, lambda) {
+    const ret = wasm.marchenko_pastur_density(n_steps, lambda);
+    return ret;
+}
 
 function __wbg_get_imports() {
     const import0 = {
         __proto__: null,
+        __wbg_Error_83742b46f01ce22d: function(arg0, arg1) {
+            const ret = Error(getStringFromWasm0(arg0, arg1));
+            return ret;
+        },
         __wbg___wbindgen_throw_6ddd609b62940d55: function(arg0, arg1) {
             throw new Error(getStringFromWasm0(arg0, arg1));
         },
@@ -144,18 +300,23 @@ function __wbg_get_imports() {
     };
     return {
         __proto__: null,
-        "./ising_2d_bg.js": import0,
+        "./spectral_criticality_bg.js": import0,
     };
 }
 
-const IsingModelFinalization = (typeof FinalizationRegistry === 'undefined')
+const SpectralLabFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
-    : new FinalizationRegistry(ptr => wasm.__wbg_isingmodel_free(ptr >>> 0, 1));
+    : new FinalizationRegistry(ptr => wasm.__wbg_spectrallab_free(ptr >>> 0, 1));
 
 function addToExternrefTable0(obj) {
     const idx = wasm.__externref_table_alloc();
     wasm.__wbindgen_externrefs.set(idx, obj);
     return idx;
+}
+
+function getArrayF64FromWasm0(ptr, len) {
+    ptr = ptr >>> 0;
+    return getFloat64ArrayMemory0().subarray(ptr / 8, ptr / 8 + len);
 }
 
 function getArrayU8FromWasm0(ptr, len) {
@@ -169,6 +330,14 @@ function getDataViewMemory0() {
         cachedDataViewMemory0 = new DataView(wasm.memory.buffer);
     }
     return cachedDataViewMemory0;
+}
+
+let cachedFloat64ArrayMemory0 = null;
+function getFloat64ArrayMemory0() {
+    if (cachedFloat64ArrayMemory0 === null || cachedFloat64ArrayMemory0.byteLength === 0) {
+        cachedFloat64ArrayMemory0 = new Float64Array(wasm.memory.buffer);
+    }
+    return cachedFloat64ArrayMemory0;
 }
 
 function getStringFromWasm0(ptr, len) {
@@ -191,6 +360,13 @@ function handleError(f, args) {
         const idx = addToExternrefTable0(e);
         wasm.__wbindgen_exn_store(idx);
     }
+}
+
+function passArray8ToWasm0(arg, malloc) {
+    const ptr = malloc(arg.length * 1, 1) >>> 0;
+    getUint8ArrayMemory0().set(arg, ptr / 1);
+    WASM_VECTOR_LEN = arg.length;
+    return ptr;
 }
 
 function passStringToWasm0(arg, malloc, realloc) {
@@ -230,6 +406,12 @@ function passStringToWasm0(arg, malloc, realloc) {
     return ptr;
 }
 
+function takeFromExternrefTable0(idx) {
+    const value = wasm.__wbindgen_externrefs.get(idx);
+    wasm.__externref_table_dealloc(idx);
+    return value;
+}
+
 let cachedTextDecoder = new TextDecoder('utf-8', { ignoreBOM: true, fatal: true });
 cachedTextDecoder.decode();
 const MAX_SAFARI_DECODE_BYTES = 2146435072;
@@ -264,6 +446,7 @@ function __wbg_finalize_init(instance, module) {
     wasm = instance.exports;
     wasmModule = module;
     cachedDataViewMemory0 = null;
+    cachedFloat64ArrayMemory0 = null;
     cachedUint8ArrayMemory0 = null;
     wasm.__wbindgen_start();
     return wasm;
@@ -337,7 +520,7 @@ async function __wbg_init(module_or_path) {
     }
 
     if (module_or_path === undefined) {
-        module_or_path = new URL('ising_2d_bg.wasm', import.meta.url);
+        module_or_path = new URL('spectral_criticality_bg.wasm', import.meta.url);
     }
     const imports = __wbg_get_imports();
 
