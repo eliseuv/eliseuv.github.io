@@ -25,13 +25,13 @@ description = "Extended Chiarella model of a market with fundamentalists, trend 
 'dt' = 'Integration time step. Numerical only, not part of the model.'
 +++
 
-The Chiarella model describes the log-price $p$ of an asset traded by three kinds of agents:
+The Chiarella model describes the log-price $p$ of an asset traded by three kinds of agents. Working in logs makes price increments $dp$ returns, so the dynamics don't depend on the price level; the simulation starts at $p = 0$, i.e. a price normalized to $e^0 = 1$.
 
-- **fundamentalists** buy when the price is below a fundamental value $V$ and sell when it is above, pulling the price back at rate $\kappa$;
-- **trend followers** chase a moving average $M$ of recent price changes, with a saturating demand $\beta \tanh(\gamma M)$;
-- **noise traders** add a random component of volatility $\sigma_N$.
+- **fundamentalists** believe the asset is worth a fundamental value $V$, e.g. its discounted future cash flows. They buy when the price is below it and sell when it is above: their demand $-\kappa\delta$ corrects the mispricing $\delta = p - V$ at rate $\kappa$, closing a gap with half-life $\ln 2 / \kappa$ when acting alone.
+- **trend followers** chase a trend signal $M$, a moving average of recent price changes with memory time $1/\alpha$. Their demand $\beta \tanh(\gamma M)$ saturates, because positions can't grow without limit: the sensitivity $\gamma$ sets how strongly they react to a weak trend, and the strength $\beta$, read as their capital or market share, caps the drift they can impose at $\pm\beta$.
+- **noise traders** add random order flow of volatility $\sigma_N$, unrelated to value or trend. It is the main source of short-term return volatility, and it also seeds spurious trends in $M$.
 
-In the extended version of Majewski, Ciliberti and Bouchaud (2020), the fundamental value itself follows a random walk. The dynamics are
+In the extended version of Majewski, Ciliberti and Bouchaud (2020), the fundamental value itself follows a random walk with drift $g$ and volatility $\sigma_V$. It is exogenous: news moves $V$, but the market price never feeds back into it. The dynamics are
 
 $$
 \begin{aligned}
@@ -41,41 +41,21 @@ dM &= \alpha\\,(dp - M\\,dt),
 \end{aligned}
 $$
 
-where $1/\alpha$ is the memory time of the trend signal. The system is integrated with the Euler–Maruyama scheme at time step $dt$.
+where $W_1$ and $W_2$ are independent Wiener processes: the news reaching fundamentals and the order flow of noise traders. The last line makes the trend signal an exponentially weighted average $M_t = \alpha \int_{-\infty}^{t} e^{-\alpha (t - s)}\\,dp_s$, a return per unit time: $M > 0$ means prices have recently been rising. Noise-driven moves count too, since trend followers can't tell a noise trade from a genuine trend. A large $\alpha$ is a short, jittery memory that chases the latest noise; a small $\alpha$ is a long, smooth one that reacts late.
 
-### State variables
+The system is integrated with the Euler–Maruyama scheme at time step $dt$, which is numerical rather than part of the model: smaller is more accurate but covers less simulated time per step, and tracking the continuous dynamics needs $\kappa\\,dt \ll 1$ and $\alpha\\,dt \ll 1$. Each animation frame runs a number of **steps/frame**, advancing simulated time by $\text{steps} \times dt$; every plot takes one sample per frame, so "returns" are price changes over that interval. Time units are arbitrary: if one unit is a trading day, then $\sigma_N$ is a daily volatility, $1/\alpha$ is a memory length in days, and so on.
 
-- $\nosym{p}$ — **log-price** of the asset. Working in logs makes price increments $dp$ returns, so the dynamics don't depend on the price level. The simulation starts at $p = 0$, i.e. a price normalized to $e^0 = 1$.
-- $\nosym{V}$ — **log fundamental value**: what the asset is "really worth" according to fundamentalists, e.g. discounted future cash flows. It is exogenous: news moves $V$, but the market price never feeds back into it.
-- $\nosym{\delta} = p - V$ — **mispricing**. $\delta > 0$ means the asset is overvalued (the bubble side), $\delta < 0$ undervalued. It is the natural variable for regime behavior, since $p$ and $V$ both wander without bound but their difference does not.
-- $\nosym{M}$ — **trend signal**: an exponentially weighted moving average of past price changes, $M_t = \alpha \int_{-\infty}^{t} e^{-\alpha (t - s)}\\,dp_s$. It is a return per unit time: $M > 0$ means prices have recently been rising. Noise-driven moves count too, since trend followers can't tell a noise trade from a genuine trend.
-- $\nosym{W_1}, \nosym{W_2}$ — independent Wiener processes (Brownian motions): the random news reaching fundamentals and the random order flow of noise traders.
-
-### Parameters
-
-- $\nosym{\kappa}$ — **fundamentalist strength**: the rate at which fundamentalists correct mispricing. Their demand is $-\kappa\delta$, so alone they close a gap with half-life $\ln 2 / \kappa$. Increasing $\kappa$ stabilizes the market.
-- $\nosym{\beta}$ — **trend-follower strength**: the largest drift trend followers can impose on the price, since $\beta\tanh(\gamma M) \in (-\beta, \beta)$. Read it as their capital or market share. Above the threshold, it sets how large bubbles and crashes grow.
-- $\nosym{\gamma}$ — **trend-follower sensitivity**: how strongly they react to a weak trend. For $|\gamma M| \ll 1$ their demand is linear, $\approx \beta\gamma M$; for strong trends it saturates at $\pm\beta$, because positions can't grow without limit. Only the product $\beta\gamma$, the gain for small trends, decides stability; $\beta$ alone caps the amplitude.
-- $\nosym{\alpha}$ — **inverse memory time** of the trend signal: $M$ averages over roughly the last $1/\alpha$ time units. A large $\alpha$ is a short, jittery memory that chases the latest noise; a small $\alpha$ is a long, smooth one that reacts late. A longer memory raises the threshold $1 + \kappa/\alpha$, giving fundamentalists more time to act before a trend builds.
-- $\nosym{\sigma_N}$ — **noise-trader volatility**: the size of random order flow unrelated to value or trend. It is the main source of short-term return volatility, and it also seeds spurious trends in $M$.
-- $\nosym{\sigma_V}$ — **fundamental volatility**: the size of news shocks to $V$. Fundamentalists chase every jump, and the trend followers amplify the resulting price moves.
-- $\nosym{g}$ — **fundamental drift**: steady growth (or decay) of the fundamental value. In a steadily growing market the trend signal settles at $M = g$, and the price settles at a constant offset $\delta^{\ast} = \left(\beta\tanh(\gamma g) - g\right)/\kappa$ from value. When trend followers are strong enough this is positive: a persistent, self-sustaining overvaluation.
-
-### Simulation controls
-
-- $\nosym{dt}$ — the **integration time step**. It is numerical, not part of the model: smaller is more accurate but covers less simulated time per step. Euler–Maruyama needs $\kappa\\,dt \ll 1$ and $\alpha\\,dt \ll 1$ to track the continuous dynamics.
-- **Steps/frame** — the number of integration steps per animation frame, i.e. the playback speed. Each frame advances simulated time by $\text{steps} \times dt$. Every plot takes one sample per frame, so "returns" are price changes over that interval.
-
-Time units are arbitrary: if one unit is a trading day, then $\sigma_N$ is a daily volatility, $1/\alpha$ is a memory length in days, and so on.
-
-The interesting variable is the **mispricing** $\delta = p - V$. Without noise, the state $(\delta, M) = (0, 0)$ is stable as long as
+The interesting variable is the mispricing $\delta$: $p$ and $V$ both wander without bound, but their difference does not. $\delta > 0$ means the asset is overvalued (the bubble side), $\delta < 0$ undervalued. Without noise, the state $(\delta, M) = (0, 0)$ is stable as long as
 
 $$
 \beta\gamma < 1 + \frac{\kappa}{\alpha}.
 $$
 
+Only the product $\beta\gamma$ decides stability: it is the trend followers' gain for small trends, since their demand is linear, $\approx \beta\gamma M$, for $|\gamma M| \ll 1$. Above the threshold, $\beta$ alone sets how large bubbles and crashes grow. Stronger fundamentalists (larger $\kappa$) raise the threshold $1 + \kappa/\alpha$, and so does a longer memory (smaller $\alpha$), which gives fundamentalists more time to act before a trend builds. Meanwhile, news shocks of size $\sigma_V$ keep disturbing the state: fundamentalists chase every jump, and trend followers amplify the resulting price moves.
+
 <p style="font-size:0.85rem; color:#888;">Linearizing around the origin gives a Jacobian with determinant $\alpha\kappa > 0$ and trace $\alpha(\beta\gamma - 1) - \kappa$. When the trace turns positive, a Hopf bifurcation occurs: trend followers overpower fundamentalists and the mispricing locks into a limit cycle of bubbles and crashes. With noise on, the histogram of $\delta$ widens and becomes bimodal, since the price lingers on the overvalued or undervalued side of the cycle.</p>
 
+In a steadily growing market the trend signal settles at $M = g$, and the price settles at a constant offset $\delta^{\ast} = \left(\beta\tanh(\gamma g) - g\right)/\kappa$ from value. When trend followers are strong enough this is positive: a persistent, self-sustaining overvaluation.
 Every slider acts on the running simulation immediately. Push $\beta$ past the threshold to watch the phase portrait open into a cycle.
 
 <div class="chiarella-wrap" style="display:flex; flex-direction:column; gap:0.8rem; font-family:'JetBrains Mono','Fira Code',monospace; color:#aaaaaa; font-size:0.9rem; line-height:1.3;">
