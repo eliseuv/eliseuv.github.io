@@ -10,9 +10,9 @@
 
 #let yml_personal(d) = {
   header(
-    name: get_env_or("RESUME_NAME", d.at("name", default: "")),
+    name: d.name,
     phone: get_env_or("RESUME_PHONE", d.at("phone", default: "")),
-    email: get_env_or("RESUME_EMAIL", d.at("email", default: "")),
+    email: d.email,
     website: d.website,
     linkedin: d.linkedin,
     github: d.github,

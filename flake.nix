@@ -114,8 +114,6 @@
           set -euo pipefail
           echo ">> Building Resume..."
           TYPST_FONT_PATHS="${pkgs.font-awesome}/share/fonts" ${pkgs.typst}/bin/typst compile --root . \
-            --input RESUME_NAME="''${RESUME_NAME:-}" \
-            --input RESUME_EMAIL="''${RESUME_EMAIL:-}" \
             --input RESUME_PHONE="''${RESUME_PHONE:-}" \
             resume/resume.typ static/resume.pdf
         '';

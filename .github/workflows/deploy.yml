@@ -43,15 +43,11 @@ jobs:
       - name: Build Resume
         run: nix run .#resume
         env:
-          RESUME_NAME: ${{ secrets.RESUME_NAME }}
-          RESUME_EMAIL: ${{ secrets.RESUME_EMAIL }}
           RESUME_PHONE: ${{ secrets.RESUME_PHONE }}
 
       - name: Build Zola Site
         run: nix run .#zola
         env:
-          RESUME_NAME: ${{ secrets.RESUME_NAME }}
-          RESUME_EMAIL: ${{ secrets.RESUME_EMAIL }}
           RESUME_PHONE: ${{ secrets.RESUME_PHONE }}
 
       - name: Deploy to Cloudflare Pages
