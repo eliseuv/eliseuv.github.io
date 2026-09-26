@@ -93,7 +93,7 @@ This simulation runs on a $128 \times 128$ **toroidal** lattice: the edges wrap 
         </div>
     </div>
     <p style="color:#666; margin:0;">Click toggle cell &middot; Ctrl+Click stamp glider &middot; Shift+Click stamp pulsar</p>
-    <div style="border:1px solid #333; background:#000; overflow:auto; max-width:100%; align-self:flex-start;">
+    <div style="border:1px solid #333; background:#000; overflow:auto; max-width:100%; align-self:center;">
         <canvas id="game-of-life-canvas" oncontextmenu="return false;"></canvas>
     </div>
 </div>
@@ -111,8 +111,9 @@ This simulation runs on a $128 \times 128$ **toroidal** lattice: the edges wrap 
             const universe = Universe.new(nrows, ncols);
 
             // Canvas is drawn at 1px/site, then CSS-scaled to a fixed
-            // on-screen size with `image-rendering: pixelated`.
-            const DISPLAY_SIZE = 480;
+            // on-screen size with `image-rendering: pixelated`. 640 is an
+            // integer multiple of the grid size, so every cell is 5px wide.
+            const DISPLAY_SIZE = 640;
 
             const canvas = document.getElementById("game-of-life-canvas");
             const ctx = setUpGridCanvas(canvas, DISPLAY_SIZE);
