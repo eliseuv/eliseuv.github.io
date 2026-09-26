@@ -13,7 +13,9 @@ impl IsingLattice {
     /// New lattice in a random (infinite-temperature) configuration.
     /// `uniform` must yield values in `[0, 1)`.
     pub fn new_random(nrows: usize, ncols: usize, mut uniform: impl FnMut() -> f64) -> Self {
-        Self { state: LatticeState::new(nrows, ncols, || SpinHalf::random(&mut uniform)) }
+        Self {
+            state: LatticeState::new(nrows, ncols, || SpinHalf::random(&mut uniform)),
+        }
     }
 
     pub fn nrows(&self) -> usize {
@@ -31,7 +33,11 @@ impl IsingLattice {
 
     /// Sum of the four nearest-neighbor spins, wrapping toroidally.
     pub fn nn_sum(&self, row: usize, col: usize) -> i32 {
-        self.state.neighbor_values(row, col).iter().map(|s| s.value()).sum()
+        self.state
+            .neighbor_values(row, col)
+            .iter()
+            .map(|s| s.value())
+            .sum()
     }
 
     /// Energy change (`J = 1`) a flip of site `(row, col)` would cost.
@@ -51,7 +57,12 @@ impl IsingLattice {
 
     /// Mean spin per site, in `[-1, 1]`.
     pub fn magnetization(&self) -> f64 {
-        self.state.sites().iter().map(|s| s.value() as f64).sum::<f64>() / self.state.sites().len() as f64
+        self.state
+            .sites()
+            .iter()
+            .map(|s| s.value() as f64)
+            .sum::<f64>()
+            / self.state.sites().len() as f64
     }
 
     /// Mean bond energy per site (`J = 1`, no external field).

@@ -26,6 +26,10 @@ impl SpinHalf {
 
     /// Uniformly random spin. `uniform` must yield values in `[0, 1)`.
     pub fn random(uniform: &mut impl FnMut() -> f64) -> Self {
-        if uniform() < 0.5 { SpinHalf::Up } else { SpinHalf::Down }
+        if uniform() < 0.5 {
+            SpinHalf::Up
+        } else {
+            SpinHalf::Down
+        }
     }
 }

@@ -13,7 +13,9 @@ impl ContactLattice {
     /// New lattice in a random (~50/50 active/inactive) configuration.
     /// `uniform` must yield values in `[0, 1)`.
     pub fn new_random(nrows: usize, ncols: usize, mut uniform: impl FnMut() -> f64) -> Self {
-        Self { state: LatticeState::new(nrows, ncols, || Binary::random(&mut uniform)) }
+        Self {
+            state: LatticeState::new(nrows, ncols, || Binary::random(&mut uniform)),
+        }
     }
 
     pub fn nrows(&self) -> usize {
@@ -34,7 +36,15 @@ impl ContactLattice {
     }
 
     pub fn set_active(&mut self, row: usize, col: usize, active: bool) {
-        self.state.set(row, col, if active { Binary::Active } else { Binary::Inactive });
+        self.state.set(
+            row,
+            col,
+            if active {
+                Binary::Active
+            } else {
+                Binary::Inactive
+            },
+        );
     }
 
     pub fn neighbor_states(&self, row: usize, col: usize) -> [Binary; 4] {

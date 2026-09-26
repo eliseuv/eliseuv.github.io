@@ -8,6 +8,7 @@
 //! back every lattice simulation on the site.
 
 pub mod binary;
+pub mod chiarella;
 pub mod contact_process;
 pub mod ising;
 pub mod lattice;

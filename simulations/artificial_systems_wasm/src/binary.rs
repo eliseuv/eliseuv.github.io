@@ -20,6 +20,10 @@ impl Binary {
     /// Uniformly random state (~50/50). `uniform` must yield values in
     /// `[0, 1)`.
     pub fn random(uniform: &mut impl FnMut() -> f64) -> Self {
-        if uniform() < 0.5 { Binary::Active } else { Binary::Inactive }
+        if uniform() < 0.5 {
+            Binary::Active
+        } else {
+            Binary::Inactive
+        }
     }
 }

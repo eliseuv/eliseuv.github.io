@@ -9,7 +9,9 @@ pub struct MetropolisSampler {
 
 impl MetropolisSampler {
     pub fn with_temperature(temperature: f64) -> Self {
-        Self { beta: temperature.recip() }
+        Self {
+            beta: temperature.recip(),
+        }
     }
 
     pub fn temperature(&self) -> f64 {
