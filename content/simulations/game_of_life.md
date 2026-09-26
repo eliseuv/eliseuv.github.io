@@ -79,26 +79,22 @@ At each step, every cell looks at its $8$ neighbors (Moore neighborhood) and, wr
 
 This simulation runs on a $128 \times 128$ **toroidal** lattice: the edges wrap around, so a glider leaving the right side reappears on the left.
 
-<div class="gol-wrap" style="display:flex; flex-wrap:wrap; gap:1.5rem; align-items:flex-start; font-family:'JetBrains Mono','Fira Code',monospace; color:#aaaaaa;">
-    <div style="border:1px solid #333; background:#000; overflow:auto;">
-        <canvas id="game-of-life-canvas" oncontextmenu="return false;"></canvas>
+<div class="gol-wrap" style="display:flex; flex-direction:column; gap:0.8rem; font-family:'JetBrains Mono','Fira Code',monospace; color:#aaaaaa; font-size:0.9rem; line-height:1.3;">
+    <div style="display:flex; flex-wrap:wrap; gap:0.5rem; align-items:center;">
+        <button id="gol-play-pause" style="background:#111; color:#aaaaaa; border:1px solid #333; padding:0.3rem 0.9rem; font-family:inherit; font-size:1.1rem; cursor:pointer;">&#9654;</button>
+        <button id="gol-randomize" style="background:#111; color:#aaaaaa; border:1px solid #333; padding:0.3rem 0.8rem; font-family:inherit; cursor:pointer;">Randomize</button>
+        <button id="gol-clear" style="background:#111; color:#aaaaaa; border:1px solid #333; padding:0.3rem 0.8rem; font-family:inherit; cursor:pointer;">Clear</button>
+        <span style="color:#666; margin-left:auto;">P start/stop &middot; C clear &middot; R randomize</span>
     </div>
-    <div class="gol-controls" style="width:220px;">
-        <button id="gol-play-pause" style="background:#111; color:#aaaaaa; border:1px solid #333; padding:0.5rem 1rem; font-family:inherit; font-size:1.2rem; cursor:pointer;">&#9654;</button>
-        <p><span data-tooltip="Chance each cell starts alive. Moving the slider re-randomizes the grid." tabindex="0">Fill probability</span>: <output id="gol-p-value">0.37</output></p>
-        <input type="range" id="gol-p-slider" min="0" max="1" step="0.01" value="0.37" style="width:100%;">
-        <p>
-            <button id="gol-randomize" style="background:#111; color:#aaaaaa; border:1px solid #333; padding:0.3rem 0.8rem; font-family:inherit; cursor:pointer;">Randomize</button>
-            <button id="gol-clear" style="background:#111; color:#aaaaaa; border:1px solid #333; padding:0.3rem 0.8rem; font-family:inherit; cursor:pointer;">Clear</button>
-        </p>
-        <ul style="color:#888; font-size:0.9rem; padding-left:1.2rem;">
-            <li>P &rarr; start/stop dynamics</li>
-            <li>C &rarr; clear lattice</li>
-            <li>R &rarr; randomize</li>
-            <li>Click &rarr; toggle cell</li>
-            <li>Ctrl+Click &rarr; stamp glider</li>
-            <li>Shift+Click &rarr; pulsar</li>
-        </ul>
+    <div class="gol-controls" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(170px, 1fr)); gap:0.4rem 1.2rem;">
+        <div>
+            <p style="margin:0 0 0.2rem;"><span data-tooltip="Chance each cell starts alive. Moving the slider re-randomizes the grid." tabindex="0">Fill p</span> = <output id="gol-p-value">0.37</output></p>
+            <input type="range" id="gol-p-slider" min="0" max="1" step="0.01" value="0.37" style="width:100%;">
+        </div>
+    </div>
+    <p style="color:#666; margin:0;">Click toggle cell &middot; Ctrl+Click stamp glider &middot; Shift+Click stamp pulsar</p>
+    <div style="border:1px solid #333; background:#000; overflow:auto; max-width:100%; align-self:flex-start;">
+        <canvas id="game-of-life-canvas" oncontextmenu="return false;"></canvas>
     </div>
 </div>
 
@@ -116,7 +112,7 @@ This simulation runs on a $128 \times 128$ **toroidal** lattice: the edges wrap 
 
             // Canvas is drawn at 1px/site, then CSS-scaled to a fixed
             // on-screen size with `image-rendering: pixelated`.
-            const DISPLAY_SIZE = 512;
+            const DISPLAY_SIZE = 480;
 
             const canvas = document.getElementById("game-of-life-canvas");
             const ctx = setUpGridCanvas(canvas, DISPLAY_SIZE);
