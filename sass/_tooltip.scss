@@ -27,7 +27,6 @@
 
 [data-tooltip] {
     position: relative;
-    cursor: help;
     text-decoration: underline dotted $text-dim;
     text-underline-offset: 0.25em;
 
@@ -65,7 +64,6 @@
 // floating tooltip positioned by script, since descriptions contain math
 // and anchors sit mid-line where a CSS popover would overflow or clip.
 [data-sym] {
-    cursor: help;
     text-decoration: underline dotted $text-dim;
     text-underline-offset: 0.25em;
 
@@ -73,12 +71,6 @@
         outline: 1px dashed $accent;
         outline-offset: 2px;
     }
-}
-
-// No underline in math: with every occurrence annotated, it would clutter
-// equations.
-.katex [data-symbol] {
-    cursor: help;
 }
 
 [data-sym],
