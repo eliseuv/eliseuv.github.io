@@ -97,7 +97,10 @@
           let linked = if url != none {
             link(url)[#box[
               #logo_img
-              #place(top + right, dx: 0.3em, dy: -0.3em, text(fill: rgb("#000099"), size: 0.6em)[#sym.arrow.tr])
+              #place(top + right, dx: 0.3em, dy: -0.3em, text(
+                fill: rgb("#000099"),
+                size: 0.6em,
+              )[#sym.arrow.tr])
             ]]
           } else { logo_img }
           (align(center + horizon, linked),)
@@ -107,7 +110,10 @@
           let linked = if degree_url != none {
             link(degree_url)[#box[
               #degree_img
-              #place(top + right, dx: 0.3em, dy: -0.3em, text(fill: rgb("#000099"), size: 0.6em)[#sym.arrow.tr])
+              #place(top + right, dx: 0.3em, dy: -0.3em, text(
+                fill: rgb("#000099"),
+                size: 0.6em,
+              )[#sym.arrow.tr])
             ]]
           } else { degree_img }
           (align(center + horizon, linked),)
@@ -169,7 +175,10 @@
           let linked = if url != none {
             link(url)[#box[
               #logo_img
-              #place(top + right, dx: 0.3em, dy: -0.3em, text(fill: rgb("#000099"), size: 0.6em)[#sym.arrow.tr])
+              #place(top + right, dx: 0.3em, dy: -0.3em, text(
+                fill: rgb("#000099"),
+                size: 0.6em,
+              )[#sym.arrow.tr])
             ]]
           } else { logo_img }
           (align(center + horizon, linked),)
@@ -179,7 +188,10 @@
           let linked = if degree_url != none {
             link(degree_url)[#box[
               #degree_img
-              #place(top + right, dx: 0.3em, dy: -0.3em, text(fill: rgb("#000099"), size: 0.6em)[#sym.arrow.tr])
+              #place(top + right, dx: 0.3em, dy: -0.3em, text(
+                fill: rgb("#000099"),
+                size: 0.6em,
+              )[#sym.arrow.tr])
             ]]
           } else { degree_img }
           (align(center + horizon, linked),)

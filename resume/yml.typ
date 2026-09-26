@@ -1,4 +1,7 @@
-#import "template.typ": edu_item, exp_item, header, project_item, publication_item, resume, resume_heading, skill_item
+#import "template.typ": (
+  edu_item, exp_item, header, project_item, publication_item, resume,
+  resume_heading, skill_item,
+)
 
 #let get_env_or(key, fallback) = {
   let val = sys.inputs.at(key, default: fallback)
@@ -79,12 +82,16 @@
     let skills = if category == "Programming" or category == "Tools" {
       value
         .map(lang_group => lang_group.pairs().first())
-        .map(p => if p.at(1).len() == 0 { [#p.at(0)] } else { [#p.at(0) #text(fill: rgb("#555555"))[(#p.at(1).join(", "))]] })
+        .map(p => if p.at(1).len() == 0 { [#p.at(0)] } else {
+          [#p.at(0) #text(fill: rgb("#555555"))[(#p.at(1).join(", "))]]
+        })
         .join([, ])
     } else if category == "Languages" {
       value
         .map(lang => lang.pairs().first())
-        .map(p => if p.at(1).len() == 0 { [#p.at(0)] } else { [#p.at(0) #text(fill: rgb("#555555"))[(#p.at(1).join(", "))]] })
+        .map(p => if p.at(1).len() == 0 { [#p.at(0)] } else {
+          [#p.at(0) #text(fill: rgb("#555555"))[(#p.at(1).join(", "))]]
+        })
         .join(", ")
     } else {
       value.join(", ")
