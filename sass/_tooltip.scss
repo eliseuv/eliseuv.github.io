@@ -69,10 +69,11 @@ $tooltip-spawn-scale: 0.94;
     }
 }
 
-// --- Symbol tooltip ---
-// Page symbols (`[extra.symbols]`, see static/js/symbols.js) share one
-// floating tooltip positioned by script, since descriptions contain math
-// and anchors sit mid-line where a CSS popover would overflow or clip.
+// --- Floating tooltip ---
+// Page symbols (`[extra.symbols]`, see static/js/symbols.js) share one tooltip
+// positioned by script (static/js/floating-tooltip.js), since their content
+// can contain math and anchors sit mid-line where a CSS popover would
+// overflow or clip.
 [data-sym] {
     text-decoration: underline dotted $text-dim;
     text-underline-offset: 0.25em;
@@ -86,12 +87,12 @@ $tooltip-spawn-scale: 0.94;
 [data-sym],
 .katex [data-symbol] {
     &:hover,
-    &.symbol-active {
+    &.tooltip-active {
         color: $accent;
     }
 }
 
-.symbol-tooltip {
+.floating-tooltip {
     @include tooltip-panel;
     max-width: min(18rem, calc(100vw - 16px));
     position: fixed;
@@ -102,7 +103,7 @@ $tooltip-spawn-scale: 0.94;
     opacity: 0;
     visibility: hidden;
     transform-origin: bottom center;
-    // Hiding fades out; showing plays `symbol-tooltip-spawn`, which script
+    // Hiding fades out; showing plays `floating-tooltip-spawn`, which script
     // restarts when moving straight between anchors so each one spawns anew.
     transition: opacity $tooltip-spawn-duration ease, visibility $tooltip-spawn-duration;
 
@@ -113,11 +114,11 @@ $tooltip-spawn-scale: 0.94;
     &.visible {
         opacity: 1;
         visibility: visible;
-        animation: symbol-tooltip-spawn $tooltip-spawn-duration $tooltip-spawn-easing;
+        animation: floating-tooltip-spawn $tooltip-spawn-duration $tooltip-spawn-easing;
     }
 
     &.below.visible {
-        animation-name: symbol-tooltip-spawn-below;
+        animation-name: floating-tooltip-spawn-below;
     }
 
     .katex {
@@ -125,14 +126,14 @@ $tooltip-spawn-scale: 0.94;
     }
 }
 
-@keyframes symbol-tooltip-spawn {
+@keyframes floating-tooltip-spawn {
     from {
         opacity: 0;
         transform: translateY($tooltip-spawn-offset) scale($tooltip-spawn-scale);
     }
 }
 
-@keyframes symbol-tooltip-spawn-below {
+@keyframes floating-tooltip-spawn-below {
     from {
         opacity: 0;
         transform: translateY(-$tooltip-spawn-offset) scale($tooltip-spawn-scale);
@@ -144,7 +145,7 @@ $tooltip-spawn-scale: 0.94;
         transform: none;
     }
 
-    .symbol-tooltip.visible {
+    .floating-tooltip.visible {
         animation: none;
     }
 }

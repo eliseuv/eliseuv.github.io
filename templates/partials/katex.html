@@ -3,6 +3,7 @@
 {% if page.extra.symbols %}
 <script type="application/json" id="page-symbols">{{ page.extra.symbols | json_encode | replace(from="</", to="<\/") | safe }}</script>
 {% endif %}
+<script defer src="{{ get_url(path='js/floating-tooltip.js') }}"></script>
 <script defer src="{{ get_url(path='js/symbols.js') }}"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.27/dist/katex.min.css"
     integrity="sha384-Pu5+C18nP5dwykLJOhd2U4Xen7rjScHN/qusop27hdd2drI+lL5KvX7YntvT8yew" crossorigin="anonymous">
