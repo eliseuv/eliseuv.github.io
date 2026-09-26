@@ -75,6 +75,15 @@ The **largest eigenvalue** $\lambda_{\max}$ measures how much of the ensemble fo
 - **Ising model** on a periodic $L \times L$ lattice with $L = 32$, heat bath dynamics, series of the magnetization over $n = 300$ sweeps from random configurations. The temperature $T$ is set relative to $T_c$.
 - **Contact process** on a ring of $L = 128$ sites, series of the density of active sites $\rho_a$ over $n = 500$ steps from fully active chains, with infection rate $\alpha$ and diffusion probability $\gamma$. It has an absorbing state and no Hamiltonian, and belongs to the directed percolation universality class rather than Ising's.
 
+## What the reference scans show
+
+In both models the ordered side has every sample following the same trajectory, so the correlations are strong, $\lambda_{\max}$ approaches $N$ and $\operatorname{var}(\lambda)$ approaches $N - 1$. For the Ising model that trajectory is ordering into one of two domains, up or down, so correlations are near $\pm 1$. For the contact process it is the common decay into the absorbing state, below $\alpha_c$. Across the transition both statistics collapse, and the critical point sits where they change fastest:
+
+- **Ising model**: $\operatorname{var}(\lambda)$ falls steepest, its inflection point, at $T = T_c$ within the $0.02\\,T_c$ spacing of the scan. $\langle \lambda_{\max} \rangle$ has its inflection just above, between $T_c$ and $1.02\\,T_c$.
+- **Contact process** without diffusion: $\langle \lambda_{\max} \rangle$ has its inflection and $\operatorname{var}(\lambda_{\max})$ its maximum at $\alpha \approx 3.15$, and $\operatorname{var}(\lambda)$ its inflection at $\alpha \approx 3.10$. That is about $5\\%$ below $\alpha_c \approx 3.298$ at these sizes. With diffusion the same features move down together, to $\alpha \approx 2.55$ for $\gamma = 0.5$ and $\alpha \approx 2.35$ for $\gamma = 1$, following the known decrease of the critical rate with diffusion. For $\gamma > 0$ the dashed critical line is the thesis' fit $\alpha_c = 2.33\\,(\gamma + 0.16)^{-0.19}$ of the spectral and power law estimates, not an independent value.
+
+On the other side of the transition neither model reaches the Marchenko-Pastur law: the series are short and remember their initial state, so they stay autocorrelated and $\operatorname{var}(\lambda)$ remains well above $q$.
+
 Each change of source or parameter starts a new ensemble. The time series matrix fills in as the samples evolve; when it is complete its correlation matrix is diagonalized, its eigenvalues are added to the histogram, and a new matrix begins. The spectral statistics at every parameter value you visit are kept as points on the scan plots, over reference curves precomputed with the same sizes and $1000$ matrices per point.
 
 <div class="spectral-wrap" style="display:flex; flex-direction:column; gap:0.8rem; font-family:'JetBrains Mono','Fira Code',monospace; color:#aaaaaa; font-size:0.9rem; line-height:1.3;">
