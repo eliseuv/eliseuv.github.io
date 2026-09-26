@@ -127,6 +127,19 @@
           ${pkgs.zola}/bin/zola build
         '';
 
+        # Deploy the built site to Cloudflare Pages via direct upload.
+        # Building stays in Nix rather than Cloudflare's Git integration, whose
+        # build image has no Nix. Auth comes from CLOUDFLARE_API_TOKEN and
+        # CLOUDFLARE_ACCOUNT_ID; the target branch is detected from git, so
+        # only deploys from main land in production.
+        deploySite = pkgs.writeShellScriptBin "deploy-site" ''
+          set -euo pipefail
+          echo ">> Deploying to Cloudflare Pages..."
+          ${pkgs.wrangler}/bin/wrangler pages deploy public \
+            --project-name "''${CLOUDFLARE_PAGES_PROJECT:-eliseuv}" \
+            "$@"
+        '';
+
         # Default build script (runs all)
         buildSite = pkgs.writeShellScriptBin "build-site" ''
           set -euo pipefail
@@ -146,6 +159,7 @@
 
             # Website
             zola
+            wrangler
 
             # Resume
             typst
@@ -177,6 +191,9 @@
           };
           zola = flake-utils.lib.mkApp {
             drv = buildZola;
+          };
+          deploy = flake-utils.lib.mkApp {
+            drv = deploySite;
           };
           default = flake-utils.lib.mkApp {
             drv = buildSite;

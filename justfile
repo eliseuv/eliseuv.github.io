@@ -40,6 +40,12 @@ watch-resume:
 generate-spectral-reference:
     cd simulations && cargo run --profile generate --features generate -p spectral_criticality --bin gen_reference -- ../static/data/spectral
 
+# --- Deploying --------------------------------------------------------------
+
+# Upload the built public/ to Cloudflare Pages (run `wrangler login` first, or export CLOUDFLARE_API_TOKEN/CLOUDFLARE_ACCOUNT_ID).
+deploy:
+    nix run .#deploy
+
 # --- Formatting & linting --------------------------------------------------
 
 # Format Rust and Typst sources.
