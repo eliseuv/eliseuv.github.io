@@ -59,41 +59,41 @@ Every slider acts on the running simulation immediately. Push $\beta$ past the t
 
 <div class="chiarella-wrap" style="display:flex; flex-wrap:wrap; gap:1.5rem; align-items:flex-start; font-family:'JetBrains Mono','Fira Code',monospace; color:#aaaaaa;">
     <div>
-        <p style="color:#aaaaaa; font-size:0.85rem; margin:0 0 0.25rem;">Phase portrait (&delta;, M)</p>
+        <p style="color:#aaaaaa; font-size:0.85rem; margin:0 0 0.25rem;"><span data-tooltip="Trajectory in the (mispricing, trend) plane; the red dot is the current state. Settling near the center means mean reversion, a loop means a bubble–crash cycle." tabindex="0">Phase portrait (&delta;, M)</span></p>
         <div style="border:1px solid #333; background:#000;">
             <canvas id="chiarella-phase" style="display:block; width:512px; height:512px; max-width:100%;"></canvas>
         </div>
     </div>
     <div class="chiarella-controls" style="width:220px;">
         <button id="chiarella-play-pause" style="background:#111; color:#aaaaaa; border:1px solid #333; padding:0.5rem 1rem; font-family:inherit; font-size:1.2rem; cursor:pointer;">&#9654;</button>
-        <p style="margin:0.6rem 0 0.2rem;">&kappa; = <output id="chiarella-kappa-value"></output></p>
+        <p style="margin:0.6rem 0 0.2rem;"><span data-tooltip="Fundamentalist strength: how fast mispricing gets corrected. On its own, a gap halves every ln2/κ." tabindex="0">&kappa;</span> = <output id="chiarella-kappa-value"></output></p>
         <input type="range" id="chiarella-kappa-slider" min="0" max="0.5" step="0.005" value="0.1" style="width:100%;">
-        <p style="margin:0.6rem 0 0.2rem;">&beta; = <output id="chiarella-beta-value"></output></p>
+        <p style="margin:0.6rem 0 0.2rem;"><span data-tooltip="Trend-follower strength: the largest drift they can put on the price. Caps how big bubbles get." tabindex="0">&beta;</span> = <output id="chiarella-beta-value"></output></p>
         <input type="range" id="chiarella-beta-slider" min="0" max="5" step="0.01" value="1.3" style="width:100%;">
-        <p style="margin:0.6rem 0 0.2rem;">&gamma; = <output id="chiarella-gamma-value"></output></p>
+        <p style="margin:0.6rem 0 0.2rem;"><span data-tooltip="Trend-follower sensitivity: how hard they react to weak trends. Stability depends on the product βγ, not on β or γ separately." tabindex="0">&gamma;</span> = <output id="chiarella-gamma-value"></output></p>
         <input type="range" id="chiarella-gamma-slider" min="0" max="5" step="0.01" value="1" style="width:100%;">
-        <p style="margin:0.6rem 0 0.2rem;">&alpha; = <output id="chiarella-alpha-value"></output></p>
+        <p style="margin:0.6rem 0 0.2rem;"><span data-tooltip="Inverse memory of the trend signal: M averages roughly the last 1/α time units." tabindex="0">&alpha;</span> = <output id="chiarella-alpha-value"></output></p>
         <input type="range" id="chiarella-alpha-slider" min="0.01" max="2" step="0.01" value="0.2" style="width:100%;">
-        <p style="margin:0.6rem 0 0.2rem;">&sigma;<sub>N</sub> = <output id="chiarella-sigma-noise-value"></output></p>
+        <p style="margin:0.6rem 0 0.2rem;"><span data-tooltip="Noise-trader volatility: random order flow, the main source of short-term volatility." tabindex="0">&sigma;<sub>N</sub></span> = <output id="chiarella-sigma-noise-value"></output></p>
         <input type="range" id="chiarella-sigma-noise-slider" min="0" max="1" step="0.01" value="0.1" style="width:100%;">
-        <p style="margin:0.6rem 0 0.2rem;">&sigma;<sub>V</sub> = <output id="chiarella-sigma-fundamental-value"></output></p>
+        <p style="margin:0.6rem 0 0.2rem;"><span data-tooltip="Fundamental volatility: size of the news shocks that move V." tabindex="0">&sigma;<sub>V</sub></span> = <output id="chiarella-sigma-fundamental-value"></output></p>
         <input type="range" id="chiarella-sigma-fundamental-slider" min="0" max="1" step="0.01" value="0.05" style="width:100%;">
-        <p style="margin:0.6rem 0 0.2rem;">g = <output id="chiarella-drift-value"></output></p>
+        <p style="margin:0.6rem 0 0.2rem;"><span data-tooltip="Fundamental drift: steady growth (or decay) of V." tabindex="0">g</span> = <output id="chiarella-drift-value"></output></p>
         <input type="range" id="chiarella-drift-slider" min="-0.1" max="0.1" step="0.001" value="0" style="width:100%;">
-        <p style="margin:0.6rem 0 0.2rem;">dt = <output id="chiarella-dt-value"></output></p>
+        <p style="margin:0.6rem 0 0.2rem;"><span data-tooltip="Integration time step. Numerical only: smaller is more accurate but advances less time per step." tabindex="0">dt</span> = <output id="chiarella-dt-value"></output></p>
         <input type="range" id="chiarella-dt-slider" min="0.005" max="0.2" step="0.005" value="0.05" style="width:100%;">
-        <p style="margin:0.6rem 0 0.2rem;">Steps/frame = <output id="chiarella-speed-value"></output></p>
+        <p style="margin:0.6rem 0 0.2rem;"><span data-tooltip="Integration steps per animation frame, i.e. playback speed. Each frame covers steps × dt." tabindex="0">Steps/frame</span> = <output id="chiarella-speed-value"></output></p>
         <input type="range" id="chiarella-speed-slider" min="1" max="100" step="1" value="10" style="width:100%;">
         <p>
             <button id="chiarella-reset" style="background:#111; color:#aaaaaa; border:1px solid #333; padding:0.3rem 0.8rem; font-family:inherit; cursor:pointer;">Reset</button>
             <button id="chiarella-clear-histogram" style="background:#111; color:#aaaaaa; border:1px solid #333; padding:0.3rem 0.8rem; font-family:inherit; cursor:pointer;">Clear hist.</button>
         </p>
-        <p style="color:#888; font-size:0.9rem;">&beta;&gamma; = <output id="chiarella-bg-value"></output> vs 1+&kappa;/&alpha; = <output id="chiarella-threshold-value"></output><br>&rarr; <output id="chiarella-regime-value"></output></p>
+        <p style="color:#888; font-size:0.9rem;"><span data-tooltip="Trend-follower gain βγ against the stability threshold 1+κ/α. Above it, the market cycles between bubbles and crashes." tabindex="0">&beta;&gamma;</span> = <output id="chiarella-bg-value"></output> vs 1+&kappa;/&alpha; = <output id="chiarella-threshold-value"></output><br>&rarr; <output id="chiarella-regime-value"></output></p>
         <p style="color:#888; font-size:0.9rem;">
-            p = <output id="chiarella-p-value">0.000</output><br>
-            V = <output id="chiarella-v-value">0.000</output><br>
-            &delta; = <output id="chiarella-delta-value">0.000</output><br>
-            M = <output id="chiarella-m-value">0.000</output>
+            <span data-tooltip="Log-price of the asset." tabindex="0">p</span> = <output id="chiarella-p-value">0.000</output><br>
+            <span data-tooltip="Log fundamental value: what fundamentalists think the asset is worth." tabindex="0">V</span> = <output id="chiarella-v-value">0.000</output><br>
+            <span data-tooltip="Mispricing p − V. Positive means overvalued." tabindex="0">&delta;</span> = <output id="chiarella-delta-value">0.000</output><br>
+            <span data-tooltip="Trend signal: moving average of recent price changes." tabindex="0">M</span> = <output id="chiarella-m-value">0.000</output>
         </p>
         <ul style="color:#888; font-size:0.9rem; padding-left:1.2rem;">
             <li>P &rarr; start/stop</li>
@@ -104,25 +104,25 @@ Every slider acts on the running simulation immediately. Push $\beta$ past the t
 
 <div style="display:flex; flex-direction:column; gap:1rem; margin-top:1.5rem; font-family:'JetBrains Mono','Fira Code',monospace;">
     <div>
-        <p style="font-size:0.85rem; margin:0 0 0.25rem;"><span style="color:#aaaaaa;">Price p</span> <span style="color:#666;">/</span> <span style="color:#ff0055;">fundamental V</span></p>
+        <p style="font-size:0.85rem; margin:0 0 0.25rem;"><span data-tooltip="Log-price p (gray) and fundamental value V (red). Fundamentalists pull p toward V; trend followers push it away." tabindex="0"><span style="color:#aaaaaa;">Price p</span> <span style="color:#666;">/</span> <span style="color:#ff0055;">fundamental V</span></span></p>
         <div style="border:1px solid #333; background:#000;">
             <canvas id="chiarella-plot-price" style="display:block; width:100%; height:160px;"></canvas>
         </div>
     </div>
     <div>
-        <p style="color:#aaaaaa; font-size:0.85rem; margin:0 0 0.25rem;">Mispricing &delta; = p &minus; V</p>
+        <p style="color:#aaaaaa; font-size:0.85rem; margin:0 0 0.25rem;"><span data-tooltip="How far the price is from value. Scale is symmetric around the zero line, where the asset is fairly priced." tabindex="0">Mispricing &delta; = p &minus; V</span></p>
         <div style="border:1px solid #333; background:#000;">
             <canvas id="chiarella-plot-mispricing" style="display:block; width:100%; height:160px;"></canvas>
         </div>
     </div>
     <div>
-        <p style="color:#ff0055; font-size:0.85rem; margin:0 0 0.25rem;">Returns &Delta;p per frame</p>
+        <p style="color:#ff0055; font-size:0.85rem; margin:0 0 0.25rem;"><span data-tooltip="Price change over each frame, i.e. over steps × dt of simulated time." tabindex="0">Returns &Delta;p per frame</span></p>
         <div style="border:1px solid #333; background:#000;">
             <canvas id="chiarella-plot-returns" style="display:block; width:100%; height:160px;"></canvas>
         </div>
     </div>
     <div>
-        <p style="color:#aaaaaa; font-size:0.85rem; margin:0 0 0.25rem;">Histogram of &delta; <span style="color:#666;">(range &plusmn;<output id="chiarella-histogram-range">1</output>, <output id="chiarella-histogram-count">0</output> samples)</span></p>
+        <p style="color:#aaaaaa; font-size:0.85rem; margin:0 0 0.25rem;"><span data-tooltip="Distribution of mispricing since the last clear. One central peak when mean-reverting; wider and two-humped in the oscillatory regime." tabindex="0">Histogram of &delta;</span> <span style="color:#666;">(range &plusmn;<output id="chiarella-histogram-range">1</output>, <output id="chiarella-histogram-count">0</output> samples)</span></p>
         <div style="border:1px solid #333; background:#000;">
             <canvas id="chiarella-plot-histogram" style="display:block; width:100%; height:160px;"></canvas>
         </div>
