@@ -86,6 +86,12 @@
               --no-typescript \
               target/wasm32-unknown-unknown/release/chiarella.wasm
 
+            ${pkgs.wasm-bindgen-cli}/bin/wasm-bindgen \
+              --out-dir ../static/wasm \
+              --target web \
+              --no-typescript \
+              target/wasm32-unknown-unknown/release/tsp_annealing.wasm
+
               cd ..
           else
             echo "No 'simulations' folder found, skipping WASM build."
