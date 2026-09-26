@@ -2,16 +2,20 @@
 // uniform gray/black cells, no cell-division markings, drawn at 1 device
 // pixel per site and CSS-scaled (with `image-rendering: pixelated`) to a
 // fixed on-screen size, so switching grid dimensions never changes the
-// display footprint.
+// display footprint. On screens narrower than that size the canvas shrinks
+// to fit, keeping its aspect ratio from the grid dimensions.
 
 export const ALIVE_COLOR = "#aaaaaa";
 export const DEAD_COLOR = "#000000";
 
-// One-time canvas setup: fixed CSS display size, pixelated scaling.
+// One-time canvas setup: fixed CSS display size capped at the container
+// width, pixelated scaling.
 // Returns the 2D rendering context.
 export function setUpGridCanvas(canvas, displaySize) {
     canvas.style.width = `${displaySize}px`;
-    canvas.style.height = `${displaySize}px`;
+    canvas.style.maxWidth = "100%";
+    canvas.style.height = "auto";
+    canvas.style.display = "block";
     canvas.style.imageRendering = "pixelated";
     return canvas.getContext('2d');
 }

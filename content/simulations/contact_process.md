@@ -49,7 +49,7 @@ This simulation runs on a **toroidal** lattice: the edges wrap around, so intera
         <div style="flex:1; min-width:280px;">
             <p style="font-size:0.85rem; margin:0 0 0.25rem;"><span data-tooltip="Active fraction per sweep, on a fixed 0 to 1 scale. It settles to a plateau when activity survives, or drops to 0 when it dies out." tabindex="0"><span style="color:#ff0055;">Active fraction</span></span></p>
             <div style="border:1px solid #333; background:#000;">
-                <canvas id="contact-plot-active" style="display:block; width:100%; height:463px;"></canvas>
+                <canvas id="contact-plot-active" style="display:block; width:100%; height:458px;"></canvas>
             </div>
         </div>
     </div>
@@ -71,7 +71,7 @@ This simulation runs on a **toroidal** lattice: the edges wrap around, so intera
             // The plot is drawn at a fixed internal resolution matching the
             // plot column, and CSS-stretched when the layout stacks.
             const PLOT_WIDTH = 480;
-            const PLOT_HEIGHT = 463;
+            const PLOT_HEIGHT = 458;
             const PLOT_HISTORY = 300;
 
             const canvas = document.getElementById("contact-canvas");

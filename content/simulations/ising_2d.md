@@ -58,13 +58,13 @@ This simulation runs on a **toroidal** lattice: the edges wrap around, so intera
             <div>
                 <p style="font-size:0.85rem; margin:0 0 0.25rem;"><span data-tooltip="Magnetization per sweep, on a fixed −1 to +1 scale. Large fluctuations near Tc signal the phase transition." tabindex="0">Magnetization</span></p>
                 <div style="border:1px solid #333; background:#000;">
-                    <canvas id="ising-plot-mag" style="display:block; width:100%; height:216px;"></canvas>
+                    <canvas id="ising-plot-mag" style="display:block; width:100%; height:213px;"></canvas>
                 </div>
             </div>
             <div>
                 <p style="color:#ff0055; font-size:0.85rem; margin:0 0 0.25rem;"><span data-tooltip="Energy per site per sweep, on a fixed −2 to 0 scale. It relaxes to its equilibrium value after a temperature change." tabindex="0">Energy per site</span></p>
                 <div style="border:1px solid #333; background:#000;">
-                    <canvas id="ising-plot-energy" style="display:block; width:100%; height:216px;"></canvas>
+                    <canvas id="ising-plot-energy" style="display:block; width:100%; height:213px;"></canvas>
                 </div>
             </div>
         </div>
@@ -90,7 +90,7 @@ This simulation runs on a **toroidal** lattice: the edges wrap around, so intera
             // Each plot is drawn at a fixed internal resolution matching the
             // plot column, and CSS-stretched when the layout stacks.
             const PLOT_WIDTH = 480;
-            const PLOT_HEIGHT = 216;
+            const PLOT_HEIGHT = 213;
             const PLOT_HISTORY = 300;
 
             const canvas = document.getElementById("ising-canvas");
