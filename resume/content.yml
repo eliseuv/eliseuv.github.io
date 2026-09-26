@@ -16,8 +16,8 @@ skills:
       - French: ["Advanced"]
   - Programming:
       - C: []
-      - C++: ["boost"]
-      - Rust: ["tokio"]
+      - C++: ["C++17", "boost"]
+      - Rust: ["tokio", "rayon", "faer"]
       - Python:
           [
             "Pandas",
