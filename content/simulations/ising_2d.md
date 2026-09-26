@@ -12,6 +12,7 @@ description = "Ferromagnetic Ising model on a 2D lattice, sampled by Metropolis 
 '\beta' = 'Inverse temperature $1/T$.'
 'T' = 'Temperature, in units where $k_B = J = 1$. Below $T_c$ spins order into large domains; above it, thermal noise keeps them disordered.'
 'T_c' = 'Critical temperature of the phase transition, $2/\ln(1+\sqrt{2}) \approx 2.269$ on the infinite square lattice.'
+'L' = 'Side length of the $L \times L$ toroidal lattice, in sites.'
 +++
 
 The Ising model places a spin $s_i \in \{+1, -1\}$ on every site of a lattice. Neighboring spins interact through the Hamiltonian
@@ -32,7 +33,7 @@ and accepts the flip with probability $\min(1, e^{-\beta \Delta E})$, where $\be
 
 <p style="font-size:0.85rem; color:#888;">On the infinite 2D square lattice this model has an exact (Onsager) critical temperature $T_c = 2 / \ln(1 + \sqrt{2}) \approx 2.269$, separating an ordered ferromagnetic phase ($T < T_c$) from a disordered paramagnetic one ($T > T_c$).</p>
 
-This simulation runs on a **toroidal** lattice: the edges wrap around, so interactions cross the boundary seamlessly.
+This simulation runs on an $L \times L$ **toroidal** lattice: the edges wrap around, so interactions cross the boundary seamlessly.
 
 <div class="ising-wrap" style="display:flex; flex-direction:column; gap:0.8rem; font-family:'JetBrains Mono','Fira Code',monospace; color:#aaaaaa; font-size:0.9rem; line-height:1.3;">
     <div style="display:flex; flex-wrap:wrap; gap:0.5rem; align-items:center;">
@@ -43,12 +44,12 @@ This simulation runs on a **toroidal** lattice: the edges wrap around, so intera
     </div>
     <div class="ising-controls" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(170px, 1fr)); gap:0.4rem 1.2rem;">
         <div>
-            <p style="margin:0 0 0.2rem;"><span data-tooltip="Side length L of the L×L toroidal lattice. Changing it rebuilds the lattice and pauses." tabindex="0">Lattice size</span></p>
+            <p style="margin:0 0 0.2rem;"><span data-sym="L" tabindex="0">L</span></p>
             <select id="ising-l-select" style="width:100%; background:#111; color:#aaaaaa; border:1px solid #333; font-family:inherit; padding:0.2rem;">
-                <option value="32">32 &times; 32</option>
-                <option value="64">64 &times; 64</option>
-                <option value="128" selected>128 &times; 128</option>
-                <option value="256">256 &times; 256</option>
+                <option value="32">32</option>
+                <option value="64">64</option>
+                <option value="128" selected>128</option>
+                <option value="256">256</option>
             </select>
         </div>
         <div>

@@ -6,6 +6,7 @@ description = "Directed-percolation contact process on a 2D lattice, compiled to
 [extra.symbols]
 'p' = 'Healing probability: chance an Active site turns Inactive when picked.'
 'p_c' = 'Critical healing probability separating the percolating phase ($p < p_c$) from the absorbing one ($p > p_c$).'
+'L' = 'Side length of the $L \times L$ toroidal lattice, in sites.'
 +++
 
 The contact process models activity spreading and dying out on a lattice: every site is either **Active** or **Inactive**. Unlike the Ising model, there is no Hamiltonian here — the dynamics are defined directly by per-site rates, not by an energy function.
@@ -19,7 +20,7 @@ One *sweep* (one call to `step`) makes as many such attempts as there are sites.
 
 <p style="font-size:0.85rem; color:#888;">This produces the classic directed-percolation phase transition: for large $p$ (fast healing), activity always dies out (an absorbing phase). For small $p$, activity can survive and spread indefinitely (a percolating phase). A critical $p_c$ separates the two — explore it with the slider below.</p>
 
-This simulation runs on a **toroidal** lattice: the edges wrap around, so interactions cross the boundary seamlessly.
+This simulation runs on an $L \times L$ **toroidal** lattice: the edges wrap around, so interactions cross the boundary seamlessly.
 
 <div class="contact-wrap" style="display:flex; flex-direction:column; gap:0.8rem; font-family:'JetBrains Mono','Fira Code',monospace; color:#aaaaaa; font-size:0.9rem; line-height:1.3;">
     <div style="display:flex; flex-wrap:wrap; gap:0.5rem; align-items:center;">
@@ -30,12 +31,12 @@ This simulation runs on a **toroidal** lattice: the edges wrap around, so intera
     </div>
     <div class="contact-controls" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(170px, 1fr)); gap:0.4rem 1.2rem;">
         <div>
-            <p style="margin:0 0 0.2rem;"><span data-tooltip="Side length L of the L×L toroidal lattice. Changing it rebuilds the lattice and pauses." tabindex="0">Lattice size</span></p>
+            <p style="margin:0 0 0.2rem;"><span data-sym="L" tabindex="0">L</span></p>
             <select id="contact-l-select" style="width:100%; background:#111; color:#aaaaaa; border:1px solid #333; font-family:inherit; padding:0.2rem;">
-                <option value="32">32 &times; 32</option>
-                <option value="64">64 &times; 64</option>
-                <option value="128" selected>128 &times; 128</option>
-                <option value="256">256 &times; 256</option>
+                <option value="32">32</option>
+                <option value="64">64</option>
+                <option value="128" selected>128</option>
+                <option value="256">256</option>
             </select>
         </div>
         <div>
