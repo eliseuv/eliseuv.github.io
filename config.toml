@@ -1,4 +1,4 @@
-base_url = "https://eliseuv.github.io/"
+base_url = "https://eliseuv.dev/"
 
 compile_sass = true
 build_search_index = true
