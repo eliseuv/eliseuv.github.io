@@ -31,6 +31,12 @@ description = "Simulated annealing with Metropolis sampling and geometric coolin
 'p(x)' = 'Density of each coordinate in the power-law domain.'
 '\langle C_0\rangle' = 'Expected cost of a uniformly random cycle on the same cities.'
 'C/\langle C_0\rangle' = 'Performance: cost relative to a random cycle. Lower is better.'
+
+[extra.links]
+context = "msc"
+projects = ["tsp-sa"]
+publications = ["10.1016/j.physa.2021.126067"]
+skills = ["Rust"]
 +++
 
 The **traveling salesman problem** (TSP) asks for the shortest closed route visiting each of $N$ cities exactly once. A route is a Hamiltonian cycle $\sigma$, i.e. a cyclic ordering of the cities, and its cost is the total length

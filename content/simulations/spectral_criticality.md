@@ -24,6 +24,12 @@ description = "Random matrix analysis of time series from many independent copie
 '\alpha_c' = 'Critical infection rate of the one-dimensional contact process without diffusion, $\approx 3.29785$. Below it activity always dies out.'
 '\gamma' = 'Diffusion probability: chance per attempt that a site swaps its state with a random neighbor.'
 '\rho_a' = 'Density of active sites of the contact process, from $0$ (absorbed) to $1$ (fully active).'
+
+[extra.links]
+context = "phd"
+projects = ["artificial-systems", "ts-cov-matrix"]
+publications = ["10.3390/e26050395", "10.1142/s0129183124501638", "10.3390/sym17050774"]
+skills = ["Rust"]
 +++
 
 A phase transition is a collective change: at the critical point, fluctuations are correlated over the whole system and relax slowly. This page shows a way to detect it without measuring any correlation length directly. Run $N$ independent copies of the system, record one global quantity of each over time, and ask how *similar* those $N$ time series are to each other. The answer is read from the spectrum of their correlation matrix, compared against what random matrix theory predicts for series that are not correlated at all.

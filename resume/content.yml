@@ -36,27 +36,36 @@ skills:
       - Docker: []
       - Nix: []
 
+# Cross-links: experience and education `id`s are the targets of `context` fields
+# (in projects, publications and simulation `[extra.links]`), projects are keyed by
+# their repo name and publications by DOI. Each link is declared on one side only:
+# templates/macros/links.html derives the reverse direction and fails the build on
+# unknown ids.
 experience:
-  - role: Software Engineer
+  - id: nelogica
+    role: Software Engineer
     name: Nelogica
     logo: /svg/nelogica.svg
     link: https://www.nelogica.com.br/
     degree_logo: /svg/candlestick.svg
     location: Porto Alegre, Brazil
     date: Feb. 2026 - Present
+    skills: ["Delphi"]
     points:
       - Engineer low-latency, high-performance backend microservices in Delphi as part of the Automation Tools team, serving thousands of daily active users
       - Sustain high availability on mission-critical legacy systems through proactive maintenance and infrastructure hardening
       - Reduce manual processing time by automating workflows and building custom internal tools that scale operations across teams
       - Deploy and operate services across AWS, Azure, and Equinix infrastructure, using GitLab CI pipelines within an Agile/Scrum team workflow
 
-  - role: Ph.D. in Computational Statistical Physics
+  - id: phd
+    role: Ph.D. in Computational Statistical Physics
     name: Universidade Federal do Rio Grande do Sul
     logo: /svg/ufrgs.svg
     link: https://if.ufrgs.br/ppgfis/
     degree_logo: /svg/statistics.svg
     location: Porto Alegre, Brazil
     date: Jul. 2021 - Feb. 2026
+    skills: ["Rust", "Julia"]
     points:
       - Doctoral research funded by a CNPq scholarship
       - Analysis of the ensemble correlations of observables of complex systems in order to predict their critical behavior
@@ -64,7 +73,8 @@ experience:
       - Both systems with and without a defined Hamiltonian considered
       - The simulations were implemented in Rust while the data analysis was done in the Julia ecosystem
 
-  - role: M.Sc. in Computational Statistical Physics
+  - id: msc
+    role: M.Sc. in Computational Statistical Physics
     name: Universidade Federal do Rio Grande do Sul
     logo: /svg/ufrgs.svg
     link: https://if.ufrgs.br/ppgfis/
@@ -72,6 +82,7 @@ experience:
     degree_link: http://hdl.handle.net/10183/225179
     location: Porto Alegre, Brazil
     date: Mar. 2019 - May 2021
+    skills: ["C++", "Python"]
     points:
       - Master's research funded by a CNPq scholarship
       - Scored higher than 99.42% of candidates on the EUF 2-2018 (National graduate programs entrance exam)
@@ -79,7 +90,8 @@ experience:
       - Analysis of the stochastic optimization algorithm applied to problems at the boundary between P and NP complexity classes
       - The optimization algorithm was implemented in C++ while the data analysis was done in the Python ecosystem
 
-  - role: Optical Engineering Internship
+  - id: telecom-internship
+    role: Optical Engineering Internship
     name: Télécom ParisTech
     logo: /svg/telecom.svg
     link: https://www.telecom-paris.fr/
@@ -90,7 +102,8 @@ experience:
       - Improved photon-pair coincidence count rate by engineering active stabilization of a polarization-entangled photon-pair source
       - Enabled reliable Quantum Key Distribution (QKD) protocol testing by optimizing signal count rates within the Information Quantique et Applications research group
 
-  - role: Undergraduate Research (Scientific Initiation)
+  - id: undergraduate-research
+    role: Undergraduate Research (Scientific Initiation)
     name: Universidade Federal do Rio Grande do Sul
     logo: /svg/ufrgs.svg
     link: https://www.ufrgs.br/
@@ -102,7 +115,8 @@ experience:
       - "Gave presentations on quantum algorithms such as Shor's and Grover's"
 
 education:
-  - name: Institut d'Optique Graduate School
+  - id: iogs
+    name: Institut d'Optique Graduate School
     degree: Diplôme d'Ingénieur
     logo: /svg/iogs.svg
     link: https://www.institutoptique.fr/
@@ -114,7 +128,8 @@ education:
       - Double degree in the context of BRAFITEC program
       - "Optical Instrumentation, Automation, Lasers and Quantum Optics"
 
-  - name: Université Paris-Saclay
+  - id: paris-saclay
+    name: Université Paris-Saclay
     degree: L3 et M1 en Physique Fondamentale
     logo: /svg/ups.svg
     link: https://www.universite-paris-saclay.fr/
@@ -126,7 +141,8 @@ education:
       - Double degree in Theoretical Physics offered to engineering students
       - "Analytical Mechanics, Statistical Physics, Plasma Physics and Atomic and Molecular Physics"
 
-  - name: Universidade Federal do Rio Grande do Sul
+  - id: bsc
+    name: Universidade Federal do Rio Grande do Sul
     degree: B.Sc. in Engineering Physics
     logo: /svg/ufrgs.svg
     link: https://www.ufrgs.br/
@@ -141,6 +157,7 @@ education:
 projects:
   - name: tsp-sa
     repo: eliseuv/tsp-sa
+    context: msc
     skills:
       - name: C++
       - name: Python
@@ -152,6 +169,7 @@ projects:
 
   - name: artificial-systems
     repo: eliseuv/artificial-systems
+    context: phd
     skills:
       - name: Rust
         libs: ["ndarray", "serde"]
@@ -162,6 +180,7 @@ projects:
 
   - name: ts-cov-matrix
     repo: eliseuv/ts-cov-matrix
+    context: phd
     skills:
       - name: Julia
         libs: ["DataFrames.jl", "Makie.jl"]
@@ -202,6 +221,7 @@ projects:
 
 publications:
   - doi: 10.3390/sym17050774
+    context: phd
     year: 2025
     title: "Revisiting the Contact Model with Diffusion Beyond the Conventional Methods"
     journal: Symmetry
@@ -209,6 +229,7 @@ publications:
       ["R. da Silva", "E. Venites Filho", "H. A. Fernandes", "P. F. Gomes"]
 
   - doi: 10.1142/s0129183124501638
+    context: phd
     year: 2025
     title: "Efficient computational method using random matrices describing critical thermodynamics"
     journal: International Journal of Modern Physics C
@@ -221,12 +242,14 @@ publications:
       ]
 
   - doi: 10.3390/e26050395
+    context: phd
     year: 2024
     title: "A Spectral Investigation of Criticality and Crossover Effects in Two and Three Dimensions: Short Timescales with Small Systems in Minute Random Matrices"
     journal: Entropy
     authors: ["E. Venites Filho", "R. da Silva", "J. R. Drugowich de Felício"]
 
   - doi: 10.1007/s13538-023-01295-9
+    context: phd
     year: 2023
     title: Mean-Field Criticality Explained by Random Matrices Theory
     journal: Brazilian Journal of Physics
@@ -240,6 +263,8 @@ publications:
       ]
 
   - doi: 10.1016/j.physa.2021.126067
+    context: msc
+    projects: ["tsp-sa"]
     year: 2021
     title: A Thorough Study of the Performance of Simulated Annealing in the Traveling Salesman Problem under Correlated and Long Tailed Spatial Scenarios
     journal: "Physica A: Statistical Mechanics and its Applications"

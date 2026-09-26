@@ -7,6 +7,11 @@ description = "Directed-percolation contact process on a 2D lattice, compiled to
 'p' = 'Healing probability: chance an Active site turns Inactive when picked.'
 'p_c' = 'Critical healing probability separating the percolating phase ($p < p_c$) from the absorbing one ($p > p_c$).'
 'L' = 'Side length of the $L \times L$ toroidal lattice, in sites.'
+
+[extra.links]
+context = "phd"
+projects = ["artificial-systems"]
+skills = ["Rust"]
 +++
 
 The contact process models activity spreading and dying out on a lattice: every site is either **Active** or **Inactive**. Unlike the Ising model, there is no Hamiltonian here — the dynamics are defined directly by per-site rates, not by an energy function.

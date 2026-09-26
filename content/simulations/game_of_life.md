@@ -7,6 +7,10 @@ description = "Cellular automaton simulation compiled to WebAssembly, rendered o
 'n' = 'Number of live neighbors of a site, out of $8$.'
 'p' = 'Fill probability: chance each site starts alive.'
 'L' = 'Side length of the $L \times L$ toroidal lattice, in sites.'
+
+[extra.links]
+projects = ["artificial-systems"]
+skills = ["Rust"]
 +++
 
 Conway's Game of Life is a zero-player cellular automaton: a lattice of sites, each either **alive** or **dead**, that evolves in discrete steps according to a fixed rule applied to every site in parallel. There is no player input during a run: the initial configuration alone determines everything that follows.

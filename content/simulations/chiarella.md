@@ -23,6 +23,9 @@ description = "Extended Chiarella model of a market with fundamentalists, trend 
 '\sigma_V' = 'Fundamental volatility: size of the news shocks that move $V$.'
 'g' = 'Fundamental drift: steady growth (or decay) of $V$.'
 'dt' = 'Integration time step. Numerical only, not part of the model.'
+
+[extra.links]
+skills = ["Rust"]
 +++
 
 The Chiarella model describes the log-price $p$ of an asset traded by three kinds of agents. Working in logs makes price increments $dp$ returns, so the dynamics don't depend on the price level; the simulation starts at $p = 0$, i.e. a price normalized to $e^0 = 1$.

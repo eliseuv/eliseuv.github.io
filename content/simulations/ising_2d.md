@@ -13,6 +13,11 @@ description = "Ferromagnetic Ising model on a 2D lattice, sampled by Metropolis 
 'T' = 'Temperature, in units where $k_B = J = 1$. Below $T_c$ spins order into large domains; above it, thermal noise keeps them disordered.'
 'T_c' = 'Critical temperature of the phase transition, $2/\ln(1+\sqrt{2}) \approx 2.269$ on the infinite square lattice.'
 'L' = 'Side length of the $L \times L$ toroidal lattice, in sites.'
+
+[extra.links]
+context = "phd"
+projects = ["artificial-systems"]
+skills = ["Rust"]
 +++
 
 The Ising model places a spin $s_i \in \{+1, -1\}$ on every site of a lattice. Neighboring spins interact through the Hamiltonian
