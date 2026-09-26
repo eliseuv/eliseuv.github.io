@@ -93,6 +93,16 @@
               --no-typescript \
               target/wasm32-unknown-unknown/release/tsp_annealing.wasm
 
+            ${pkgs.wasm-bindgen-cli}/bin/wasm-bindgen \
+              --out-dir ../static/wasm \
+              --target web \
+              --no-typescript \
+              target/wasm32-unknown-unknown/release/spectral_criticality.wasm
+
+            ${pkgs.binaryen}/bin/wasm-opt -Oz \
+              -o ../static/wasm/spectral_criticality_bg.wasm \
+              ../static/wasm/spectral_criticality_bg.wasm
+
               cd ..
           else
             echo "No 'simulations' folder found, skipping WASM build."
