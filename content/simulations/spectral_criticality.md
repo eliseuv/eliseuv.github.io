@@ -28,7 +28,7 @@ description = "Random matrix analysis of time series from many independent copie
 
 A phase transition is a collective change: at the critical point, fluctuations are correlated over the whole system and relax slowly. This page shows a way to detect it without measuring any correlation length directly. Run $N$ independent copies of the system, record one global quantity of each over time, and ask how *similar* those $N$ time series are to each other. The answer is read from the spectrum of their correlation matrix, compared against what random matrix theory predicts for series that are not correlated at all.
 
-This is the method of my PhD thesis, *Examining Criticality through Random Matrices across Various Universality Classes*, and the simulations run on the same code, compiled to WebAssembly.
+This is the method of my PhD thesis, *Random matrices approaches for correlated time series: statistical physics and other applications*, and the simulations run on the same code, compiled to WebAssembly.
 
 ## From time series to a spectrum
 
