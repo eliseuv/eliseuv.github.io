@@ -25,7 +25,11 @@
                         {% for entry in items %}
                         {% for label, detail in entry %}
                         <span class="skill-chip{% if detail | length > 0 %} has-detail{% endif %}">
+                            {% if category == "Languages" %}
                             <span class="chip-label">{{ label }}</span>
+                            {% else %}
+                            <a class="chip-label" href="/skills/#{{ links::skill_anchor(name=label) }}">{{ label }}</a>
+                            {% endif %}
                             {% if detail | length > 0 %}
                             <span class="chip-detail">
                                 {% for d in detail %}
