@@ -76,89 +76,104 @@ $$
 
 This is a live version of the simulations in my M.Sc. dissertation, whose research code is at [eliseuv/tsp-sa](https://github.com/eliseuv/tsp-sa). Every control acts on the running simulation. The schedule runs on its own, but you can grab the current $T$ at any time to reheat or quench the cycle, or hold it fixed to watch the chain at equilibrium.
 
-<div class="tsp-wrap" style="display:flex; flex-wrap:wrap; gap:1.5rem; align-items:flex-start; font-family:'JetBrains Mono','Fira Code',monospace; color:#aaaaaa;">
-    <div>
-        <p style="color:#aaaaaa; font-size:0.85rem; margin:0 0 0.25rem;"><span data-tooltip="Current cycle: gray edges in visiting order, red dots are the cities. At high T it is a random tangle; as T drops, crossings disappear and the cycle unfolds." tabindex="0">Cycle</span></p>
-        <div style="border:1px solid #333; background:#000;">
-            <canvas id="tsp-tour" style="display:block; width:512px; max-width:100%; aspect-ratio:1/1; height:auto;"></canvas>
-        </div>
+<div class="tsp-wrap" style="display:flex; flex-direction:column; gap:0.8rem; font-family:'JetBrains Mono','Fira Code',monospace; color:#aaaaaa; font-size:0.9rem; line-height:1.3;">
+    <div style="display:flex; flex-wrap:wrap; gap:0.5rem; align-items:center;">
+        <button id="tsp-play-pause" style="background:#111; color:#aaaaaa; border:1px solid #333; padding:0.3rem 0.9rem; font-family:inherit; font-size:1.1rem; cursor:pointer;">&#9654;</button>
+        <button id="tsp-anneal" style="background:#111; color:#aaaaaa; border:1px solid #333; padding:0.3rem 0.8rem; font-family:inherit; cursor:pointer;">Anneal</button>
+        <button id="tsp-randomize" style="background:#111; color:#aaaaaa; border:1px solid #333; padding:0.3rem 0.8rem; font-family:inherit; cursor:pointer;">Randomize</button>
+        <span style="color:#666; margin-left:auto;">P start/stop &middot; A anneal &middot; R randomize</span>
     </div>
-    <div class="tsp-controls" style="width:220px;">
-        <button id="tsp-play-pause" style="background:#111; color:#aaaaaa; border:1px solid #333; padding:0.5rem 1rem; font-family:inherit; font-size:1.2rem; cursor:pointer;">&#9654;</button>
-        <p>
-            <button id="tsp-anneal" style="background:#111; color:#aaaaaa; border:1px solid #333; padding:0.3rem 0.8rem; font-family:inherit; cursor:pointer;">Anneal</button>
-            <button id="tsp-randomize" style="background:#111; color:#aaaaaa; border:1px solid #333; padding:0.3rem 0.8rem; font-family:inherit; cursor:pointer;">Randomize</button>
-        </p>
-        <p style="color:#666; font-size:0.8rem; margin:0.8rem 0 0;">&mdash; instance &mdash;</p>
-        <p style="margin:0.6rem 0 0.2rem;"><span data-tooltip="Number of cities. Changing it draws a new instance." tabindex="0">N</span> = <output id="tsp-n-value"></output></p>
-        <input type="range" id="tsp-n-slider" min="3" max="11" step="0.25" value="8" style="width:100%;">
-        <p style="margin:0.6rem 0 0.2rem;"><span data-tooltip="Distribution the cities are drawn from. Changing it draws a new instance." tabindex="0">Domain</span></p>
-        <select id="tsp-domain" style="width:100%; background:#111; color:#aaaaaa; border:1px solid #333; font-family:inherit; padding:0.2rem;">
-            <option value="uniform" selected>uniform</option>
-            <option value="correlated-uniform">correlated (uniform z)</option>
-            <option value="correlated-normal">correlated (normal z)</option>
-            <option value="power-law">power law</option>
-        </select>
+    <div class="tsp-controls" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(170px, 1fr)); gap:0.4rem 1.2rem;">
+        <div>
+            <p style="margin:0 0 0.2rem;"><span data-tooltip="Number of cities. Changing it draws a new instance." tabindex="0">N</span> = <output id="tsp-n-value"></output></p>
+            <input type="range" id="tsp-n-slider" min="3" max="11" step="0.25" value="8" style="width:100%;">
+        </div>
+        <div>
+            <p style="margin:0 0 0.2rem;"><span data-tooltip="Distribution the cities are drawn from. Changing it draws a new instance." tabindex="0">Domain</span></p>
+            <select id="tsp-domain" style="width:100%; background:#111; color:#aaaaaa; border:1px solid #333; font-family:inherit; padding:0.2rem;">
+                <option value="uniform" selected>uniform</option>
+                <option value="correlated-uniform">correlated (uniform z)</option>
+                <option value="correlated-normal">correlated (normal z)</option>
+                <option value="power-law">power law</option>
+            </select>
+        </div>
         <div id="tsp-rho-row" style="display:none;">
-            <p style="margin:0.6rem 0 0.2rem;"><span data-tooltip="Correlation between the x and y coordinates. At 1 the cities lie on a line and the problem becomes easy." tabindex="0">&rho;</span> = <output id="tsp-rho-value"></output></p>
+            <p style="margin:0 0 0.2rem;"><span data-tooltip="Correlation between the x and y coordinates. At 1 the cities lie on a line and the problem becomes easy." tabindex="0">&rho;</span> = <output id="tsp-rho-value"></output></p>
             <input type="range" id="tsp-rho-slider" min="0" max="1" step="0.01" value="0.9" style="width:100%;">
         </div>
         <div id="tsp-gamma-row" style="display:none;">
-            <p style="margin:0.6rem 0 0.2rem;"><span data-tooltip="Power-law exponent. Smaller means heavier tails and more far-away outliers; at 3 or below the variance is infinite." tabindex="0">&gamma;</span> = <output id="tsp-gamma-value"></output></p>
+            <p style="margin:0 0 0.2rem;"><span data-tooltip="Power-law exponent. Smaller means heavier tails and more far-away outliers; at 3 or below the variance is infinite." tabindex="0">&gamma;</span> = <output id="tsp-gamma-value"></output></p>
             <input type="range" id="tsp-gamma-slider" min="1.5" max="6" step="0.1" value="3.4" style="width:100%;">
         </div>
-        <p style="color:#666; font-size:0.8rem; margin:0.8rem 0 0;">&mdash; annealing &mdash;</p>
-        <p style="margin:0.6rem 0 0.2rem;"><span data-tooltip="Proposal move. Swap exchanges two adjacent cities; 2-opt reverses a whole stretch of the cycle and anneals far better." tabindex="0">Move</span></p>
-        <select id="tsp-move" style="width:100%; background:#111; color:#aaaaaa; border:1px solid #333; font-family:inherit; padding:0.2rem;">
-            <option value="2-opt" selected>2-opt</option>
-            <option value="swap">swap</option>
-        </select>
-        <p style="margin:0.6rem 0 0.2rem;"><span data-tooltip="Initial temperature, where each anneal starts. Takes effect on the next Anneal." tabindex="0">T<sub>0</sub></span> = <output id="tsp-t0-value"></output></p>
-        <input type="range" id="tsp-t0-slider" min="-2" max="2" step="0.1" value="0" style="width:100%;">
-        <p style="margin:0.6rem 0 0.2rem;"><span data-tooltip="Final temperature. Cooling stops here and the chain keeps sampling at T_f." tabindex="0">T<sub>f</sub></span> = <output id="tsp-tf-value"></output></p>
-        <input type="range" id="tsp-tf-slider" min="-8" max="-1" step="0.1" value="-4" style="width:100%;">
-        <p style="margin:0.6rem 0 0.2rem;"><span data-tooltip="Cooling factor: each step multiplies T by α. Closer to 1 means slower, gentler cooling." tabindex="0">&alpha;</span> = <output id="tsp-alpha-value"></output></p>
-        <input type="range" id="tsp-alpha-slider" min="1" max="4" step="0.05" value="1.7" style="width:100%;">
-        <p style="margin:0.6rem 0 0.2rem;"><span data-tooltip="Metropolis iterations at each temperature before cooling again." tabindex="0">n<sub>iter</sub></span> = <output id="tsp-iter-value"></output></p>
-        <input type="range" id="tsp-iter-slider" min="1" max="5" step="0.1" value="3.3" style="width:100%;">
-        <p style="margin:0.6rem 0 0.2rem;"><span data-tooltip="Metropolis iterations per animation frame, i.e. playback speed." tabindex="0">Moves/frame</span> = <output id="tsp-speed-value"></output></p>
-        <input type="range" id="tsp-speed-slider" min="1" max="5" step="0.1" value="3.3" style="width:100%;">
-        <p style="color:#666; font-size:0.8rem; margin:0.8rem 0 0;">&mdash; temperature &mdash;</p>
-        <p style="margin:0.6rem 0 0.2rem;"><span data-tooltip="Current temperature. Follows the schedule; drag it to reheat or quench, and cooling resumes from there." tabindex="0">T</span> = <output id="tsp-t-value"></output></p>
-        <input type="range" id="tsp-t-slider" min="-8" max="2" step="0.01" value="0" style="width:100%;">
-        <label style="display:block; margin-top:0.3rem; cursor:pointer;"><input type="checkbox" id="tsp-hold"> <span data-tooltip="Stop cooling and keep sampling at the current T." tabindex="0">Hold T</span></label>
-        <p style="color:#888; font-size:0.9rem;">
-            <span data-tooltip="Annealing step: how many times T has been cooled since the last Anneal." tabindex="0">t</span> = <output id="tsp-step-value">0</output> &rarr; <output id="tsp-state-value"></output><br>
-            <span data-tooltip="Cost of the current cycle." tabindex="0">C</span> = <output id="tsp-cost-value"></output><br>
-            <span data-tooltip="Expected cost of a uniformly random cycle on these cities." tabindex="0">&lang;C<sub>0</sub>&rang;</span> = <output id="tsp-c0-value"></output><br>
-            <span data-tooltip="Performance: current cost relative to a random cycle. Lower is better." tabindex="0">C/&lang;C<sub>0</sub>&rang;</span> = <output id="tsp-ratio-value"></output><br>
-            <span data-tooltip="Lowest C/⟨C₀⟩ seen since the last Anneal." tabindex="0">best</span> = <output id="tsp-best-value"></output><br>
-            <span data-tooltip="Fraction of proposed moves accepted during the last frame." tabindex="0">accepted</span> = <output id="tsp-acceptance-value"></output>
-        </p>
-        <ul style="color:#888; font-size:0.9rem; padding-left:1.2rem;">
-            <li>P &rarr; start/stop</li>
-            <li>A &rarr; anneal</li>
-            <li>R &rarr; randomize</li>
-        </ul>
-    </div>
-</div>
-<div style="display:flex; flex-direction:column; gap:1rem; margin-top:1.5rem; font-family:'JetBrains Mono','Fira Code',monospace;">
-    <div>
-        <p style="color:#aaaaaa; font-size:0.85rem; margin:0 0 0.25rem;"><span data-tooltip="One point per frame since the last Anneal, on log-log axes. Cooling moves the trace leftwards; the cost falls smoothly and then freezes at low T." tabindex="0">C/&lang;C<sub>0</sub>&rang; vs T</span> <span style="color:#666;">(log-log)</span></p>
-        <div style="border:1px solid #333; background:#000;">
-            <canvas id="tsp-plot-cost-temperature" style="display:block; width:100%; height:240px;"></canvas>
+        <div>
+            <p style="margin:0 0 0.2rem;"><span data-tooltip="Proposal move. Swap exchanges two adjacent cities; 2-opt reverses a whole stretch of the cycle and anneals far better." tabindex="0">Move</span></p>
+            <select id="tsp-move" style="width:100%; background:#111; color:#aaaaaa; border:1px solid #333; font-family:inherit; padding:0.2rem;">
+                <option value="2-opt" selected>2-opt</option>
+                <option value="swap">swap</option>
+            </select>
+        </div>
+        <div>
+            <p style="margin:0 0 0.2rem;"><span data-tooltip="Initial temperature, where each anneal starts. Takes effect on the next Anneal." tabindex="0">T<sub>0</sub></span> = <output id="tsp-t0-value"></output></p>
+            <input type="range" id="tsp-t0-slider" min="-2" max="2" step="0.1" value="0" style="width:100%;">
+        </div>
+        <div>
+            <p style="margin:0 0 0.2rem;"><span data-tooltip="Final temperature. Cooling stops here and the chain keeps sampling at T_f." tabindex="0">T<sub>f</sub></span> = <output id="tsp-tf-value"></output></p>
+            <input type="range" id="tsp-tf-slider" min="-8" max="-1" step="0.1" value="-4" style="width:100%;">
+        </div>
+        <div>
+            <p style="margin:0 0 0.2rem;"><span data-tooltip="Cooling factor: each step multiplies T by α. Closer to 1 means slower, gentler cooling." tabindex="0">&alpha;</span> = <output id="tsp-alpha-value"></output></p>
+            <input type="range" id="tsp-alpha-slider" min="1" max="4" step="0.05" value="1.7" style="width:100%;">
+        </div>
+        <div>
+            <p style="margin:0 0 0.2rem;"><span data-tooltip="Metropolis iterations at each temperature before cooling again." tabindex="0">n<sub>iter</sub></span> = <output id="tsp-iter-value"></output></p>
+            <input type="range" id="tsp-iter-slider" min="1" max="5" step="0.1" value="3.3" style="width:100%;">
+        </div>
+        <div>
+            <p style="margin:0 0 0.2rem;"><span data-tooltip="Metropolis iterations per animation frame, i.e. playback speed." tabindex="0">Moves/frame</span> = <output id="tsp-speed-value"></output></p>
+            <input type="range" id="tsp-speed-slider" min="1" max="5" step="0.1" value="3.3" style="width:100%;">
+        </div>
+        <div>
+            <p style="margin:0 0 0.2rem; display:flex; justify-content:space-between;">
+                <span><span data-tooltip="Current temperature. Follows the schedule; drag it to reheat or quench, and cooling resumes from there." tabindex="0">T</span> = <output id="tsp-t-value"></output></span>
+                <label style="cursor:pointer;"><input type="checkbox" id="tsp-hold"> <span data-tooltip="Stop cooling and keep sampling at the current T." tabindex="0">Hold</span></label>
+            </p>
+            <input type="range" id="tsp-t-slider" min="-8" max="2" step="0.01" value="0" style="width:100%;">
         </div>
     </div>
-    <div>
-        <p style="font-size:0.85rem; margin:0 0 0.25rem;"><span data-tooltip="Current (gray) and best-so-far (red) cost relative to a random cycle, one sample per frame." tabindex="0"><span style="color:#aaaaaa;">C/&lang;C<sub>0</sub>&rang;</span> <span style="color:#666;">/</span> <span style="color:#ff0055;">best</span></span></p>
-        <div style="border:1px solid #333; background:#000;">
-            <canvas id="tsp-plot-cost" style="display:block; width:100%; height:160px;"></canvas>
+    <p style="color:#888; margin:0; display:flex; flex-wrap:wrap; gap:0.2rem 1.2rem;">
+        <span><span data-tooltip="Annealing step: how many times T has been cooled since the last Anneal." tabindex="0">t</span> = <output id="tsp-step-value">0</output> &rarr; <output id="tsp-state-value"></output></span>
+        <span><span data-tooltip="Cost of the current cycle." tabindex="0">C</span> = <output id="tsp-cost-value"></output></span>
+        <span><span data-tooltip="Expected cost of a uniformly random cycle on these cities." tabindex="0">&lang;C<sub>0</sub>&rang;</span> = <output id="tsp-c0-value"></output></span>
+        <span><span data-tooltip="Performance: current cost relative to a random cycle. Lower is better." tabindex="0">C/&lang;C<sub>0</sub>&rang;</span> = <output id="tsp-ratio-value"></output></span>
+        <span><span data-tooltip="Lowest C/⟨C₀⟩ seen since the last Anneal." tabindex="0">best</span> = <output id="tsp-best-value"></output></span>
+        <span><span data-tooltip="Fraction of proposed moves accepted during the last frame." tabindex="0">accepted</span> = <output id="tsp-acceptance-value"></output></span>
+    </p>
+    <div style="display:flex; flex-wrap:wrap; gap:1rem; align-items:flex-start;">
+        <div style="width:480px; max-width:100%;">
+            <p style="font-size:0.85rem; margin:0 0 0.25rem;"><span data-tooltip="Current cycle: gray edges in visiting order, red dots are the cities. At high T it is a random tangle; as T drops, crossings disappear and the cycle unfolds." tabindex="0">Cycle</span></p>
+            <div style="border:1px solid #333; background:#000;">
+                <canvas id="tsp-tour" style="display:block; width:100%; aspect-ratio:1/1; height:auto;"></canvas>
+            </div>
         </div>
-    </div>
-    <div>
-        <p style="color:#ff0055; font-size:0.85rem; margin:0 0 0.25rem;"><span data-tooltip="Fraction of proposed moves accepted in each frame, on a fixed 0–1 scale. Drops toward zero as the cycle freezes." tabindex="0">Acceptance rate</span></p>
-        <div style="border:1px solid #333; background:#000;">
-            <canvas id="tsp-plot-acceptance" style="display:block; width:100%; height:160px;"></canvas>
+        <div style="flex:1; min-width:280px; display:flex; flex-direction:column; gap:0.5rem;">
+            <div>
+                <p style="font-size:0.85rem; margin:0 0 0.25rem;"><span data-tooltip="One point per frame since the last Anneal, on log-log axes. Cooling moves the trace leftwards; the cost falls smoothly and then freezes at low T." tabindex="0">C/&lang;C<sub>0</sub>&rang; vs T</span> <span style="color:#666;">(log-log)</span></p>
+                <div style="border:1px solid #333; background:#000;">
+                    <canvas id="tsp-plot-cost-temperature" style="display:block; width:100%; height:180px;"></canvas>
+                </div>
+            </div>
+            <div>
+                <p style="font-size:0.85rem; margin:0 0 0.25rem;"><span data-tooltip="Current (gray) and best-so-far (red) cost relative to a random cycle, one sample per frame." tabindex="0"><span style="color:#aaaaaa;">C/&lang;C<sub>0</sub>&rang;</span> <span style="color:#666;">/</span> <span style="color:#ff0055;">best</span></span></p>
+                <div style="border:1px solid #333; background:#000;">
+                    <canvas id="tsp-plot-cost" style="display:block; width:100%; height:110px;"></canvas>
+                </div>
+            </div>
+            <div>
+                <p style="color:#ff0055; font-size:0.85rem; margin:0 0 0.25rem;"><span data-tooltip="Fraction of proposed moves accepted in each frame, on a fixed 0–1 scale. Drops toward zero as the cycle freezes." tabindex="0">Acceptance rate</span></p>
+                <div style="border:1px solid #333; background:#000;">
+                    <canvas id="tsp-plot-acceptance" style="display:block; width:100%; height:110px;"></canvas>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -177,11 +192,11 @@ This is a live version of the simulations in my M.Sc. dissertation, whose resear
             const LABEL_COLOR = "#666";
             const TOUR_SIZE = 512;
             const TOUR_PADDING = 12;
-            // Plots are drawn at a fixed, wide internal resolution and
-            // CSS-stretched horizontally to fill the available width.
-            const PLOT_WIDTH = 900;
-            const PLOT_HEIGHT = 160;
-            const LOG_PLOT_HEIGHT = 240;
+            // Plots are drawn at a fixed internal resolution matching the
+            // plot column, and CSS-stretched when the layout stacks.
+            const PLOT_WIDTH = 480;
+            const PLOT_HEIGHT = 110;
+            const LOG_PLOT_HEIGHT = 180;
             const PLOT_HISTORY = 600;
             const COST_TEMPERATURE_HISTORY = 5000;
             const POWER_LAW_X0 = 0.1;
