@@ -1,0 +1,29 @@
+name: Publish GitHub Pages redirect
+
+# The site now lives on Cloudflare Pages; gh-pages only carries a stub that
+# forwards old eliseuv.github.io links. index.html doubles as 404.html so
+# every former deep link hits the same redirect.
+on:
+  push:
+    branches: [ main ]
+    paths: [ "redirect/**" ]
+  workflow_dispatch:
+
+jobs:
+  publish-redirect:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Duplicate stub as 404 page
+        run: cp redirect/index.html redirect/404.html
+
+      - name: Publish to gh-pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./redirect
