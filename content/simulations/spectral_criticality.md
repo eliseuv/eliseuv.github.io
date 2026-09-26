@@ -177,6 +177,12 @@ Each change of source or parameter starts a new ensemble. The time series matrix
                 <canvas id="spectral-scan-max" style="display:block; width:100%; height:200px;"></canvas>
             </div>
         </div>
+        <div style="flex:1; min-width:280px; display:flex; flex-direction:column; gap:0.25rem;">
+            <p style="font-size:0.85rem; margin:0;"><span data-tooltip="Variance of the largest eigenvalue over the matrices, against the control parameter: reference scan (gray line) and the parameter values visited live (magenta points)." tabindex="0">var(&lambda;<sub>max</sub>)</span></p>
+            <div style="border:1px solid #333; background:#000;">
+                <canvas id="spectral-scan-max-var" style="display:block; width:100%; height:200px;"></canvas>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -315,6 +321,7 @@ Each change of source or parameter starts a new ensemble. The time series matrix
             const spectrumCtx = setUpPlot("spectral-spectrum");
             const scanVarCtx = setUpPlot("spectral-scan-var");
             const scanMaxCtx = setUpPlot("spectral-scan-max");
+            const scanMaxVarCtx = setUpPlot("spectral-scan-max-var");
 
             const latticeCanvas = el("spectral-lattice");
             const latticeCtx = setUpGridCanvas(latticeCanvas, 256);
@@ -565,7 +572,7 @@ Each change of source or parameter starts a new ensemble. The time series matrix
                 const ref = scan ? scan.points.map((point) => [point.parameter, point[referenceField]]) : [];
                 const live = Object.values(livePoints[liveScanKey()] ?? {}).map((point) => [point.x, point[field]]);
                 const values = [...ref, ...live].map(([, y]) => y).filter(Number.isFinite);
-                const yMax = Math.max(1, ...values) * 1.08;
+                const yMax = Math.max(0.1, ...values) * 1.08;
                 const { px, py } = frame(ctx, source.xRange, [0, yMax], {
                     xTicks: niceTicks(...source.xRange, 5), yTicks: niceTicks(0, yMax, 4),
                     xFormat: formatTick, yFormat: formatTick,
@@ -593,6 +600,7 @@ Each change of source or parameter starts a new ensemble. The time series matrix
                 if (!source.x) return;
                 drawScan(scanVarCtx, "variance", "eigenvalue_variance");
                 drawScan(scanMaxCtx, "maxMean", "max_eigenvalue_mean");
+                drawScan(scanMaxVarCtx, "maxVariance", "max_eigenvalue_variance");
             };
 
             const updateReadouts = () => {
@@ -611,6 +619,7 @@ Each change of source or parameter starts a new ensemble. The time series matrix
                     x: source.x(p),
                     variance: lab.eigenvalue_variance(),
                     maxMean: lab.max_eigenvalue_mean(),
+                    maxVariance: lab.max_eigenvalue_variance(),
                 };
             };
 
