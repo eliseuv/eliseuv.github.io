@@ -1,0 +1,112 @@
+{#-
+GitHub profile README (eliseuv/eliseuv), rendered from resume/content.yml by
+`nix run .#readme` and pushed by .github/workflows/profile-readme.yml.
+-#}
+{%- macro badge(name) -%}
+{#- shields.io static badges treat `-` and `_` as separators; doubling escapes them. -#}
+![{{ name }}](https://img.shields.io/badge/-{{ name|replace("-", "--")|replace("_", "__")|urlencode }}-000000?style=flat
+{%- if profile.badges[name] is defined %}&logo={{ profile.badges[name]|urlencode }}&logoColor=white{% endif %})
+{%- endmacro -%}
+
+{%- macro badges(names) -%}
+{% for name in names %}{{ badge(name) }}{% if not loop.last %} {% endif %}{% endfor %}
+{%- endmacro -%}
+
+{%- macro repo_link(repo) -%}
+https://github.com/{{ repo }}
+{%- endmacro -%}
+
+{#- Featured entries that are resume projects inherit their skills from there. -#}
+{%- macro project_skills(entry) -%}
+{%- set resume_project = projects|selectattr("repo", "equalto", entry.repo)|first -%}
+{%- if entry.skills is defined -%}
+{{ badges(entry.skills) }}
+{%- elif resume_project is defined -%}
+{{ badges(resume_project.skills|map(attribute="name")) }}
+{%- endif -%}
+{%- endmacro -%}
+
+{%- set skill_groups = namespace(programming=[], tools=[]) -%}
+{%- for group in skills -%}
+{%- for group_name, entries in group|items -%}
+{%- if group_name == "Programming" %}{% set skill_groups.programming = entries %}{% endif -%}
+{%- if group_name == "Tools" %}{% set skill_groups.tools = entries %}{% endif -%}
+{%- endfor -%}
+{%- endfor -%}
+
+{%- set stack = namespace(languages=[], libraries=[], tools=[]) -%}
+{%- for entry in skill_groups.programming -%}
+{%- for language, libs in entry|items -%}
+{%- set stack.languages = stack.languages + [language] -%}
+{%- set stack.libraries = stack.libraries + libs -%}
+{%- endfor -%}
+{%- endfor -%}
+{%- for project in projects -%}
+{%- for skill in project.skills -%}
+{%- set stack.libraries = stack.libraries + skill.libs|default([]) -%}
+{%- endfor -%}
+{%- endfor -%}
+{#- A tool group with members (e.g. Databases) lists the members instead of itself. -#}
+{%- for entry in skill_groups.tools -%}
+{%- for tool, members in entry|items -%}
+{%- set stack.tools = stack.tools + (members if members else [tool]) -%}
+{%- endfor -%}
+{%- endfor -%}
+
+{%- set current = experience|first -%}
+# Hi there, I'm {{ personal.name|split(" ")|first }}
+
+### {{ personal.keywords|join(" & ") }}
+
+#### [Personal Website](https://{{ personal.website }})
+
+{{ profile.intro|trim }}
+
+I am currently a **{{ current.role }}** at **[{{ current.name }}]({{ current.link }})**
+{%- if current.team is defined %} as part of the **{{ current.team }}** team{% endif %}.
+
+---
+
+## 🛠️ Tech Stack & Tools
+
+**Languages**: {{ badges(stack.languages) }}
+
+**Libraries**: {{ badges(stack.libraries|unique) }}
+
+**Tools**: {{ badges(stack.tools) }}
+
+---
+
+## ⚙️ Personal Configurations
+{% for config in profile.configs %}
+* **[{{ config.name }}]({{ repo_link(config.repo) }})** {{ badges(config.skills) }}
+    > {{ config.description }}
+{%- endfor %}
+
+---
+
+## 🚀 Featured Projects
+{% for category in profile.featured %}
+### {{ category.emoji }} {{ category.title }}
+{% if category.description is defined %}
+*{{ category.description }}*
+{% endif %}
+{%- for entry in category.projects %}
+* **[{{ entry.label|default(entry.repo|split("/")|last) }}]({{ repo_link(entry.repo) }})** {{ project_skills(entry) }}
+{%- if entry.headline is defined %}
+    > **{{ entry.headline }}**
+{%- endif %}
+    > {{ entry.description }}
+{%- endfor %}
+{% endfor %}
+---
+
+## 🧩 Competitive Programming
+
+I actively maintain several repositories dedicated to algorithmic mastery and mathematical puzzles.
+
+| Platform | Repository | Focus | Language |
+| :--- | :--- | :--- | :--- |
+{%- for entry in profile.competitive %}
+| **{{ entry.platform }}** | **[{{ entry.label|default(entry.repo|default("")|split("/")|last) }}]({{ entry.link|default(repo_link(entry.repo|default(""))) }})** | {{ entry.focus }} | {{ badges(entry.skills) }} |
+{%- endfor %}
