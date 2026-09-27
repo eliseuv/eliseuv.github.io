@@ -47,6 +47,7 @@ experience:
   - id: nelogica
     role: Software Engineer
     name: Nelogica
+    team: Automation Tools
     logo: /svg/nelogica.svg
     link: https://www.nelogica.com.br/
     degree_logo: /svg/candlestick.svg
@@ -272,3 +273,123 @@ publications:
     title: A Thorough Study of the Performance of Simulated Annealing in the Traveling Salesman Problem under Correlated and Long Tailed Spatial Scenarios
     journal: "Physica A: Statistical Mechanics and its Applications"
     authors: ["R. da Silva", "E. Venites Filho", "A. Alves"]
+
+# GitHub profile README (readme/README.md.j2). Not read by the resume or the site.
+# Featured projects that exist under `projects` are matched by `repo` and take their
+# skills from there; the rest declare their own.
+profile:
+  intro: |
+    I stand at the intersection of **Physics** and **Computer Science**.
+    My background is in **Statistical Computational Physics** with a focus on **Complex Systems**, **Stochastic Optimization** and **Random Matrix Theory**.
+    My interests extend from **Data Science** to **Software Engineering** with projects in **Time Series Analysis**, **Reinforcement Learning** and **Full-Stack Development**.
+
+  # Skill name -> simple-icons slug (https://simpleicons.org). Unlisted names get no logo.
+  badges:
+    C: c
+    C++: c++
+    C++17: c++
+    boost: c++
+    Rust: rust
+    tokio: tokio
+    rayon: rust
+    faer: rust
+    ndarray: rust
+    serde: rust
+    Python: python
+    Pandas: pandas
+    NumPy: numpy
+    SciPy: scipy
+    scikit-learn: scikitlearn
+    matplotlib: python
+    PyTorch: pytorch
+    TensorFlow: tensorflow
+    Julia: julia
+    DataFrames.jl: julia
+    Plots.jl: julia
+    Makie.jl: julia
+    Haskell: haskell
+    megaparsec: haskell
+    Delphi: delphi
+    SQLite: sqlite
+    PostgreSQL: postgresql
+    DuckDB: duckdb
+    Docker: docker
+    Nix: nixos
+    NixOS: nixos
+    Neovim: neovim
+    GNU Emacs: gnu-emacs
+    React: react
+
+  configs:
+    - name: dotfiles
+      repo: eliseuv/dotfiles
+      skills: [NixOS]
+      description: My dotfiles repository containing my personal configuration for multiple hosts.
+    - name: Neovim
+      repo: eliseuv/nvim
+      skills: [Neovim]
+      description: My Neovim configuration using [LazyVim](https://github.com/LazyVim/LazyVim).
+    - name: DOOM Emacs
+      repo: eliseuv/doom-emacs
+      skills: [GNU Emacs]
+      description: My [DOOM Emacs](https://github.com/emacs-doom/doom-emacs) configuration.
+
+  featured:
+    - title: Computational Physics
+      emoji: "⚛️"
+      description: Projects applying physical laws and rigorous math to solve complex problems.
+      projects:
+        - repo: eliseuv/tsp-sa
+          headline: High-performance Simulated Annealing in C++
+          description: Implementation of stochastic optimization algorithms to find global minima in combinatorial problems.
+        - repo: eliseuv/artificial-systems
+          headline: High-performance Complex Systems Simulation in Rust
+          description: Modeling artificial environments to study emergent behavior and system dynamics.
+        - repo: eliseuv/ts-cov-matrix
+          headline: Time Series Random Matrix Analysis
+          description: Tools for analyzing correlations in time-series data, drawing on concepts from Random Matrix Theory.
+
+    - title: "Sternhalma Suite: Full Stack Game & AI"
+      emoji: "🧠"
+      description: A complete implementation of the Sternhalma (Chinese Checkers) game, featuring a backend server, web frontend, and an autonomous playing agent.
+      projects:
+        - repo: eliseuv/sternhalma-server
+          label: Game Server
+          description: The backend logic handling game state and multiplayer connections.
+        - repo: eliseuv/sternhalma-web
+          label: Web Interface
+          skills: [React]
+          description: The interactive frontend interface for the game.
+        - repo: eliseuv/sternhalma-agent
+          label: RL Agent
+          description: An AI agent trained to play the game using Reinforcement Learning.
+
+    - title: Systems
+      emoji: "🔧"
+      projects:
+        - repo: eliseuv/json-parser
+          headline: Simple JSON Parser.
+          description: A from-scratch implementation of a JSON parser, built to better understand parser combinators.
+        - repo: eliseuv/web-watcher
+          skills: [Python]
+          headline: Website Monitoring Tool
+          description: Simple tool to monitor a list of websites for changes.
+
+  competitive:
+    - platform: LeetCode
+      repo: eliseuv/leetcode
+      focus: Solutions for DSA (Data Structures & Algorithms) interview questions.
+      skills: [Rust, C]
+    - platform: Project Euler
+      repo: eliseuv/project-euler
+      focus: Solving complex mathematical problems using programming.
+      skills: [Haskell]
+    - platform: HackerRank
+      repo: eliseuv/hackerrank
+      focus: Solving logic practice problems.
+      skills: [Haskell]
+    - platform: Advent of Code
+      label: aoc-yyyy
+      link: https://github.com/eliseuv?tab=repositories&q=aoc-
+      focus: Annual December coding challenges solved in Rust, Haskell, and Python.
+      skills: [Rust, Haskell]
