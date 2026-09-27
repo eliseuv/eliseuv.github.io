@@ -29,39 +29,46 @@
     <ul class="section-list">
         {% for page in pages %}
         <li class="section-item">
-            <a href="{{ page.permalink }}" class="section-title">
-                {{ page.title }}
-            </a>
-
-            {% if page.taxonomies.tags %}
-            <div class="section-tags">
-                {% for tag in page.taxonomies.tags %}
-                <span class="tag">{{ tag }}</span>
-                {% endfor %}
-            </div>
+            {% if page.extra.thumbnail %}
+            {# Tinted through a mask so the icon follows the theme colors and the hover accent #}
+            <a href="{{ page.permalink }}" class="section-thumbnail no-underline" aria-hidden="true" tabindex="-1"
+                style="-webkit-mask-image: url('{{ page.extra.thumbnail }}'); mask-image: url('{{ page.extra.thumbnail }}');"></a>
             {% endif %}
 
-            <p class="section-summary">
-                {% if page.extra.summary %}
-                {{ page.extra.summary | safe }}
-                {% elif page.summary %}
-                {{ page.summary | safe }}
-                {% elif page.description %}
-                {{ page.description | safe }}
-                {% else %}
-                {{ page.content | striptags | truncate(length=200) }}
+            <div class="section-body">
+                <a href="{{ page.permalink }}" class="section-title">
+                    {{ page.title }}
+                </a>
+
+                {% if page.taxonomies.tags %}
+                <div class="section-tags">
+                    {% for tag in page.taxonomies.tags %}
+                    <span class="tag">{{ tag }}</span>
+                    {% endfor %}
+                </div>
                 {% endif %}
-            </p>
 
-            {% if page.extra.links %}
-            {{ links::related(resume=resume,
-                context=page.extra.links.context | default(value=""),
-                projects=page.extra.links.projects | default(value=[]),
-                publications=page.extra.links.publications | default(value=[]),
-                simulations=[],
-                skills=page.extra.links.skills | default(value=[])) }}
-            {% endif %}
+                <p class="section-summary">
+                    {% if page.extra.summary %}
+                    {{ page.extra.summary | safe }}
+                    {% elif page.summary %}
+                    {{ page.summary | safe }}
+                    {% elif page.description %}
+                    {{ page.description | safe }}
+                    {% else %}
+                    {{ page.content | striptags | truncate(length=200) }}
+                    {% endif %}
+                </p>
 
+                {% if page.extra.links %}
+                {{ links::related(resume=resume,
+                    context=page.extra.links.context | default(value=""),
+                    projects=page.extra.links.projects | default(value=[]),
+                    publications=page.extra.links.publications | default(value=[]),
+                    simulations=[],
+                    skills=page.extra.links.skills | default(value=[])) }}
+                {% endif %}
+            </div>
         </li>
         {% endfor %}
     </ul>

@@ -10,6 +10,42 @@
 
         &:hover {
             border-left-color: $accent;
+
+            .section-thumbnail {
+                background-color: $accent;
+                filter: drop-shadow(0 0 6px rgba($accent, 0.6));
+            }
+        }
+
+        &:has(.section-thumbnail) {
+            display: flex;
+            gap: 1.25rem;
+            align-items: flex-start;
+
+            @media (max-width: 768px) {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+        }
+
+        .section-thumbnail {
+            flex-shrink: 0;
+            width: 4.5rem;
+            aspect-ratio: 1;
+            margin-top: 0.2rem;
+            background-color: $text-dim;
+            mask-repeat: no-repeat;
+            mask-position: center;
+            mask-size: contain;
+            -webkit-mask-repeat: no-repeat;
+            -webkit-mask-position: center;
+            -webkit-mask-size: contain;
+            transition: background-color 0.2s ease, filter 0.2s ease;
+        }
+
+        .section-body {
+            flex: 1;
+            min-width: 0;
         }
 
         .section-date {
