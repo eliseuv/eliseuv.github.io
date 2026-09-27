@@ -28,6 +28,10 @@ build-simulations:
 build-resume:
     nix run .#resume
 
+# Render the GitHub profile README into public/README.md.
+build-readme:
+    nix run .#readme
+
 # Build only the Zola site (expects simulations/resume already built).
 build-zola:
     nix run .#zola

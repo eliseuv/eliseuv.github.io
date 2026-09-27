@@ -118,6 +118,16 @@
             resume/resume.typ static/resume.pdf
         '';
 
+        # Render the GitHub profile README from the resume data. Kept out of
+        # build-site: it is published to eliseuv/eliseuv, not to Cloudflare.
+        buildReadme = pkgs.writeShellScriptBin "build-readme" ''
+          set -euo pipefail
+          echo ">> Building Profile README..."
+          mkdir -p public
+          ${pkgs.minijinja}/bin/minijinja-cli --strict \
+            readme/README.md.j2 resume/content.yml -o public/README.md
+        '';
+
         # Build Zola Site
         buildZola = pkgs.writeShellScriptBin "build-zola" ''
           set -euo pipefail
@@ -164,6 +174,9 @@
             tinymist
             typstyle
 
+            # Profile README
+            minijinja
+
             # Rust
             rustToolchain
             wasm-pack
@@ -186,6 +199,9 @@
           };
           resume = flake-utils.lib.mkApp {
             drv = buildResume;
+          };
+          readme = flake-utils.lib.mkApp {
+            drv = buildReadme;
           };
           zola = flake-utils.lib.mkApp {
             drv = buildZola;
