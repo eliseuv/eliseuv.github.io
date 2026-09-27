@@ -4,6 +4,7 @@ date = 2026-09-26
 description = "Extended Chiarella model of a market with fundamentalists, trend followers and noise traders, integrated as a stochastic differential equation in WebAssembly."
 
 [extra]
+thumbnail = "/svg/simulations/chiarella.svg"
 references = [
     "chiarella1992",
     "majewski2020",

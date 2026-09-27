@@ -4,6 +4,7 @@ date = 2026-09-13
 description = "Directed-percolation contact process on a 2D lattice, compiled to WebAssembly."
 
 [extra]
+thumbnail = "/svg/simulations/contact_process.svg"
 references = [
     "harris1974",
     "marro1999",

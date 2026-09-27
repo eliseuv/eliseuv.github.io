@@ -4,6 +4,7 @@ date = 2026-09-25
 description = "Simulated annealing with Metropolis sampling and geometric cooling applied to the traveling salesman problem on random domains, running in WebAssembly."
 
 [extra]
+thumbnail = "/svg/simulations/tsp_annealing.svg"
 references = [
     "kirkpatrick1983",
     "cerny1985",

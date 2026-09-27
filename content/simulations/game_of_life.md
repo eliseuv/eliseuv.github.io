@@ -4,6 +4,7 @@ date = 2026-09-07
 description = "Cellular automaton simulation compiled to WebAssembly, rendered on canvas."
 
 [extra]
+thumbnail = "/svg/simulations/game_of_life.svg"
 references = [
     "gardner1970",
 ]

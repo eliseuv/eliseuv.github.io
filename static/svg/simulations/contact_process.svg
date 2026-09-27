@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<svg width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <!-- Space-time cluster of directed percolation grown from a single seed, time running down -->
+  <defs>
+    <style>.a{fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.5px;}.c{fill:#000000;stroke:none;}</style>
+  </defs>
+  <path class="a" d="M12,3L8,9L4,15L6,21M8,9L12,15L10,21M12,15L16,21M12,3L16,9L20,15"/>
+  <circle class="c" cx="12" cy="3" r="1.8"/>
+  <circle class="c" cx="8" cy="9" r="1.8"/>
+  <circle class="c" cx="16" cy="9" r="1.8"/>
+  <circle class="c" cx="4" cy="15" r="1.8"/>
+  <circle class="c" cx="12" cy="15" r="1.8"/>
+  <circle class="c" cx="20" cy="15" r="1.8"/>
+  <circle class="c" cx="6" cy="21" r="1.8"/>
+  <circle class="c" cx="10" cy="21" r="1.8"/>
+  <circle class="c" cx="16" cy="21" r="1.8"/>
+</svg>

@@ -4,6 +4,7 @@ date = 2026-09-13
 description = "Ferromagnetic Ising model on a 2D lattice, sampled by Metropolis Monte Carlo, compiled to WebAssembly."
 
 [extra]
+thumbnail = "/svg/simulations/ising_2d.svg"
 references = [
     "ising1925",
     "metropolis1953",

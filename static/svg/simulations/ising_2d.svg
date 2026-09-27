@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<svg width="800px" height="800px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <!-- 3x3 spins split into an up domain and a down domain -->
+  <defs>
+    <style>.a{fill:none;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.5px;}</style>
+  </defs>
+  <path class="a" d="M4,7V1M2,3L4,1L6,3"/>
+  <path class="a" d="M12,7V1M10,3L12,1L14,3"/>
+  <path class="a" d="M20,1V7M18,5L20,7L22,5"/>
+  <path class="a" d="M4,15V9M2,11L4,9L6,11"/>
+  <path class="a" d="M12,9V15M10,13L12,15L14,13"/>
+  <path class="a" d="M20,9V15M18,13L20,15L22,13"/>
+  <path class="a" d="M4,23V17M2,19L4,17L6,19"/>
+  <path class="a" d="M12,23V17M10,19L12,17L14,19"/>
+  <path class="a" d="M20,17V23M18,21L20,23L22,21"/>
+</svg>
