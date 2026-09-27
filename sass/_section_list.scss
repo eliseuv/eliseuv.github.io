@@ -23,7 +23,6 @@
             align-items: flex-start;
 
             @media (max-width: 768px) {
-                flex-direction: column;
                 gap: 0.75rem;
             }
         }
@@ -41,6 +40,10 @@
             -webkit-mask-position: center;
             -webkit-mask-size: contain;
             transition: background-color 0.2s ease, filter 0.2s ease;
+
+            @media (max-width: 768px) {
+                width: 2.5rem;
+            }
         }
 
         .section-body {
