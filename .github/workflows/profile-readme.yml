@@ -1,0 +1,52 @@
+name: Publish profile README
+
+# Renders readme/README.md.j2 from the resume data and commits the result to the
+# GitHub profile repo. PROFILE_README_TOKEN is a fine-grained PAT with contents
+# write on eliseuv/eliseuv; unlike GITHUB_TOKEN, its pushes trigger that repo's
+# own workflows, which keeps the GitLab mirror in sync.
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - "resume/content.yml"
+      - "readme/**"
+      - ".github/workflows/profile-readme.yml"
+  workflow_dispatch:
+
+jobs:
+  publish-readme:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v27
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+
+      - name: Render README
+        run: nix run .#readme
+
+      - name: Checkout profile repo
+        uses: actions/checkout@v4
+        with:
+          repository: eliseuv/eliseuv
+          token: ${{ secrets.PROFILE_README_TOKEN }}
+          path: profile
+
+      - name: Commit and push if changed
+        working-directory: profile
+        run: |
+          cp ../public/README.md README.md
+          if git diff --quiet; then
+            echo "README unchanged."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -am "Update README from website@${GITHUB_SHA::7}"
+          git push
