@@ -114,3 +114,18 @@
         opacity: 0;
     }
 }
+
+// Motion is decoration everywhere on the site, so reduced motion simply turns it off.
+// `!important` because the animated rules live in files imported after this one.
+@media (prefers-reduced-motion: reduce) {
+    .glitch-text,
+    .glitch-text:hover,
+    .content-enter,
+    .link-target-flash {
+        animation: none !important;
+    }
+
+    #transition-overlay::after {
+        display: none;
+    }
+}
