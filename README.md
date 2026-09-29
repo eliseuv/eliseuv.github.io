@@ -59,8 +59,10 @@ skills, projects and publications. Every consumer reads it directly:
 - **Resume PDF**: [`resume/resume.typ`](resume/resume.typ) loads it with Typst's
   `yaml()` and typesets the PDF that the site serves.
 - **Website**: the Zola templates read it through `load_data`. This covers the
-  resume page, the landing-page business card, the project lists and the
-  simulation pages.
+  landing page, the full resume at `/resume/`, the project lists and the
+  simulation pages. The landing page's own copy is written in its templates
+  ([`templates/home/`](templates/home)); names, roles, projects, publications
+  and simulations are looked up by id.
 - **GitHub profile README**: [`readme/README.md.j2`](readme/README.md.j2) renders
   it with minijinja. The tech-stack badges come from the same skills and
   projects that the resume lists.
