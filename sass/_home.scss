@@ -196,6 +196,19 @@ body.home {
 
     .contact-links {
         justify-content: flex-start;
+
+        // The full row does not fit on phones; wrapping would leave a dangling `//`
+        @media (max-width: $home-tablet - 1px) {
+            row-gap: 0.3rem;
+
+            .contact-links__email {
+                flex-basis: 100%;
+            }
+
+            span:has(+ .contact-links__email)::after {
+                content: none;
+            }
+        }
     }
 }
 
