@@ -72,7 +72,7 @@
                         return;
                     }
 
-                    // Same-page anchors like "/#entry-phd" only change the hash, so the
+                    // Same-page anchors like "/resume/#entry-phd" only change the hash, so the
                     // overlay would never be hidden by a new page load
                     if (link.hash && link.pathname === window.location.pathname) {
                         return;

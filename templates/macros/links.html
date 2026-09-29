@@ -19,7 +19,7 @@ back-links are collected (resume.html).
 {% set entries = resume.experience | concat(with=resume.education) | filter(attribute="id", value=id) %}
 {% if entries | length == 0 %}{{ throw(message="Unknown resume entry id in link: " ~ id) }}{% endif %}
 {% set entry = entries | first %}
-<a class="link-chip" data-kind="cv" href="/#entry-{{ id }}">{{ entry.role | default(value=entry.degree) }}</a>
+<a class="link-chip" data-kind="cv" href="/resume/#entry-{{ id }}">{{ entry.role | default(value=entry.degree) }}</a>
 {% endmacro context_chip %}
 
 {% macro project_chip(name, resume) %}
@@ -35,7 +35,7 @@ back-links are collected (resume.html).
 {% set publications = resume.publications | filter(attribute="doi", value=doi) %}
 {% if publications | length == 0 %}{{ throw(message="Unknown publication DOI in link: " ~ doi) }}{% endif %}
 {% set publication = publications | first %}
-<a class="link-chip" data-kind="paper" href="/#pub-{{ doi | slugify }}" title="{{ publication.title }}">{{ publication.journal | split(pat=":") | first }} {{ publication.year }}</a>
+<a class="link-chip" data-kind="paper" href="/resume/#pub-{{ doi | slugify }}" title="{{ publication.title }}">{{ publication.journal | split(pat=":") | first }} {{ publication.year }}</a>
 {% endmacro publication_chip %}
 
 {% macro simulation_chip(page) %}
@@ -55,7 +55,7 @@ back-links are collected (resume.html).
 {% endfor %}
 {% endfor %}
 {% if not found %}{{ throw(message="Unknown skill in link: " ~ name) }}{% endif %}
-<a class="link-chip" data-kind="skill" href="/#{{ self::skill_anchor(name=name) }}">{{ name }}</a>
+<a class="link-chip" data-kind="skill" href="/resume/#{{ self::skill_anchor(name=name) }}">{{ name }}</a>
 {% endmacro skill_chip %}
 
 {# One strip of typed chips, in the same order everywhere: context, projects, publications, simulations, skills #}
