@@ -1,0 +1,500 @@
+// --- Landing page (templates/index.html, templates/home/) ---
+// Mobile first; everything is namespaced so the resume and simulation pages are untouched.
+
+$home-tablet: 600px;
+$home-desktop: 900px;
+
+body.home {
+    // Cards side by side need more room than the 800px reading width
+    max-width: 1040px;
+}
+
+.home {
+    main a:focus-visible,
+    .home-btn:focus-visible {
+        outline: 2px solid $tokyo-cyan;
+        outline-offset: 3px;
+    }
+}
+
+// --- Shared pieces ---
+.home-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-height: 44px;
+    padding: 0 1rem;
+    border: 1px solid $border;
+    color: $text-light;
+    font-family: $font-mono;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+
+    @include tech-btn-hover;
+
+    .icon-link {
+        width: 1.1em;
+
+        svg {
+            width: 100%;
+            height: auto;
+        }
+    }
+}
+
+.home-btn--primary {
+    border-color: $accent;
+    background: rgba($accent, 0.1);
+    color: $accent;
+}
+
+.home-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin: 1.5rem 0;
+}
+
+.home-more {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    font-family: $font-mono;
+}
+
+.home-section {
+    margin-top: 4.5rem;
+}
+
+.home-section__header {
+    margin-bottom: 1.5rem;
+
+    h2 {
+        margin: 0;
+        font-family: $font-mono;
+
+        &::before {
+            content: "## ";
+            color: $accent;
+        }
+    }
+
+    p {
+        margin: 0.5rem 0 0;
+        color: $text-dim;
+    }
+}
+
+// Global `ul li span` styling (dim + left margin) is meant for list pages, not these lists
+.home-social,
+.profile-card__list,
+.focus-column ul,
+.home-flow {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+        margin-bottom: 0;
+    }
+}
+
+// Outranks the global `ul li span:not(...)` selector, which would dim and indent these
+.home main li span {
+    margin-left: 0;
+    color: inherit;
+}
+
+
+.home-social {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 1.25rem;
+
+    a {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        min-height: 44px;
+        color: $text-light;
+
+        // Re-applied because the color above outranks the global `a:hover`
+        @include tech-link-hover;
+    }
+
+    .icon-link {
+        margin: 0;
+    }
+}
+
+// Vertical arrow chain; turns horizontal once there is room
+.home-flow {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-family: $font-mono;
+    font-size: 0.9rem;
+
+    li {
+        padding: 0.4rem 0.75rem;
+        border: 1px solid $border;
+        background: $bg-code;
+        color: $text-light;
+
+        & + li {
+            position: relative;
+            margin-top: 1.6rem;
+
+            &::before {
+                content: "↓";
+                position: absolute;
+                top: -1.5rem;
+                left: 0.75rem;
+                color: $accent;
+            }
+        }
+    }
+}
+
+// --- Hero ---
+.home-hero {
+    padding: 2rem 0 1rem;
+
+    h1 {
+        margin: 0;
+        font-family: $font-mono;
+        font-size: clamp(1.9rem, 7vw, 3rem);
+        line-height: 1.15;
+    }
+}
+
+.home-hero__headline {
+    margin: 0.75rem 0 0;
+    color: $accent;
+    font-family: $font-mono;
+    font-size: clamp(1.1rem, 3.5vw, 1.4rem);
+}
+
+.home-hero__summary {
+    max-width: 38rem;
+    margin: 1.25rem 0 0;
+    color: $text-light;
+    font-size: 1.05rem;
+}
+
+.home-hero__stack {
+    margin: 1rem 0 0;
+    color: $text-dim;
+    font-family: $font-mono;
+    font-size: 0.85rem;
+}
+
+// --- Featured work ---
+.featured-grid {
+    display: grid;
+    gap: 1.25rem;
+
+    @media (min-width: $home-tablet) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+.featured-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid $border;
+    background: $bg-code;
+
+    h3 {
+        margin: 0;
+        font-family: $font-mono;
+    }
+
+    p {
+        margin: 0.75rem 0 0;
+    }
+}
+
+.featured-card__media {
+    display: block;
+    border-bottom: 1px solid $border;
+    background: $bg-color;
+
+    img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+}
+
+.featured-card__body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 1.25rem;
+}
+
+.featured-card__stack {
+    color: $tokyo-cyan;
+    font-family: $font-mono;
+    font-size: 0.8rem;
+}
+
+.featured-card__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: auto;
+    padding-top: 1.25rem;
+}
+
+.featured-card--flagship {
+    border-color: rgba($accent, 0.6);
+
+    @media (min-width: $home-tablet) {
+        grid-column: 1 / -1;
+    }
+
+    @media (min-width: $home-desktop) {
+        flex-direction: row;
+
+        .featured-card__media {
+            flex: 0 0 58%;
+            border-bottom: 0;
+            border-right: 1px solid $border;
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    h3 {
+        font-size: 1.4rem;
+    }
+}
+
+// --- Profile: current job, formation, projects, then focus ---
+.profile-grid,
+.focus-grid {
+    display: grid;
+    gap: 1.25rem;
+}
+
+.profile-grid {
+    @media (min-width: $home-desktop) {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+.profile-card {
+    display: flex;
+    flex-direction: column;
+    padding: 1.25rem;
+    border-left: 2px solid $accent;
+    background: $bg-code;
+
+    h3 {
+        margin: 0;
+        font-family: $font-mono;
+        font-size: 1.05rem;
+    }
+
+    p {
+        flex: 1;
+        margin: 0.75rem 0 0.5rem;
+    }
+}
+
+// Same weight as the old proof strip titles, above the card heading
+.profile-card p.profile-card__label {
+    flex: 0;
+    margin: 0 0 0.4rem;
+    color: $text-dim;
+    font-family: $font-mono;
+    font-size: 0.8rem;
+}
+
+.profile-card__list {
+    flex: 1;
+    margin: 0 0 0.5rem;
+    font-family: $font-mono;
+
+    li {
+        padding: 0.3rem 0;
+        border-bottom: 1px dashed $border;
+    }
+
+    a {
+        color: $text-white;
+
+        @include tech-link-hover;
+    }
+}
+
+.home-profile__subheading {
+    margin: 2.5rem 0 1rem;
+    font-family: $font-mono;
+    font-size: 1.1rem;
+}
+
+// --- Focus ---
+.focus-grid {
+    @media (min-width: $home-tablet) {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+.focus-column {
+    h4 {
+        margin: 0 0 0.75rem;
+        color: $accent;
+        font-family: $font-mono;
+        font-size: 1rem;
+    }
+
+    li {
+        padding: 0.3rem 0;
+        border-bottom: 1px dashed $border;
+        color: $text-light;
+        font-family: $font-mono;
+        font-size: 0.9rem;
+    }
+
+    // Stacked columns would make a 20-row list on phones, so wrap the items instead
+    @media (max-width: $home-tablet - 1px) {
+        ul {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        li {
+            padding: 0.2rem 0.6rem;
+            border: 1px solid $border;
+        }
+    }
+}
+
+// --- Research bridge ---
+.research-bridge__body {
+    display: grid;
+    gap: 2rem;
+
+    @media (min-width: $home-desktop) {
+        grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+        align-items: center;
+    }
+}
+
+.research-bridge__paper p {
+    margin: 0 0 0.75rem;
+}
+
+.research-bridge__title {
+    color: $text-white;
+    font-style: italic;
+}
+
+.research-bridge__journal {
+    color: $text-dim;
+    font-family: $font-mono;
+    font-size: 0.85rem;
+}
+
+// --- Under the hood ---
+.site-architecture__svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    font-family: $font-mono;
+}
+
+.site-architecture__svg--wide {
+    display: none;
+    max-width: 760px;
+
+    @media (min-width: $home-tablet) {
+        display: block;
+    }
+}
+
+.site-architecture__svg--tall {
+    max-width: 380px;
+
+    @media (min-width: $home-tablet) {
+        display: none;
+    }
+}
+
+.site-architecture__edges {
+    fill: none;
+    stroke: $text-dim;
+    stroke-width: 1.5;
+}
+
+.site-architecture__arrowhead {
+    fill: $text-dim;
+}
+
+.site-architecture__labels {
+    fill: $tokyo-cyan;
+    font-size: 11px;
+}
+
+.site-architecture__node {
+    rect {
+        fill: $bg-code;
+        stroke: $border;
+    }
+
+    text {
+        fill: $text-white;
+        font-size: 13px;
+        text-anchor: middle;
+    }
+
+    .site-architecture__sub {
+        fill: $text-dim;
+        font-size: 11px;
+    }
+}
+
+.site-architecture__node--source rect {
+    stroke: $tokyo-green;
+}
+
+.site-architecture__node--target rect {
+    stroke: $accent;
+}
+
+.site-architecture__note {
+    max-width: 44rem;
+    margin: 1.25rem 0 0.5rem;
+
+    code {
+        color: $tokyo-green;
+    }
+}
+
+// --- Contact ---
+.home-contact {
+    margin-top: 5rem;
+    padding: 2rem 0 1rem;
+    border-top: 1px solid $accent;
+
+    h2 {
+        margin: 0;
+        font-family: $font-mono;
+    }
+
+    p {
+        margin: 0.75rem 0 0;
+    }
+}
+
+.home-contact__email a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    font-family: $font-mono;
+    font-size: 1.2rem;
+}
