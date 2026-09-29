@@ -1,12 +1,12 @@
 {#
 Email and profile links, shared by the resume business card and the landing page hero.
-Set `email_in_links = true` before including to put the email at the end of the link
-row instead of on its own line above it.
+Set `email_placement` before including to move the email: "above" the link row on its
+own line (the default), "inline" at the end of the row, or "none" to leave it out.
 #}
 <div class="contact-info">
     {% set email = resume.personal.email %}
-    {% set email_in_links = email_in_links | default(value=false) %}
-    {% if email and not email_in_links %}
+    {% set email_placement = email_placement | default(value="above") %}
+    {% if email and email_placement == "above" %}
     <div class="contact-email">
         <a href="mailto:{{ email }}">
             <span class="icon-link" style="margin-right: 0.3rem;">{% include "icons/mail.html" %}</span>
@@ -57,7 +57,7 @@ row instead of on its own line above it.
             </a>
         </span>
         {% endif %}
-        {% if email and email_in_links %}
+        {% if email and email_placement == "inline" %}
         <span class="contact-links__email">
             <a href="mailto:{{ email }}">
                 <span class="icon-link" style="margin-right: 0.3rem;">{% include "icons/mail.html" %}</span>

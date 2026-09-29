@@ -86,7 +86,6 @@ body.home {
 }
 
 // Global `ul li span` styling (dim + left margin) is meant for list pages, not these lists
-.home-social,
 .profile-card__list,
 .focus-column ul,
 .home-flow {
@@ -105,27 +104,6 @@ body.home {
     color: inherit;
 }
 
-
-.home-social {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0 1.25rem;
-
-    a {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.4rem;
-        min-height: 44px;
-        color: $text-light;
-
-        // Re-applied because the color above outranks the global `a:hover`
-        @include tech-link-hover;
-    }
-
-    .icon-link {
-        margin: 0;
-    }
-}
 
 // Vertical arrow chain; turns horizontal once there is room
 .home-flow {
@@ -189,10 +167,9 @@ body.home {
     font-size: 0.85rem;
 }
 
-// The hero is left-aligned, unlike the centered business card
-.home-hero .contact-info {
+// The landing page is left-aligned, unlike the centered business card
+.home .contact-info {
     align-items: flex-start;
-    margin-top: 1.5rem;
 
     .contact-links {
         justify-content: flex-start;
@@ -210,6 +187,10 @@ body.home {
             }
         }
     }
+}
+
+.home-hero .contact-info {
+    margin-top: 1.5rem;
 }
 
 // --- Featured work ---
@@ -512,6 +493,10 @@ body.home {
     p {
         margin: 0.75rem 0 0;
     }
+}
+
+.home-contact .contact-info {
+    margin-top: 0.75rem;
 }
 
 .home-contact__email a {
