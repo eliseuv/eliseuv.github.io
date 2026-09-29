@@ -1,0 +1,137 @@
+<section class="home-section site-architecture" aria-labelledby="architecture-heading">
+    <header class="home-section__header">
+        <h2 id="architecture-heading">This site is part of the portfolio</h2>
+        <p>One source of truth. Reproducible builds. Automated deployment.</p>
+    </header>
+
+    {#
+    Nodes are what gets built, arrow labels the tool that builds it. The same graph is drawn twice,
+    landscape and portrait, since scaling one layout down to a phone makes the labels unreadable;
+    CSS shows exactly one, so the hidden copy is also out of the accessibility tree.
+    #}
+    <div class="site-architecture__diagram">
+        <svg class="site-architecture__svg site-architecture__svg--wide" viewBox="0 0 640 330" role="img" aria-labelledby="architecture-title architecture-desc">
+            <title id="architecture-title">How this site is built</title>
+            <desc id="architecture-desc">
+                resume/content.yml feeds three outputs: the Zola site through Tera templates, the resume PDF
+                through Typst, and the profile README through minijinja. The PDF is served by the site. The
+                artificial-systems research crate is compiled to WebAssembly with cargo, wasm-bindgen and
+                wasm-opt, and runs on the site. The README is published to GitHub and mirrored to GitLab.
+            </desc>
+            <defs>
+                <marker id="architecture-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" class="site-architecture__arrowhead"></path>
+                </marker>
+            </defs>
+
+            <g class="site-architecture__edges" marker-end="url(#architecture-arrow)">
+                <path d="M170,136 L438,44"></path>
+                <path d="M170,148 L438,148"></path>
+                <path d="M110,176 L262,262"></path>
+                <path d="M380,272 L474,178"></path>
+                <path d="M520,262 L520,178"></path>
+            </g>
+
+            <g class="site-architecture__labels">
+                <text x="290" y="76">minijinja</text>
+                <text x="258" y="140">Tera templates</text>
+                <text x="120" y="232">Typst</text>
+                <text x="336" y="226">static file</text>
+                <text x="528" y="206">cargo wasm32</text>
+                <text x="528" y="220">wasm-bindgen</text>
+                <text x="528" y="234">wasm-opt</text>
+            </g>
+
+            <g class="site-architecture__nodes">
+                <g class="site-architecture__node site-architecture__node--source">
+                    <rect x="0" y="120" width="170" height="56"></rect>
+                    <text x="85" y="144">content.yml</text>
+                    <text x="85" y="162" class="site-architecture__sub">YAML source</text>
+                </g>
+                <g class="site-architecture__node">
+                    <rect x="440" y="10" width="200" height="56"></rect>
+                    <text x="540" y="34">Profile README</text>
+                    <text x="540" y="52" class="site-architecture__sub">GitHub → GitLab</text>
+                </g>
+                <g class="site-architecture__node site-architecture__node--target">
+                    <rect x="440" y="120" width="200" height="56"></rect>
+                    <text x="540" y="144">Zola site</text>
+                    <text x="540" y="162" class="site-architecture__sub">eliseuv.dev</text>
+                </g>
+                <g class="site-architecture__node">
+                    <rect x="230" y="262" width="150" height="56"></rect>
+                    <text x="305" y="286">resume.pdf</text>
+                    <text x="305" y="304" class="site-architecture__sub">PDF resume</text>
+                </g>
+                <g class="site-architecture__node site-architecture__node--source">
+                    <rect x="440" y="262" width="200" height="56"></rect>
+                    <text x="540" y="286">artificial-systems</text>
+                    <text x="540" y="304" class="site-architecture__sub">Rust research crate</text>
+                </g>
+            </g>
+        </svg>
+
+        <svg class="site-architecture__svg site-architecture__svg--tall" viewBox="0 0 340 452" role="img" aria-labelledby="architecture-title-tall architecture-desc">
+            <title id="architecture-title-tall">How this site is built</title>
+            <defs>
+                <marker id="architecture-arrow-tall" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" class="site-architecture__arrowhead"></path>
+                </marker>
+            </defs>
+
+            <g class="site-architecture__edges" marker-end="url(#architecture-arrow-tall)">
+                <path d="M120,50 L80,118"></path>
+                <path d="M220,50 L260,118"></path>
+                <path d="M170,50 L170,268"></path>
+                <path d="M265,170 L236,268"></path>
+                <path d="M170,400 L170,322"></path>
+            </g>
+
+            <g class="site-architecture__labels">
+                <text x="10" y="88">minijinja</text>
+                <text x="252" y="88">Typst</text>
+                <text x="164" y="215" text-anchor="end">Tera templates</text>
+                <text x="258" y="222">static file</text>
+                <text x="178" y="350">cargo wasm32</text>
+                <text x="178" y="364">wasm-bindgen</text>
+                <text x="178" y="378">wasm-opt</text>
+            </g>
+
+            <g class="site-architecture__nodes">
+                <g class="site-architecture__node site-architecture__node--source">
+                    <rect x="95" y="0" width="150" height="50"></rect>
+                    <text x="170" y="21">content.yml</text>
+                    <text x="170" y="39" class="site-architecture__sub">YAML source</text>
+                </g>
+                <g class="site-architecture__node">
+                    <rect x="0" y="120" width="150" height="50"></rect>
+                    <text x="75" y="141">Profile README</text>
+                    <text x="75" y="159" class="site-architecture__sub">GitHub → GitLab</text>
+                </g>
+                <g class="site-architecture__node">
+                    <rect x="190" y="120" width="150" height="50"></rect>
+                    <text x="265" y="141">resume.pdf</text>
+                    <text x="265" y="159" class="site-architecture__sub">PDF resume</text>
+                </g>
+                <g class="site-architecture__node site-architecture__node--target">
+                    <rect x="95" y="270" width="150" height="50"></rect>
+                    <text x="170" y="291">Zola site</text>
+                    <text x="170" y="309" class="site-architecture__sub">eliseuv.dev</text>
+                </g>
+                <g class="site-architecture__node site-architecture__node--source">
+                    <rect x="95" y="400" width="150" height="50"></rect>
+                    <text x="170" y="421">artificial-systems</text>
+                    <text x="170" y="439" class="site-architecture__sub">Rust research crate</text>
+                </g>
+            </g>
+        </svg>
+    </div>
+
+    <p class="site-architecture__note">
+        Every arrow is a Nix app pinned by <code>flake.lock</code>, so CI runs the same toolchain as my machine.
+        On each push to <code>main</code>, GitHub Actions pipelines build the simulations, resume and site and deploy
+        them to Cloudflare Pages, and publish the README to GitHub, which mirrors it to GitLab.
+    </p>
+
+    <a class="home-more" href="https://github.com/{{ resume.personal.github }}/{{ resume.personal.github }}.github.io" target="_blank" rel="noopener">View site source →</a>
+</section>

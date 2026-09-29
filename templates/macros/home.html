@@ -1,0 +1,44 @@
+{#
+Lookups for the resume ids written in templates/home/. Tera macros can only return
+text, so each resolves an id to the one string the landing page needs and throws on
+an unknown id, as the chips in macros/links.html do.
+#}
+
+{% macro project_repo(id, resume) -%}
+{%- set_global repo = "" -%}
+{%- for project in resume.projects -%}
+{%- if project.repo | split(pat="/") | last == id -%}{%- set_global repo = project.repo -%}{%- endif -%}
+{%- endfor -%}
+{%- if not repo -%}{{ throw(message="Unknown project on the landing page: " ~ id) }}{%- endif -%}
+{{ repo | safe }}
+{%- endmacro project_repo %}
+
+{% macro entry_link(id, resume) -%}
+{%- set entries = resume.experience | concat(with=resume.education) | filter(attribute="id", value=id) -%}
+{%- if entries | length == 0 -%}{{ throw(message="Unknown resume entry id on the landing page: " ~ id) }}{%- endif -%}
+/resume/#entry-{{ id }}
+{%- endmacro entry_link %}
+
+{% macro doi_link(doi, resume) -%}
+{%- set publications = resume.publications | filter(attribute="doi", value=doi) -%}
+{%- if publications | length == 0 -%}{{ throw(message="Unknown publication DOI on the landing page: " ~ doi) }}{%- endif -%}
+https://doi.org/{{ doi | safe }}
+{%- endmacro doi_link %}
+
+{# Languages of the given projects (repo names), in order and without repeats #}
+{% macro project_languages(names, resume) -%}
+{%- set_global languages = [] -%}
+{%- for name in names -%}
+{%- set_global found = false -%}
+{%- for project in resume.projects -%}
+{%- if project.repo | split(pat="/") | last == name -%}
+{%- set_global found = true -%}
+{%- for skill in project.skills -%}
+{%- if skill.name not in languages -%}{%- set_global languages = languages | concat(with=skill.name) -%}{%- endif -%}
+{%- endfor -%}
+{%- endif -%}
+{%- endfor -%}
+{%- if not found -%}{{ throw(message="Unknown project on the landing page: " ~ name) }}{%- endif -%}
+{%- endfor -%}
+{{ languages | join(sep=" · ") }}
+{%- endmacro project_languages %}

@@ -1,0 +1,83 @@
+{% set site_repo = resume.personal.github ~ "/" ~ resume.personal.github ~ ".github.io" %}
+{% set spectral = get_page(path="simulations/spectral_criticality.md") %}
+{% set chiarella = get_page(path="simulations/chiarella.md") %}
+{% set tsp = get_page(path="simulations/tsp_annealing.md") %}
+{% set tsp_repo = home_links::project_repo(id="tsp-sa", resume=resume) %}
+{% set tsp_project = resume.projects | filter(attribute="repo", value=tsp_repo) | first %}
+<section id="work" class="home-section" aria-labelledby="work-heading">
+    <header class="home-section__header">
+        <h2 id="work-heading">Featured Work</h2>
+    </header>
+
+    <div class="featured-grid">
+        <article class="featured-card featured-card--flagship">
+            {# Same target as the card's first button, so it is kept out of the tab order #}
+            <a class="featured-card__media" href="{{ spectral.path | safe }}" tabindex="-1" aria-hidden="true">
+                {% set image = get_image_metadata(path="img/home/spectral_criticality.webp") %}
+                <img src="{{ get_url(path='img/home/spectral_criticality.webp') | safe }}"
+                    alt="Spectral criticality simulation: eigenvalue histogram of a correlation matrix against the Marchenko-Pastur law, and temperature scans of its spectral moments across the critical point."
+                    loading="lazy" decoding="async" width="{{ image.width }}" height="{{ image.height }}">
+            </a>
+
+            <div class="featured-card__body">
+                <h3>{{ spectral.title }}</h3>
+                <p class="featured-card__stack">{{ home_links::project_languages(names=spectral.extra.links.projects, resume=resume) }}</p>
+                <p>{{ spectral.description }}</p>
+
+                <div class="featured-card__actions">
+                    <a class="home-btn home-btn--primary" href="{{ spectral.path | safe }}">Simulation</a>
+                    <a class="home-btn" href="{{ home_links::doi_link(doi=spectral.extra.links.publications | first, resume=resume) | safe }}" target="_blank" rel="noopener">Publication</a>
+                    <a class="home-btn" href="https://github.com/{{ site_repo | safe }}/tree/main/simulations/spectral_criticality" target="_blank" rel="noopener">Source</a>
+                </div>
+            </div>
+        </article>
+
+        <article class="featured-card">
+            <a class="featured-card__media" href="{{ chiarella.path | safe }}" tabindex="-1" aria-hidden="true">
+                {% set image = get_image_metadata(path="img/home/chiarella.webp") %}
+                <img src="{{ get_url(path='img/home/chiarella.webp') | safe }}"
+                    alt="Chiarella market model: phase portrait of mispricing against the trend signal, with price, fundamental value, mispricing, returns and a histogram of the mispricing."
+                    loading="lazy" decoding="async" width="{{ image.width }}" height="{{ image.height }}">
+            </a>
+
+            <div class="featured-card__body">
+                <h3>{{ chiarella.title }}</h3>
+                {# No resume project behind it, so the stack is the page's own skills #}
+                <p class="featured-card__stack">{{ chiarella.extra.links.skills | join(sep=" · ") }}</p>
+                <p>{{ chiarella.description }}</p>
+
+                <div class="featured-card__actions">
+                    <a class="home-btn home-btn--primary" href="{{ chiarella.path | safe }}">Simulation</a>
+                    <a class="home-btn" href="https://github.com/{{ site_repo | safe }}/tree/main/simulations/chiarella" target="_blank" rel="noopener">Source</a>
+                </div>
+            </div>
+        </article>
+
+        <article class="featured-card">
+            <a class="featured-card__media" href="{{ tsp.path | safe }}" tabindex="-1" aria-hidden="true">
+                {% set image = get_image_metadata(path="img/home/tsp_annealing.webp") %}
+                <img src="{{ get_url(path='img/home/tsp_annealing.webp') | safe }}"
+                    alt="Simulated annealing on the traveling salesman problem: an optimized tour through randomly placed cities."
+                    loading="lazy" decoding="async" width="{{ image.width }}" height="{{ image.height }}">
+            </a>
+
+            <div class="featured-card__body">
+                <h3>{{ tsp.title }}</h3>
+                <p class="featured-card__stack">{{ home_links::project_languages(names=["tsp-sa"], resume=resume) }}</p>
+                <p>{{ tsp_project.points | first }}</p>
+
+                <div class="featured-card__actions">
+                    <a class="home-btn home-btn--primary" href="{{ tsp.path | safe }}">Simulation</a>
+                    {# The paper is found the way the resume links it: a publication listing this project #}
+                    {% for publication in resume.publications %}
+                    {% set linked = publication.projects | default(value=[]) %}
+                    {% if "tsp-sa" in linked %}
+                    <a class="home-btn" href="https://doi.org/{{ publication.doi | safe }}" target="_blank" rel="noopener">Publication</a>
+                    {% endif %}
+                    {% endfor %}
+                    <a class="home-btn" href="https://github.com/{{ tsp_repo | safe }}" target="_blank" rel="noopener">Source</a>
+                </div>
+            </div>
+        </article>
+    </div>
+</section>

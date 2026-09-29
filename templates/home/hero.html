@@ -1,0 +1,18 @@
+{% set programming = [] %}
+{% for group in resume.skills %}{% for category, items in group %}{% if category == "Programming" %}{% set_global programming = items %}{% endif %}{% endfor %}{% endfor %}
+<section class="home-hero" aria-labelledby="home-name">
+    <h1 id="home-name" class="glitch-text">{{ resume.personal.name }}</h1>
+    <p class="home-hero__headline">{{ resume.personal.keywords | join(sep=" & ") }}</p>
+    <p class="home-hero__summary">
+        I build high-performance backend systems and scientific software, with a background spanning
+        production engineering, numerical computing, and computational physics.
+    </p>
+    <p class="home-hero__stack">{% for item in programming %}{% for label, libs in item %}{{ label }}{% endfor %}{% if not loop.last %} · {% endif %}{% endfor %}</p>
+
+    <div class="home-actions">
+        <a href="#work" class="home-btn home-btn--primary">View my work</a>
+        <a href="/resume/" class="home-btn">Resume</a>
+    </div>
+
+    {% include "home/social.html" %}
+</section>

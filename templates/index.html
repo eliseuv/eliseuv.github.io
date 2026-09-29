@@ -1,17 +1,23 @@
 {% extends "base.html" %}
+{% import "macros/home.html" as home_links %}
+{# Included templates cannot import macros themselves, so the home/ partials use the import above #}
+
+{% block body_class %}home{% endblock body_class %}
+
+{% block head_extra %}
+{# The resume used to live at `/`; send old deep links to where their anchors went #}
+<script>
+    if (/^#(entry|pub|skill|project)-/.test(location.hash)) location.replace('/resume/' + location.hash);
+</script>
+{% endblock head_extra %}
 
 {% block content %}
+{% set resume = load_data(path="resume/content.yml") %}
 
-{% set resume = load_data(path="content/resume/content.yml") %}
-{% include "business_card.html" %}
-
-<div class="content">
-
-    {{ section.content }}
-
-    <h2>Latest Projects</h2>
-    <p>Coming soon...</p>
-
-</div>
-
+{% include "home/hero.html" %}
+{% include "home/profile.html" %}
+{% include "home/featured_work.html" %}
+{% include "home/research.html" %}
+{% include "home/under_the_hood.html" %}
+{% include "home/contact.html" %}
 {% endblock content %}

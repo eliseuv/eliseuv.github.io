@@ -1,0 +1,22 @@
+<footer class="home-contact" aria-labelledby="contact-heading">
+    <h2 id="contact-heading">Interested in working together?</h2>
+    <p>Software engineer with a background in high-performance computing and computational science.</p>
+    <p class="home-contact__email"><a href="mailto:{{ resume.personal.email }}">{{ resume.personal.email }}</a></p>
+    <ul class="home-social">
+        <li>
+            <a href="https://github.com/{{ resume.personal.github }}" target="_blank" rel="noopener">
+                <span class="icon-link" aria-hidden="true">{% include "icons/github.html" %}</span> GitHub
+            </a>
+        </li>
+        <li>
+            <a href="https://linkedin.com/in/{{ resume.personal.linkedin }}" target="_blank" rel="noopener">
+                <span class="icon-link" aria-hidden="true">{% include "icons/linkedin.html" %}</span> LinkedIn
+            </a>
+        </li>
+        <li>
+            <a href="/resume/">
+                <span class="icon-link" aria-hidden="true">{% include "icons/download.html" %}</span> Resume
+            </a>
+        </li>
+    </ul>
+</footer>
