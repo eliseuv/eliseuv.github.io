@@ -189,6 +189,16 @@ body.home {
     font-size: 0.85rem;
 }
 
+// The hero is left-aligned, unlike the centered business card
+.home-hero .contact-info {
+    align-items: flex-start;
+    margin-top: 1.5rem;
+
+    .contact-links {
+        justify-content: flex-start;
+    }
+}
+
 // --- Featured work ---
 .featured-grid {
     display: grid;

@@ -35,38 +35,6 @@ header.resume-container,
             }
         }
     }
-
-    .contact-info {
-        font-size: 0.9rem;
-        color: $text-dim;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 0.3rem;
-
-        a {
-            display: flex;
-            align-items: center;
-        }
-
-        .contact-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0;
-            justify-content: center;
-
-            span {
-                display: flex;
-                align-items: center;
-
-                &:not(:last-child)::after {
-                    content: "//";
-                    margin: 0 0.5rem;
-                    opacity: 0.5;
-                }
-            }
-        }
-    }
 }
 
 .resume-container {
