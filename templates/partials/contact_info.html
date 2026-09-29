@@ -1,7 +1,12 @@
-{# Email and profile links, shared by the resume business card and the landing page hero #}
+{#
+Email and profile links, shared by the resume business card and the landing page hero.
+Set `email_in_links = true` before including to put the email at the end of the link
+row instead of on its own line above it.
+#}
 <div class="contact-info">
     {% set email = resume.personal.email %}
-    {% if email %}
+    {% set email_in_links = email_in_links | default(value=false) %}
+    {% if email and not email_in_links %}
     <div class="contact-email">
         <a href="mailto:{{ email }}">
             <span class="icon-link" style="margin-right: 0.3rem;">{% include "icons/mail.html" %}</span>
@@ -49,6 +54,14 @@
         <span>
             <a href="http://lattes.cnpq.br/{{ resume.personal.lattes }}" title="Lattes" aria-label="Lattes">
                 <span class="icon-link">{% include "icons/lattes.html" %}</span>
+            </a>
+        </span>
+        {% endif %}
+        {% if email and email_in_links %}
+        <span>
+            <a href="mailto:{{ email }}">
+                <span class="icon-link" style="margin-right: 0.3rem;">{% include "icons/mail.html" %}</span>
+                {{ email }}
             </a>
         </span>
         {% endif %}
