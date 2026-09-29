@@ -5,12 +5,12 @@
     <p class="home-hero__headline">{{ resume.personal.keywords | join(sep=" & ") }}</p>
     <p class="home-hero__summary">
         I build high-performance backend systems and scientific software, with a background spanning
-        production engineering, numerical computing, and computational physics.
+        production engineering, numerical simulation, and computational physics.
     </p>
     <p class="home-hero__stack">{% for item in programming %}{% for label, libs in item %}{{ label }}{% endfor %}{% if not loop.last %} · {% endif %}{% endfor %}</p>
 
     <div class="home-actions">
-        <a href="#work" class="home-btn home-btn--primary">View my work</a>
+        <a href="#work" class="home-btn home-btn--primary">Featured work</a>
         <a href="/resume/" class="home-btn">Resume</a>
     </div>
 
