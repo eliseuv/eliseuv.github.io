@@ -1,11 +1,6 @@
 <footer class="home-contact" aria-labelledby="contact-heading">
     <h2 id="contact-heading">Interested in working together?</h2>
     <p>Software engineer with a background in high-performance computing and computational science.</p>
-    <p class="home-contact__email">
-        <a href="mailto:{{ resume.personal.email }}">
-            <span class="icon-link" aria-hidden="true">{% include "icons/mail.html" %}</span> {{ resume.personal.email }}
-        </a>
-    </p>
-    {% set email_placement = "none" %}
+    {% set email_placement = "inline" %}
     {% include "partials/contact_info.html" %}
 </footer>
