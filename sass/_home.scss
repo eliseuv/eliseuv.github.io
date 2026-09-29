@@ -517,7 +517,12 @@ body.home {
 .home-contact__email a {
     display: inline-flex;
     align-items: center;
+    gap: 0.5rem;
     min-height: 44px;
     font-family: $font-mono;
     font-size: 1.2rem;
+
+    .icon-link {
+        margin: 0;
+    }
 }
