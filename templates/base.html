@@ -37,10 +37,14 @@
     </div>
 
     <header>
-        <nav>
-            <a href="/">[Resume]</a>
-            <a href="/simulations">[Simulations]</a>
-            <a href="/blog">[Notes]</a>
+        {# Notes stays out of the nav until the blog has real content #}
+        <nav class="site-nav">
+            <a href="/" class="site-nav__name">eliseuv.dev</a>
+            <span class="site-nav__links">
+                <a href="/">[Home]</a>
+                <a href="/simulations/">[Simulations]</a>
+                <a href="/resume/">[Resume]</a>
+            </span>
         </nav>
         <hr>
     </header>

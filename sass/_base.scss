@@ -38,8 +38,36 @@ header {
         a {
             margin-right: 1rem;
             font-weight: bold;
-            // Add brackets visually via CSS if you want, 
+            // Add brackets visually via CSS if you want,
             // or keep them in the HTML like your original: [Home]
+        }
+    }
+
+    // Name on the left, sections on the right; wraps under the name on phones
+    .site-nav {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 0.25rem 1rem;
+
+        a:last-child {
+            margin-right: 0;
+        }
+    }
+
+    .site-nav__name {
+        color: $text-white;
+        font-family: $font-mono;
+    }
+
+    .site-nav__links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.25rem 1rem;
+
+        a {
+            margin-right: 0;
         }
     }
 
