@@ -439,9 +439,12 @@ body.home {
     fill: $text-dim;
 }
 
-.site-architecture__labels {
+.site-architecture__stages {
     fill: $tokyo-cyan;
     font-size: 11px;
+    text-anchor: middle;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
 }
 
 .site-architecture__node {
