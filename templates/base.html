@@ -4,7 +4,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{{ config.title }}{% endblock title %}</title>
+    {# The root section's own title is already the full site title; everything else is suffixed with it #}
+    {% if page %}{% set meta_title = page.title ~ " — " ~ config.title %}{% set meta_description = page.description | default(value=config.description) %}
+    {% elif section and section.path != "/" %}{% set meta_title = section.title ~ " — " ~ config.title %}{% set meta_description = section.description | default(value=config.description) %}
+    {% elif section %}{% set meta_title = section.title %}{% set meta_description = section.description | default(value=config.description) %}
+    {% else %}{% set meta_title = config.title %}{% set meta_description = config.description %}{% endif %}
+    <title>{% block title %}{{ meta_title }}{% endblock title %}</title>
+    <meta name="description" content="{{ meta_description }}">
+    {% if current_url %}
+    <link rel="canonical" href="{{ current_url | safe }}">
+    <meta property="og:url" content="{{ current_url | safe }}">
+    {% endif %}
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{{ meta_title }}">
+    <meta property="og:description" content="{{ meta_description }}">
+    {# Captured from the landing page hero; recapture it when the hero changes #}
+    <meta property="og:image" content="{{ get_url(path='img/og.png') | safe }}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
     <link rel="stylesheet" href="{{ get_url(path='style.css') }}">
     <link rel="me" href="https://hachyderm.io/@evf">
 

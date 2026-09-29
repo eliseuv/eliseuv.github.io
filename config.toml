@@ -1,4 +1,6 @@
 base_url = "https://eliseuv.dev/"
+title = "Eliseu Venites Filho"
+description = "Software engineer and computational physicist building backend systems, scientific software, and interactive simulations in Rust, C++, Python, and Julia."
 
 compile_sass = true
 build_search_index = true
