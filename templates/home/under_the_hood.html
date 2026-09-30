@@ -1,7 +1,7 @@
 <section class="home-section site-architecture" aria-labelledby="architecture-heading">
     <header class="home-section__header">
         <h2 id="architecture-heading">This site is part of the portfolio</h2>
-        <p>One source of truth. Reproducible builds. Automated deployment.</p>
+        <p>One information source and one research-grade scientific library. Reproducible builds. Automated deployment.</p>
     </header>
 
     {#
@@ -165,6 +165,8 @@
     </div>
 
     <p class="site-architecture__note">
+        The outputs are generated from one information source, my resume data in <code>content.yml</code>, and one
+        research-grade scientific library, the <code>artificial-systems</code> Rust crate.
         Every build step is a Nix app pinned by <code>flake.lock</code>, so CI runs the same toolchain as my machine.
         On each push to <code>main</code>, GitHub Actions pipelines build the simulations, resume and site and deploy
         them to Cloudflare Pages, and publish the README to GitHub, which mirrors it to GitLab.
