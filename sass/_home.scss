@@ -483,6 +483,17 @@ body.home {
     }
 }
 
+// SVG text ignores the page link colour, so hover is signalled on the box and by underlining subtitle links.
+a.site-architecture__node:hover rect,
+.site-architecture__node > a:hover rect {
+    fill: lighten($bg-code, 6%);
+}
+
+.site-architecture__sub a:hover {
+    fill: $text-white;
+    text-decoration: underline;
+}
+
 .site-architecture__node--source rect {
     stroke: $tokyo-green;
 }
