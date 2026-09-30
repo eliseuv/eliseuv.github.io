@@ -18,7 +18,7 @@
                 outputs. minijinja renders content.yml into the profile README, pushed to GitHub and mirrored
                 to GitLab. Typst renders it directly into resume.pdf. Zola renders it into the website through
                 Tera templates, together with the crate compiled to WebAssembly with cargo and wasm-bindgen,
-                and Cloudflare Pages serves the result.
+                and Cloudflare Pages serves the result. The website also links the PDF.
             </desc>
             <defs>
                 <marker id="architecture-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
@@ -40,6 +40,10 @@
                 <path d="M150,224 L368,224"></path>
                 <path d="M520,60 L568,60"></path>
                 <path d="M520,212 L568,212"></path>
+            </g>
+
+            <g class="site-architecture__edges site-architecture__edges--secondary" marker-end="url(#architecture-arrow)">
+                <path d="M645,160 L645,186"></path>
             </g>
 
             <g class="site-architecture__labels">
@@ -105,6 +109,10 @@
                 <path d="M320,48 L320,148"></path>
                 <path d="M55,198 L55,248"></path>
                 <path d="M325,198 L325,248"></path>
+            </g>
+
+            <g class="site-architecture__edges site-architecture__edges--secondary" marker-end="url(#architecture-arrow-tall)">
+                <path d="M230,274 L268,274"></path>
             </g>
 
             <g class="site-architecture__labels">

@@ -435,6 +435,12 @@ body.home {
     stroke-width: 1.5;
 }
 
+// Links between outputs rather than build steps, so they stay out of the way of the main flow.
+.site-architecture__edges--secondary {
+    opacity: 0.45;
+    stroke-dasharray: 3 3;
+}
+
 .site-architecture__arrowhead {
     fill: $text-dim;
 }
