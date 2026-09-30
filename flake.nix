@@ -148,6 +148,25 @@
             "$@"
         '';
 
+        # Record the animated simulation previews of the landing page into
+        # static/img/home. Run by hand after a simulation changes: it needs a
+        # browser, so it stays out of build-site and CI.
+        capturePreviews = pkgs.writeShellScriptBin "capture-previews" ''
+          set -euo pipefail
+          if [ ! -d static/wasm ]; then
+            echo "static/wasm is missing: run 'nix run .#simulations' first" >&2
+            exit 1
+          fi
+          echo ">> Capturing simulation previews..."
+          PATH="${
+            pkgs.lib.makeBinPath [
+              pkgs.zola
+              pkgs.chromium
+              pkgs.libwebp
+            ]
+          }:$PATH" ${pkgs.nodejs}/bin/node scripts/capture-previews.mjs static/img/home "$@"
+        '';
+
         # Default build script (runs all)
         buildSite = pkgs.writeShellScriptBin "build-site" ''
           set -euo pipefail
@@ -208,6 +227,9 @@
           };
           deploy = flake-utils.lib.mkApp {
             drv = deploySite;
+          };
+          previews = flake-utils.lib.mkApp {
+            drv = capturePreviews;
           };
           default = flake-utils.lib.mkApp {
             drv = buildSite;
