@@ -2,7 +2,8 @@
 <section class="home-section site-architecture" aria-labelledby="architecture-heading">
     <header class="home-section__header">
         <h2 id="architecture-heading">This site is part of the portfolio</h2>
-        <p>One information source and one research-grade scientific library. Reproducible builds. Automated deployment.</p>
+        <p>One information source and one research-grade scientific library. Reproducible builds. Automated deployment.
+        </p>
     </header>
 
     {#
@@ -12,7 +13,8 @@
     accessibility tree.
     #}
     <div class="site-architecture__diagram">
-        <svg class="site-architecture__svg site-architecture__svg--wide" viewBox="0 0 720 244" role="img" aria-labelledby="architecture-title architecture-desc">
+        <svg class="site-architecture__svg site-architecture__svg--wide" viewBox="0 0 720 244" role="img"
+            aria-labelledby="architecture-title architecture-desc">
             <title id="architecture-title">How this site is built</title>
             <desc id="architecture-desc">
                 Two sources, resume/content.yml and the artificial-systems research crate, produce three
@@ -22,7 +24,8 @@
                 and Cloudflare Pages serves the result. The website also links the PDF.
             </desc>
             <defs>
-                <marker id="architecture-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <marker id="architecture-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7"
+                    orient="auto-start-reverse">
                     <path d="M0,0 L10,5 L0,10 z" class="site-architecture__arrowhead"></path>
                 </marker>
             </defs>
@@ -43,7 +46,8 @@
                 <path d="M520,212 L568,212"></path>
             </g>
 
-            <g class="site-architecture__edges site-architecture__edges--secondary" marker-end="url(#architecture-arrow)">
+            <g class="site-architecture__edges site-architecture__edges--secondary"
+                marker-end="url(#architecture-arrow)">
                 <path d="M645,160 L645,186"></path>
             </g>
 
@@ -84,8 +88,8 @@
                 </g>
                 <g class="site-architecture__node site-architecture__node--target">
                     <rect x="570" y="112" width="150" height="48"></rect>
-                    <text x="645" y="132">resume.pdf</text>
-                    <text x="645" y="149" class="site-architecture__sub">PDF resume</text>
+                    <text x="645" y="132">PDF resume</text>
+                    <text x="645" y="149" class="site-architecture__sub">resume.pdf</text>
                 </g>
                 <g class="site-architecture__node site-architecture__node--target">
                     <rect x="570" y="188" width="150" height="48"></rect>
@@ -95,10 +99,12 @@
             </g>
         </svg>
 
-        <svg class="site-architecture__svg site-architecture__svg--tall" viewBox="0 0 380 300" role="img" aria-labelledby="architecture-title-tall architecture-desc">
+        <svg class="site-architecture__svg site-architecture__svg--tall" viewBox="0 0 380 300" role="img"
+            aria-labelledby="architecture-title-tall architecture-desc">
             <title id="architecture-title-tall">How this site is built</title>
             <defs>
-                <marker id="architecture-arrow-tall" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <marker id="architecture-arrow-tall" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7"
+                    markerHeight="7" orient="auto-start-reverse">
                     <path d="M0,0 L10,5 L0,10 z" class="site-architecture__arrowhead"></path>
                 </marker>
             </defs>
@@ -112,7 +118,8 @@
                 <path d="M325,198 L325,248"></path>
             </g>
 
-            <g class="site-architecture__edges site-architecture__edges--secondary" marker-end="url(#architecture-arrow-tall)">
+            <g class="site-architecture__edges site-architecture__edges--secondary"
+                marker-end="url(#architecture-arrow-tall)">
                 <path d="M230,274 L268,274"></path>
             </g>
 
@@ -153,8 +160,8 @@
                 </g>
                 <g class="site-architecture__node site-architecture__node--target">
                     <rect x="120" y="250" width="110" height="48"></rect>
-                    <text x="175" y="270">resume.pdf</text>
-                    <text x="175" y="287" class="site-architecture__sub">PDF resume</text>
+                    <text x="175" y="270">PDF resume</text>
+                    <text x="175" y="287" class="site-architecture__sub">resume.pdf</text>
                 </g>
                 <g class="site-architecture__node site-architecture__node--target">
                     <rect x="270" y="250" width="110" height="48"></rect>
@@ -175,5 +182,6 @@
         them to Cloudflare Pages, and publish the README to GitHub, which mirrors it to GitLab.
     </p>
 
-    <a class="home-more" href="{{ site_repo | safe }}" target="_blank" rel="noopener">View site source →</a>
+    <a class="home-more" href="{{ site_repo | safe }}"
+        target="_blank" rel="noopener">View site source →</a>
 </section>
