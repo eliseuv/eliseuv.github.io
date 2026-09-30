@@ -274,6 +274,17 @@ publications:
     journal: "Physica A: Statistical Mechanics and its Applications"
     authors: ["R. da Silva", "E. Venites Filho", "A. Alves"]
 
+# Landing page Engineering Focus grid (templates/home/profile.html). Not read by the
+# resume or the README. Items name a Programming/Tools skill or a Topic from `skills`;
+# anything else fails the build.
+focus:
+  - area: Backend & Systems
+    items: [Rust, C++, Delphi, Concurrency, Networks]
+  - area: Scientific Computing
+    items: [Python, Julia, Rust, Optimization, Time-series analysis]
+  - area: Infrastructure & Delivery
+    items: [Nix, Docker, CI/CD]
+
 # GitHub profile README (readme/README.md.j2). Not read by the resume or the site.
 # Featured projects that exist under `projects` are matched by `repo` and take their
 # skills from there; the rest declare their own.

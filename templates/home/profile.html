@@ -1,3 +1,5 @@
+{% set topics = [] %}
+{% for group in resume.skills %}{% for category, items in group %}{% if category == "Topics" %}{% set_global topics = items %}{% endif %}{% endfor %}{% endfor %}
 {% set current_jobs = [] %}
 {% for entry in resume.experience %}{% if entry.date is ending_with("Present") %}{% set_global current_jobs = current_jobs | concat(with=entry) %}{% endif %}{% endfor %}
 {% set formation_link = home_links::entry_link(id="phd", resume=resume) %}
@@ -40,36 +42,17 @@
         </article>
     </div>
 
-    {# Curated on purpose: the full skills inventory stays on the resume #}
     <h3 class="home-profile__subheading">Engineering Focus</h3>
     <div class="focus-grid">
+        {% for focus in resume.focus %}
         <div class="focus-column">
-            <h4>Backend &amp; Systems</h4>
-            <ul>
-                <li>Rust</li>
-                <li>C++</li>
-                <li>Delphi</li>
-                <li>Concurrency</li>
-                <li>Networks</li>
-            </ul>
+            <h4>{{ focus.area }}</h4>
+            <div class="related">
+                {% for name in focus.items %}
+                {% if name in topics %}{{ links::topic_chip(name=name, resume=resume) }}{% else %}{{ links::skill_chip(name=name, resume=resume) }}{% endif %}
+                {% endfor %}
+            </div>
         </div>
-        <div class="focus-column">
-            <h4>Scientific Computing</h4>
-            <ul>
-                <li>Python</li>
-                <li>Julia</li>
-                <li>Rust</li>
-                <li>Optimization</li>
-                <li>Time-series analysis</li>
-            </ul>
-        </div>
-        <div class="focus-column">
-            <h4>Infrastructure &amp; Delivery</h4>
-            <ul>
-                <li>Nix</li>
-                <li>Docker</li>
-                <li>GitHub CI</li>
-            </ul>
-        </div>
+        {% endfor %}
     </div>
 </section>

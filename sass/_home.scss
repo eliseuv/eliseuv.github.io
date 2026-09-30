@@ -87,7 +87,6 @@ body.home {
 
 // Global `ul li span` styling (dim + left margin) is meant for list pages, not these lists
 .profile-card__list,
-.focus-column ul,
 .home-flow {
     list-style: none;
     padding: 0;
@@ -379,26 +378,8 @@ body.home {
         font-size: 1rem;
     }
 
-    li {
-        padding: 0.3rem 0;
-        border-bottom: 1px dashed $border;
-        color: $text-light;
-        font-family: $font-mono;
-        font-size: 0.9rem;
-    }
-
-    // Stacked columns would make a 20-row list on phones, so wrap the items instead
-    @media (max-width: $home-tablet - 1px) {
-        ul {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.4rem;
-        }
-
-        li {
-            padding: 0.2rem 0.6rem;
-            border: 1px solid $border;
-        }
+    .related {
+        margin: 0;
     }
 }
 
