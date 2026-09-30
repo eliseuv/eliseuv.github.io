@@ -1,3 +1,4 @@
+{% set site_repo = "https://github.com/" ~ resume.personal.github ~ "/" ~ resume.personal.github ~ ".github.io" %}
 <section class="home-section site-architecture" aria-labelledby="architecture-heading">
     <header class="home-section__header">
         <h2 id="architecture-heading">This site is part of the portfolio</h2>
@@ -165,12 +166,14 @@
     </div>
 
     <p class="site-architecture__note">
-        The outputs are generated from one information source, my resume data in <code>content.yml</code>, and one
-        research-grade scientific library, the <code>artificial-systems</code> Rust crate.
+        The outputs are generated from one information source, my resume data in
+        <a href="{{ site_repo | safe }}/blob/main/resume/content.yml" target="_blank" rel="noopener"><code>content.yml</code></a>, and one
+        research-grade scientific library, the
+        <a href="https://github.com/{{ resume.personal.github }}/artificial-systems" target="_blank" rel="noopener"><code>artificial-systems</code></a> Rust crate.
         Every build step is a Nix app pinned by <code>flake.lock</code>, so CI runs the same toolchain as my machine.
         On each push to <code>main</code>, GitHub Actions pipelines build the simulations, resume and site and deploy
         them to Cloudflare Pages, and publish the README to GitHub, which mirrors it to GitLab.
     </p>
 
-    <a class="home-more" href="https://github.com/{{ resume.personal.github }}/{{ resume.personal.github }}.github.io" target="_blank" rel="noopener">View site source →</a>
+    <a class="home-more" href="{{ site_repo | safe }}" target="_blank" rel="noopener">View site source →</a>
 </section>
