@@ -60,12 +60,14 @@
             </g>
 
             <g class="site-architecture__nodes">
-                <a class="site-architecture__node site-architecture__node--source" href="{{ site_repo | safe }}/blob/main/resume/content.yml" target="_blank" rel="noopener">
+                <a class="site-architecture__node site-architecture__node--source"
+                    href="{{ site_repo | safe }}/blob/main/resume/content.yml" target="_blank" rel="noopener">
                     <rect x="0" y="112" width="150" height="48"></rect>
                     <text x="75" y="132">content.yml</text>
                     <text x="75" y="149" class="site-architecture__sub">resume data</text>
                 </a>
-                <a class="site-architecture__node site-architecture__node--source" href="{{ github_url | safe }}/artificial-systems" target="_blank" rel="noopener">
+                <a class="site-architecture__node site-architecture__node--source"
+                    href="{{ github_url | safe }}/artificial-systems" target="_blank" rel="noopener">
                     <rect x="0" y="36" width="150" height="48"></rect>
                     <text x="75" y="56">artificial-systems</text>
                     <text x="75" y="73" class="site-architecture__sub">Rust research crate</text>
@@ -78,11 +80,13 @@
                 </g>
 
                 <g class="site-architecture__node site-architecture__node--target">
-                    <a href="{{ github_url | safe }}" target="_blank" rel="noopener">
+                    <a href="{{ github_url | safe }}/{{ resume.personal.github }}" target="_blank" rel="noopener">
                         <rect x="570" y="188" width="150" height="48"></rect>
                         <text x="645" y="208">Profile READMEs</text>
                     </a>
-                    <text x="645" y="225" class="site-architecture__sub"><a href="{{ github_url | safe }}" target="_blank" rel="noopener">GitHub</a> · <a href="{{ gitlab_url | safe }}" target="_blank" rel="noopener">GitLab</a></text>
+                    <text x="645" y="225" class="site-architecture__sub"><a href="{{ github_url | safe }}/{{ resume.personal.github }}"
+                            target="_blank" rel="noopener">GitHub</a> · <a href="{{ gitlab_url | safe }}/{{ resume.personal.gitlab }}"
+                            target="_blank" rel="noopener">GitLab</a></text>
                 </g>
                 <a class="site-architecture__node site-architecture__node--target" href="/resume.pdf">
                     <rect x="570" y="112" width="150" height="48"></rect>
@@ -128,12 +132,14 @@
             </g>
 
             <g class="site-architecture__nodes">
-                <a class="site-architecture__node site-architecture__node--source" href="{{ site_repo | safe }}/blob/main/resume/content.yml" target="_blank" rel="noopener">
+                <a class="site-architecture__node site-architecture__node--source"
+                    href="{{ site_repo | safe }}/blob/main/resume/content.yml" target="_blank" rel="noopener">
                     <rect x="0" y="0" width="200" height="48"></rect>
                     <text x="100" y="20">content.yml</text>
                     <text x="100" y="37" class="site-architecture__sub">resume data</text>
                 </a>
-                <a class="site-architecture__node site-architecture__node--source" href="{{ github_url | safe }}/artificial-systems" target="_blank" rel="noopener">
+                <a class="site-architecture__node site-architecture__node--source"
+                    href="{{ github_url | safe }}/artificial-systems" target="_blank" rel="noopener">
                     <rect x="220" y="0" width="160" height="48"></rect>
                     <text x="300" y="20">artificial-systems</text>
                     <text x="300" y="37" class="site-architecture__sub">Rust research crate</text>
@@ -146,11 +152,13 @@
                 </g>
 
                 <g class="site-architecture__node site-architecture__node--target">
-                    <a href="{{ github_url | safe }}" target="_blank" rel="noopener">
+                    <a href="{{ github_url | safe }}/{{ resume.personal.github }}" target="_blank" rel="noopener">
                         <rect x="0" y="250" width="110" height="48"></rect>
                         <text x="55" y="270">READMEs</text>
                     </a>
-                    <text x="55" y="287" class="site-architecture__sub"><a href="{{ github_url | safe }}" target="_blank" rel="noopener">GitHub</a>, <a href="{{ gitlab_url | safe }}" target="_blank" rel="noopener">GitLab</a></text>
+                    <text x="55" y="287" class="site-architecture__sub"><a href="{{ github_url | safe }}/{{ resume.personal.github }}"
+                            target="_blank" rel="noopener">GitHub</a>, <a href="{{ gitlab_url | safe }}/{{ resume.personal.gitlab }}" target="_blank"
+                            rel="noopener">GitLab</a></text>
                 </g>
                 <a class="site-architecture__node site-architecture__node--target" href="/resume.pdf">
                     <rect x="120" y="250" width="110" height="48"></rect>
@@ -168,14 +176,17 @@
 
     <p class="site-architecture__note">
         The outputs are generated from one information source, my resume data in
-        <a href="{{ site_repo | safe }}/blob/main/resume/content.yml" target="_blank" rel="noopener"><code>content.yml</code></a>, and one
+        <a href="{{ site_repo | safe }}/blob/main/resume/content.yml" target="_blank"
+            rel="noopener"><code>content.yml</code></a>, and one
         research-grade scientific library, the
-        <a href="{{ github_url | safe }}/artificial-systems" target="_blank" rel="noopener"><code>artificial-systems</code></a> Rust crate.
-        Every build step is a Nix app pinned by <a href="{{ site_repo | safe }}/blob/main/flake.lock" target="_blank" rel="noopener"><code>flake.lock</code></a>, so CI runs the same toolchain as my machine.
-        On each push to <code>main</code>, <a href="{{ site_repo | safe }}/actions" target="_blank" rel="noopener">GitHub Actions</a> pipelines build the simulations, resume and site and deploy
+        <a href="{{ github_url | safe }}/artificial-systems" target="_blank"
+            rel="noopener"><code>artificial-systems</code></a> Rust crate.
+        Every build step is a Nix app pinned by <a href="{{ site_repo | safe }}/blob/main/flake.lock" target="_blank"
+            rel="noopener"><code>flake.lock</code></a>, so CI runs the same toolchain as my machine.
+        On each push to <code>main</code>, <a href="{{ site_repo | safe }}/actions" target="_blank"
+            rel="noopener">GitHub Actions</a> pipelines build the simulations, resume and site and deploy
         them to Cloudflare Pages, and publish the README to GitHub, which mirrors it to GitLab.
     </p>
 
-    <a class="home-more" href="{{ site_repo | safe }}"
-        target="_blank" rel="noopener">View site source →</a>
+    <a class="home-more" href="{{ site_repo | safe }}" target="_blank" rel="noopener">View site source →</a>
 </section>
