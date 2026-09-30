@@ -40,24 +40,24 @@
             </g>
 
             <g class="site-architecture__edges" marker-end="url(#architecture-arrow)">
-                <path d="M150,136 L180,136 L180,60 L368,60"></path>
+                <path d="M150,136 L180,136 L180,212 L368,212"></path>
                 <path d="M150,136 L568,136"></path>
-                <path d="M150,136 L180,136 L180,200 L368,200"></path>
-                <path d="M150,224 L368,224"></path>
-                <path d="M520,60 L568,60"></path>
+                <path d="M150,136 L180,136 L180,72 L368,72"></path>
+                <path d="M150,48 L368,48"></path>
                 <path d="M520,212 L568,212"></path>
+                <path d="M520,60 L568,60"></path>
             </g>
 
             <g class="site-architecture__edges site-architecture__edges--secondary"
                 marker-end="url(#architecture-arrow)">
-                <path d="M645,160 L645,186"></path>
+                <path d="M645,112 L645,86"></path>
             </g>
 
             <g class="site-architecture__labels">
-                <text x="274" y="60">minijinja</text>
+                <text x="274" y="212">minijinja</text>
                 <text x="274" y="136">Typst</text>
-                <text x="274" y="200">Zola</text>
-                <text x="274" y="224">wasm-bindgen</text>
+                <text x="274" y="72">Zola</text>
+                <text x="274" y="48">wasm-bindgen</text>
             </g>
 
             <g class="site-architecture__nodes">
@@ -67,30 +67,30 @@
                     <text x="75" y="149" class="site-architecture__sub">resume data</text>
                 </a>
                 <a class="site-architecture__node site-architecture__node--source" href="{{ github_url | safe }}/artificial-systems" target="_blank" rel="noopener">
-                    <rect x="0" y="188" width="150" height="48"></rect>
-                    <text x="75" y="208">artificial-systems</text>
-                    <text x="75" y="225" class="site-architecture__sub">Rust research crate</text>
+                    <rect x="0" y="36" width="150" height="48"></rect>
+                    <text x="75" y="56">artificial-systems</text>
+                    <text x="75" y="73" class="site-architecture__sub">Rust research crate</text>
                 </a>
 
                 <g class="site-architecture__node">
                     <a href="{{ github_url | safe }}/{{ resume.personal.github }}" target="_blank" rel="noopener">
-                        <rect x="370" y="36" width="150" height="48"></rect>
-                        <text x="445" y="56">Profile repo</text>
+                        <rect x="370" y="188" width="150" height="48"></rect>
+                        <text x="445" y="208">Profile repo</text>
                     </a>
-                    <text x="445" y="73" class="site-architecture__sub"><a href="{{ gitlab_url | safe }}/{{ resume.personal.gitlab }}" target="_blank" rel="noopener">GitLab mirror</a></text>
+                    <text x="445" y="225" class="site-architecture__sub"><a href="{{ gitlab_url | safe }}/{{ resume.personal.gitlab }}" target="_blank" rel="noopener">GitLab mirror</a></text>
                 </g>
                 <g class="site-architecture__node">
-                    <rect x="370" y="188" width="150" height="48"></rect>
-                    <text x="445" y="208">Cloudflare Pages</text>
-                    <text x="445" y="225" class="site-architecture__sub">wrangler deploy</text>
+                    <rect x="370" y="36" width="150" height="48"></rect>
+                    <text x="445" y="56">Cloudflare Pages</text>
+                    <text x="445" y="73" class="site-architecture__sub">wrangler deploy</text>
                 </g>
 
                 <g class="site-architecture__node site-architecture__node--target">
                     <a href="{{ github_url | safe }}" target="_blank" rel="noopener">
-                        <rect x="570" y="36" width="150" height="48"></rect>
-                        <text x="645" y="56">Profile READMEs</text>
+                        <rect x="570" y="188" width="150" height="48"></rect>
+                        <text x="645" y="208">Profile READMEs</text>
                     </a>
-                    <text x="645" y="73" class="site-architecture__sub"><a href="{{ github_url | safe }}" target="_blank" rel="noopener">GitHub</a> · <a href="{{ gitlab_url | safe }}" target="_blank" rel="noopener">GitLab</a></text>
+                    <text x="645" y="225" class="site-architecture__sub"><a href="{{ github_url | safe }}" target="_blank" rel="noopener">GitHub</a> · <a href="{{ gitlab_url | safe }}" target="_blank" rel="noopener">GitLab</a></text>
                 </g>
                 <a class="site-architecture__node site-architecture__node--target" href="/resume.pdf">
                     <rect x="570" y="112" width="150" height="48"></rect>
@@ -98,9 +98,9 @@
                     <text x="645" y="149" class="site-architecture__sub">resume.pdf</text>
                 </a>
                 <a class="site-architecture__node site-architecture__node--target" href="/">
-                    <rect x="570" y="188" width="150" height="48"></rect>
-                    <text x="645" y="208">Website</text>
-                    <text x="645" y="225" class="site-architecture__sub">eliseuv.dev</text>
+                    <rect x="570" y="36" width="150" height="48"></rect>
+                    <text x="645" y="56">Website</text>
+                    <text x="645" y="73" class="site-architecture__sub">eliseuv.dev</text>
                 </a>
             </g>
         </svg>
