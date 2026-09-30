@@ -5,20 +5,20 @@
     </header>
 
     {#
-    Sources on the left, what gets published on the right, and the tools in between as nodes, so
-    arrows need no labels. The same graph is drawn twice, landscape and portrait, since scaling one
-    layout down to a phone makes the text unreadable; CSS shows exactly one, so the hidden copy is
-    also out of the accessibility tree.
+    Sources on the left, what gets published on the right, and the tools that transform them as labels
+    on the arrows. The same graph is drawn twice, landscape and portrait, since scaling one layout down
+    to a phone makes the text unreadable; CSS shows exactly one, so the hidden copy is also out of the
+    accessibility tree.
     #}
     <div class="site-architecture__diagram">
-        <svg class="site-architecture__svg site-architecture__svg--wide" viewBox="0 0 750 316" role="img" aria-labelledby="architecture-title architecture-desc">
+        <svg class="site-architecture__svg site-architecture__svg--wide" viewBox="0 0 720 244" role="img" aria-labelledby="architecture-title architecture-desc">
             <title id="architecture-title">How this site is built</title>
             <desc id="architecture-desc">
                 Two sources, resume/content.yml and the artificial-systems research crate, produce three
                 outputs. minijinja renders content.yml into the profile README, pushed to GitHub and mirrored
-                to GitLab. Typst renders it into resume.pdf. Zola renders it into the website through Tera
-                templates, together with the PDF and the crate compiled to WebAssembly with cargo and
-                wasm-bindgen. Cloudflare Pages serves the website and the PDF.
+                to GitLab. Typst renders it directly into resume.pdf. Zola renders it into the website through
+                Tera templates, together with the crate compiled to WebAssembly with cargo and wasm-bindgen,
+                and Cloudflare Pages serves the result.
             </desc>
             <defs>
                 <marker id="architecture-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
@@ -28,23 +28,25 @@
 
             <g class="site-architecture__stages">
                 <text x="75" y="14">sources</text>
-                <text x="275" y="14">build</text>
-                <text x="475" y="14">publish</text>
-                <text x="675" y="14">outputs</text>
+                <text x="270" y="14">build</text>
+                <text x="445" y="14">publish</text>
+                <text x="645" y="14">outputs</text>
             </g>
 
             <g class="site-architecture__edges" marker-end="url(#architecture-arrow)">
-                <path d="M150,122 L198,66"></path>
-                <path d="M150,136 L198,136"></path>
-                <path d="M150,150 L198,206"></path>
-                <path d="M150,288 L198,288"></path>
-                <path d="M275,160 L275,186"></path>
-                <path d="M275,264 L275,238"></path>
-                <path d="M350,60 L398,60"></path>
-                <path d="M350,212 L398,186"></path>
-                <path d="M550,60 L598,60"></path>
-                <path d="M550,166 L598,142"></path>
-                <path d="M550,182 L598,206"></path>
+                <path d="M150,136 L180,136 L180,60 L368,60"></path>
+                <path d="M150,136 L568,136"></path>
+                <path d="M150,136 L180,136 L180,200 L368,200"></path>
+                <path d="M150,224 L368,224"></path>
+                <path d="M520,60 L568,60"></path>
+                <path d="M520,212 L568,212"></path>
+            </g>
+
+            <g class="site-architecture__labels">
+                <text x="274" y="60">minijinja</text>
+                <text x="274" y="136">Typst</text>
+                <text x="274" y="200">Zola</text>
+                <text x="274" y="224">wasm-bindgen</text>
             </g>
 
             <g class="site-architecture__nodes">
@@ -54,62 +56,41 @@
                     <text x="75" y="149" class="site-architecture__sub">resume data</text>
                 </g>
                 <g class="site-architecture__node site-architecture__node--source">
-                    <rect x="0" y="264" width="150" height="48"></rect>
-                    <text x="75" y="284">artificial-systems</text>
-                    <text x="75" y="301" class="site-architecture__sub">Rust research crate</text>
+                    <rect x="0" y="188" width="150" height="48"></rect>
+                    <text x="75" y="208">artificial-systems</text>
+                    <text x="75" y="225" class="site-architecture__sub">Rust research crate</text>
                 </g>
 
                 <g class="site-architecture__node">
-                    <rect x="200" y="36" width="150" height="48"></rect>
-                    <text x="275" y="56">minijinja</text>
-                    <text x="275" y="73" class="site-architecture__sub">templating</text>
+                    <rect x="370" y="36" width="150" height="48"></rect>
+                    <text x="445" y="56">Profile repo</text>
+                    <text x="445" y="73" class="site-architecture__sub">GitLab mirror</text>
                 </g>
                 <g class="site-architecture__node">
-                    <rect x="200" y="112" width="150" height="48"></rect>
-                    <text x="275" y="132">Typst</text>
-                    <text x="275" y="149" class="site-architecture__sub">typesetting</text>
-                </g>
-                <g class="site-architecture__node">
-                    <rect x="200" y="188" width="150" height="48"></rect>
-                    <text x="275" y="208">Zola</text>
-                    <text x="275" y="225" class="site-architecture__sub">Tera templates</text>
-                </g>
-                <g class="site-architecture__node">
-                    <rect x="200" y="264" width="150" height="48"></rect>
-                    <text x="275" y="284">WebAssembly</text>
-                    <text x="275" y="301" class="site-architecture__sub">cargo · wasm-bindgen</text>
-                </g>
-
-                <g class="site-architecture__node">
-                    <rect x="400" y="36" width="150" height="48"></rect>
-                    <text x="475" y="56">Profile repo</text>
-                    <text x="475" y="73" class="site-architecture__sub">GitLab mirror</text>
-                </g>
-                <g class="site-architecture__node">
-                    <rect x="400" y="150" width="150" height="48"></rect>
-                    <text x="475" y="170">Cloudflare Pages</text>
-                    <text x="475" y="187" class="site-architecture__sub">wrangler deploy</text>
+                    <rect x="370" y="188" width="150" height="48"></rect>
+                    <text x="445" y="208">Cloudflare Pages</text>
+                    <text x="445" y="225" class="site-architecture__sub">wrangler deploy</text>
                 </g>
 
                 <g class="site-architecture__node site-architecture__node--target">
-                    <rect x="600" y="36" width="150" height="48"></rect>
-                    <text x="675" y="56">Profile READMEs</text>
-                    <text x="675" y="73" class="site-architecture__sub">GitHub · GitLab</text>
+                    <rect x="570" y="36" width="150" height="48"></rect>
+                    <text x="645" y="56">Profile READMEs</text>
+                    <text x="645" y="73" class="site-architecture__sub">GitHub · GitLab</text>
                 </g>
                 <g class="site-architecture__node site-architecture__node--target">
-                    <rect x="600" y="112" width="150" height="48"></rect>
-                    <text x="675" y="132">resume.pdf</text>
-                    <text x="675" y="149" class="site-architecture__sub">PDF resume</text>
+                    <rect x="570" y="112" width="150" height="48"></rect>
+                    <text x="645" y="132">resume.pdf</text>
+                    <text x="645" y="149" class="site-architecture__sub">PDF resume</text>
                 </g>
                 <g class="site-architecture__node site-architecture__node--target">
-                    <rect x="600" y="188" width="150" height="48"></rect>
-                    <text x="675" y="208">Website</text>
-                    <text x="675" y="225" class="site-architecture__sub">eliseuv.dev</text>
+                    <rect x="570" y="188" width="150" height="48"></rect>
+                    <text x="645" y="208">Website</text>
+                    <text x="645" y="225" class="site-architecture__sub">eliseuv.dev</text>
                 </g>
             </g>
         </svg>
 
-        <svg class="site-architecture__svg site-architecture__svg--tall" viewBox="0 0 340 410" role="img" aria-labelledby="architecture-title-tall architecture-desc">
+        <svg class="site-architecture__svg site-architecture__svg--tall" viewBox="0 0 380 300" role="img" aria-labelledby="architecture-title-tall architecture-desc">
             <title id="architecture-title-tall">How this site is built</title>
             <defs>
                 <marker id="architecture-arrow-tall" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
@@ -118,77 +99,58 @@
             </defs>
 
             <g class="site-architecture__edges" marker-end="url(#architecture-arrow-tall)">
-                <path d="M50,48 L50,88"></path>
-                <path d="M145,48 L165,88"></path>
-                <path d="M110,48 L110,204 L148,204"></path>
-                <path d="M290,48 L290,88"></path>
-                <path d="M170,138 L170,178"></path>
-                <path d="M290,138 L290,178"></path>
-                <path d="M50,138 L50,268"></path>
-                <path d="M230,228 L230,268"></path>
-                <path d="M50,318 L50,358"></path>
-                <path d="M200,318 L175,358"></path>
-                <path d="M260,318 L285,358"></path>
+                <path d="M55,48 L55,148"></path>
+                <path d="M175,48 L175,248"></path>
+                <path d="M195,48 L250,148"></path>
+                <path d="M320,48 L320,148"></path>
+                <path d="M55,198 L55,248"></path>
+                <path d="M325,198 L325,248"></path>
+            </g>
+
+            <g class="site-architecture__labels">
+                <text x="55" y="99">minijinja</text>
+                <text x="175" y="99">Typst</text>
+                <text x="223" y="99">Zola</text>
+                <text x="320" y="99">wasm-bindgen</text>
             </g>
 
             <g class="site-architecture__nodes">
                 <g class="site-architecture__node site-architecture__node--source">
-                    <rect x="0" y="0" width="160" height="48"></rect>
-                    <text x="80" y="20">content.yml</text>
-                    <text x="80" y="37" class="site-architecture__sub">resume data</text>
+                    <rect x="0" y="0" width="200" height="48"></rect>
+                    <text x="100" y="20">content.yml</text>
+                    <text x="100" y="37" class="site-architecture__sub">resume data</text>
                 </g>
                 <g class="site-architecture__node site-architecture__node--source">
-                    <rect x="180" y="0" width="160" height="48"></rect>
-                    <text x="260" y="20">artificial-systems</text>
-                    <text x="260" y="37" class="site-architecture__sub">Rust research crate</text>
+                    <rect x="220" y="0" width="160" height="48"></rect>
+                    <text x="300" y="20">artificial-systems</text>
+                    <text x="300" y="37" class="site-architecture__sub">Rust research crate</text>
                 </g>
 
                 <g class="site-architecture__node">
-                    <rect x="0" y="90" width="100" height="48"></rect>
-                    <text x="50" y="110">minijinja</text>
-                    <text x="50" y="127" class="site-architecture__sub">templating</text>
+                    <rect x="0" y="150" width="110" height="48"></rect>
+                    <text x="55" y="170">Profile repo</text>
+                    <text x="55" y="187" class="site-architecture__sub">GitLab mirror</text>
                 </g>
                 <g class="site-architecture__node">
-                    <rect x="120" y="90" width="100" height="48"></rect>
-                    <text x="170" y="110">Typst</text>
-                    <text x="170" y="127" class="site-architecture__sub">typesetting</text>
-                </g>
-                <g class="site-architecture__node">
-                    <rect x="240" y="90" width="100" height="48"></rect>
-                    <text x="290" y="110">WebAssembly</text>
-                    <text x="290" y="127" class="site-architecture__sub">wasm-bindgen</text>
-                </g>
-                <g class="site-architecture__node">
-                    <rect x="150" y="180" width="160" height="48"></rect>
-                    <text x="230" y="200">Zola</text>
-                    <text x="230" y="217" class="site-architecture__sub">Tera templates</text>
-                </g>
-
-                <g class="site-architecture__node">
-                    <rect x="0" y="270" width="100" height="48"></rect>
-                    <text x="50" y="290">Profile repo</text>
-                    <text x="50" y="307" class="site-architecture__sub">GitLab mirror</text>
-                </g>
-                <g class="site-architecture__node">
-                    <rect x="150" y="270" width="160" height="48"></rect>
-                    <text x="230" y="290">Cloudflare Pages</text>
-                    <text x="230" y="307" class="site-architecture__sub">wrangler deploy</text>
+                    <rect x="220" y="150" width="160" height="48"></rect>
+                    <text x="300" y="170">Cloudflare Pages</text>
+                    <text x="300" y="187" class="site-architecture__sub">wrangler deploy</text>
                 </g>
 
                 <g class="site-architecture__node site-architecture__node--target">
-                    <rect x="0" y="360" width="100" height="48"></rect>
-                    <text x="50" y="380">READMEs</text>
-                    <text x="50" y="397" class="site-architecture__sub">GitHub, GitLab</text>
+                    <rect x="0" y="250" width="110" height="48"></rect>
+                    <text x="55" y="270">READMEs</text>
+                    <text x="55" y="287" class="site-architecture__sub">GitHub, GitLab</text>
                 </g>
                 <g class="site-architecture__node site-architecture__node--target">
-                    <rect x="120" y="360" width="100" height="48"></rect>
-                    <text x="170" y="380">resume.pdf</text>
-                    <text x="170" y="397" class="site-architecture__sub">PDF resume</text>
+                    <rect x="120" y="250" width="110" height="48"></rect>
+                    <text x="175" y="270">resume.pdf</text>
+                    <text x="175" y="287" class="site-architecture__sub">PDF resume</text>
                 </g>
                 <g class="site-architecture__node site-architecture__node--target">
-                    <rect x="240" y="360" width="100" height="48"></rect>
-                    <text x="290" y="380">Website</text>
-                    <text x="290" y="397" class="site-architecture__sub">eliseuv.dev</text>
+                    <rect x="270" y="250" width="110" height="48"></rect>
+                    <text x="325" y="270">Website</text>
+                    <text x="325" y="287" class="site-architecture__sub">eliseuv.dev</text>
                 </g>
             </g>
         </svg>

@@ -439,6 +439,18 @@ body.home {
     fill: $text-dim;
 }
 
+// A halo in the page colour breaks the line under each label, so the text reads as sitting on the arrow.
+.site-architecture__labels {
+    fill: $text-white;
+    font-size: 11px;
+    text-anchor: middle;
+    dominant-baseline: central;
+    paint-order: stroke;
+    stroke: $bg-color;
+    stroke-width: 6px;
+    stroke-linejoin: round;
+}
+
 .site-architecture__stages {
     fill: $tokyo-cyan;
     font-size: 11px;
