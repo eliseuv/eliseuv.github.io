@@ -105,7 +105,7 @@
             const details = target.closest('details');
             if (details) details.open = true;
             // The skill map stays hidden behind the resume skill chips until one is followed
-            const skills = target.closest('.skills-section');
+            const skills = target.closest('.skill-map') && target.closest('.skills-section');
             if (skills) skills.classList.add('expanded');
 
             target.scrollIntoView({ block: 'start' });

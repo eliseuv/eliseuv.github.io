@@ -15,6 +15,8 @@ back-links are collected (resume.html).
 
 {% macro skill_anchor(name) %}skill-{{ name | replace(from="+", to="p") | slugify }}{% endmacro skill_anchor %}
 
+{% macro topic_anchor(name) %}topic-{{ name | slugify }}{% endmacro topic_anchor %}
+
 {% macro context_chip(id, resume) %}
 {% set entries = resume.experience | concat(with=resume.education) | filter(attribute="id", value=id) %}
 {% if entries | length == 0 %}{{ throw(message="Unknown resume entry id in link: " ~ id) }}{% endif %}
@@ -57,6 +59,18 @@ back-links are collected (resume.html).
 {% if not found %}{{ throw(message="Unknown skill in link: " ~ name) }}{% endif %}
 <a class="link-chip" data-kind="skill" href="/resume/#{{ self::skill_anchor(name=name) }}">{{ name }}</a>
 {% endmacro skill_chip %}
+
+{# Topics have no skill map entry; the chip lands on the topic in the resume skills list #}
+{% macro topic_chip(name, resume) %}
+{% set_global found = false %}
+{% for group in resume.skills %}
+{% for category, items in group %}
+{% if category == "Topics" and name in items %}{% set_global found = true %}{% endif %}
+{% endfor %}
+{% endfor %}
+{% if not found %}{{ throw(message="Unknown topic in link: " ~ name) }}{% endif %}
+<a class="link-chip" data-kind="topic" href="/resume/#{{ self::topic_anchor(name=name) }}">{{ name }}</a>
+{% endmacro topic_chip %}
 
 {# One strip of typed chips, in the same order everywhere: context, projects, publications, simulations, skills #}
 {% macro related(resume, context, projects, publications, simulations, skills) %}

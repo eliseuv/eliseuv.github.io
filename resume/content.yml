@@ -36,6 +36,7 @@ skills:
       - Databases: ["SQLite", "PostgreSQL", "DuckDB"]
       - Docker: []
       - Nix: []
+  - Topics: ["Concurrency", "Networks", "Optimization", "Time-series analysis", "CI/CD"]
 
 # Cross-links: experience and education `id`s are the targets of `context` fields
 # (in projects, publications and simulation `[extra.links]`), projects are keyed by

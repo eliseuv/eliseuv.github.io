@@ -56,7 +56,7 @@
                     {% else %}
                     <span class="skill-items">
                         {% for item in items %}
-                        <span class="skill-item">{{ item }}</span>
+                        <span class="skill-item"{% if category == "Topics" %} id="{{ links::topic_anchor(name=item) }}"{% endif %}>{{ item }}</span>
                         {% endfor %}
                     </span>
                     {% endif %}
