@@ -113,6 +113,10 @@ body.home {
     font-family: $font-mono;
     font-size: 0.9rem;
 
+    .home-section__header & {
+        margin-top: 1rem;
+    }
+
     li {
         padding: 0.4rem 0.75rem;
         border: 1px solid $border;
@@ -129,6 +133,23 @@ body.home {
                 top: -1.5rem;
                 left: 0.75rem;
                 color: $accent;
+            }
+        }
+    }
+
+    @media (min-width: $home-desktop) {
+        flex-direction: row;
+        align-items: center;
+
+        li + li {
+            margin-top: 0;
+            margin-left: 2rem;
+
+            &::before {
+                content: "→";
+                top: 50%;
+                left: -1.4rem;
+                transform: translateY(-50%);
             }
         }
     }
@@ -376,32 +397,6 @@ body.home {
             border: 1px solid $border;
         }
     }
-}
-
-// --- Research bridge ---
-.research-bridge__body {
-    display: grid;
-    gap: 2rem;
-
-    @media (min-width: $home-desktop) {
-        grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
-        align-items: center;
-    }
-}
-
-.research-bridge__paper p {
-    margin: 0 0 0.75rem;
-}
-
-.research-bridge__title {
-    color: $text-white;
-    font-style: italic;
-}
-
-.research-bridge__journal {
-    color: $text-dim;
-    font-family: $font-mono;
-    font-size: 0.85rem;
 }
 
 // --- Under the hood ---
