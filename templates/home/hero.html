@@ -7,7 +7,9 @@
         I build high-performance backend systems and scientific software, with a background spanning
         production engineering, numerical simulation, and computational physics.
     </p>
-    <p class="home-hero__stack">{% for item in programming %}{% for label, libs in item %}{{ label }}{% endfor %}{% if not loop.last %} · {% endif %}{% endfor %}</p>
+    <div class="home-hero__stack related">
+        {% for item in programming %}{% for label, libs in item %}{{ links::skill_chip(name=label, resume=resume) }}{% endfor %}{% endfor %}
+    </div>
 
     <div class="home-actions">
         <a href="#work" class="home-btn home-btn--primary">Featured work</a>

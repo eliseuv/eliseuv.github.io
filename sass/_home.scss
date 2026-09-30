@@ -183,9 +183,12 @@ body.home {
 
 .home-hero__stack {
     margin: 1rem 0 0;
-    color: $text-dim;
-    font-family: $font-mono;
-    font-size: 0.85rem;
+}
+
+// Every chip on the landing page is a skill or topic, so the kind prefix would only repeat
+.home-hero__stack .link-chip::before,
+.focus-column .link-chip::before {
+    content: none;
 }
 
 // The landing page is left-aligned, unlike the centered business card
