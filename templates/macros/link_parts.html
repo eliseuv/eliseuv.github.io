@@ -1,0 +1,7 @@
+{# Anchor ids shared by the chips (links.html) and the resume, kept apart so the
+chips resolve them through an import rather than `self::`, which fails on pages
+that import more than one macro file (the landing page) #}
+
+{% macro skill_anchor(name) %}skill-{{ name | replace(from="+", to="p") | slugify }}{% endmacro skill_anchor %}
+
+{% macro topic_anchor(name) %}topic-{{ name | slugify }}{% endmacro topic_anchor %}

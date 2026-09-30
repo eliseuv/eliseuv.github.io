@@ -13,9 +13,11 @@ rendering `related` in blog_page.html, and adding
 back-links are collected (resume.html).
 #}
 
-{% macro skill_anchor(name) %}skill-{{ name | replace(from="+", to="p") | slugify }}{% endmacro skill_anchor %}
+{% import "macros/link_parts.html" as link_parts %}
 
-{% macro topic_anchor(name) %}topic-{{ name | slugify }}{% endmacro topic_anchor %}
+{% macro skill_anchor(name) %}{{ link_parts::skill_anchor(name=name) }}{% endmacro skill_anchor %}
+
+{% macro topic_anchor(name) %}{{ link_parts::topic_anchor(name=name) }}{% endmacro topic_anchor %}
 
 {% macro context_chip(id, resume) %}
 {% set entries = resume.experience | concat(with=resume.education) | filter(attribute="id", value=id) %}
@@ -57,7 +59,7 @@ back-links are collected (resume.html).
 {% endfor %}
 {% endfor %}
 {% if not found %}{{ throw(message="Unknown skill in link: " ~ name) }}{% endif %}
-<a class="link-chip" data-kind="skill" href="/resume/#{{ self::skill_anchor(name=name) }}">{{ name }}</a>
+<a class="link-chip" data-kind="skill" href="/resume/#{{ link_parts::skill_anchor(name=name) }}">{{ name }}</a>
 {% endmacro skill_chip %}
 
 {# Topics have no skill map entry; the chip lands on the topic in the resume skills list #}
@@ -69,7 +71,7 @@ back-links are collected (resume.html).
 {% endfor %}
 {% endfor %}
 {% if not found %}{{ throw(message="Unknown topic in link: " ~ name) }}{% endif %}
-<a class="link-chip" data-kind="topic" href="/resume/#{{ self::topic_anchor(name=name) }}">{{ name }}</a>
+<a class="link-chip" data-kind="topic" href="/resume/#{{ link_parts::topic_anchor(name=name) }}">{{ name }}</a>
 {% endmacro topic_chip %}
 
 {# One strip of typed chips, in the same order everywhere: context, projects, publications, simulations, skills #}
