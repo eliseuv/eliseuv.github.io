@@ -176,14 +176,14 @@
 
     <p class="site-architecture__note">
         The outputs are generated from one information source, my resume data in
-        <a href="{{ site_repo | safe }}/blob/main/resume/content.yml" target="_blank"
+        <a class="site-architecture__source" href="{{ site_repo | safe }}/blob/main/resume/content.yml" target="_blank"
             rel="noopener"><code>content.yml</code></a>, and one
         research-grade scientific library, the
-        <a href="{{ github_url | safe }}/artificial-systems" target="_blank"
+        <a class="site-architecture__source" href="{{ github_url | safe }}/artificial-systems" target="_blank"
             rel="noopener"><code>artificial-systems</code></a> Rust crate.
         Every build step is a Nix app pinned by <a href="{{ site_repo | safe }}/blob/main/flake.lock" target="_blank"
             rel="noopener"><code>flake.lock</code></a>, so CI runs the same toolchain as my machine.
-        On each push to <code>main</code>, <a href="{{ site_repo | safe }}/actions" target="_blank"
+        On each push to <a href="{{ site_repo | safe }}/tree/main" target="_blank" rel="noopener"><code>main</code></a>, <a href="{{ site_repo | safe }}/actions" target="_blank"
             rel="noopener">GitHub Actions</a> pipelines build the simulations, resume and site and deploy
         them to Cloudflare Pages, and publish the README to GitHub, which mirrors it to GitLab.
     </p>

@@ -506,7 +506,12 @@ a.site-architecture__node:hover rect,
     max-width: 44rem;
     margin: 1.25rem 0 0.5rem;
 
+    // Sources are green like their diagram boxes; every other file or ref takes the link colour.
     code {
+        color: $accent;
+    }
+
+    .site-architecture__source code {
         color: $tokyo-green;
     }
 }
