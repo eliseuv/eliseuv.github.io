@@ -319,11 +319,11 @@ body.home {
     border-left: 2px solid $accent;
     background: $bg-code;
 
-    // Side by side, each card's link, header (title and name) and description share rows with
-    // the other cards, so a long title in one card does not push its row out of line with the rest
+    // Side by side, each card's header (title and name) and description share rows with the
+    // other cards, so a long title in one card does not push its row out of line with the rest
     @media (min-width: $home-desktop) {
         display: grid;
-        grid-row: span 3;
+        grid-row: span 2;
         grid-template-rows: subgrid;
         row-gap: 0;
         align-content: start;
@@ -333,14 +333,13 @@ body.home {
         margin: 0;
         font-family: $font-mono;
         font-size: 1.05rem;
-    }
-}
 
-// A flex row keeps a long chip one box instead of breaking it across lines like inline text
-.profile-card__link {
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 0.75rem;
+        a {
+            color: $text-white;
+
+            @include tech-link-hover;
+        }
+    }
 }
 
 // Overrides the 2rem gap the site header takes from the global `header` rule
