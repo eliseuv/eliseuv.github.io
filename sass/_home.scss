@@ -319,11 +319,11 @@ body.home {
     border-left: 2px solid $accent;
     background: $bg-code;
 
-    // Side by side, each card's link, title, name and description share rows with the other
-    // cards, so a title wrapping in one card does not push its row out of line with the rest
+    // Side by side, each card's link, header (title and name) and description share rows with
+    // the other cards, so a long title in one card does not push its row out of line with the rest
     @media (min-width: $home-desktop) {
         display: grid;
-        grid-row: span 4;
+        grid-row: span 3;
         grid-template-rows: subgrid;
         row-gap: 0;
         align-content: start;
@@ -343,8 +343,13 @@ body.home {
     margin-bottom: 0.75rem;
 }
 
+// Overrides the 2rem gap the site header takes from the global `header` rule
+.profile-card__header {
+    margin-bottom: 0.75rem;
+}
+
 .profile-card p.profile-card__name {
-    margin: 0.3rem 0 0.75rem;
+    margin: 0.3rem 0 0;
     color: $text-dim;
     font-family: $font-mono;
     font-size: 0.85rem;
