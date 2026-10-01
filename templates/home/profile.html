@@ -3,6 +3,7 @@
 {% set current_jobs = [] %}
 {% for entry in resume.experience %}{% if entry.date is ending_with("Present") %}{% set_global current_jobs = current_jobs | concat(with=entry) %}{% endif %}{% endfor %}
 {% set formation = resume.experience | filter(attribute="id", value="phd") | first %}
+{% set simulations_section = get_section(path="simulations/_index.md") %}
 {% set projects = [
     get_page(path="simulations/spectral_criticality.md"),
     get_page(path="simulations/chiarella.md"),
@@ -13,7 +14,7 @@
         <h2 id="profile-heading">From computational research to production systems</h2>
     </header>
 
-    {# Each card reads top to bottom: title (linking to the resume) with name, then the entry's lead point #}
+    {# Each card reads top to bottom: title (linking to the resume entry, or the simulations) with name, then the entry's lead point #}
     <div class="profile-grid">
         {% for entry in current_jobs | concat(with=formation) %}
         <article class="profile-card">
@@ -27,7 +28,7 @@
 
         <article class="profile-card">
             <header class="profile-card__header">
-                <h3><a href="/resume/#projects">Projects</a></h3>
+                <h3><a href="{{ simulations_section.path | safe }}">Projects</a></h3>
                 <p class="profile-card__name">Interactive simulations</p>
             </header>
             <ul class="profile-card__list">
