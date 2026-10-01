@@ -70,11 +70,11 @@ experience:
     date: Jul. 2021 - Feb. 2026
     skills: ["Rust", "Julia"]
     points:
-      - Doctoral research funded by a CNPq scholarship
       - Analysis of the ensemble correlations of observables of complex systems in order to predict their critical behavior
       - Systems from different Universality Classes considered
       - Both systems with and without a defined Hamiltonian considered
       - The simulations were implemented in Rust while the data analysis was done in the Julia ecosystem
+      - Doctoral research funded by a CNPq scholarship
 
   - id: msc
     role: M.Sc. in Computational Statistical Physics
