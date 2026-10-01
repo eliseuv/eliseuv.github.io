@@ -2,6 +2,7 @@
 {% set spectral = get_page(path="simulations/spectral_criticality.md") %}
 {% set chiarella = get_page(path="simulations/chiarella.md") %}
 {% set tsp = get_page(path="simulations/tsp_annealing.md") %}
+{% set simulations_section = get_section(path="simulations/_index.md") %}
 {% set tsp_repo = home_links::project_repo(id="tsp-sa", resume=resume) %}
 {% set tsp_project = resume.projects | filter(attribute="repo", value=tsp_repo) | first %}
 <section id="work" class="home-section" aria-labelledby="work-heading">
@@ -88,6 +89,10 @@
                 </div>
             </div>
         </article>
+    </div>
+
+    <div class="home-actions">
+        <a class="home-btn home-btn--primary" href="{{ simulations_section.path | safe }}">Explore all {{ simulations_section.pages | length }} simulations →</a>
     </div>
 
     {# The still is the last frame of the animation. The animation is only fetched once a card is
