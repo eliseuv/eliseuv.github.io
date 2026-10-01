@@ -87,11 +87,11 @@ experience:
     date: Mar. 2019 - May 2021
     skills: ["C++", "Python"]
     points:
-      - Master's research funded by a CNPq scholarship
-      - Scored higher than 99.42% of candidates on the EUF 2-2018 (National graduate programs entrance exam)
       - Performance evaluation of the Simulated Annealing applied to different configurations of the Traveling Salesman Problem
       - Analysis of the stochastic optimization algorithm applied to problems at the boundary between P and NP complexity classes
       - The optimization algorithm was implemented in C++ while the data analysis was done in the Python ecosystem
+      - Scored higher than 99.42% of candidates on the EUF 2-2018 (National graduate programs entrance exam)
+      - Master's research funded by a CNPq scholarship
 
   - id: telecom-internship
     role: Optical Engineering Internship
