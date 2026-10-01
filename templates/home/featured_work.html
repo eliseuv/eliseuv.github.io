@@ -91,9 +91,7 @@
         </article>
     </div>
 
-    <div class="home-actions">
-        <a class="home-btn home-btn--primary" href="{{ simulations_section.path | safe }}">Explore all {{ simulations_section.pages | length }} simulations →</a>
-    </div>
+    <a class="home-more" href="{{ simulations_section.path | safe }}">Explore all {{ simulations_section.pages | length }} simulations →</a>
 
     {# The still is the last frame of the animation. The animation is only fetched once a card is
     hovered or focused, and swapped in after it loads so the card never shows a partial frame. #}

@@ -254,6 +254,11 @@ body.home {
     }
 }
 
+// The grid has no bottom margin of its own, unlike the paragraphs other home-more links follow
+.featured-grid + .home-more {
+    margin-top: 0.75rem;
+}
+
 .featured-card__body {
     display: flex;
     flex: 1;
