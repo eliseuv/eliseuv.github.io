@@ -17,7 +17,7 @@
     <div class="profile-grid">
         {% for entry in current_jobs | concat(with=formation) %}
         <article class="profile-card">
-            <div class="profile-card__link">{{ links::context_chip(id=entry.id, resume=resume) }}</div>
+            <div class="profile-card__link">{{ links::context_chip(id=entry.id, resume=resume, label=entry.name) }}</div>
             <header class="profile-card__header">
                 <h3>{{ entry.role }}</h3>
                 <p class="profile-card__name">{{ entry.name }}</p>
