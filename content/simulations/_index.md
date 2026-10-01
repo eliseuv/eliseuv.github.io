@@ -8,12 +8,12 @@ page_template = "simulation_page.html"
 action_label = "[Run Simulation]"
 # Display order of the pages, by file name; the build fails if a page is missing
 order = [
-    "game_of_life",
-    "tsp_annealing",
-    "ising_2d",
-    "contact_process",
-    "spectral_criticality",
     "chiarella",
+    "spectral_criticality",
+    "contact_process",
+    "ising_2d",
+    "tsp_annealing",
+    "game_of_life",
 ]
 +++
 
