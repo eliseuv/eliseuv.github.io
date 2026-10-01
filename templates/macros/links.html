@@ -19,12 +19,11 @@ back-links are collected (resume.html).
 
 {% macro topic_anchor(name) %}{{ link_parts::topic_anchor(name=name) }}{% endmacro topic_anchor %}
 
-{# Labelled with the entry's role, or with `label` where the role is already shown next to the chip #}
-{% macro context_chip(id, resume, label="") %}
+{% macro context_chip(id, resume) %}
 {% set entries = resume.experience | concat(with=resume.education) | filter(attribute="id", value=id) %}
 {% if entries | length == 0 %}{{ throw(message="Unknown resume entry id in link: " ~ id) }}{% endif %}
 {% set entry = entries | first %}
-<a class="link-chip" data-kind="cv" href="/resume/#entry-{{ id }}">{% if label %}{{ label }}{% else %}{{ entry.role | default(value=entry.degree) }}{% endif %}</a>
+<a class="link-chip" data-kind="cv" href="/resume/#entry-{{ id }}">{{ entry.role | default(value=entry.degree) }}</a>
 {% endmacro context_chip %}
 
 {% macro project_chip(name, resume) %}
