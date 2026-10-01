@@ -13,12 +13,6 @@ an unknown id, as the chips in macros/links.html do.
 {{ repo | safe }}
 {%- endmacro project_repo %}
 
-{% macro entry_link(id, resume) -%}
-{%- set entries = resume.experience | concat(with=resume.education) | filter(attribute="id", value=id) -%}
-{%- if entries | length == 0 -%}{{ throw(message="Unknown resume entry id on the landing page: " ~ id) }}{%- endif -%}
-/resume/#entry-{{ id }}
-{%- endmacro entry_link %}
-
 {% macro doi_link(doi, resume) -%}
 {%- set publications = resume.publications | filter(attribute="doi", value=doi) -%}
 {%- if publications | length == 0 -%}{{ throw(message="Unknown publication DOI on the landing page: " ~ doi) }}{%- endif -%}

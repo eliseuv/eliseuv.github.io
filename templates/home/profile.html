@@ -2,7 +2,6 @@
 {% for group in resume.skills %}{% for category, items in group %}{% if category == "Topics" %}{% set_global topics = items %}{% endif %}{% endfor %}{% endfor %}
 {% set current_jobs = [] %}
 {% for entry in resume.experience %}{% if entry.date is ending_with("Present") %}{% set_global current_jobs = current_jobs | concat(with=entry) %}{% endif %}{% endfor %}
-{% set formation_link = home_links::entry_link(id="phd", resume=resume) %}
 {% set formation = resume.experience | filter(attribute="id", value="phd") | first %}
 {% set projects = [
     get_page(path="simulations/spectral_criticality.md"),
@@ -14,31 +13,30 @@
         <h2 id="profile-heading">From computational research to production systems</h2>
     </header>
 
+    {# Each card reads top to bottom: where it lives on the resume, title, name, then the full entry #}
     <div class="profile-grid">
-        {% for job in current_jobs %}
+        {% for entry in current_jobs | concat(with=formation) %}
         <article class="profile-card">
-            <p class="profile-card__label">Professional</p>
-            <h3>{{ job.role }} — {{ job.name }}</h3>
-            <p>{{ job.points | first }}</p>
-            <a class="home-more" href="/resume/#entry-{{ job.id }}">Full experience →</a>
+            <div class="profile-card__link">{{ links::context_chip(id=entry.id, resume=resume) }}</div>
+            <h3>{{ entry.role }}</h3>
+            <p class="profile-card__name">{{ entry.name }}</p>
+            <ul class="profile-card__points">
+                {% for point in entry.points %}
+                <li>{{ point }}</li>
+                {% endfor %}
+            </ul>
         </article>
         {% endfor %}
 
         <article class="profile-card">
-            <p class="profile-card__label">Research</p>
-            <h3>{{ formation.role }} — {{ formation.name }}</h3>
-            <p>{{ formation.points | first }}</p>
-            <a class="home-more" href="{{ formation_link | safe }}">Research experience →</a>
-        </article>
-
-        <article class="profile-card">
-            <p class="profile-card__label">Projects</p>
+            <div class="profile-card__link"><a class="link-chip" data-kind="cv" href="/resume/#projects">Projects</a></div>
+            <h3>Projects</h3>
+            <p class="profile-card__name">Interactive simulations</p>
             <ul class="profile-card__list">
                 {% for project in projects %}
                 <li><a href="{{ project.path | safe }}">{{ project.title }}</a></li>
                 {% endfor %}
             </ul>
-            <a class="home-more" href="#work">Featured work →</a>
         </article>
     </div>
 
