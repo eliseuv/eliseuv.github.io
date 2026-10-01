@@ -1,7 +1,7 @@
 // Records the landing page previews of the simulations: builds and serves the site,
 // runs each simulation in headless Chromium through the DevTools protocol and
 // encodes the frames with img2webp. Writes <name>.anim.webp for the animation
-// and <name>.webp, its last frame, for reduced-motion visitors.
+// and <name>.webp, its last frame, which the cards show until hovered.
 //
 // Usage: node capture-previews.mjs <output dir> [name...]
 // Run from the repository root with the simulations built (static/wasm/); needs

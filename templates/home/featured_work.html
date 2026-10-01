@@ -17,16 +17,13 @@
 
     <div class="featured-grid">
         <article class="featured-card featured-card--flagship">
-            {# Same target as the card's first button, so it is kept out of the tab order. The still is
-            the last frame of the animation, shown to visitors who prefer reduced motion. #}
+            {# Same target as the card's first button, so it is kept out of the tab order #}
             <a class="featured-card__media" href="{{ spectral.path | safe }}" tabindex="-1" aria-hidden="true">
                 {% set image = get_image_metadata(path="img/home/spectral_criticality.webp") %}
-                <picture>
-                    <source srcset="{{ get_url(path='img/home/spectral_criticality.anim.webp') | safe }}" type="image/webp" media="(prefers-reduced-motion: no-preference)">
-                    <img src="{{ get_url(path='img/home/spectral_criticality.webp') | safe }}"
-                        alt="Spectral criticality simulation: eigenvalue histogram of a correlation matrix against the Marchenko-Pastur law, and temperature scans of its spectral moments across the critical point."
-                        loading="lazy" decoding="async" width="{{ image.width }}" height="{{ image.height }}">
-                </picture>
+                <img src="{{ get_url(path='img/home/spectral_criticality.webp') | safe }}"
+                    alt="Spectral criticality simulation: eigenvalue histogram of a correlation matrix against the Marchenko-Pastur law, and temperature scans of its spectral moments across the critical point."
+                    loading="lazy" decoding="async" width="{{ image.width }}" height="{{ image.height }}"
+                    data-animated-src="{{ get_url(path='img/home/spectral_criticality.anim.webp') | safe }}">
             </a>
 
             <div class="featured-card__body">
@@ -45,12 +42,10 @@
         <article class="featured-card">
             <a class="featured-card__media" href="{{ chiarella.path | safe }}" tabindex="-1" aria-hidden="true">
                 {% set image = get_image_metadata(path="img/home/chiarella.webp") %}
-                <picture>
-                    <source srcset="{{ get_url(path='img/home/chiarella.anim.webp') | safe }}" type="image/webp" media="(prefers-reduced-motion: no-preference)">
-                    <img src="{{ get_url(path='img/home/chiarella.webp') | safe }}"
-                        alt="Chiarella market model: phase portrait of mispricing against the trend signal, with price, fundamental value, mispricing, returns and a histogram of the mispricing."
-                        loading="lazy" decoding="async" width="{{ image.width }}" height="{{ image.height }}">
-                </picture>
+                <img src="{{ get_url(path='img/home/chiarella.webp') | safe }}"
+                    alt="Chiarella market model: phase portrait of mispricing against the trend signal, with price, fundamental value, mispricing, returns and a histogram of the mispricing."
+                    loading="lazy" decoding="async" width="{{ image.width }}" height="{{ image.height }}"
+                    data-animated-src="{{ get_url(path='img/home/chiarella.anim.webp') | safe }}">
             </a>
 
             <div class="featured-card__body">
@@ -69,12 +64,10 @@
         <article class="featured-card">
             <a class="featured-card__media" href="{{ tsp.path | safe }}" tabindex="-1" aria-hidden="true">
                 {% set image = get_image_metadata(path="img/home/tsp_annealing.webp") %}
-                <picture>
-                    <source srcset="{{ get_url(path='img/home/tsp_annealing.anim.webp') | safe }}" type="image/webp" media="(prefers-reduced-motion: no-preference)">
-                    <img src="{{ get_url(path='img/home/tsp_annealing.webp') | safe }}"
-                        alt="Simulated annealing on the traveling salesman problem: a tour through randomly placed cities shortening from random to optimized as the temperature falls, with cost and acceptance-rate plots."
-                        loading="lazy" decoding="async" width="{{ image.width }}" height="{{ image.height }}">
-                </picture>
+                <img src="{{ get_url(path='img/home/tsp_annealing.webp') | safe }}"
+                    alt="Simulated annealing on the traveling salesman problem: a tour through randomly placed cities shortening from random to optimized as the temperature falls, with cost and acceptance-rate plots."
+                    loading="lazy" decoding="async" width="{{ image.width }}" height="{{ image.height }}"
+                    data-animated-src="{{ get_url(path='img/home/tsp_annealing.anim.webp') | safe }}">
             </a>
 
             <div class="featured-card__body">
@@ -96,4 +89,36 @@
             </div>
         </article>
     </div>
+
+    {# The still is the last frame of the animation. The animation is only fetched once a card is
+    hovered or focused, and swapped in after it loads so the card never shows a partial frame. #}
+    <script>
+        if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+            for (const card of document.querySelectorAll(".featured-card")) {
+                const image = card.querySelector("img[data-animated-src]");
+                if (!image) continue;
+                const still = image.src;
+                let active = false;
+                let animation = null;
+                const start = () => {
+                    active = true;
+                    if (!animation) {
+                        animation = new Image();
+                        animation.addEventListener("load", () => { if (active) image.src = animation.src; });
+                        animation.src = image.dataset.animatedSrc;
+                    } else if (animation.complete) {
+                        image.src = animation.src;
+                    }
+                };
+                const stop = () => {
+                    active = false;
+                    image.src = still;
+                };
+                card.addEventListener("pointerenter", start);
+                card.addEventListener("pointerleave", stop);
+                card.addEventListener("focusin", start);
+                card.addEventListener("focusout", (event) => { if (!card.contains(event.relatedTarget)) stop(); });
+            }
+        }
+    </script>
 </section>
