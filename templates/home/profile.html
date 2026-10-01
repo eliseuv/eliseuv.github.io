@@ -13,18 +13,14 @@
         <h2 id="profile-heading">From computational research to production systems</h2>
     </header>
 
-    {# Each card reads top to bottom: where it lives on the resume, title, name, then the full entry #}
+    {# Each card reads top to bottom: where it lives on the resume, title, name, then the entry's lead point #}
     <div class="profile-grid">
         {% for entry in current_jobs | concat(with=formation) %}
         <article class="profile-card">
             <div class="profile-card__link">{{ links::context_chip(id=entry.id, resume=resume) }}</div>
             <h3>{{ entry.role }}</h3>
             <p class="profile-card__name">{{ entry.name }}</p>
-            <ul class="profile-card__points">
-                {% for point in entry.points %}
-                <li>{{ point }}</li>
-                {% endfor %}
-            </ul>
+            <p class="profile-card__description">{{ entry.points | first }}</p>
         </article>
         {% endfor %}
 

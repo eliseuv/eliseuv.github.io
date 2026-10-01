@@ -339,21 +339,10 @@ body.home {
     font-size: 0.85rem;
 }
 
-// Square markers like the resume entries
-.profile-card__points {
+.profile-card p.profile-card__description {
     margin: 0;
-    padding-left: 1.1rem;
-    list-style: square;
     color: $text-light;
     font-size: 0.9rem;
-
-    li {
-        margin-bottom: 0;
-    }
-
-    li + li {
-        margin-top: 0.35rem;
-    }
 }
 
 .profile-card__list {
