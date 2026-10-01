@@ -319,6 +319,16 @@ body.home {
     border-left: 2px solid $accent;
     background: $bg-code;
 
+    // Side by side, each card's link, title, name and description share rows with the other
+    // cards, so a title wrapping in one card does not push its row out of line with the rest
+    @media (min-width: $home-desktop) {
+        display: grid;
+        grid-row: span 4;
+        grid-template-rows: subgrid;
+        row-gap: 0;
+        align-content: start;
+    }
+
     h3 {
         margin: 0;
         font-family: $font-mono;
@@ -329,6 +339,7 @@ body.home {
 // A flex row keeps a long chip one box instead of breaking it across lines like inline text
 .profile-card__link {
     display: flex;
+    align-items: flex-start;
     margin-bottom: 0.75rem;
 }
 
